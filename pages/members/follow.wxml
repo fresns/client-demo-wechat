@@ -1,0 +1,50 @@
+<!--
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+-->
+<import src="/template/tabbar.wxml"/>
+
+<view class="page" data-weui-theme="{{theme}}">
+
+    <view class="weui-flex tab-navbar weui-navbar">
+        <view class="weui-flex__item weui-navbar__item">
+            <navigator url="/pages/members/index" open-type="redirect">主页</navigator>
+        </view>
+        <view class="weui-flex__item weui-navbar__item">
+            <navigator url="/pages/members/list" open-type="redirect">列表</navigator>
+        </view>
+        <view class="weui-flex__item weui-navbar__item weui-navbar__item_on">
+            <navigator url="/pages/members/follow" open-type="redirect">关注</navigator>
+        </view>
+        <view class="weui-flex__item weui-navbar__item">
+            <navigator url="/pages/members/likes" open-type="redirect">我点赞</navigator>
+        </view>
+        <view class="weui-flex__item weui-navbar__item">
+            <navigator url="/pages/members/following" open-type="redirect">我关注</navigator>
+        </view>
+        <view class="weui-flex__item weui-navbar__item">
+            <navigator url="/pages/members/blocking" open-type="redirect">我屏蔽</navigator>
+        </view>
+    </view>
+
+    <!--帖子列表（我关注的成员，这些成员发表的帖子列表）-->
+    <view class="post-list">
+        <post generic:contentType="list"
+              wx:for="{{posts}}"
+              wx:for-item="post"
+              wx:key="pid"
+              fsui="list-style"
+              post="{{post}}">
+            <view class="file-video">
+                <image src="https://fresns.cn/prototype/assets/images/temp/video.gif" class="video_gif" mode="widthFix"></image>
+                <a class="weui-btn weui-btn_mini weui-btn_default">
+                    <image src="/assets/images/icons/play.png" class="weui-btn_cell__icon" mode="aspectFit"></image>
+                </a>
+            </view>
+        </post>
+    </view>
+
+    <view class="copyright">Powered by Fresns</view>
+    <template is="tabbar"/>
+</view>

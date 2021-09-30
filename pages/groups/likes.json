@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "我点赞的小组",
+  "usingComponents": {
+    "group": "/components/group/list"
+  }
+}

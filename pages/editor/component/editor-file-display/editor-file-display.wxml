@@ -1,0 +1,26 @@
+<view class="editor-file-display">
+    <view class="image-wrapper">
+        <view class="image-item" wx:for="{{imageFiles}}" wx:for-item="file" wx:key="fid">
+            <image mode="aspectFit" src="{{file.imageRatioUrl}}"></image>
+            <text class="delete-icon">删除</text>
+        </view>
+    </view>
+    <view class="video-wrapper">
+        <view class="video-item" wx:for="{{videoFiles}}" wx:for-item="file" wx:key="fid">
+            <image mode="aspectFit" src="{{file.videoGif || file.videoCover}}"></image>
+            <text class="delete-icon">删除</text>
+        </view>
+    </view>
+    <view class="audio-wrapper">
+        <view class="audio-item" wx:for="{{audioFiles}}" wx:for-item="file" wx:key="fid">
+            <text>{{file.name}}</text>
+            <text class="delete-icon">删除</text>
+        </view>
+    </view>
+    <view class="doc-wrapper">
+        <view class="doc-item" wx:for="{{docFiles}}" wx:for-item="file" wx:key="fid">
+            <text>{{file.name}}</text>
+            <text class="delete-icon">删除</text>
+        </view>
+    </view>
+</view>

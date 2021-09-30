@@ -1,0 +1,40 @@
+<view class="signin">
+    <mp-form>
+        <mp-cell title="账号类型">
+            <radio-group class="account-type" bind:change="onTypeChange" >
+                <view>
+                    <radio value="0" checked="{{type === '0'}}"/>
+                    <text>邮箱</text>
+                </view>
+                <view>
+                    <radio value="1" checked="{{type === '1'}}"></radio>
+                    <text>手机号</text>
+                </view>
+            </radio-group>
+        </mp-cell>
+        <block wx:if="{{type === '0'}}">
+            <mp-cell title="邮箱地址">
+                <input class="input" value="{{emailAddress}}" bindinput="onEmailAddressChange"></input>
+            </mp-cell>
+        </block>
+        <block wx:if="{{type === '1'}}">
+            <mp-cell title="手机号">
+                <view class="mobile-content">
+                    <picker header-text="国际区号"
+                            mode="selector"
+                            range="{{mobileAreaRange}}"
+                            value="{{mobileAreaIndex}}"
+                            bindchange="onMobileAreaPickerChange">
+                        {{mobileAreaRange[mobileAreaIndex]}}
+                    </picker>
+                    <input value="{{mobileNumber}}" bindinput="onMobileNumberChange" style="margin-left: 20px"></input>
+                </view>
+            </mp-cell>
+        </block>
+        <mp-cell title="登录密码">
+            <input password="true" value="{{password}}" bindinput="onPasswordChange"></input>
+        </mp-cell>
+
+        <button class="submit-button" bind:tap="onSubmit">提交</button>
+    </mp-form>
+</view>

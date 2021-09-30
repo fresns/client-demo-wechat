@@ -1,0 +1,27 @@
+<!--
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+-->
+<view class="page" data-weui-theme="{{theme}}">
+
+  <view class="weui-cells__title">通知</view>
+  <view class="weui-cells weui-cells_after-title">
+    <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <view class="weui-cell__hd">
+        <image src="https://fresns.cn/prototype/assets/images/temp/placeholder_icon.png"></image>
+      </view>
+      <view class="weui-cell__bd">cell standard</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access">说明文字</view>
+    </navigator>
+    <navigator url="" class="weui-cell weui-cell_example weui-cell_access" hover-class="weui-cell_active">
+      <view class="weui-cell__hd">
+        <image src="https://fresns.cn/prototype/assets/images/temp/placeholder_icon.png"></image>
+      </view>
+      <view class="weui-cell__bd">cell standard</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access">说明文字</view>
+    </navigator>
+  </view>
+
+  <view class="copyright">Powered by Fresns</view>
+</view>

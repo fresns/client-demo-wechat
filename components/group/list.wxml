@@ -1,0 +1,17 @@
+<!--
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+-->
+<navigator url="/pages/groups/detail?gid={{group.gid}}" class="weui-media-box weui-media-box_appmsg">
+    <view class="weui-media-box__hd">
+        <image class="weui-media-box__thumb" src="{{group.cover || 'https://fresns.cn/prototype/assets/images/temp/placeholder_icon.png'}}"></image>
+    </view>
+    <view class="weui-media-box__bd">
+        <text class="weui-media-box__title">{{group.gname || '默认名称'}}</text>
+        <view class="weui-media-box__desc">{{group.description || '默认描述'}}</view>
+    </view>
+    <view class="box-btn">
+        <text class="weui-btn weui-btn_mini weui-btn_default">加入</text>
+    </view>
+</navigator>

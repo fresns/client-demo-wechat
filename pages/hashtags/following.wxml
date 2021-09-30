@@ -1,0 +1,45 @@
+<!--
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+-->
+<import src="/template/tabbar.wxml"/>
+
+<view class="page" data-weui-theme="{{theme}}">
+
+    <view class="weui-flex tab-navbar weui-navbar">
+        <view class="weui-flex__item weui-navbar__item">
+            <navigator url="/pages/hashtags/index" open-type="redirect">主页</navigator>
+        </view>
+        <view class="weui-flex__item weui-navbar__item">
+            <navigator url="/pages/hashtags/list" open-type="redirect">列表</navigator>
+        </view>
+        <view class="weui-flex__item weui-navbar__item">
+            <navigator url="/pages/hashtags/follow" open-type="redirect">关注</navigator>
+        </view>
+        <view class="weui-flex__item weui-navbar__item">
+            <navigator url="/pages/hashtags/likes" open-type="redirect">我点赞</navigator>
+        </view>
+        <view class="weui-flex__item weui-navbar__item weui-navbar__item_on">
+            <navigator url="/pages/hashtags/following" open-type="redirect">我关注</navigator>
+        </view>
+        <view class="weui-flex__item weui-navbar__item">
+            <navigator url="/pages/hashtags/blocking" open-type="redirect">我屏蔽</navigator>
+        </view>
+    </view>
+
+    <!--话题列表-->
+    <view class="weui-media-box weui-media-box_small-appmsg">
+        <view class="weui-cells">
+            <hashtag wx:for="{{hashtags}}" wx:for-item="hashtag" wx:for-index="idx" wx:key="huri"
+                     hashtag="{{hashtag}}">
+                <view class="weui-cell__hd">
+                    <image wx:if="{{hashtag.cover}}" src="{{hashtag.cover}}"></image>
+                </view>
+            </hashtag>
+        </view>
+    </view>
+
+    <view class="copyright">Powered by Fresns</view>
+    <template is="tabbar"/>
+</view>

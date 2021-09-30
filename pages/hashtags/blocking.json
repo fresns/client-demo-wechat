@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "我屏蔽的话题",
+  "usingComponents": {
+    "hashtag": "/components/hashtag/list"
+  }
+}

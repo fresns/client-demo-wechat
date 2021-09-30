@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+    "comment": "/components/comment/list",
+    "comment-list": "/components/comment/content-list",
+    "detail": "/components/comment/content-detail",
+    "box-info": "/components/extend/box-info",
+    "box-text": "/components/extend/box-text",
+    "emoji": "/components/weui/emoji/index"
+  }
+}

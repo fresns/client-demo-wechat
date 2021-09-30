@@ -1,0 +1,14 @@
+<!--
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+-->
+<navigator url="/pages/posts/detail?pid={{pid}}" class="content-list">
+    <view class="content-title">{{post.title || '默认标题'}}</view>
+    <view class="fresns-content">
+        <rich-text nodes="{{post.content}}"></rich-text>
+    </view>
+</navigator>
+<view class="content-brief">
+    <navigator class="navigator-inline" url="/pages/posts/detail?pid={{pid}}">全文</navigator>
+</view>

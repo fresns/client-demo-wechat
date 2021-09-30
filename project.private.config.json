@@ -1,0 +1,30 @@
+{
+  "setting": {},
+  "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "name": "pages/user/signin",
+          "pathName": "pages/portal/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/editor/post-editor/post-editor",
+          "pathName": "pages/editor/post-editor/post-editor",
+          "query": "",
+          "scene": null
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,31 @@
+<!--
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+-->
+
+<view class="editor-container" style="height:{{editorHeight}}px;">
+    <view class="content">
+        <editor id="editor" class="ql-container" placeholder="{{placeholder}}" bindstatuschange="onStatusChange" bindready="onEditorReady"/>
+
+        <view wx:if="{{location}}">经度 {{location.long}} 纬度 {{location.lat}}</view>
+        <view wx:else bind:tap="addLocation">添加地址</view>
+
+
+        <view class="attached-files">
+
+        </view>
+    </view>
+    <view class="toolbar" catchtouchend="format" style="bottom: {{isIOS ? keyboardHeight : 0}}px">
+        <text class="iconfont icon-charutupian" catchtouchend="insertImage"></text>
+        <text class="iconfont icon-format-header-2 {{formats.header === 2 ? 'ql-active' : ''}}" data-name="header" data-value="{{2}}"></text>
+        <text class="iconfont icon-format-header-3 {{formats.header === 3 ? 'ql-active' : ''}}" data-name="header" data-value="{{3}}"></text>
+        <text class="iconfont icon-zitijiacu {{formats.bold ? 'ql-active' : ''}}" data-name="bold"></text>
+        <text class="iconfont icon-zitixieti {{formats.italic ? 'ql-active' : ''}}" data-name="italic"></text>
+        <text class="iconfont icon-zitixiahuaxian {{formats.underline ? 'ql-active' : ''}}" data-name="underline"></text>
+        <text class="iconfont icon--checklist" data-name="list" data-value="check"></text>
+        <text class="iconfont icon-youxupailie {{formats.list === 'ordered' ? 'ql-active' : ''}}" data-name="list" data-value="ordered"></text>
+        <text class="iconfont icon-wuxupailie {{formats.list === 'bullet' ? 'ql-active' : ''}}" data-name="list" data-value="bullet"></text>
+    </view>
+</view>
+

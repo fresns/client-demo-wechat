@@ -1,0 +1,21 @@
+{
+  "navigationBarTitleText": "文章发表",
+  "usingComponents": {
+    "editor-group-selector": "/pages/editor/component/editor-group-selector/editor-group-selector",
+    "editor-title": "/pages/editor/component/editor-title/editor-title",
+    "editor-lbs": "/pages/editor/component/editor-lbs/editor-lbs",
+    "editor-anonymous": "/pages/editor/component/editor-anonymous/editor-anonymous",
+    "editor-draft-selector": "/pages/editor/component/editor-draft-selector/editor-draft-selector",
+    "editor-main": "/pages/editor/component/editor-main/editor-main",
+    "editor-toolbar": "/pages/editor/component/editor-toolbar/editor-toolbar",
+    "editor-global-limit": "/pages/editor/component/editor-global-limit/editor-global-limit",
+    "editor-role-limit": "/pages/editor/component/editor-role-limit/editor-role-limit",
+    "editor-file-display": "/pages/editor/component/editor-file-display/editor-file-display",
+    "editor-coutdown": "/pages/editor/component/editor-countdown/editor-coutdown",
+    "editor-authority": "/pages/editor/component/editor-authority/editor-authority",
+    "editor-comment-btn": "/pages/editor/component/editor-comment-btn/editor-comment-btn",
+    "editor-members": "/pages/editor/component/editor-members/editor-members",
+    "editor-extends-text": "/pages/editor/component/editor-extends-text/editor-extends-text",
+    "editor-extends-info": "/pages/editor/component/editor-extends-info/editor-extends-info"
+  }
+}

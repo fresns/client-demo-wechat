@@ -1,0 +1,76 @@
+<!--
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+-->
+<import src="/template/tabbar.wxml"/>
+<wxs module="util" src="../util/util.wxs"></wxs>
+
+<view class="page" data-weui-theme="{{theme}}">
+    <view class="weui-flex tab-navbar weui-navbar">
+        <view class="weui-flex__item weui-navbar__item">
+            <navigator url="/pages/members/index" open-type="redirect">主页</navigator>
+        </view>
+        <view class="weui-flex__item weui-navbar__item">
+            <navigator url="/pages/members/list" open-type="redirect">列表</navigator>
+        </view>
+        <view class="weui-flex__item weui-navbar__item">
+            <navigator url="/pages/members/follow" open-type="redirect">关注</navigator>
+        </view>
+        <view class="weui-flex__item weui-navbar__item">
+            <navigator url="/pages/members/likes" open-type="redirect">我点赞</navigator>
+        </view>
+        <view class="weui-flex__item weui-navbar__item weui-navbar__item_on">
+            <navigator url="/pages/members/following" open-type="redirect">我关注</navigator>
+        </view>
+        <view class="weui-flex__item weui-navbar__item">
+            <navigator url="/pages/members/blocking" open-type="redirect">我屏蔽</navigator>
+        </view>
+    </view>
+
+    <!--成员列表-->
+    <view wx:for="{{members}}" wx:for-index="idx" wx:for-item="member" wx:key="mid" class="member-list">
+        <member member="{{member}}">
+            <view slot="icons-body" class="member-icons weui-flex">
+                <image wx:for="{{member.icons}}" wx:for-item="iconItem" wx:key="icon" src="{{iconItem.icon}}" alt="{{iconItem.name}}"
+                       mode="heightFix">
+                </image>
+            </view>
+            <view slot="bio" class="member-bio">
+                <navigator url="/pages/profile/index?mid={{member.mid}}">{{member.bio || ''}}</navigator>
+            </view>
+            <view slot="btn" class="interactive-btn">
+                <a class="weui-btn weui-btn_mini {{member.likeStatus === 1 ? 'weui-btn_primary' : 'weui-btn_default'}}"
+                   data-member="{{member}}"
+                   bind:tap="onClickLike">
+                    <image wx:if="{{member.likeStatus === 1}}" class="weui-btn_cell__icon"
+                           src="/assets/images/icons/like-active.png"></image>
+                    <image wx:else class="weui-btn_cell__icon" src="/assets/images/icons/like.png"></image>
+                    {{util.formatNumber(member.stats.likeMemberCount)}}
+                </a>
+
+                <a class="weui-btn weui-btn_mini {{member.followStatus === 1 ? 'weui-btn_primary' : 'weui-btn_default'}}"
+                   data-member="{{member}}"
+                   bind:tap="onClickFollow">
+                    <image wx:if="{{member.followStatus === 1}}" class="weui-btn_cell__icon"
+                           src="/assets/images/icons/follow-active.png"></image>
+                    <image wx:elif="{{member.followStatus === 0}}" class="weui-btn_cell__icon"
+                           src="/assets/images/icons/follow.png"></image>
+                    {{util.formatNumber(member.stats.followMemberCount)}}
+                </a>
+
+                <a class="weui-btn weui-btn_mini {{member.shieldStatus === 1 ? 'weui-btn_primary' : 'weui-btn_default'}}"
+                   data-member="{{member}}"
+                   bind:tap="onClickBlock">
+                    <image wx:if="{{member.shieldStatus === 1}}" class="weui-btn_cell__icon"
+                           src="/assets/images/icons/shield-active.png"></image>
+                    <image wx:else class="weui-btn_cell__icon" src="/assets/images/icons/shield.png"></image>
+                    {{util.formatNumber(member.stats.shieldMemberCount)}}
+                </a>
+            </view>
+        </member>
+    </view>
+
+    <view class="copyright">Powered by Fresns</view>
+    <template is="tabbar"/>
+</view>

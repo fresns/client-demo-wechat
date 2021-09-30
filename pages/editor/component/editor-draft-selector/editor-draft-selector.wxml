@@ -1,0 +1,12 @@
+<view class="editor-draft-selector">
+    <modal>
+        <view class="choose-draft-content">
+            <button wx:for="{{drafts}}"
+                    wx:for-item="draft"
+                    wx:key="id"
+                    data-draft="{{draft}}"
+                    bind:tap="handleClickDraft">{{draft.id}}
+            </button>
+        </view>
+    </modal>
+</view>

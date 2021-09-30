@@ -1,0 +1,29 @@
+<view class="editor-authority">
+    <mp-cell class="authority-head" title="权限信息：">
+        <view>
+            <text>修改</text>
+            <text>删除</text>
+        </view>
+    </mp-cell>
+    <mp-cell title="指定用户组可访问">
+        <view>
+            <text>管理员</text>
+        </view>
+    </mp-cell>
+    <mp-cell title="指定用户可访问">
+        <view>
+            <text>Jarvis</text>
+            <text>Jie-T</text>
+        </view>
+    </mp-cell>
+    <mp-cell title="可试读前内容比例">
+        <view>
+            <text>10%</text>
+        </view>
+    </mp-cell>
+    <mp-cell title="获取阅读权限按钮文字">
+        <view>
+            <text>阅读全部</text>
+        </view>
+    </mp-cell>
+</view>

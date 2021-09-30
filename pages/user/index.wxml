@@ -1,0 +1,147 @@
+<!--
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+-->
+<import src="/template/tabbar.wxml"/>
+
+<view class="page" data-weui-theme="{{theme}}">
+    <view class="profile-header">
+        <view class="weui-flex">
+            <view class="profile-info">
+                <view class="profile-avatar">
+                    <image wx:if="{{loginMember.decorate}}" src="{{loginMember.decorate}}" class="avatar-decorate" mode="scaleToFill"></image>
+                    <image src="{{loginMember.avatar}}" class="avatar-img" mode="scaleToFill"></image>
+                </view>
+                <view class="profile-name">
+                    <text class="profile-nickname">{{loginMember.nickname}}</text>
+                    <text class="profile-mname">{{loginMember.mname}}</text>
+                </view>
+            </view>
+            <view class="weui-flex__item interactive-btn">
+                <navigator url="/pages/user/setting" class="weui-btn weui-btn_mini weui-btn_default">编辑个人资料</navigator>
+            </view>
+        </view>
+        <view class="member-bio">{{loginMember.bio}}</view>
+        <view class="weui-media-box__info">
+            <view class="weui-media-box__info__meta">{{loginMember.stats.likeMeCount}} 点赞</view>
+            <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{loginMember.stats.followMeCount}} 关注者</view>
+            <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{loginMember.stats.followMemberCount}} 正在关注</view>
+        </view>
+    </view>
+
+    <view class="weui-cells weui-cells_after-title">
+        <navigator url="/pages/editor/post-editor/post-editor" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <view class="weui-cell__bd fg-0">发表</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </navigator>
+        <navigator url="/pages/search/index" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <view class="weui-cell__bd fg-0">搜索</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </navigator>
+        <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <view class="weui-cell__bd fg-0">钱包</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access">¥ 10.00</view>
+        </navigator>
+        <navigator url="/pages/messages/index" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <view class="weui-cell__bd fg-0">消息</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access">
+                <text class="weui-badge">8</text>
+            </view>
+        </navigator>
+        <navigator url="/pages/editor/draft" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <view class="weui-cell__bd fg-0">草稿箱</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access">{{loginMember.draftCount.comments + loginMember.draftCount.posts}}</view>
+        </navigator>
+    </view>
+
+    <view class="user-extensions">
+        <navigator url="/pages/webview?url=https://tangjie.me/about">
+            <view class="extensions-icon">
+                <image src="https://fresns.cn/prototype/assets/images/temp/placeholder_icon.png"></image>
+            </view>
+            <view class="extensions-label">扩展名</view>
+        </navigator>
+        <navigator url="/pages/webview?url=https://tangjie.me/about">
+            <view class="extensions-icon">
+                <image src="https://fresns.cn/prototype/assets/images/temp/placeholder_icon.png"></image>
+            </view>
+            <view class="extensions-label">扩展名</view>
+        </navigator>
+        <navigator url="/pages/webview?url=https://tangjie.me/about">
+            <view class="extensions-icon">
+                <image src="https://fresns.cn/prototype/assets/images/temp/placeholder_icon.png"></image>
+            </view>
+            <view class="extensions-label">扩展名</view>
+        </navigator>
+        <navigator url="/pages/webview?url=https://tangjie.me/about">
+            <view class="extensions-icon">
+                <image src="https://fresns.cn/prototype/assets/images/temp/placeholder_icon.png"></image>
+            </view>
+            <view class="extensions-label">扩展名</view>
+        </navigator>
+        <navigator url="/pages/webview?url=https://tangjie.me/about">
+            <view class="extensions-icon">
+                <image src="https://fresns.cn/prototype/assets/images/temp/placeholder_icon.png"></image>
+            </view>
+            <view class="extensions-label">扩展名</view>
+        </navigator>
+        <navigator url="/pages/webview?url=https://tangjie.me/about">
+            <view class="extensions-icon">
+                <image src="https://fresns.cn/prototype/assets/images/temp/placeholder_icon.png"></image>
+            </view>
+            <view class="extensions-label">扩展名</view>
+        </navigator>
+        <navigator url="/pages/webview?url=https://tangjie.me/about">
+            <view class="extensions-icon">
+                <image src="https://fresns.cn/prototype/assets/images/temp/placeholder_icon.png"></image>
+            </view>
+            <view class="extensions-label">扩展名</view>
+        </navigator>
+    </view>
+
+    <view class="weui-cells weui-cells_after-title">
+        <navigator url="/pages/user/members" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <view class="weui-cell__bd fg-0">切换身份</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access">{{loginMember.memberName}}</view>
+        </navigator>
+        <view class="weui-cell weui-cell_access" bindtap="showLanguageDialog">
+            <view class="weui-cell__bd fg-0">多语言</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </view>
+        <view class="weui-cell weui-cell_switch">
+            <view class="weui-cell__bd fg-0">深色模式</view>
+            <view class="weui-cell__ft">
+                <label class="weui-switch-cp" bindtap="themeChanged">
+                    <checkbox class="weui-switch-cp__input"/>
+                    <view class="weui-switch-cp__box"></view>
+                </label>
+            </view>
+        </view>
+    </view>
+
+    <view class="logout">
+        <a class="weui-btn weui-btn_primary">退出登录</a>
+    </view>
+
+    <view class="copyright">Powered by Fresns</view>
+
+    <view wx:if="{{languageDialog}}" class="fadeIn">
+        <view class="weui-mask"></view>
+        <view class="weui-actionsheet weui-actionsheet_toggle">
+            <view class="weui-actionsheet__title">
+                <view class="weui-actionsheet__title-text">切换显示语言</view>
+            </view>
+            <view class="weui-actionsheet__menu">
+                <view class="weui-actionsheet__cell">English</view>
+                <view class="weui-actionsheet__cell weui-actionsheet__cell_warn">简体中文</view>
+                <view class="weui-actionsheet__cell">繁體中文</view>
+            </view>
+            <view class="weui-actionsheet__action" bindtap="hideLanguageDialog">
+                <view class="weui-actionsheet__cell">取消</view>
+            </view>
+        </view>
+    </view>
+
+    <template is="tabbar"/>
+</view>

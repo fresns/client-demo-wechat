@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "我关注的成员",
+  "usingComponents": {
+    "member": "/components/member/list"
+  }
+}

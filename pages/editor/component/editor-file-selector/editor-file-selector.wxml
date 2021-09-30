@@ -1,0 +1,5 @@
+<view>
+    <button>选择文件</button>
+    <view>支持的扩展名</view>
+    <view>支持的最大尺寸</view>
+</view>

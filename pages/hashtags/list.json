@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "话题",
+  "usingComponents": {
+    "hashtag": "/components/hashtag/list"
+  }
+}

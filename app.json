@@ -1,0 +1,114 @@
+{
+  "pages": [
+    "pages/portal/index",
+
+    "pages/members/index",
+    "pages/members/list",
+    "pages/members/follow",
+    "pages/members/likes",
+    "pages/members/following",
+    "pages/members/blocking",
+
+    "pages/groups/index",
+    "pages/groups/list",
+    "pages/groups/follow",
+    "pages/groups/likes",
+    "pages/groups/following",
+    "pages/groups/blocking",
+    "pages/groups/detail",
+
+    "pages/hashtags/index",
+    "pages/hashtags/list",
+    "pages/hashtags/follow",
+    "pages/hashtags/likes",
+    "pages/hashtags/following",
+    "pages/hashtags/blocking",
+    "pages/hashtags/detail",
+
+    "pages/posts/index",
+    "pages/posts/list",
+    "pages/posts/follows",
+    "pages/posts/likes",
+    "pages/posts/following",
+    "pages/posts/blocking",
+    "pages/posts/position",
+    "pages/posts/detail",
+
+    "pages/comments/index",
+    "pages/comments/list",
+    "pages/comments/likes",
+    "pages/comments/following",
+    "pages/comments/blocking",
+    "pages/comments/detail",
+
+    "pages/messages/index",
+    "pages/messages/notify",
+    "pages/messages/dialog",
+
+    "pages/search/index",
+
+    "pages/editor/post-editor/post-editor",
+    "pages/editor/comment-editor/comment-editor",
+    "pages/editor/index",
+    "pages/editor/drafts",
+
+    "pages/user/index",
+    "pages/user/signup",
+    "pages/user/signin",
+    "pages/user/reset",
+    "pages/user/wallet",
+    "pages/user/members",
+    "pages/user/setting",
+
+    "pages/profile/index",
+    "pages/profile/posts",
+    "pages/profile/comments",
+    "pages/profile/likers",
+    "pages/profile/followers",
+    "pages/profile/blockers",
+    "pages/profile/likes_members",
+    "pages/profile/following_members",
+    "pages/profile/blocking_members",
+    "pages/profile/likes_groups",
+    "pages/profile/following_groups",
+    "pages/profile/blocking_groups",
+    "pages/profile/likes_hashtags",
+    "pages/profile/following_hashtags",
+    "pages/profile/blocking_hashtags",
+    "pages/profile/likes_posts",
+    "pages/profile/following_posts",
+    "pages/profile/blocking_posts",
+    "pages/profile/likes_comments",
+    "pages/profile/following_comments",
+    "pages/profile/blocking_comments",
+
+    "pages/webview"
+  ],
+  "window": {
+    "backgroundTextStyle": "@bgTxtStyle",
+    "navigationBarBackgroundColor": "@navBgColor",
+    "navigationBarTitleText": "Fresns",
+    "navigationBarTextStyle": "@navTxtStyle"
+  },
+  "darkmode": true,
+  "themeLocation": "theme.json",
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "navigateToMiniProgramAppIdList": [
+    "wxcdaa14554bd22f64"
+  ],
+  "plugins": {
+    "chooseLocation": {
+      "version": "1.0.6",
+      "provider": "wx76a9a06e5b4e693e"
+    }
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
+  },
+  "useExtendedLib": {
+    "weui": true
+  }
+}

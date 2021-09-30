@@ -1,0 +1,33 @@
+<!--
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+-->
+<view class="page" data-weui-theme="{{theme}}">
+
+  <view class="weui-flex tab-navbar">
+    <view class="weui-flex__item">
+      <view class="weui-tab">
+        <view class="weui-navbar">
+          <block wx:for="{{tabs}}" wx:key="*this">
+            <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-navbar__item_on' : ''}}"
+              bindtap="tabClick">{{item}}</view>
+          </block>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="weui-tab__panel">
+    <!-- 帖子 -->
+    <view class="weui-tab__content {{activeIndex == 0 ? 'weui-tab__content_on' : ''}}">
+    
+    </view>
+    <!-- 评论 -->
+    <view class="weui-tab__content {{activeIndex == 1 ? 'weui-tab__content_on' : ''}}">
+
+    </view>
+  </view>
+
+  <view class="copyright">Powered by Fresns</view>
+</view>

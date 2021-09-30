@@ -1,0 +1,60 @@
+.editor-toolbar {
+    position: relative;
+}
+
+.editor-toolbar .editor-tools-line {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+}
+
+.editor-toolbar .editor-tools-line > view {
+    padding: 10px 0;
+    width: 40px;
+    color: #6c757d;
+}
+
+.editor-toolbar .editor-tools-line > .view-selected {
+    color: #fff;
+    background: #6c757d;
+}
+
+.editor-toolbar .editor-fixed {
+    width: 100%;
+    background: #fff;
+    z-index: 10;
+    position: absolute;
+    top: 45px;
+}
+
+.editor-toolbar .editor-fixed .editor-resource {
+    position: absolute;
+    background: #fff;
+    width: 80%;
+    height: 130px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.editor-toolbar .editor-tab-class {
+    padding: 0 10px;
+}
+
+.editor-toolbar .tab-content {
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+    column-gap: 6px;
+    row-gap: 4px;
+}
+
+.editor-toolbar .tab-content .emoji-image {
+    width: 32px;
+    height: 32px;
+}

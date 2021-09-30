@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "我屏蔽的小组",
+  "usingComponents": {
+    "group": "/components/group/list"
+  }
+}

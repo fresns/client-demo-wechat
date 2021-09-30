@@ -1,0 +1,9 @@
+{
+  "component": true,
+  "usingComponents": {
+    "member": "/components/member/list"
+  },
+  "componentGenerics": {
+    "contentType": true
+  }
+}

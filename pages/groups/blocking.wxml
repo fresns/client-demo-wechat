@@ -1,0 +1,45 @@
+<!--
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+-->
+<import src="/template/tabbar.wxml"/>
+
+<view class="page" data-weui-theme="{{theme}}">
+
+    <view class="weui-flex tab-navbar weui-navbar">
+        <view class="weui-flex__item weui-navbar__item">
+            <navigator url="/pages/groups/index" open-type="redirect">主页</navigator>
+        </view>
+        <view class="weui-flex__item weui-navbar__item">
+            <navigator url="/pages/groups/list" open-type="redirect">列表</navigator>
+        </view>
+        <view class="weui-flex__item weui-navbar__item">
+            <navigator url="/pages/groups/follow" open-type="redirect">关注</navigator>
+        </view>
+        <view class="weui-flex__item weui-navbar__item">
+            <navigator url="/pages/groups/likes" open-type="redirect">我点赞</navigator>
+        </view>
+        <view class="weui-flex__item weui-navbar__item">
+            <navigator url="/pages/groups/following" open-type="redirect">我关注</navigator>
+        </view>
+        <view class="weui-flex__item weui-navbar__item weui-navbar__item_on">
+            <navigator url="/pages/groups/blocking" open-type="redirect">我屏蔽</navigator>
+        </view>
+    </view>
+
+    <!--小组列表-->
+    <view class="weui-panel weui-panel_access">
+        <view class="weui-panel__bd">
+            <view class="weui-panel__bd">
+                <group wx:for="{{groups}}"
+                       wx:for-item="group"
+                       wx:key="gid"
+                       group="{{group}}"></group>
+            </view>
+        </view>
+    </view>
+
+    <view class="copyright">Powered by Fresns</view>
+    <template is="tabbar"/>
+</view>

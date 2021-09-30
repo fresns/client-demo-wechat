@@ -1,0 +1,11 @@
+<!--
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+-->
+<import src="/template/tabbar.wxml"/>
+
+<view class="page" data-weui-theme="{{theme}}">
+    <rich-text nodes="{{content}}"/>
+    <template is="tabbar"/>
+</view>

@@ -1,0 +1,19 @@
+<view class="editor-role-limit">
+    <mp-cell title="角色权限发表限制信息："></mp-cell>
+    <mp-cell title="账号主角色">
+        <text>普通会员</text>
+    </mp-cell>
+    <mp-cell title="限制类型">
+        <text>循环时间段限制</text>
+    </mp-cell>
+    <mp-cell title="日期范围">
+        <view>
+            <text>2021-05-01</text>
+            <text>~</text>
+            <text>2021-05-01</text>
+        </view>
+    </mp-cell>
+    <mp-cell title="限制规则">
+        <text>可以发表，但是需要审核</text>
+    </mp-cell>
+</view>

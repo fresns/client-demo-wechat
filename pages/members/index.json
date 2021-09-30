@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "成员",
+  "usingComponents": {
+    "member": "/components/member/list"
+  }
+}

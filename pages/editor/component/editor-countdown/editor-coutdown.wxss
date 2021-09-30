@@ -1,0 +1,17 @@
+.editor-countdown {
+    padding: 12px 10px;
+    background: #f8d7da;
+    border: 1px solid #f5c2c7;
+}
+
+.editor-countdown .countdown-tips {
+    color: #842029;
+}
+
+.editor-countdown .countdown-number {
+    display: inline-block;
+    padding: 2px 4px;
+    color: #fff;
+    background-color: #212529;
+    border-radius: .2rem;
+}

@@ -1,0 +1,64 @@
+<!--
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+-->
+<import src="/template/tabbar.wxml" />
+
+<view class="page" data-weui-theme="{{theme}}">
+
+  <view class="weui-flex tab-navbar weui-navbar">
+    <view class="weui-flex__item weui-navbar__item">
+      <navigator url="/pages/posts/index" open-type="redirect">主页</navigator>
+    </view>
+    <view class="weui-flex__item weui-navbar__item">
+      <navigator url="/pages/posts/list" open-type="redirect">列表</navigator>
+    </view>
+    <view class="weui-flex__item weui-navbar__item weui-navbar__item_on">
+      <navigator url="/pages/posts/follows" open-type="redirect">关注</navigator>
+    </view>
+    <view class="weui-flex__item weui-navbar__item">
+      <navigator url="/pages/posts/likes" open-type="redirect">我点赞</navigator>
+    </view>
+    <view class="weui-flex__item weui-navbar__item">
+      <navigator url="/pages/posts/following" open-type="redirect">我关注</navigator>
+    </view>
+    <view class="weui-flex__item weui-navbar__item">
+      <navigator url="/pages/posts/blocking" open-type="redirect">我屏蔽</navigator>
+    </view>
+  </view>
+
+  <view class="post-list" wx:for="{{posts}}" wx:for-item="post" wx:key="pid">
+    <post generic:contentType="post-list" fsui="list-style" post="{{post}}">
+    </post>
+  </view>
+
+  <!--帖子列表（我关注对象的帖子，包括成员发表的，小组和话题名下的精华帖子）-->
+  <!--根据来源类型，会有样式区别，开发前讨论一下方案-->
+  <!--帖子列表-->
+<!--  <view class="post-list">-->
+
+<!--    <post generic:contentType="post-list" fsui="list-style">-->
+<!--      <view slot="files" class="content-files">-->
+<!--        <view class="file-image-1">-->
+<!--          <image src="https://fresns.cn/prototype/assets/images/temp/image.jpg" mode="widthFix" bindtap="ImageOpen">-->
+<!--          </image>-->
+<!--        </view>-->
+<!--      </view>-->
+<!--    </post>-->
+
+<!--  </view>-->
+
+
+  <!--File image Gallery-->
+  <view wx:if="{{imageGallery}}" class="weui-gallery fadeIn" bindtap="ImageClose">
+    <view class="weui-gallery__info">1/9</view>
+    <view class="weui-gallery__img__wrp">
+      <image mode="aspectFit" class="weui-gallery__img" src="https://fresns.cn/prototype/assets/images/temp/image.jpg">
+      </image>
+    </view>
+  </view>
+
+  <view class="copyright">Powered by Fresns</view>
+  <template is="tabbar" />
+</view>

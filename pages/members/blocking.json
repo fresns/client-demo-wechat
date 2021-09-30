@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "我屏蔽的成员",
+  "usingComponents": {
+    "member": "/components/member/list"
+  }
+}

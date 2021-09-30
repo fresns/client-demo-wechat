@@ -1,0 +1,11 @@
+function formatNumber (numVal) {
+  if (numVal > 100000) {
+    return '10w+'
+  } else {
+    return numVal + ''
+  }
+}
+
+module.exports = {
+  formatNumber: formatNumber,
+}

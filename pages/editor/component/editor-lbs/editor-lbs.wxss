@@ -1,0 +1,15 @@
+.editor-lbs {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.editor-lbs .add-location {
+    width: 120px;
+    height: 32px;
+    border-radius: 4px;
+    text-align: center;
+    line-height: 32px;
+    border: 1px solid silver;
+}

@@ -1,0 +1,97 @@
+<!--
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+-->
+<view class="page" data-weui-theme="{{theme}}">
+  <!--帖子详情-->
+  <post generic:contentType="detail"></post>
+
+  <!--评论列表-->
+  <view class="weui-panel weui-panel_access">
+    <view class="weui-panel__hd">帖子评论</view>
+    <view class="weui-panel__bd">
+      <comment generic:contentType="comment-list" fsui="list-style">
+        <view slot="previewComment">
+          <navigator class="content-comment" url="/pages/comments/detail">
+              <view class="preview-list"><navigator class="navigator-inline" url="/pages/profile/index">用户昵称</navigator>:
+              专为跨平台而打造的通用型社区产品，支持灵活多样的内容形态。</view>
+              <view class="preview-list"><navigator class="navigator-inline" url="/pages/profile/index">用户昵称</navigator><text class="weui-badge post-author">作者</text>:
+              专为跨平台而打造的通用型社区产品，支持灵活多样的内容形态。<text class="view-text">[图片]</text></view>
+              <view class="preview-list"><navigator class="navigator-inline" url="/pages/profile/index">用户昵称</navigator>:
+              专为跨平台而打造的通用型社区产品，支持灵活多样的内容形态。</view>
+              <view class="preview-list view-text">共 5 条回复 ></view>
+          </navigator>
+        </view>
+      </comment>
+      <view class="weui-media-box weui-media-box_text">
+        <comment generic:contentType="comment-list" fsui="list-style"></comment>
+      </view>
+      <view class="weui-media-box weui-media-box_text">
+        <comment generic:contentType="comment-list" fsui="list-style">
+          <view slot="files" class="content-files">
+            <view class="file-image-1">
+              <image src="https://fresns.cn/prototype/assets/images/temp/image.jpg" mode="widthFix" bindtap="ImageOpen"></image>
+            </view>
+          </view>
+        </comment>
+      </view>
+      <view class="weui-media-box weui-media-box_text">
+        <comment generic:contentType="comment-list" fsui="list-style"></comment>
+      </view>
+      <view class="weui-media-box weui-media-box_text">
+        <comment generic:contentType="comment-list" fsui="list-style"></comment>
+      </view>
+    </view>
+  </view>
+
+  <view class="copyright">Powered by Fresns</view>
+
+  <!--回复框-->
+  <view class="reply_wrp">
+    <view class="reply_tool">
+      <view hover-class="active" class="reply_button replay_quick_button">
+        <image src="/assets/images/reply_tool_keyboard.svg" mode='aspectFit' class="reply_tool_pic"></image>
+      </view>
+      <view class="reply_form_wrp">
+        <label for="" class="reply_label">
+          <input class="reply_input fg-0" cursor-spacing="8px" confirm-type="send" confirm-hold value="{{comment}}"
+            cursor="{{cursor}}" focus="{{focus}}" bindblur="onBlur" bindfocus="onFocus" bindinput="onInput"
+            bindconfirm="onConfirm" />
+        </label>
+      </view>
+      <view hover-class="active" class="reply_button replay_emotion_button" bindtap="showEmoji">
+        <image src="/assets/images/reply_tool_emoji.svg" mode='aspectFit' class="reply_tool_pic"></image>
+      </view>
+      <view hover-class="active" class="reply_button replay_media_button" bindtap="showFunction">
+        <image src="/assets/images/reply_tool_add.png" mode='aspectFit' class="reply_tool_pic"></image>
+      </view>
+    </view>
+    <view class="reply_panel_wrp" hidden="{{!emojiShow && !functionShow}}">
+      <view class="reply_panel {{emojiShow ? 'show': ''}}" hidden="{{!emojiShow}}">
+        <!-- 这里放emoji_area -->
+        <emoji bindinsertemoji="insertEmoji" binddelemoji="deleteEmoji"></emoji>
+      </view>
+      <view class="reply_panel {{functionShow ? 'show': ''}}" hidden="{{!functionShow}}">
+        <swiper indicator-dots="{{true}}" indicator-color="#bbbbbb" indicator-active-color="#8c8c8c">
+          <swiper-item>
+            <view class="function_list">
+              <view class="function_item" bindtap="chooseImage">
+                <image src="/assets/images/reply_function_image.svg" class="reply_function_pic"></image>
+              </view>
+            </view>
+          </swiper-item>
+        </swiper>
+      </view>
+    </view>
+  </view>
+  
+  <!--File image Gallery-->
+  <view wx:if="{{imageGallery}}" class="weui-gallery fadeIn" bindtap="ImageClose">
+    <view class="weui-gallery__info">1/9</view>
+      <view class="weui-gallery__img__wrp">
+        <image mode="aspectFit" class="weui-gallery__img" src="https://fresns.cn/prototype/assets/images/temp/image.jpg"></image>
+    </view>
+  </view>
+  
+</view>

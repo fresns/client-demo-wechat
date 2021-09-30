@@ -1,0 +1,90 @@
+/*!
+ * Fresns 微信小程序 (https://fresns.cn)
+ * Copyright 2021-Present 唐杰
+ * Licensed under the Apache-2.0 license
+ */
+
+/* Tabbar 选中 */
+.weui-tabbar__item.tabbar_user .weui-tabbar__icon,.weui-tabbar__item.tabbar_user .weui-tabbar__icon>i,.weui-tabbar__item.tabbar_user .weui-tabbar__label {color: var(--weui-BRAND)}
+.weui-navbar__item.tabbar_user,.weui-navbar__item:active {background-color: var(--weui-BG-COLOR-ACTIVE)}
+
+.profile-header {
+  background-color: var(--weui-BG-2);
+  padding-bottom: 15px;
+}
+
+.profile-avatar {
+  width: 100px;
+  height: 100px;
+}
+
+.profile-avatar .avatar-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin: 20px;
+  margin-bottom: -7px;
+}
+
+.profile-avatar .avatar-decorate {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  margin-bottom: -7px;
+}
+
+.profile-name {
+  margin-left: 20px;
+  margin-top: -10px;
+}
+
+.profile-nickname {
+  font-size: 20px;
+  color: var(--weui-FG-0);
+}
+
+.profile-mname {
+  font-size: 16px;
+  color: var(--weui-FG-1);
+  margin-left: 10px;
+}
+
+.interactive-btn {
+  margin-top: 35px;
+  margin-right: 10px;
+  text-align: right;
+}
+
+.member-bio,.weui-media-box__info {
+  padding: 0 20px;
+}
+
+.weui-cells {
+  margin-top: 15px;
+}
+
+.user-extensions {
+  overflow: hidden;
+  background-color: var(--weui-BG-2);
+  margin-top: 15px;
+}
+
+.user-extensions navigator {
+  float: left;
+  padding: 15px 20px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.user-extensions .extensions-icon image {
+  width: 30px;
+  height: 30px;
+}
+
+.extensions-label {
+  color:var(--weui-FG-0);
+}
+
+.logout {
+  margin-top: 30px;
+}

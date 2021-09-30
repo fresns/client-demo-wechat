@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "帖子",
+  "usingComponents": {
+    "post": "/components/post/list",
+    "post-list": "/components/post/content-list",
+    "box-info": "/components/extend/box-info",
+    "box-text": "/components/extend/box-text"
+  }
+}

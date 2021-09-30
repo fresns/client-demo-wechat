@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "我点赞的话题",
+  "usingComponents": {
+    "hashtag": "/components/hashtag/list"
+  }
+}

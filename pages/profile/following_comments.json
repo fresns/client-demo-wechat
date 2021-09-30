@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "成员昵称",
+  "usingComponents": {
+    "comment": "/components/comment/list",
+    "comment-list": "/components/comment/content-list",
+    "box-info": "/components/extend/box-info",
+    "box-text": "/components/extend/box-text"
+  }
+}

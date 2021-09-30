@@ -1,0 +1,14 @@
+<view class="editor-group-selector">
+    <view wx:if="{{currentGroup}}" class="editor-group-title" bind:tap="showChooseModal">
+        {{currentGroup}}
+    </view>
+    <view wx:else class="editor-group-title" bind:tap="showChooseModal">选择小组</view>
+
+    <!-- 选择框 -->
+    <modal wx:if="{{isShowChooseModal}}">
+        <view class="choose-modal-content">
+            <button data-group="group1" bind:tap="handleChooseGroup">小组 1</button>
+            <button data-group="group2" bind:tap="handleChooseGroup">小组 2</button>
+        </view>
+    </modal>
+</view>

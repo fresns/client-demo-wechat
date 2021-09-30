@@ -1,0 +1,70 @@
+<!--
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+-->
+<view class="page" data-weui-theme="{{theme}}">
+  <view class="weui-media-box weui-media-box_appmsg">
+    <view class="weui-media-box__hd">
+      <image class="weui-media-box__thumb" src="https://fresns.cn/prototype/assets/images/temp/placeholder_icon.png"></image>
+		</view>
+		<view class="weui-media-box__bd">
+			<h4 class="weui-media-box__title">小组名</h4>
+			<view class="weui-media-box__desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</view>
+		</view>
+  </view>
+
+  <view class="interactive-group">
+    <view class="weui-media-box__info">
+		  <view class="weui-media-box__info__meta">8 人点赞</view>
+		  <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">5 人加入</view>
+		  <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">10 个帖子</view>
+		  <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">10 个精华帖</view>
+	  </view>
+    <view slot="btn" class="interactive-btn">
+      <a class="weui-btn weui-btn_mini weui-btn_primary">
+        <image class="weui-btn_cell__icon" src="/assets/images/icons/like-active.png"></image> 已点赞
+      </a>
+      <a class="weui-btn weui-btn_mini weui-btn_default">
+        <image class="weui-btn_cell__icon" src="/assets/images/icons/follow.png"></image> 加入
+      </a>
+      <a class="weui-btn weui-btn_mini weui-btn_default">
+        <image class="weui-btn_cell__icon" src="/assets/images/icons/shield.png"></image> 屏蔽
+      </a>
+    </view>
+  </view>
+
+  <view class="group-extensions">
+    <navigator url="/pages/webview?url=https://tangjie.me/about">
+			<view class="extensions-icon">
+				<image src="https://fresns.cn/prototype/assets/images/temp/placeholder_icon.png"></image>
+			</view>
+			<view class="extensions-label">扩展名</view>
+		</navigator>
+    <navigator url="/pages/webview?url=https://tangjie.me/about">
+			<view class="extensions-icon">
+				<image src="https://fresns.cn/prototype/assets/images/temp/placeholder_icon.png"></image>
+			</view>
+			<view class="extensions-label">扩展名</view>
+		</navigator>
+  </view>
+
+  <view class="post-list">
+    <view class="weui-cells__title">最新帖子</view>
+    <post generic:contentType="list" fsui="list-style">
+      <view slot="extend-bottom">
+        <box-text>
+          <view slot="files" class="content-files">
+            <view class="file-image-1">
+              <image src="https://fresns.cn/prototype/assets/images/temp/image.jpg" mode="widthFix"></image>
+            </view>
+          </view>
+        </box-text>
+      </view>
+    </post>
+    <post generic:contentType="list" fsui="list-style"></post>
+    <post generic:contentType="list" fsui="list-style"></post>
+  </view>
+
+  <view class="copyright">Powered by Fresns</view>
+</view>

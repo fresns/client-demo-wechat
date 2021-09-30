@@ -1,0 +1,25 @@
+.signin {
+    padding: 0 20px;
+}
+
+.signin .account-type {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.signin .mobile-content {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.signin .submit-button {
+    width: 80%;
+    height: 40px;
+    margin: 10px auto 0;
+    border-radius: 4px;
+    background: #198754;
+    color: #fff;
+    text-align: center;
+}
