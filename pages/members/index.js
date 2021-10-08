@@ -1,9 +1,8 @@
 /*!
- * Fresns 微信小程序 (https://fresns.cn)
- * Copyright 2021-Present 唐杰
+ * Fresns 微信小程序 (https://fresns.org)
+ * Copyright 2021-Present Jarvis Tang
  * Licensed under the Apache-2.0 license
  */
-
 import { getConfigItemValue } from '../../api/tool/replace-key'
 import * as Api from '../../api/api'
 
@@ -11,7 +10,7 @@ Page({
   /** 外部 mixin 引入 **/
   mixins: [
     require('../../mixin/themeChanged'),
-    require('./mixin/memberHandler'),
+    require('../../mixin/handler/memberHandler'),
   ],
   /** 页面数据 **/
   data: {
@@ -46,95 +45,10 @@ Page({
       })
     }
   },
-  onClickLike: async function (e) {
-    const { member } = e.currentTarget.dataset
-
-    // 当前未喜欢，点击喜欢
-    if (member.likeStatus === 0) {
-      const res = await this.actionLike(member.mid)
-      if (res.code === 0) {
-        const idx = this.data.members.findIndex(value => value.mid === member.mid)
-        this.setData({
-          [`members[${idx}].likeStatus`]: 1,
-          [`members[${idx}].stats.likeMemberCount`]: this.data.members[idx].stats.likeMemberCount + 1,
-        })
-      }
-      return
-    }
-
-    // 当前已喜欢，点击取消喜欢
-    if (member.likeStatus === 1) {
-      const res = await this.actionUnLike(member.mid)
-      if (res.code === 0) {
-        const idx = this.data.members.findIndex(value => value.mid === member.mid)
-        this.setData({
-          [`members[${idx}].likeStatus`]: 0,
-          [`members[${idx}].stats.likeMemberCount`]: this.data.members[idx].stats.likeMemberCount - 1,
-        })
-      }
-      return
-    }
-  },
-  onClickFollow: async function (e) {
-    const { member } = e.currentTarget.dataset
-
-    // 当前未关注，点击关注
-    if (member.followStatus === 0) {
-      const res = await this.actionFollow(member.mid)
-      if (res.code === 0) {
-        const idx = this.data.members.findIndex(value => value.mid === member.mid)
-        this.setData({
-          [`members[${idx}].followStatus`]: 1,
-          [`members[${idx}].stats.followMemberCount`]: this.data.members[idx].stats.followMemberCount + 1,
-        })
-      }
-      return
-    }
-
-    // 当前已关注，点击取消关注
-    if (member.followStatus === 1) {
-      const res = await this.actionUnFollow(member.mid)
-      if (res.code === 0) {
-        const idx = this.data.members.findIndex(value => value.mid === member.mid)
-        this.setData({
-          [`members[${idx}].followStatus`]: 0,
-          [`members[${idx}].stats.followMemberCount`]: this.data.members[idx].stats.followMemberCount - 1,
-        })
-      }
-      return
-    }
-  },
-  onClickBlock: async function (e) {
-    const { member } = e.currentTarget.dataset
-
-    // 当前未关注，点击关注
-    if (member.shieldStatus === 0) {
-      const res = await this.actionBlock(member.mid)
-      if (res.code === 0) {
-        const idx = this.data.members.findIndex(value => value.mid === member.mid)
-        this.setData({
-          [`members[${idx}].shieldStatus`]: 1,
-          [`members[${idx}].stats.shieldMemberCount`]: this.data.members[idx].stats.shieldMemberCount + 1,
-        })
-      }
-      return
-    }
-
-    // 当前已关注，点击取消关注
-    if (member.shieldStatus === 1) {
-      const res = await this.actionUnBlock(member.mid)
-      if (res.code === 0) {
-        const idx = this.data.members.findIndex(value => value.mid === member.mid)
-        this.setData({
-          [`members[${idx}].shieldStatus`]: 0,
-          [`members[${idx}].stats.shieldMemberCount`]: this.data.members[idx].stats.shieldMemberCount - 1,
-        })
-      }
-      return
-    }
-  },
+  /**
+   * 页面触底
+   */
   onReachBottom: async function () {
-    console.log('reach bottom')
     await this._loadCurPageData()
   },
   /** 右上角菜单-分享给好友 **/

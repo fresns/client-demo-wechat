@@ -1,20 +1,20 @@
 /*!
- * Fresns 微信小程序 (https://fresns.cn)
- * Copyright 2021-Present 唐杰
+ * Fresns 微信小程序 (https://fresns.org)
+ * Copyright 2021-Present Jarvis Tang
  * Licensed under the Apache-2.0 license
  */
-
 import Api from '../../api/api'
 import { getConfigItemValue } from '../../api/tool/replace-key'
 
 Page({
-  /** 外部 mixin 引入 **/
   mixins: [
     require('../../mixin/themeChanged'),
   ],
   data: {
     // 配置数据库中的请求体
     requestBody: null,
+    // 父级 groupId
+    parentGid: null,
     // 当前页面数据
     groups: [],
     // 下次请求时候的页码，初始值为 1
@@ -22,7 +22,10 @@ Page({
     // 页面是否到底
     isReachBottom: false,
   },
-  onLoad: async function () {
+  onLoad: async function (options) {
+    const { parentGid } = options
+    this.setData({ parentGid: parentGid })
+
     this.data.requestBody = await getConfigItemValue('menu_group_list_config')
     await this._loadCurPageData()
   },
@@ -32,8 +35,8 @@ Page({
     }
 
     const resultRes = await Api.content.groupLists(Object.assign(this.data.requestBody || {}, {
+      parentGid: this.data.parentGid,
       page: this.data.page,
-      // TODO 此处到底是填写 1 还是 2
       type: 2,
     }))
 

@@ -1,9 +1,8 @@
 /*!
- * Fresns 微信小程序 (https://fresns.cn)
- * Copyright 2021-Present 唐杰
+ * Fresns 微信小程序 (https://fresns.org)
+ * Copyright 2021-Present Jarvis Tang
  * Licensed under the Apache-2.0 license
  */
-
 Component({
   options: {
     multipleSlots: true, // 在组件定义时的选项中启用多slot支持

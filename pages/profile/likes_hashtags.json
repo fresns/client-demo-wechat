@@ -1,6 +1,8 @@
 {
   "navigationBarTitleText": "成员昵称",
   "usingComponents": {
-    "hashtag": "/components/hashtag/list"
+    "hashtag": "/components/hashtag/list",
+    "profile-member": "/pages/profile/component/profile-member/profile-member",
+    "profile-switch": "/pages/profile/component/profile-switch/profile-switch"
   }
 }

@@ -1,18 +1,20 @@
 /*!
- * Fresns 微信小程序 (https://fresns.cn)
- * Copyright 2021-Present 唐杰
+ * Fresns 微信小程序 (https://fresns.org)
+ * Copyright 2021-Present Jarvis Tang
  * Licensed under the Apache-2.0 license
- */
+ */import Api from '../../api/api'
 import { base64_encode } from '../../libs/base64/base64'
-import { globalInfo } from '../../handler/globalInfo'
+import { globalInfo } from '../../configs/fresnsGlobalInfo'
 
-const Type = {
-  Email: '0',
-  Mobile: '1',
+const LoginType = {
+  WeChat: '0',
+  Password: '1',
+  VerifyCode: '2',
 }
 
-const VerifyType = {
-
+const Type = {
+  Mobile: '0',
+  Email: '1',
 }
 
 Page({
@@ -20,7 +22,8 @@ Page({
     require('../../mixin/themeChanged'),
   ],
   data: {
-    type: Type.Email,
+    loginType: LoginType.WeChat,
+    type: Type.Mobile,
 
     // 邮箱地址
     emailAddress: '',
@@ -32,6 +35,14 @@ Page({
 
     // 密码
     password: '',
+
+    // 验证码
+    verifyCode: '',
+  },
+  onLoginTypeChange: function (e) {
+    this.setData({
+      loginType: e.detail.value,
+    })
   },
   onTypeChange: function (e) {
     this.setData({
@@ -66,30 +77,86 @@ Page({
     })
     return value
   },
-  onSubmit: async function () {
-    const { type, emailAddress, mobileAreaRange, mobileAreaIndex, mobileNumber, password } = this.data
+  onVerifyCodeChange: function(e) {
+    const value = e.detail.value
+    this.setData({
+      verifyCode: value,
+    })
+    return value
+  },
+  sendVerifyCode: async function (e) {
+    const { type, emailAddress, mobileAreaRange, mobileAreaIndex, mobileNumber } = this.data
     let params = null
     if (type === Type.Email) {
       params = {
         type: 1,
+        useType: 2,
+        templateId: 7,
         account: emailAddress,
-        password: base64_encode(password),
       }
     }
     if (type === Type.Mobile) {
       params = {
         type: 2,
+        useType: 2,
+        templateId: 7,
         account: mobileNumber,
-        countryCode: mobileAreaRange[mobileAreaIndex],
-        password: base64_encode(password),
+        countryCode: +mobileAreaRange[mobileAreaIndex],
+      }
+    }
+
+    const sendVerifyRes = await Api.info.infoSendVerifyCode(params)
+    if (sendVerifyRes.code === 0) {
+      wx.showToast({
+        title: '验证码发送成功',
+        icon: 'none',
+      })
+    }
+  },
+  onSubmit: async function () {
+    const { loginType, type, emailAddress, mobileAreaRange, mobileAreaIndex, mobileNumber, password, verifyCode } = this.data
+    let params = null
+
+    if (loginType === LoginType.Password ) {
+      if (type === Type.Email) {
+        params = {
+          type: 1,
+          account: emailAddress,
+          password: base64_encode(password),
+        }
+      }
+      if (type === Type.Mobile) {
+        params = {
+          type: 2,
+          account: mobileNumber,
+          countryCode: +mobileAreaRange[mobileAreaIndex],
+          password: base64_encode(password),
+        }
+      }
+    }
+    if (loginType === LoginType.VerifyCode) {
+      if (type === Type.Email) {
+        params = {
+          type: 1,
+          account: emailAddress,
+          verifyCode: verifyCode
+        }
+      }
+      if (type === Type.Mobile) {
+        params = {
+          type: 2,
+          account: mobileNumber,
+          countryCode: +mobileAreaRange[mobileAreaIndex],
+          verifyCode: verifyCode
+        }
       }
     }
 
     const isLogin = await globalInfo.login(params)
     if (isLogin) {
-      const pages = getCurrentPages()
-      pages[pages.length - 2].onLoad();
-      wx.navigateBack()
+      // const pages = getCurrentPages()
+      // pages[pages.length - 2].onLoad();
+      // wx.navigateBack()
     } else {
       wx.showToast({
         title: '登录失败，请稍后重试',

@@ -1,55 +1,57 @@
-# Fresns 微信小程序
+<p align="center"><a href="https://fresns.org" target="_blank"><img src="https://cdn.fresns.cn/images/logo.png" width="300"></a></p>
 
-## 全局功能说明
+<p align="center">
+<img src="https://img.shields.io/badge/Fresns-1.x-yellow" alt="Fresns">
+<img src="https://img.shields.io/badge/WeUI-2.5.0-brightgreen" alt="WeUI">
+<img src="https://img.shields.io/badge/FsUI-2.5.0-blue" alt="FsUI">
+<img src="https://img.shields.io/badge/License-Apache--2.0-green" alt="License">
+</p>
 
-- 全局根据用户微信设备的深色模式情况判断是否自动开启深色模式。
-- 全局可展示以下接口参数，每个页面都可以调用这四个接口返回的参数。
-    - /api/fresns/info/configs
-    - /api/fresns/info/overview
-    - /api/fresns/user/detail
-    - /api/fresns/member/detail
-- 配置信息 /api/fresns/info/configs 可用微信的数据预拉取，提前拉取存储。
-    - https://developers.weixin.qq.com/miniprogram/dev/framework/ability/pre-fetch.html
-- 成员、小组、话题、帖子、评论，三个内容的列表和详情页，都可以进行“点赞”、“关注”、“屏蔽”三项操作。
-- 全局判断站点模式，通过接口 `/api/fresns/info/configs` 获取，参数名 `site_mode`
-    - 公开模式，键值为 `public`，所有页面都可以浏览，涉及用户操作的，提示用户登录。
-    - 私有模式，键值为 `private`，所有页面都必须登录，并且用户需有权，未登录跳到登录页，已登录但无权，则跳到提示页。
-- 支持成员身份切换，相当于重新登录另一个成员身份。系统是单用户多成员机制，所有互动操作都是以成员身份进行的，用户登录后可以切换任意成员。
+## 介绍
 
-## 页面功能说明
+Fresns 是一款免费开源的社交网络服务软件，专为跨平台而打造的通用型社区产品，支持灵活多样的内容形态，可以满足多种运营场景，符合时代潮流，更开放且更易于二次开发。
 
-### 门户页面
+- [点击了解产品 16 个功能特色](https://fresns.org/guide/features.html)
+- 使用者请阅读[安装教程](https://fresns.org/guide/install.html)和[运营文档](https://fresns.org/operating/)；
+- 扩展插件开发者请阅读[扩展文档](https://fresns.org/extensions/)和[数据字典](https://fresns.org/database/)；
+- 客户端开发者（网站端、小程序、App）请阅读 [API 文档](https://fresns.org/api/)。
 
-- pages/portal/index
-    - 接口：`/api/fresns/info/configs`
-    - 传参：参数 itemKey 传配置键名 `portal_8`
-    - 将获取的内容，解析成 wxml 格式显示出来。
+## 免责申明
 
-### 列表页
+Fresns 是一款支持多语言和跨时区的免费开源软件，研发和生态建设以开源组织方式协作，我们不为任何运营主体提供技术背书，不参与任何项目运营，不承担任何法律责任。由于下载代码即可使用，所以我们无法得知你的用途，但是请在使用时遵守所在国家和地区的法律法规，禁止用于违法违规业务。
 
-- 参见网站端：[https://fresns.cn/prototype/theme/](https://fresns.cn/prototype/theme/)
-- 判断 `wechatadmin_videos` 键值，当为 `false` 时，帖子和评论列表附属文件如果是视频文件，则显示为提示内容（小程序已关闭视频功能）。
+## 技术框架
 
-### 详情页
+| 框架 | 版本 | 用途 |
+| --- | --- | --- |
+| [Fresns](https://github.com/fresns/fresns) | 1.x | 后端 API |
+| [WeUI](https://github.com/Tencent/weui-wxss) | 2.5.0 | 小程序 UI 框架 |
 
-- 成员
-    - `pages/profile/index?mname={{mname}}`
-    - `pages/profile/index?mid={{mid}}`
-    - 支持 mname 或 mid 值为请求路径，二选一。
-    - 首页默认列表取决于配置表 `it_home_list` 键名键值。
-- 小组
-    - pages/groups/detail?gid={{gid}}
-    - pages/groups/list?type=2&parentGid={{gid}}
-- 话题
-    - pages/hashtags/detail?huri={{huri}}
-- 帖子
-    - pages/posts/detail?pid={{pid}}
-    - pages/posts/position?pid={{pid}}
-- 评论
-    - pages/comments/detail?cid={{cid}}
+## 使用说明
 
-### 编辑器
+遵循 [Fresns 客户端设计理念](https://fresns.org/extensions/idea.html#%E5%AE%A2%E6%88%B7%E7%AB%AF)，小程序以结构化方式实现了全部功能，使用者可以根据自己的需求，自定义页面风格、交互体验、栏目命名、入口路径等，实现各自个性化的运营场景。
 
-- 编辑器逻辑流程：[https://fresns.cn/extensions/editor.html](https://fresns.cn/extensions/editor.html)
-- 添加位置功能，使用腾讯地图插件 [https://lbs.qq.com/miniProgram/plugin/pluginGuide/locationPicker](https://lbs.qq.com/miniProgram/plugin/pluginGuide/locationPicker)
-- map_id = 5
+- 1、下载[代码包](https://gitee.com/fresns/wechat/releases)；
+- 2、解压后使用[微信开发者工具](https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html)导入项目，项目名称和 AppID 填写你的小程序信息；
+- 3、将 `configs` 文件夹中的 `fresnsConfig.example.js` 文件名修改为 `fresnsConfig.js`，然后根据里面的描述填写你的配置信息；
+- 4、修改风格样式，或者使用第三方开发的风格样式覆盖原文件；
+- 5、使用[微信开发者工具](https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html)上传代码，提交到微信公众平台。
+
+## 加入我们
+
+Fresns 的开源社区正在急速增长中，如果你认可我们的开源软件，有兴趣为 Fresns 的发展做贡献，竭诚欢迎[加入我们](https://fresns.org/community/join.html)一起开发完善。无论是[报告错误](https://fresns.org/guide/feedback.html)或是 Pull Request 开发，那怕是修改一个错别字也是对我们莫大的帮助。
+
+贡献指南：[https://fresns.org/contributing/](https://fresns.org/contributing/)
+
+## 联系信息
+
+- 官方网站：[https://fresns.org](https://fresns.org/)
+- 项目发起人：[Jarvis Tang](https://tangjie.me/)
+- 电子邮箱：[jarvis.okay@gmail.com](mailto:jarvis.okay@gmail.com)
+- QQ 群：[5980111](https://qm.qq.com/cgi-bin/qm/qr?k=R2pfcPUd4Nyc87AKdkuHP9yJ0MhddUaz&jump_from=webapi)
+- Telegram 群：[https://t.me/fresns_zh](https://t.me/fresns_zh)
+- 微信群：[点击查看加群二维码](https://tangjie.me/media/wechat/fresns.jpg)
+
+## 许可协议
+
+Fresns 是根据 [Apache-2.0](https://opensource.org/licenses/Apache-2.0) 授权的开源软件。

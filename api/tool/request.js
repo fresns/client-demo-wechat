@@ -1,7 +1,30 @@
-import { globalInfo } from '../../handler/globalInfo'
+/*!
+ * Fresns 微信小程序 (https://fresns.org)
+ * Copyright 2021-Present Jarvis Tang
+ * Licensed under the Apache-2.0 license
+ */
+import { globalInfo } from '../../configs/fresnsGlobalInfo'
 import { navigateToSignin } from '../../util/navigateToSignin'
-import appConfig from '../../appConfig'
-import sign from './sign'
+import appConfig from '../../configs/fresnsConfig'
+import { getSign, sign } from './sign'
+
+const deviceInfoPaths = [
+  '/api/fresns/info/sendVerifyCode',
+  '/api/fresns/info/uploadLog',
+  '/api/fresns/info/downloadFile',
+  '/api/fresns/user/register',
+  '/api/fresns/user/login',
+  '/api/fresns/user/delete',
+  '/api/fresns/user/restore',
+  '/api/fresns/user/reset',
+  '/api/fresns/user/edit',
+  '/api/fresns/member/auth',
+  '/api/fresns/member/edit',
+  '/api/fresns/dialog/send',
+  '/api/fresns/editor/create',
+  '/api/fresns/editor/publish',
+  '/api/fresns/editor/submit',
+]
 
 export function request (options) {
   return new Promise(async (resolve, reject) => {
@@ -25,17 +48,26 @@ export function request (options) {
       globalInfo.uid && { uid: globalInfo.uid },
       globalInfo.mid && { mid: globalInfo.mid },
       globalInfo.token && { token: globalInfo.token },
-      globalInfo.deviceInfo && { deviceInfo: JSON.stringify(globalInfo.deviceInfo) },
+      globalInfo.deviceInfo && deviceInfoPaths.includes(options.url) && { deviceInfo: JSON.stringify(globalInfo.deviceInfo) },
     )
 
     wx.request({
       method: 'POST',
       header: Object.assign(header, {
-        sign: await sign(header, appConfig.appSecret),
+        sign: getSign(),
       }),
       url: appConfig.apiHost + url,
       data: data,
       success: res => {
+        if (res.statusCode !== 200) {
+          wx.showToast({
+            title: '接口请求异常',
+            icon: 'none',
+          })
+          reject(res)
+          return
+        }
+
         const { code, message } = res.data
 
         if (code !== 0) {
@@ -54,6 +86,10 @@ export function request (options) {
         resolve(res.data)
       },
       fail: (res) => {
+        wx.showToast({
+          title: '接口请求异常',
+          icon: 'none',
+        })
         reject(res)
       },
     })
@@ -94,14 +130,14 @@ export function uploadFile (filePath, options) {
       name: 'file',
       formData: data,
       success: res => {
-        if (res.data.code !== 0) {
-          // TODO 临时增加此处异常 code 的 toast 提示
+        const resData = JSON.parse(res.data)
+        if (resData.code !== 0) {
           wx.showToast({
-            title: res.data.message,
+            title: resData.message,
             icon: 'none',
           })
         }
-        resolve(res.data)
+        resolve(resData)
       },
       fail: (res) => {
         reject(res)

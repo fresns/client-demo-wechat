@@ -1,8 +1,9 @@
-<!--
-  Fresns 微信小程序 (https://fresns.cn)
-  Copyright 2021-Present 唐杰
-  Licensed under the Apache-2.0 license
--->
+<!-- *
+    Fresns 微信小程序 (https://fresns.org)
+    Copyright 2021-Present Jarvis Tang
+    Licensed under the Apache-2.0 license
+* -->
+<page-meta root-font-size="system"/>
 <view class="page" data-weui-theme="{{theme}}">
 
     <view class="weui-flex tab-navbar weui-navbar">
@@ -27,12 +28,11 @@
     </view>
 
     <view class="weui-panel weui-panel_access">
-        <view class="weui-panel__hd">小组分类 1</view>
         <view class="weui-panel__bd">
-            <group wx:for="{{groups}}" wx:for-item="group" wx:key="gid"
-                   group="{{group}}"></group>
+            <group wx:for="{{groups}}" wx:for-item="group" wx:key="gid" group="{{group}}"></group>
         </view>
     </view>
 
     <view class="copyright">Powered by Fresns</view>
+    <tabbar></tabbar>
 </view>

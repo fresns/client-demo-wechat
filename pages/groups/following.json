@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "我关注的小组",
   "usingComponents": {
+    "tabbar": "/components/tabbar/tabbar",
     "group": "/components/group/list"
   }
 }

@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "我关注的话题",
   "usingComponents": {
+    "tabbar": "/components/tabbar/tabbar",
     "hashtag": "/components/hashtag/list"
   }
 }

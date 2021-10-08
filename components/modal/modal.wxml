@@ -1,4 +1,0 @@
-<view class="modal">
-    <view class="modal-mask"></view>
-    <slot></slot>
-</view>

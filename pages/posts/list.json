@@ -1,6 +1,8 @@
 {
   "navigationBarTitleText": "帖子",
+  "enablePullDownRefresh": true,
   "usingComponents": {
+    "tabbar": "/components/tabbar/tabbar",
     "post": "/components/post/list",
     "post-list": "/components/post/content-list",
     "box-info": "/components/extend/box-info",

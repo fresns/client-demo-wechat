@@ -1,3 +1,8 @@
+/*!
+ * Fresns 微信小程序 (https://fresns.org)
+ * Copyright 2021-Present Jarvis Tang
+ * Licensed under the Apache-2.0 license
+ */
 const { request } = require('../tool/request')
 
 const message = {
@@ -68,9 +73,12 @@ const message = {
    * [通知]获取消息列表
    * @return {wx.RequestTask}
    */
-  notifyLists: () => {
+  notifyLists: (options) => {
     return request({
       url: '/api/fresns/notify/lists',
+      data: {
+        ...options
+      }
     })
   },
 }

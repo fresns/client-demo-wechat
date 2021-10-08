@@ -1,2 +1,5 @@
 <!--pages/user/wallet.wxml-->
-<text>pages/user/wallet.wxml</text>
+
+<block wx:for="{{walletLogs}}" wx:for-item="walletLog" wx:for-index="index" wx:key="index">
+    {{walletLog.amount}}
+</block>

@@ -1,10 +1,9 @@
-<!--
-  Fresns 微信小程序 (https://fresns.cn)
-  Copyright 2021-Present 唐杰
-  Licensed under the Apache-2.0 license
--->
-<import src="/template/tabbar.wxml"/>
-
+<!-- *
+    Fresns 微信小程序 (https://fresns.org)
+    Copyright 2021-Present Jarvis Tang
+    Licensed under the Apache-2.0 license
+* -->
+<page-meta root-font-size="system"/>
 <view class="page" data-weui-theme="{{theme}}">
 
     <view class="weui-flex tab-navbar weui-navbar">
@@ -34,7 +33,7 @@
                  comment="{{comment}}">
             <view wx:if="{{comment.commentSetting.list}}"
                   slot="previewComment">
-                <navigator class="content-comment" url="/pages/comments/detail">
+                <navigator class="content-comment" url="/pages/comments/detail?cid={{comment.cid}}">
                     <view class="preview-list"
                           wx:for="{{comment.commentSetting.list || []}}"
                           wx:for-item="childComment"
@@ -60,7 +59,7 @@
         <!--      <view slot="files" class="content-files">-->
         <!--        <a class="file-doc">-->
         <!--          <view class="doc-icon">-->
-        <!--            <image src="/assets/images/icons/file.png" class="weui-btn_cell__icon" mode="aspectFit"></image>-->
+        <!--            <image src="/assets/images/file.png" class="weui-btn_cell__icon" mode="aspectFit"></image>-->
         <!--          </view>-->
         <!--          <view class="doc-name">Fresns 免费开源的社交网络服务软件</view>-->
         <!--        </a>-->
@@ -69,7 +68,7 @@
         <!--    <comment generic:contentType="comment-list" fsui="list-style">-->
         <!--      <view slot="files" class="content-files">-->
         <!--        <view class="file-image-1">-->
-        <!--          <image src="https://fresns.cn/prototype/assets/images/temp/image.jpg" mode="widthFix" bindtap="ImageOpen">-->
+        <!--          <image src="https://fresns.org/prototype/assets/images/temp/image.jpg" mode="widthFix" bindtap="ImageOpen">-->
         <!--          </image>-->
         <!--        </view>-->
         <!--      </view>-->
@@ -80,11 +79,27 @@
     <view wx:if="{{imageGallery}}" class="weui-gallery fadeIn" bindtap="ImageClose">
         <view class="weui-gallery__info">1/9</view>
         <view class="weui-gallery__img__wrp">
-            <image mode="aspectFit" class="weui-gallery__img" src="https://fresns.cn/prototype/assets/images/temp/image.jpg">
+            <image mode="aspectFit" class="weui-gallery__img" src="https://fresns.org/prototype/assets/images/temp/image.jpg">
             </image>
         </view>
     </view>
 
+    <view wx:if="{{isShowShareChoose}}" class="fadeIn">
+        <view class="weui-mask"></view>
+        <view class="weui-actionsheet weui-actionsheet_toggle">
+            <view class="weui-actionsheet__title">
+                <view class="weui-actionsheet__title-text">分享选择</view>
+            </view>
+            <view class="weui-actionsheet__menu">
+                <button class="weui-actionsheet__cell" style="background: transparent;" open-type="share">分享给好友</button>
+                <view class="weui-actionsheet__cell" bind:tap="onClickCopyPath">复制网址</view>
+            </view>
+            <view class="weui-actionsheet__action" bindtap="onClickCancelShareChoose">
+                <view class="weui-actionsheet__cell">取消</view>
+            </view>
+        </view>
+    </view>
+
     <view class="copyright">Powered by Fresns</view>
-    <template is="tabbar"/>
+    <tabbar></tabbar>
 </view>

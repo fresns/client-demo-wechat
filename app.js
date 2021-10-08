@@ -1,11 +1,10 @@
 /*!
- * Fresns 微信小程序 (https://fresns.cn)
- * Copyright 2021-Present 唐杰
+ * Fresns 微信小程序 (https://fresns.org)
+ * Copyright 2021-Present Jarvis Tang
  * Licensed under the Apache-2.0 license
  */
-
 import './libs/Mixins'
-import { globalInfo } from './handler/globalInfo'
+import { globalInfo } from './configs/fresnsGlobalInfo'
 
 const themeListeners = []
 
@@ -15,6 +14,7 @@ App({
   },
   async onLaunch (options) {
     await globalInfo.init()
+    this.globalData.globalInfo = globalInfo
   },
   themeChanged (theme) {
     this.globalData.theme = theme

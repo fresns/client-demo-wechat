@@ -1,11 +1,10 @@
-<!--
-  Fresns 微信小程序 (https://fresns.cn)
-  Copyright 2021-Present 唐杰
-  Licensed under the Apache-2.0 license
--->
+<!-- *
+    Fresns 微信小程序 (https://fresns.org)
+    Copyright 2021-Present Jarvis Tang
+    Licensed under the Apache-2.0 license
+* -->
 <view class="content-detail">
-  <view class="fresns-content">
-    <view class="content-text">Fresns 是一款免费<navigator class="navigator-inline" url="/pages/hashtags/detail?hrui={{hrui}}">#开源</navigator> 的社交网络服务软件，专为跨平台而打造的通用型社区产品<image src="https://fresns.cn/prototype/assets/images/emoji/default/biggrin.gif" mode="heightFix"></image>，支持灵活多样的内容形态，可以满足多种运营场景，符合时代潮流，更开放且更易于二次开发。</view>
-    <view class="content-text">Fresns 是一款免费<navigator class="navigator-inline" url="/pages/hashtags/detail?hrui={{hrui}}">#开源</navigator> 的社交网络服务软件，专为跨平台而打造的通用型社区产品<image src="https://fresns.cn/prototype/assets/images/emoji/default/biggrin.gif" mode="heightFix"></image>，支持灵活多样的内容形态，可以满足多种运营场景，符合时代潮流，更开放且更易于二次开发。</view>
-  </view>
+    <view class="fresns-content">
+        <rich-text nodes="{{comment.content}}"></rich-text>
+    </view>
 </view>

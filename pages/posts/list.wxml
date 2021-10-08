@@ -1,10 +1,9 @@
-<!--
-  Fresns 微信小程序 (https://fresns.cn)
-  Copyright 2021-Present 唐杰
-  Licensed under the Apache-2.0 license
--->
-<import src="/template/tabbar.wxml"/>
-
+<!-- *
+    Fresns 微信小程序 (https://fresns.org)
+    Copyright 2021-Present Jarvis Tang
+    Licensed under the Apache-2.0 license
+* -->
+<page-meta root-font-size="system"/>
 <view class="page" data-weui-theme="{{theme}}">
 
     <view class="weui-flex tab-navbar weui-navbar">
@@ -57,7 +56,7 @@
     <!--          专为跨平台而打造的通用型社区产品，支持灵活多样的内容形态。-->
     <!--        </navigator>-->
     <!--        <view class="comment-image-1">-->
-    <!--          <image src="https://fresns.cn/prototype/assets/images/temp/image.jpg" mode="widthFix" bindtap="ImageOpen">-->
+    <!--          <image src="https://fresns.org/prototype/assets/images/temp/image.jpg" mode="widthFix" bindtap="ImageOpen">-->
     <!--          </image>-->
     <!--        </view>-->
     <!--      </view>-->
@@ -69,7 +68,7 @@
     <!--        <box-text>-->
     <!--          <view slot="files" class="content-files">-->
     <!--            <view class="file-image-1">-->
-    <!--              <image src="https://fresns.cn/prototype/assets/images/temp/image.jpg" mode="widthFix"></image>-->
+    <!--              <image src="https://fresns.org/prototype/assets/images/temp/image.jpg" mode="widthFix"></image>-->
     <!--            </view>-->
     <!--          </view>-->
     <!--        </box-text>-->
@@ -149,11 +148,11 @@
     <view wx:if="{{imageGallery}}" class="weui-gallery fadeIn" bindtap="ImageClose">
         <view class="weui-gallery__info">1/9</view>
         <view class="weui-gallery__img__wrp">
-            <image mode="aspectFit" class="weui-gallery__img" src="https://fresns.cn/prototype/assets/images/temp/image.jpg">
+            <image mode="aspectFit" class="weui-gallery__img" src="https://fresns.org/prototype/assets/images/temp/image.jpg">
             </image>
         </view>
     </view>
 
     <view class="copyright">Powered by Fresns</view>
-    <template is="tabbar"/>
+    <tabbar></tabbar>
 </view>

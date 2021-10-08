@@ -1,8 +1,9 @@
-<!--
-  Fresns 微信小程序 (https://fresns.cn)
-  Copyright 2021-Present 唐杰
-  Licensed under the Apache-2.0 license
--->
+<!-- *
+    Fresns 微信小程序 (https://fresns.org)
+    Copyright 2021-Present Jarvis Tang
+    Licensed under the Apache-2.0 license
+* -->
+<page-meta root-font-size="system"/>
 <view class="page" data-weui-theme="{{theme}}">
   <!--评论详情-->
   <comment generic:contentType="detail"></comment>
@@ -15,7 +16,7 @@
         <comment generic:contentType="comment-list" fsui="list-style">
           <view slot="replyTo" class="content-replyTo">
             <text>回复</text>
-            <navigator class="navigator-inline" url="/pages/profile/index">唐杰</navigator>:
+            <navigator class="navigator-inline" url="/pages/profile/index">Jarvis Tang</navigator>:
           </view>
         </comment>
       </view>
@@ -23,7 +24,7 @@
         <comment generic:contentType="comment-list" fsui="list-style">
           <view slot="files" class="content-files">
             <view class="file-image-1">
-              <image src="https://fresns.cn/prototype/assets/images/temp/image.jpg" mode="widthFix" bindtap="ImageOpen"></image>
+              <image src="https://fresns.org/prototype/assets/images/temp/image.jpg" mode="widthFix" bindtap="ImageOpen"></image>
             </view>
           </view>
         </comment>
@@ -45,9 +46,7 @@
       </view>
       <view class="reply_form_wrp">
         <label for="" class="reply_label">
-          <input class="reply_input fg-0" cursor-spacing="8px" confirm-type="send" confirm-hold value="{{comment}}"
-            cursor="{{cursor}}" focus="{{focus}}" bindblur="onBlur" bindfocus="onFocus" bindinput="onInput"
-            bindconfirm="onConfirm" />
+          <input class="reply_input fg-0" cursor-spacing="8px" confirm-type="send" confirm-hold value="{{comment}}" cursor="{{cursor}}" focus="{{focus}}" bindblur="onBlur" bindfocus="onFocus" bindinput="onInput" bindconfirm="onConfirm" />
         </label>
       </view>
       <view hover-class="active" class="reply_button replay_emotion_button" bindtap="showEmoji">
@@ -80,7 +79,7 @@
   <view wx:if="{{imageGallery}}" class="weui-gallery fadeIn" bindtap="ImageClose">
     <view class="weui-gallery__info">1/9</view>
       <view class="weui-gallery__img__wrp">
-        <image mode="aspectFit" class="weui-gallery__img" src="https://fresns.cn/prototype/assets/images/temp/image.jpg"></image>
+        <image mode="aspectFit" class="weui-gallery__img" src="https://fresns.org/prototype/assets/images/temp/image.jpg"></image>
     </view>
   </view>
 

@@ -1,11 +1,10 @@
-<!--
-  Fresns 微信小程序 (https://fresns.cn)
-  Copyright 2021-Present 唐杰
-  Licensed under the Apache-2.0 license
--->
-<import src="/template/tabbar.wxml"/>
-<wxs module="util" src="../util/util.wxs"></wxs>
-
+<!-- *
+    Fresns 微信小程序 (https://fresns.org)
+    Copyright 2021-Present Jarvis Tang
+    Licensed under the Apache-2.0 license
+* -->
+<page-meta root-font-size="system" />
+<wxs module="util" src="/util/interactive.wxs"></wxs>
 <view class="page" data-weui-theme="{{theme}}">
     <view class="weui-flex tab-navbar weui-navbar">
         <view class="weui-flex__item weui-navbar__item">
@@ -27,50 +26,36 @@
             <navigator url="/pages/members/blocking" open-type="redirect">我屏蔽</navigator>
         </view>
     </view>
-
-    <!--成员列表-->
+    <!-- 成员列表 -->
     <view wx:for="{{members}}" wx:for-index="idx" wx:for-item="member" wx:key="mid" class="member-list">
         <member member="{{member}}">
             <view slot="icons-body" class="member-icons weui-flex">
-                <image wx:for="{{member.icons}}" wx:for-item="iconItem" wx:key="icon" src="{{iconItem.icon}}" alt="{{iconItem.name}}"
-                       mode="heightFix">
-                </image>
+                <image wx:for="{{member.icons}}" wx:for-item="iconItem" wx:key="icon" src="{{iconItem.icon}}" alt="{{iconItem.name}}" mode="heightFix"></image>
             </view>
             <view slot="bio" class="member-bio">
-                <navigator url="/pages/profile/index?mid={{member.mid}}">{{member.bio || ''}}</navigator>
+                <navigator url="/pages/profile/index?mid={{member.mid}}">
+                    {{member.bio || ''}}
+                </navigator>
             </view>
             <view slot="btn" class="interactive-btn">
-                <a class="weui-btn weui-btn_mini {{member.likeStatus === 1 ? 'weui-btn_primary' : 'weui-btn_default'}}"
-                   data-member="{{member}}"
-                   bind:tap="onClickLike">
-                    <image wx:if="{{member.likeStatus === 1}}" class="weui-btn_cell__icon"
-                           src="/assets/images/icons/like-active.png"></image>
-                    <image wx:else class="weui-btn_cell__icon" src="/assets/images/icons/like.png"></image>
+                <view class="weui-btn weui-btn_mini {{member.likeStatus === 1 ? 'weui-btn_primary' : 'weui-btn_default'}}" data-member="{{member}}" bind:tap="onClickMemberLike">
+                    <image wx:if="{{member.likeStatus === 1}}" class="weui-btn_cell__icon" src="/assets/images/like-active.png"></image>
+                    <image wx:else class="weui-btn_cell__icon" src="/assets/images/like.png"></image>
                     {{util.formatNumber(member.stats.likeMemberCount)}}
-                </a>
-
-                <a class="weui-btn weui-btn_mini {{member.followStatus === 1 ? 'weui-btn_primary' : 'weui-btn_default'}}"
-                   data-member="{{member}}"
-                   bind:tap="onClickFollow">
-                    <image wx:if="{{member.followStatus === 1}}" class="weui-btn_cell__icon"
-                           src="/assets/images/icons/follow-active.png"></image>
-                    <image wx:elif="{{member.followStatus === 0}}" class="weui-btn_cell__icon"
-                           src="/assets/images/icons/follow.png"></image>
+                </view>
+                <view class="weui-btn weui-btn_mini {{member.followStatus === 1 ? 'weui-btn_primary' : 'weui-btn_default'}}" data-member="{{member}}" bind:tap="onClickFollow">
+                    <image wx:if="{{member.followStatus === 1}}" class="weui-btn_cell__icon" src="/assets/images/follow-active.png"></image>
+                    <image wx:elif="{{member.followStatus === 0}}" class="weui-btn_cell__icon" src="/assets/images/follow.png"></image>
                     {{util.formatNumber(member.stats.followMemberCount)}}
-                </a>
-
-                <a class="weui-btn weui-btn_mini {{member.shieldStatus === 1 ? 'weui-btn_primary' : 'weui-btn_default'}}"
-                   data-member="{{member}}"
-                   bind:tap="onClickBlock">
-                    <image wx:if="{{member.shieldStatus === 1}}" class="weui-btn_cell__icon"
-                           src="/assets/images/icons/shield-active.png"></image>
-                    <image wx:else class="weui-btn_cell__icon" src="/assets/images/icons/shield.png"></image>
+                </view>
+                <view class="weui-btn weui-btn_mini {{member.shieldStatus === 1 ? 'weui-btn_primary' : 'weui-btn_default'}}" data-member="{{member}}" bind:tap="onClickBlock">
+                    <image wx:if="{{member.shieldStatus === 1}}" class="weui-btn_cell__icon" src="/assets/images/shield-active.png"></image>
+                    <image wx:else class="weui-btn_cell__icon" src="/assets/images/shield.png"></image>
                     {{util.formatNumber(member.stats.shieldMemberCount)}}
-                </a>
+                </view>
             </view>
         </member>
     </view>
-
     <view class="copyright">Powered by Fresns</view>
-    <template is="tabbar"/>
+    <tabbar></tabbar>
 </view>

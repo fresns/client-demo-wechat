@@ -1,17 +1,16 @@
 /*!
- * Fresns 微信小程序 (https://fresns.cn)
- * Copyright 2021-Present 唐杰
+ * Fresns 微信小程序 (https://fresns.org)
+ * Copyright 2021-Present Jarvis Tang
  * Licensed under the Apache-2.0 license
  */
-
 import Api from '../../api/api'
-import { globalInfo } from '../../handler/globalInfo'
+import { globalInfo } from '../../configs/fresnsGlobalInfo'
 
 
 Page({
-  /** 外部 mixin 引入 **/
   mixins: [
-    require('../../mixin/themeChanged')
+    require('../../mixin/themeChanged'),
+    require('../../mixin/loginInterceptor')
   ],
   data: {
     // 当前页面数据

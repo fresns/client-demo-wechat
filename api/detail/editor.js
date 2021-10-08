@@ -1,5 +1,10 @@
+/*!
+ * Fresns 微信小程序 (https://fresns.org)
+ * Copyright 2021-Present Jarvis Tang
+ * Licensed under the Apache-2.0 license
+ */
 import { request, uploadFile } from '../tool/request'
-import appConfig from '../../appConfig'
+import appConfig from '../../configs/fresnsConfig'
 
 const editor = {
   /**
@@ -27,9 +32,12 @@ const editor = {
    * 快速发表
    * @return {wx.RequestTask}
    */
-  editorPublish: () => {
+  editorPublish: (options) => {
     return request({
       url: '/api/fresns/editor/publish',
+      data: {
+        ...options
+      }
     })
   },
   /**
@@ -93,9 +101,12 @@ const editor = {
    * 获取草稿详情
    * @return {wx.RequestTask}
    */
-  editorDetail: () => {
+  editorDetail: (options) => {
     return request({
       url: '/api/fresns/editor/detail',
+      data: {
+        ...options
+      }
     })
   },
   /**

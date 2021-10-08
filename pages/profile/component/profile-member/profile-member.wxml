@@ -1,15 +1,13 @@
-<!--
-  Fresns 微信小程序 (https://fresns.cn)
-  Copyright 2021-Present 唐杰
-  Licensed under the Apache-2.0 license
--->
-
+<!-- *
+    Fresns 微信小程序 (https://fresns.org)
+    Copyright 2021-Present Jarvis Tang
+    Licensed under the Apache-2.0 license
+* -->
 <view class="profile-header">
     <view class="weui-flex">
         <view class="profile-info">
             <view class="profile-avatar">
-                <image wx:if="{{member.decorate}}" src="{{member.decorate}}" class="avatar-decorate" mode="scaleToFill">
-                </image>
+                <image wx:if="{{member.decorate}}" src="{{member.decorate}}" class="avatar-decorate" mode="scaleToFill"></image>
                 <image wx:if="{{member.avatar}}" src="{{member.avatar}}" class="avatar-img" mode="scaleToFill"></image>
             </view>
             <view class="profile-name">
@@ -19,15 +17,15 @@
         </view>
         <view class="weui-flex__item profile-btn">
             <a class="weui-btn weui-btn_mini weui-btn_default">
-                <image class="weui-btn_cell__icon" src="/assets/images/icons/like.png"></image>
+                <image class="weui-btn_cell__icon" src="/assets/images/like.png"></image>
                 点赞
             </a>
             <a class="weui-btn weui-btn_mini weui-btn_primary">
-                <image class="weui-btn_cell__icon" src="/assets/images/icons/follow-active.png"></image>
+                <image class="weui-btn_cell__icon" src="/assets/images/follow-active.png"></image>
                 已关注
             </a>
             <a class="weui-btn weui-btn_mini weui-btn_default">
-                <image class="weui-btn_cell__icon" src="/assets/images/icons/shield.png"></image>
+                <image class="weui-btn_cell__icon" src="/assets/images/shield.png"></image>
                 屏蔽
             </a>
         </view>
@@ -35,7 +33,11 @@
     <view class="profile-bio">{{member.bio}}</view>
     <view class="weui-media-box__info">
         <view class="weui-media-box__info__meta">{{member.likeMeCount}} 点赞</view>
-        <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{member.followMeCount}} 关注者</view>
-        <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{member.followMemberCount}} 正在关注</view>
+        <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">
+            {{member.followMeCount}} 关注者
+        </view>
+        <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">
+            {{member.followMemberCount}} 正在关注
+        </view>
     </view>
 </view>

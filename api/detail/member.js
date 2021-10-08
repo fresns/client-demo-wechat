@@ -1,3 +1,8 @@
+/*!
+ * Fresns 微信小程序 (https://fresns.org)
+ * Copyright 2021-Present Jarvis Tang
+ * Licensed under the Apache-2.0 license
+ */
 const { request } = require('../tool/request')
 
 const member = {
@@ -83,9 +88,12 @@ const member = {
    * 修改成员资料
    * @return {wx.RequestTask}
    */
-  memberEdit: () => {
+  memberEdit: (options) => {
     return request({
       url: '/api/fresns/member/edit',
+      data: {
+        ...options
+      }
     })
   },
   /**

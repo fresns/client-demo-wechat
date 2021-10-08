@@ -1,3 +1,0 @@
-<checkbox-group class="editor-anonymous" bindchange="bindSwitchAnonymous">
-    <checkbox value="anonymous"></checkbox>开启匿名
-</checkbox-group>

@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "关注对象的所有帖子",
   "usingComponents": {
+    "tabbar": "/components/tabbar/tabbar",
     "post": "/components/post/list",
     "post-list": "/components/post/content-list",
     "box-info": "/components/extend/box-info",

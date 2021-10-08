@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "我点赞的成员",
   "usingComponents": {
+    "tabbar": "/components/tabbar/tabbar",
     "member": "/components/member/list"
   }
 }

@@ -1,10 +1,13 @@
+/*!
+ * Fresns 微信小程序 (https://fresns.org)
+ * Copyright 2021-Present Jarvis Tang
+ * Licensed under the Apache-2.0 license
+ */
 const Api = require('../api')
 
 export const getConfigItemByItemKey = async (itemKey) => {
   const result = await Api.info.infoConfigs({
-    data: {
-      itemKey: itemKey,
-    },
+    itemKey: itemKey,
   })
   if (result.code === 0 && result.data.list.length > 0) {
     return result.data.list[0]
@@ -24,9 +27,7 @@ export const getConfigItemValue = async (itemKey) => {
 
 export const getConfigsByItemTag = async (itemTag) => {
   const result = await Api.info.infoConfigs({
-    data: {
-      itemTag: itemTag,
-    },
+    itemTag: itemTag,
   })
 
   if (result.code === 0) {

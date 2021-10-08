@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "门户",
-  "usingComponents": {}
+  "usingComponents": {
+    "tabbar": "/components/tabbar/tabbar"
+  }
 }

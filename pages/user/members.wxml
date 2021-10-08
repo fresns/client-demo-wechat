@@ -1,22 +1,21 @@
-<!--
-  Fresns 微信小程序 (https://fresns.cn)
-  Copyright 2021-Present 唐杰
-  Licensed under the Apache-2.0 license
--->
-
+<!-- *
+    Fresns 微信小程序 (https://fresns.org)
+    Copyright 2021-Present Jarvis Tang
+    Licensed under the Apache-2.0 license
+* -->
+<page-meta root-font-size="system" />
 <view class="page" data-weui-theme="{{theme}}">
     <view class="weui-cells__title">选择成员</view>
     <view class="weui-cells weui-cells_after-title">
-        <view wx:for="{{members}}" wx:for-item="member" wx:key="mid"
-              class="weui-cell weui-cell_access" hover-class="weui-cell_active"
-              data-member="{{member}}" bind:tap="selectUserMember">
+        <view wx:for="{{members}}" wx:for-item="member" wx:key="mid" class="weui-cell weui-cell_access" hover-class="weui-cell_active" data-member="{{member}}" bind:tap="selectUserMember">
             <view class="weui-cell__hd">
                 <image src="{{member.avatar}}"></image>
             </view>
             <view class="weui-cell__bd">{{member.mname}}</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access">{{member.password ? '有密码' : '无密码'}}</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access">
+                {{member.password ? '有密码' : '无密码'}}
+            </view>
         </view>
     </view>
-
     <view class="copyright">Powered by Fresns</view>
 </view>

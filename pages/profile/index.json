@@ -10,6 +10,7 @@
     "comment-list": "/components/comment/content-list",
     "box-info": "/components/extend/box-info",
     "box-text": "/components/extend/box-text",
-    "profile-member": "./component/profile-member/profile-member"
+    "profile-member": "./component/profile-member/profile-member",
+    "profile-switch": "/pages/profile/component/profile-switch/profile-switch"
   }
 }

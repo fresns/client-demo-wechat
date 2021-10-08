@@ -1,0 +1,36 @@
+<!-- *
+    Fresns 微信小程序 (https://fresns.org)
+    Copyright 2021-Present Jarvis Tang
+    Licensed under the Apache-2.0 license
+* -->
+<view class="weui-form-preview">
+    <view class="weui-form-preview__hd" aria-role="option">
+        <view class="weui-form-preview__item">
+            <label class="weui-form-preview__label">发表限制提醒：</label>
+        </view>
+    </view>
+    <view aria-labelledby="p1 js_a11y_comma p2 js_a11y_comma p3" class="weui-form-preview__bd" aria-role="option">
+        <view id="p1" class="weui-form-preview__item">
+            <label class="weui-form-preview__label">限制类型</label>
+            <text class="weui-form-preview__value" wx:if="{{globalLimit.limitType===1}}">全天限制</text>
+            <text class="weui-form-preview__value" wx:if="{{globalLimit.limitType===2}}">时段限制</text>
+        </view>
+        <view id="p2" class="weui-form-preview__item">
+            <label class="weui-form-preview__label">日期范围</label>
+            <text class="weui-form-preview__value">
+                {{globalLimit.limitTimeStart}} - {{globalLimit.limitTimeEnd}}
+            </text>
+        </view>
+        <view id="p3" class="weui-form-preview__item">
+            <label class="weui-form-preview__label">限制规则</label>
+            <text class="weui-form-preview__value" wx:if="{{globalLimit.limitRule===1}}">
+                可以发表，但是需要审核
+            </text>
+            <text class="weui-form-preview__value" wx:if="{{globalLimit.limitRule===2}}">禁止发表</text>
+        </view>
+        <view id="p3" class="weui-form-preview__item">
+            <label class="weui-form-preview__label">限制说明</label>
+            <text class="weui-form-preview__value">{{globalLimit.limitPrompt}}</text>
+        </view>
+    </view>
+</view>

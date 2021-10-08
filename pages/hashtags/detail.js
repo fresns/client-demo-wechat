@@ -1,24 +1,47 @@
 /*!
- * Fresns 微信小程序 (https://fresns.cn)
- * Copyright 2021-Present 唐杰
+ * Fresns 微信小程序 (https://fresns.org)
+ * Copyright 2021-Present Jarvis Tang
  * Licensed under the Apache-2.0 license
  */
+import Api from '../../api/api'
 
 Page({
-  /** 外部 mixin 引入 **/
   mixins: [
-    require('../../mixin/themeChanged')
+    require('../../mixin/themeChanged'),
+    require('../../mixin/handler/hashtagHandler')
   ],
-  /** 右上角菜单-分享给好友 **/
-  onShareAppMessage: function () {
-    return {
-      title: '话题名'
+  data: {
+    hashtags: [],
+    posts: [],
+  },
+  onLoad: async function (options) {
+    const { huri } = options
+    const hashtagsDetailRes = await Api.content.hashtagDetail({
+      huri: huri,
+    })
+    if (hashtagsDetailRes.code === 0) {
+      this.setData({
+        hashtags: [hashtagsDetailRes.data.detail],
+      })
+    }
+
+    const postListRes = await Api.content.postLists({
+      searchHuri: huri,
+    })
+    if (postListRes.code === 0) {
+      this.setData({
+        posts: postListRes.data.list,
+      })
     }
   },
-  /** 右上角菜单-分享到朋友圈 **/
+  onShareAppMessage: function () {
+    return {
+      title: '话题名',
+    }
+  },
   onShareTimeline: function () {
     return {
-      title: '话题名'
+      title: '话题名',
     }
   },
 })

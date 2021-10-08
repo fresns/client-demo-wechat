@@ -1,3 +1,8 @@
+/*!
+ * Fresns 微信小程序 (https://fresns.org)
+ * Copyright 2021-Present Jarvis Tang
+ * Licensed under the Apache-2.0 license
+ */
 const { request } = require('../tool/request')
 
 const content = {
@@ -5,9 +10,12 @@ const content = {
    * 获取评论[单条]
    * @return {wx.RequestTask}
    */
-  commentDetail: () => {
+  commentDetail: (options) => {
     return request({
       url: '/api/fresns/comment/detail',
+      data: {
+        ...options,
+      },
     })
   },
   /**
@@ -18,8 +26,8 @@ const content = {
     return request({
       url: '/api/fresns/comment/lists',
       data: {
-        ...options
-      }
+        ...options,
+      },
     })
   },
   /**
@@ -57,9 +65,12 @@ const content = {
    * 获取帖子[单条]
    * @return {wx.RequestTask}
    */
-  postDetail: () => {
+  postDetail: (options) => {
     return request({
       url: '/api/fresns/post/detail',
+      data: {
+        ...options,
+      },
     })
   },
   /**
@@ -70,17 +81,20 @@ const content = {
     return request({
       url: '/api/fresns/post/lists',
       data: {
-        ...options
-      }
+        ...options,
+      },
     })
   },
   /**
    * 获取话题[单条]
    * @return {wx.RequestTask}
    */
-  hashtagDetail: () => {
+  hashtagDetail: (options) => {
     return request({
       url: '/api/fresns/hashtag/detail',
+      data: {
+        ...options,
+      },
     })
   },
   /**
@@ -91,17 +105,20 @@ const content = {
     return request({
       url: '/api/fresns/hashtag/lists',
       data: {
-        ...options
-      }
+        ...options,
+      },
     })
   },
   /**
    * 获取小组[单条]
    * @return {wx.RequestTask}
    */
-  groupDetail: () => {
+  groupDetail: (options) => {
     return request({
       url: '/api/fresns/group/detail',
+      data: {
+        ...options,
+      },
     })
   },
   /**

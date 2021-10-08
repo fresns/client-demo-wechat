@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "tabs": "/components/weui/tabs/index"
+  }
+}

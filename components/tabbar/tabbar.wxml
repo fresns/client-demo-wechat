@@ -1,0 +1,16 @@
+<!-- *
+    Fresns 微信小程序 (https://fresns.org)
+    Copyright 2021-Present Jarvis Tang
+    Licensed under the Apache-2.0 license
+* -->
+<view class="weui-tabbar">
+    <block wx:for="{{tabs}}" wx:for-item="tab" wx:for-index="index" wx:key="text">
+        <navigator url="{{tab.route}}" open-type="reLaunch" class="weui-tabbar__item {{curRoute === tab.route ? 'weui-bar__item_on': ''}}">
+            <view class="tabbar_icon">
+                <image src="{{curRoute === tab.route ? tab.selectedIconPath : tab.iconPath}}" class="weui-tabbar__icon"></image>
+                <text wx:if="{{tab.badge}}" class="weui-badge weui-badge_dot">{{tab.badge}}</text>
+            </view>
+            <view class="weui-tabbar__label">{{tab.text}}</view>
+        </navigator>
+    </block>
+</view>

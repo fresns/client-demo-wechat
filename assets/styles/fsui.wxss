@@ -1,9 +1,8 @@
 /*!
- * FsUI v1.0.0 (https://fresns.cn)
- * Copyright 2021-Present 唐杰
+ * FsUI v1.0.0 (https://fresns.org)
+ * Copyright 2021-Present Jarvis Tang
  * Licensed under the Apache-2.0 license
  */
-
 /* basis */
 .clearfix {display:block;overflow:hidden;}
 .navigator-inline {display:inline;color:var(--weui-BLUE);z-index:99;}
@@ -102,6 +101,10 @@
   color: var(--weui-FG-0);
 }
 
+.member-info .member-verified {
+  margin-right: -6px;
+}
+
 .member-info .member-verified image {
   height: 18px;
   margin: 0 4px;
@@ -109,6 +112,8 @@
 }
 
 .member-info .member-name {
+  margin-left: 8px;
+  margin-top: 2px;
   font-size: 15px;
   color: var(--weui-FG-1);
 }
@@ -278,7 +283,6 @@
 
 .content-title {
   font-weight: bolder;
-  margin-top: 8px;
 }
 
 .content-text,.content-brief {

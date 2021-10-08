@@ -1,0 +1,22 @@
+/*!
+ * Fresns 微信小程序 (https://fresns.org)
+ * Copyright 2021-Present Jarvis Tang
+ * Licensed under the Apache-2.0 license
+ */
+@import "/assets/styles/weui.wxss";
+@import "/assets/styles/fsui.wxss";
+
+.editor-draft-selector {
+
+}
+
+.editor-draft-selector .choose-draft-content {
+    position: fixed;
+    background: #FFF;
+    z-index: 1;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+

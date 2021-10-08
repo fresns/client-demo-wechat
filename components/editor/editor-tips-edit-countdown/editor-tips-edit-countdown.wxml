@@ -1,0 +1,9 @@
+<!-- *
+    Fresns 微信小程序 (https://fresns.org)
+    Copyright 2021-Present Jarvis Tang
+    Licensed under the Apache-2.0 license
+* -->
+<view class="editor-countdown">
+    <view class="countdown-tips">内容发表成功后，仅限 5 分钟内可以编辑，超时后不可再编辑，但可以删除。</view>
+    <text class="countdown-number">剩余时间：03:01</text>
+</view>

@@ -1,19 +1,16 @@
 /*!
- * Fresns 微信小程序 (https://fresns.cn)
- * Copyright 2021-Present 唐杰
+ * Fresns 微信小程序 (https://fresns.org)
+ * Copyright 2021-Present Jarvis Tang
  * Licensed under the Apache-2.0 license
  */
-
 import Api from '../../api/api'
 import { getConfigItemValue } from '../../api/tool/replace-key'
 
 Page({
-  /** 外部 mixin 引入 **/
   mixins: [
     require('../../mixin/themeChanged'),
-    require('./mixin/groupHandler')
+    require('../../mixin/handler/groupHandler'),
   ],
-  /** 页面数据 **/
   data: {
     vtabs: [],
     activeTab: 0,
@@ -21,17 +18,13 @@ Page({
     // 配置数据库中的请求体
     requestBody: null,
     // 当前页面数据
-    groups: [],
+    groupCategories: [],
     // 下次请求时候的页码，初始值为 1
     page: 1,
     // 页面是否到底
     isReachBottom: false,
   },
   async onLoad () {
-    const titles = ['推荐小组', '小组分类 1', '小组分类 2', '小组分类 3', '小组分类 4', '小组分类 5']
-    const vtabs = titles.map(item => ({ title: item }))
-    this.setData({ vtabs })
-
     this.data.requestBody = await getConfigItemValue('menu_group_config')
     await this._loadCurPageData()
   },
@@ -46,20 +39,18 @@ Page({
 
     if (resultRes.code === 0) {
       const { pagination, list } = resultRes.data
+      const target = this.data.groupCategories.concat(list).map(groupCategory => {
+        groupCategory.tGroups = groupCategory.groups.slice(0, 10)
+        return groupCategory
+      })
       this.setData({
-        groups: this.data.groups.concat(list),
+        groupCategories: target,
+        vtabs: target.map(category => ({ title: category.gname || '默认分类' })),
         page: this.data.page + 1,
         isReachBottom: pagination.current === pagination.lastPage,
       })
     }
-  },
-  onTabCLick (e) {
-    const index = e.detail.index
-    console.log('tabClick', index)
-  },
-  onChange (e) {
-    const index = e.detail.index
-    console.log('change', index)
+
   },
   onReachBottom: async function () {
     await this._loadCurPageData()

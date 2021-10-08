@@ -1,3 +1,8 @@
+/*!
+ * Fresns 微信小程序 (https://fresns.org)
+ * Copyright 2021-Present Jarvis Tang
+ * Licensed under the Apache-2.0 license
+ */
 import { request } from '../tool/request'
 
 const user = {
@@ -5,18 +10,24 @@ const user = {
    * 钱包交易记录
    * @return {wx.RequestTask}
    */
-  userWalletLogs: () => {
+  userWalletLogs: (options) => {
     return request({
       url: '/api/fresns/user/walletLogs',
+      data: {
+        ...options
+      }
     })
   },
   /**
    * 修改用户资料
    * @return {wx.RequestTask}
    */
-  userEdit: () => {
+  userEdit: (options) => {
     return request({
       url: '/api/fresns/user/edit',
+      data: {
+        ...options
+      }
     })
   },
   /**
@@ -80,9 +91,12 @@ const user = {
    * 注册
    * @return {wx.RequestTask}
    */
-  userRegister: () => {
+  userRegister: (options) => {
     return request({
       url: '/api/fresns/user/register',
+      data: {
+        ...options
+      }
     })
   },
 }

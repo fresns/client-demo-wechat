@@ -1,0 +1,11 @@
+<!-- *
+    Fresns 微信小程序 (https://fresns.org)
+    Copyright 2021-Present Jarvis Tang
+    Licensed under the Apache-2.0 license
+* -->
+<view class="weui-cell weui-cell_active">
+    <view class="weui-cell__bd">
+        <input class="weui-input" value="{{title}}" bindinput="bindInput" placeholder-class="weui-input__placeholder" wx:if="{{isRequired === true}}" placeholder="标题（必填）" />
+        <input class="weui-input" value="{{title}}" bindinput="bindInput" placeholder-class="weui-input__placeholder" wx:if="{{isRequired === false}}" placeholder="标题（可以留空）" />
+    </view>
+</view>

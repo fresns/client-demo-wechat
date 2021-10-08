@@ -1,5 +1,0 @@
-<view>
-    <input value="{{title}}"
-           placeholder="此处输入标题"
-           bindinput="bindInput"></input>
-</view>

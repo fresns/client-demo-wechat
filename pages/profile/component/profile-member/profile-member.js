@@ -5,13 +5,11 @@ Component({
   data: {},
   lifetimes: {
     attached () {
-      console.log('profile-member,', this.data)
     },
   },
   methods: {},
   observers: {
     member: function (member) {
-      console.log('observer member', member)
     }
   }
 })

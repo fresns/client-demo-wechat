@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "我关注的评论",
   "usingComponents": {
+    "tabbar": "/components/tabbar/tabbar",
     "comment": "/components/comment/list",
     "comment-list": "/components/comment/content-list",
     "box-info": "/components/extend/box-info",

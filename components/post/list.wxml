@@ -1,28 +1,66 @@
-<!--
-  Fresns 微信小程序 (https://fresns.cn)
-  Copyright 2021-Present 唐杰
-  Licensed under the Apache-2.0 license
--->
+<!-- *
+    Fresns 微信小程序 (https://fresns.org)
+    Copyright 2021-Present Jarvis Tang
+    Licensed under the Apache-2.0 license
+* -->
 <view class="card">
     <view class="card-header">
         <!--成员信息-->
-        <member member="{{post.member}}">
-            <view slot="icons-header" class="member-icons weui-flex">
-                <image src="https://fresns.cn/prototype/assets/images/temp/member-icon.png" mode="heightFix"></image>
+        <member member="{{post.member}}" wx:if="{{post.member.deactivate === false && post.member.anonymous === 0}}">
+            <view slot="icons-header" class="member-icons weui-flex" wx:if="{{post.member.icons}}">
+                <image wx:for="{{post.member.icons}}" wx:for-item="iconItem" wx:key="icon" src="{{iconItem.icon}}" alt="{{iconItem.name}}" mode="heightFix"></image>
             </view>
             <view slot="interactive" class="weui-flex">
                 <view class="content-time">{{post.timeFormat}}</view>
-                <view class="content-location">
+                <view class="content-location" wx:if="{{post.location.isLbs === 1}}">
                     <navigator url="/pages/posts/position?pid={{pid}}">
-                        <image class="weui-btn_cell__icon" src="/assets/images/icons/location.png"></image>上海虹桥国际机场
+                        <image class="weui-btn_cell__icon" src="/assets/images/location.png"></image>{{post.location.poi}}
                     </navigator>
                 </view>
             </view>
         </member>
+        <!--匿名成员信息-->
+        <view class="weui-flex" wx:if="{{post.member.deactivate === false && post.member.anonymous === 1}}">
+            <view class="member-avatar">
+                <image src="{{post.member.avatar}}" class="avatar-img" mode="scaleToFill"></image>
+            </view>
+            <view class="weui-flex__item">
+                <view class="member-info weui-flex">
+                    <view class="member-nickname">匿名者</view>
+                </view>
+                <view slot="interactive" class="weui-flex">
+                    <view class="content-time">{{post.timeFormat}}</view>
+                    <view class="content-location" wx:if="{{post.location.isLbs === 1}}">
+                        <navigator url="/pages/posts/position?pid={{pid}}">
+                            <image class="weui-btn_cell__icon" src="/assets/images/location.png"></image>{{post.location.poi}}
+                        </navigator>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <!--注销的成员信息-->
+        <view class="weui-flex" wx:if="{{post.member.deactivate === true}}">
+            <view class="member-avatar">
+                <image src="{{post.member.avatar}}" class="avatar-img" mode="scaleToFill"></image>
+            </view>
+            <view class="weui-flex__item">
+                <view class="member-info weui-flex">
+                    <view class="member-nickname">账号已注销</view>
+                </view>
+                <view slot="interactive" class="weui-flex">
+                    <view class="content-time">{{post.timeFormat}}</view>
+                    <view class="content-location" wx:if="{{post.location.isLbs == 1}}">
+                        <navigator url="/pages/posts/position?pid={{pid}}">
+                            <image class="weui-btn_cell__icon" src="/assets/images/location.png"></image>{{post.location.poi}}
+                        </navigator>
+                    </view>
+                </view>
+            </view>
+        </view>
     </view>
     <!--角标-->
-    <view class="card-label">
-        <image src="https://fresns.cn/prototype/assets/images/temp/label.png" mode="aspectFit"></image>
+    <view class="card-label" wx:if="{{post.icons.name.label}}">
+        <image src="https://fresns.org/prototype/assets/images/temp/label.png" mode="aspectFit"></image>
     </view>
     <view class="card-body ^{{fsui}}">
         <!--扩展内容-->
@@ -37,15 +75,15 @@
         <slot name="extend-bottom"></slot>
         <!--附属信息-->
         <view class="content-append clearfix">
-            <!-- FIXME 未找到 gid 获取方式 -->
-            <navigator class="content-group float-left" url="/pages/groups/detail?gid={{gid}}">
-                <image src="https://fresns.cn/prototype/assets/images/temp/placeholder_icon.png" class="group-icon" mode="aspectFit"></image>
-                小组名
+            <!-- 小组信息 -->
+            <navigator class="content-group float-left" url="/pages/groups/detail?gid={{post.group.gid}}" wx:if="{{post.group.gid}}">
+                <image wx:if="{{post.group.cover}}" src="{{post.group.cover}}" class="group-icon" mode="aspectFit"></image>
+                {{post.group.gname}}
             </navigator>
-            <!-- FIXME 此处跳转 url 从何获取 -->
-            <navigator class="content-members float-end" url="/pages/webview?url=https://tangjie.me/about">
-                打赏成员
-                <text class="weui-badge">12</text>
+            <!-- 特殊成员 -->
+            <navigator wx:if="{{post.memberListStatus == 1}}" class="content-members float-end" url="/pages/webview?url={{post.memberListUrl}}">
+                {{post.memberListName}}
+                <text wx:if="{{post.memberListCount}}" class="weui-badge">{{post.memberListCount}}</text>
             </navigator>
         </view>
         <!--一条热评-->
@@ -55,27 +93,36 @@
         <!--功能按钮-->
         <view class="weui-flex">
             <view class="weui-flex__item">
-                <a class="fs_btn" bindtap="thread_like">
-                    <image src="/assets/images/icons/default_like.png" class="card-footer-icon" mode="aspectFit"></image>
-                    <text class="card-footer-text">10</text>
-                </a>
+                <view wx:if="{{post.likeStatus === 0}}" class="fs_btn" bindtap="onClickPostLike">
+                    <image src="/assets/images/content_like.png" class="card-footer-icon" mode="aspectFit"></image>
+                    <text class="card-footer-text">{{post.likeCount}}</text>
+                </view>
+                <view wx:if="{{post.likeStatus === 1}}" class="fs_btn" bindtap="onClickPostLike">
+                    <image src="/assets/images/content_like_active.png" class="card-footer-icon" mode="aspectFit"></image>
+                    <text class="card-footer-text">{{post.likeCount}}</text>
+                </view>
             </view>
             <view class="weui-flex__item">
-                <a class="fs_btn" bindtap="thread_comment">
-                    <image src="/assets/images/icons/default_comment.png" class="card-footer-icon" mode="aspectFit"></image>
-                    <text class="card-footer-text">3</text>
-                </a>
+                <view class="fs_btn" bindtap="onClickComment">
+                    <image src="/assets/images/content_comment.png" class="card-footer-icon" mode="aspectFit"></image>
+                    <text class="card-footer-text">{{post.commentCount}}</text>
+                </view>
             </view>
             <view class="weui-flex__item">
-                <a class="fs_btn" bindtap="thread_share">
-                    <image src="/assets/images/icons/default_share.png" class="card-footer-icon" mode="aspectFit"></image>
-                </a>
+                <view class="fs_btn" bindtap="onClickShare">
+                    <image src="/assets/images/content_share.png" class="card-footer-icon" mode="aspectFit"></image>
+                </view>
             </view>
+            <!-- <view class="weui-flex__item">
+                <view class="fs_btn" data-post="{{post}}" bind:tap="onClickCreateComment">
+                    <text>评论</text>
+                </view>
+            </view> -->
             <view class="weui-flex__item"></view>
-            <view class="item_more" bindtap="thread_more">
-                <a class="fs_btn" bindtap="thread_more">
-                    <image src="/assets/images/icons/default_more.png" class="card-footer-icon" mode="aspectFit"></image>
-                </a>
+            <view class="item_more">
+                <view class="fs_btn" data-post="{{post}}" bind:tap="onClickModifyPost">
+                    <image src="/assets/images/content_more.png" class="card-footer-icon" mode="aspectFit"></image>
+                </view>
             </view>
         </view>
     </view>

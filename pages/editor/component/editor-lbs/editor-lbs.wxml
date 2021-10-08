@@ -1,4 +1,0 @@
-<view class="editor-lbs">
-    <view wx:if="{{location}}">{{address}}</view>
-    <view class="add-location" wx:else bind:tap="handleClickAddLocation">添加位置</view>
-</view>

@@ -1,18 +1,16 @@
 /*!
- * Fresns 微信小程序 (https://fresns.cn)
- * Copyright 2021-Present 唐杰
+ * Fresns 微信小程序 (https://fresns.org)
+ * Copyright 2021-Present Jarvis Tang
  * Licensed under the Apache-2.0 license
- */
-import { globalInfo } from '../../handler/globalInfo'
-
-const Api = require('../../api/api')
+ */import Api from '../../api/api'
+import { globalInfo } from '../../configs/fresnsGlobalInfo'
 
 Page({
-  /** 外部 mixin 引入 **/
   mixins: [
     require('../../mixin/themeChanged'),
     require('../../mixin/imageGallery'),
-    require('./mixin/commentHandler')
+    require('../../mixin/loginInterceptor'),
+    require('../../mixin/handler/commentHandler'),
   ],
   data: {
     // 当前页面数据
@@ -34,7 +32,7 @@ Page({
       viewMid: globalInfo.currentMemberId,
       viewType: 2,
       viewTarget: 5,
-      page: this.data.page
+      page: this.data.page,
     })
 
     if (resultRes.code === 0) {

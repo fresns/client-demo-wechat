@@ -1,10 +1,9 @@
-<!--
-  Fresns 微信小程序 (https://fresns.cn)
-  Copyright 2021-Present 唐杰
-  Licensed under the Apache-2.0 license
--->
-<import src="/template/tabbar.wxml" />
-
+<!-- *
+    Fresns 微信小程序 (https://fresns.org)
+    Copyright 2021-Present Jarvis Tang
+    Licensed under the Apache-2.0 license
+* -->
+<page-meta root-font-size="system"/>
 <view class="page" data-weui-theme="{{theme}}">
 
   <view class="weui-flex tab-navbar weui-navbar">
@@ -32,8 +31,8 @@
   <view class="post-list">
     <post generic:contentType="list" fsui="list-style">
       <view class="file-video">
-        <image src="https://fresns.cn/prototype/assets/images/temp/video.gif" class="video_gif" mode="widthFix"></image>
-        <a class="weui-btn weui-btn_mini weui-btn_default"><image src="/assets/images/icons/play.png" class="weui-btn_cell__icon" mode="aspectFit"></image></a>
+        <image src="https://fresns.org/prototype/assets/images/temp/video.gif" class="video_gif" mode="widthFix"></image>
+        <a class="weui-btn weui-btn_mini weui-btn_default"><image src="/assets/images/play.png" class="weui-btn_cell__icon" mode="aspectFit"></image></a>
       </view>
     </post>
     <post generic:contentType="list" fsui="list-style"></post>

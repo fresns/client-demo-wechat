@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "小组分类名",
   "usingComponents": {
+    "tabbar": "/components/tabbar/tabbar",
     "group": "/components/group/list"
   }
 }

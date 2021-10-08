@@ -1,101 +1,19 @@
-<!--
-  Fresns 微信小程序 (https://fresns.cn)
-  Copyright 2021-Present 唐杰
-  Licensed under the Apache-2.0 license
--->
-<import src="/template/member.wxml" />
+<!-- *
+    Fresns 微信小程序 (https://fresns.org)
+    Copyright 2021-Present Jarvis Tang
+    Licensed under the Apache-2.0 license
+* -->
+<page-meta root-font-size="system"/>
 <view class="page" data-weui-theme="{{theme}}">
-  <template is="profile" />
+    <profile-member member="{{curMember}}"/>
 
-  <view class="weui-flex tab-navbar weui-navbar">
-    <view class="weui-flex__item weui-navbar__item">
-      <view class="profile-tab-text">TA 点赞的</view>
-    </view>
-    <view class="weui-flex__item weui-navbar__item">
-      <navigator url="/pages/profile/likes_members" open-type="redirect">成员</navigator>
-    </view>
-    <view class="weui-flex__item weui-navbar__item">
-      <navigator url="/pages/profile/likes_groups" open-type="redirect">小组</navigator>
-    </view>
-    <view class="weui-flex__item weui-navbar__item">
-      <navigator url="/pages/profile/likes_hashtags" open-type="redirect">话题</navigator>
-    </view>
-    <view class="weui-flex__item weui-navbar__item">
-      <navigator url="/pages/profile/likes_posts" open-type="redirect">帖子</navigator>
-    </view>
-    <view class="weui-flex__item weui-navbar__item">
-      <navigator url="/pages/profile/likes_comments" open-type="redirect">评论</navigator>
-    </view>
-  </view>
+    <profile-switch member="{{curMember}}"/>
 
-  <view class="weui-flex tab-navbar weui-navbar">
-    <view class="weui-flex__item weui-navbar__item">
-      <view class="profile-tab-text">TA 关注的</view>
+    <view class="content-list">
+        <member></member>
+        <member></member>
+        <member></member>
+        <member></member>
+        <member></member>
     </view>
-    <view class="weui-flex__item weui-navbar__item">
-      <navigator url="/pages/profile/following_members" open-type="redirect">成员</navigator>
-    </view>
-    <view class="weui-flex__item weui-navbar__item">
-      <navigator url="/pages/profile/following_groups" open-type="redirect">小组</navigator>
-    </view>
-    <view class="weui-flex__item weui-navbar__item">
-      <navigator url="/pages/profile/following_hashtags" open-type="redirect">话题</navigator>
-    </view>
-    <view class="weui-flex__item weui-navbar__item">
-      <navigator url="/pages/profile/following_posts" open-type="redirect">帖子</navigator>
-    </view>
-    <view class="weui-flex__item weui-navbar__item">
-      <navigator url="/pages/profile/following_comments" open-type="redirect">评论</navigator>
-    </view>
-  </view>
-
-  <view class="weui-flex tab-navbar weui-navbar">
-    <view class="weui-flex__item weui-navbar__item">
-      <view class="profile-tab-text">TA 屏蔽的</view>
-    </view>
-    <view class="weui-flex__item weui-navbar__item">
-      <navigator url="/pages/profile/blocking_members" open-type="redirect">成员</navigator>
-    </view>
-    <view class="weui-flex__item weui-navbar__item">
-      <navigator url="/pages/profile/blocking_groups" open-type="redirect">小组</navigator>
-    </view>
-    <view class="weui-flex__item weui-navbar__item">
-      <navigator url="/pages/profile/blocking_hashtags" open-type="redirect">话题</navigator>
-    </view>
-    <view class="weui-flex__item weui-navbar__item">
-      <navigator url="/pages/profile/blocking_posts" open-type="redirect">帖子</navigator>
-    </view>
-    <view class="weui-flex__item weui-navbar__item">
-      <navigator url="/pages/profile/blocking_comments" open-type="redirect">评论</navigator>
-    </view>
-  </view>
-
-  <view class="weui-flex tab-navbar weui-navbar">
-    <view class="weui-flex__item weui-navbar__item">
-      <navigator url="/pages/profile/index" open-type="redirect">主页</navigator>
-    </view>
-    <view class="weui-flex__item weui-navbar__item">
-      <navigator url="/pages/profile/posts" open-type="redirect">帖子</navigator>
-    </view>
-    <view class="weui-flex__item weui-navbar__item">
-      <navigator url="/pages/profile/comments" open-type="redirect">评论</navigator>
-    </view>
-    <view class="weui-flex__item weui-navbar__item">
-      <navigator url="/pages/profile/likers" open-type="redirect">点赞 TA</navigator>
-    </view>
-    <view class="weui-flex__item weui-navbar__item">
-      <navigator url="/pages/profile/followers" open-type="redirect">关注 TA</navigator>
-    </view>
-    <view class="weui-flex__item weui-navbar__item weui-navbar__item_on">
-      <navigator url="/pages/profile/blockers" open-type="redirect">屏蔽 TA</navigator>
-    </view>
-  </view>
-
-  <view class="content-list">
-    <member></member>
-    <member></member>
-    <member></member>
-    <member></member>
-    <member></member>
-  </view>
 </view>

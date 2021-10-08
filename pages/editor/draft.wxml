@@ -1,0 +1,9 @@
+<!-- *
+    Fresns 微信小程序 (https://fresns.org)
+    Copyright 2021-Present Jarvis Tang
+    Licensed under the Apache-2.0 license
+* -->
+<page-meta root-font-size="system" /><view class="page" data-weui-theme="{{theme}}">
+
+    <view class="copyright">Powered by Fresns</view>
+</view>

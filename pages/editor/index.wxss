@@ -1,55 +1,18 @@
 /*!
- * Fresns 微信小程序 (https://fresns.cn)
- * Copyright 2021-Present 唐杰
+ * Fresns 微信小程序 (https://fresns.org)
+ * Copyright 2021-Present Jarvis Tang
  * Licensed under the Apache-2.0 license
  */
-@import "/assets/styles/iconfont.wxss";
 
-.editor-container {
-    position: relative;
-    display: flex;
-    flex-direction: column;
+.weui-form {
+    padding-top: 0;
 }
 
-.content {
-    flex: 1;
-    overflow-y: scroll;
-    background: #f3f3f3;
+.weui-cells:after  {
+    border-bottom: 0px solid var(--weui-FG-3);
 }
 
-.content .ql-container {
-    background: #FFFFFF;
-    box-sizing: border-box;
-    width: 100%;
-    height: 300px;
-    font-size: 16px;
-    line-height: 1.5;
-    overflow: auto;
-    padding: 10px 10px 20px 10px;
-    border: 1px solid #ECECEC;
-}
-
-.toolbar {
-    height: 50px;
-    width: 100%;
-    padding: 0 10px;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border: 1px solid #ECECEC;
-    border-left: none;
-    border-right: none;
-}
-
-.ql-active {
-    color: #22C704;
-}
-
-.iconfont {
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-    font-size: 20px;
+.editor-features {
+    overflow: hidden;
+    padding: 16px;
 }

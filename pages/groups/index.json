@@ -1,8 +1,9 @@
 {
   "navigationBarTitleText": "小组",
   "usingComponents": {
-    "vtabs": "/components/weui/vtabs/index",
-    "vtabs-content": "/components/weui/vtabs-content/index",
+    "tabbar": "/components/tabbar/tabbar",
+    "mp-vtabs": "/components/weui/vtabs/index",
+    "mp-vtabs-content": "/components/weui/vtabs-content/index",
     "group": "/components/group/list"
   }
 }

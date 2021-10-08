@@ -1,0 +1,45 @@
+/*!
+ * Fresns 微信小程序 (https://fresns.org)
+ * Copyright 2021-Present Jarvis Tang
+ * Licensed under the Apache-2.0 license
+ */
+@import "/assets/styles/weui.wxss";
+@import "/assets/styles/fsui.wxss";
+
+.toolbar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 999;
+    background-color: var(--weui-BG-2);
+}
+
+.weui-flex__item {
+    text-align: center;
+    padding: 10px 0;
+}
+
+.weui-tabbar__icon {
+    margin-bottom: -2px;
+}
+
+.weui-tabs-bar__item {
+    padding: 8px;
+    font-size: 16px;
+}
+
+.emoji-box {
+    position: fixed;
+    bottom: 68px;
+    width: 100%;
+    z-index: 999;
+    background-color: var(--weui-BG-2);
+    padding-bottom: 20px;
+    border-top: 1px solid var(--weui-FG-3);
+}
+
+.emoji-image {
+    width: 30px;
+    height: 30px;
+    margin: 8px;
+}

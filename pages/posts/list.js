@@ -1,9 +1,8 @@
 /*!
- * Fresns 微信小程序 (https://fresns.cn)
- * Copyright 2021-Present 唐杰
+ * Fresns 微信小程序 (https://fresns.org)
+ * Copyright 2021-Present Jarvis Tang
  * Licensed under the Apache-2.0 license
  */
-
 import { getConfigItemValue } from '../../api/tool/replace-key'
 
 const Api = require('../../api/api')
@@ -49,6 +48,18 @@ Page({
   },
   onReachBottom: async function () {
     await this._loadCurPageData()
+  },
+  /**
+   * 下拉刷新
+   */
+  onPullDownRefresh: async function () {
+    this.setData({
+      posts: [],
+      page: 1,
+      isReachBottom: false,
+    })
+    await this._loadCurPageData()
+    wx.stopPullDownRefresh()
   },
   /** 右上角菜单-分享给好友 **/
   onShareAppMessage: function () {

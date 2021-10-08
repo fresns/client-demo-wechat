@@ -1,4 +1,24 @@
 {
-  "navigationBarTitleText": "发表",
-  "usingComponents": {}
+  "navigationBarTitleText": "编辑器",
+  "usingComponents": {
+    "editor-tips-global-limit": "/components/editor/editor-tips-global-limit/editor-tips-global-limit",
+    "editor-tips-role-limit": "/components/editor/editor-tips-role-limit/editor-tips-role-limit",
+    "editor-tips-edit-countdown": "/components/editor/editor-tips-edit-countdown/editor-tips-edit-countdown",
+
+    "editor-draft-selector": "/components/editor/editor-draft-selector/editor-draft-selector",
+
+    "editor-toolbar": "/components/editor/editor-toolbar/editor-toolbar",
+
+    "editor-group": "/components/editor/editor-group/editor-group",
+    "editor-title": "/components/editor/editor-title/editor-title",
+    "editor-lbs": "/components/editor/editor-lbs/editor-lbs",
+    "editor-anonymous": "/components/editor/editor-anonymous/editor-anonymous",
+
+    "editor-file-display": "/components/editor/editor-file-display/editor-file-display",
+    "editor-authority": "/components/editor/editor-authority/editor-authority",
+    "editor-comment-btn": "/components/editor/editor-comment-btn/editor-comment-btn",
+    "editor-members": "/components/editor/editor-members/editor-members",
+    "editor-extends-text": "/components/editor/editor-extends-text/editor-extends-text",
+    "editor-extends-info": "/components/editor/editor-extends-info/editor-extends-info"
+  }
 }

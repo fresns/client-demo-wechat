@@ -1,28 +1,38 @@
 /*!
- * Fresns 微信小程序 (https://fresns.cn)
- * Copyright 2021-Present 唐杰
+ * Fresns 微信小程序 (https://fresns.org)
+ * Copyright 2021-Present Jarvis Tang
  * Licensed under the Apache-2.0 license
  */
-
 import Api from '../../api/api'
-import { globalInfo } from '../../handler/globalInfo'
+import { globalInfo } from '../../configs/fresnsGlobalInfo'
 
 Page({
   mixins: [
     require('../../mixin/themeChanged'),
-    require('../../mixin/loginInterceptor')
+    require('../../mixin/loginInterceptor'),
   ],
   data: {
     user: null,
     loginMember: null,
+    loginMemberCommon: null,
     languageDialog: false,
   },
   onLoad: async function (options) {
-    const resultRes = await Api.user.userDetail()
-    if (resultRes.code === 0) {
+    await this.loadUserInfo()
+  },
+  loadUserInfo: async function () {
+    await globalInfo.awaitLogin()
+    const [userDetailRes, memberDetailRes] = await Promise.all([
+      Api.user.userDetail(),
+      Api.member.memberDetail({
+        viewMid: globalInfo.mid,
+      }),
+    ])
+    if (userDetailRes.code === 0 && memberDetailRes.code === 0) {
       this.setData({
-        user: resultRes.data,
-        loginMember: globalInfo.loginMember,
+        user: userDetailRes.data,
+        loginMember: memberDetailRes.data.detail,
+        loginMemberCommon: memberDetailRes.data.common
       })
     }
   },
@@ -38,5 +48,15 @@ Page({
   },
   selectLanguage: async function () {
 
+  },
+  onClickLogout: async function () {
+    await globalInfo.logout()
+  },
+  /**
+   * 下拉刷新
+   */
+  onPullDownRefresh: async function () {
+    await this.loadUserInfo()
+    wx.stopPullDownRefresh()
   },
 })

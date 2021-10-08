@@ -1,3 +1,8 @@
+/*!
+ * Fresns 微信小程序 (https://fresns.org)
+ * Copyright 2021-Present Jarvis Tang
+ * Licensed under the Apache-2.0 license
+ */
 const { request } = require('../tool/request')
 
 const info = {
@@ -23,18 +28,24 @@ const info = {
    * 输入提示查询
    * @return {wx.RequestTask}
    */
-  infoInputTips: () => {
+  infoInputTips: (options) => {
     return request({
       url: '/api/fresns/info/inputTips',
+      data: {
+        ...options
+      }
     })
   },
   /**
    * 发送验证码
    * @return {wx.RequestTask}
    */
-  infoSendVerifyCode: () => {
+  infoSendVerifyCode: (options) => {
     return request({
       url: '/api/fresns/info/sendVerifyCode',
+      data: {
+        ...options
+      }
     })
   },
   /**
@@ -83,7 +94,21 @@ const info = {
   infoConfigs: (options) => {
     return request({
       url: '/api/fresns/info/configs',
-      ...options,
+      data: {
+        ...options,
+      }
+    })
+  },
+  /**
+   * 回调返参查询
+   * @return {wx.RequestTask}
+   */
+  infoCallbacks: (options) => {
+    return request({
+      url: '/api/fresns/info/callbacks',
+      data: {
+        ...options,
+      }
     })
   },
 }

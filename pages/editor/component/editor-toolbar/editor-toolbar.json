@@ -1,9 +1,0 @@
-{
-  "component": true,
-  "usingComponents": {
-    "tabs": "/components/weui-plus/tabs/index",
-    "mp-searchbar": "weui-miniprogram/searchbar/searchbar",
-    "modal": "/components/modal/modal"
-  },
-  "styleIsolation": "shared"
-}
