@@ -4,6 +4,7 @@
  * Licensed under the Apache-2.0 license
  */
 import Api from '../../api/api'
+import { getConfigItemValue } from '../../api/tool/replace-key'
 
 const Type = {
   Mobile: '0',
@@ -21,8 +22,8 @@ Page({
     emailAddress: '',
 
     // 手机相关信息
-    mobileAreaRange: ['+86', '+1', '+886'],
-    mobileAreaIndex: 0,
+    mobileAreaRange: [],
+    mobileAreaIndex: null,
     mobileNumber: '',
 
     // 验证码
@@ -35,6 +36,21 @@ Page({
 
     // 昵称
     nickname: '',
+
+    // 是否同意用户协议
+    isAgree: false,
+  },
+  onLoad: async function (options) {
+    const [defaultCode, codeArray] = await Promise.all(
+      [
+        getConfigItemValue('send_sms_code'),
+        getConfigItemValue('send_sms_code_more'),
+      ],
+    )
+    this.setData({
+      mobileAreaRange: codeArray,
+      mobileAreaIndex: codeArray.indexOf(defaultCode + ''),
+    })
   },
   onTypeChange: function (e) {
     this.setData({
@@ -121,7 +137,21 @@ Page({
     })
     return value
   },
+  onChangeAgree: function (e) {
+    const isAgree = e.detail.value.includes('agree')
+    this.setData({
+      isAgree: isAgree,
+    })
+  },
   onSubmit: async function () {
+    if (!this.data.isAgree) {
+      wx.showToast({
+        title: '请先阅读并同意相关条款',
+        icon: 'none',
+      })
+      return
+    }
+
     const {
       type,
       emailAddress,

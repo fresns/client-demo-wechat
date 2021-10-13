@@ -1,1 +1,8 @@
-/* pages/user/signup.wxss */
+/*!
+ * Fresns 微信小程序 (https://fresns.org)
+ * Copyright 2021-Present Jarvis Tang
+ * Licensed under the Apache-2.0 license
+ */
+.we-login-agree {
+    margin-top: 30px;
+}

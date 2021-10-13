@@ -5,7 +5,7 @@
 * -->
 <view class="card">
     <view class="card-header">
-        <!--成员信息-->
+        <!-- 成员信息 -->
         <member member="{{post.member}}" wx:if="{{post.member.deactivate === false && post.member.anonymous === 0}}">
             <view slot="icons-header" class="member-icons weui-flex" wx:if="{{post.member.icons}}">
                 <image wx:for="{{post.member.icons}}" wx:for-item="iconItem" wx:key="icon" src="{{iconItem.icon}}" alt="{{iconItem.name}}" mode="heightFix"></image>
@@ -14,12 +14,13 @@
                 <view class="content-time">{{post.timeFormat}}</view>
                 <view class="content-location" wx:if="{{post.location.isLbs === 1}}">
                     <navigator url="/pages/posts/position?pid={{pid}}">
-                        <image class="weui-btn_cell__icon" src="/assets/images/location.png"></image>{{post.location.poi}}
+                        <image class="weui-btn_cell__icon" src="/assets/images/location.png"></image>
+                        {{post.location.poi}}
                     </navigator>
                 </view>
             </view>
         </member>
-        <!--匿名成员信息-->
+        <!-- 匿名成员信息 -->
         <view class="weui-flex" wx:if="{{post.member.deactivate === false && post.member.anonymous === 1}}">
             <view class="member-avatar">
                 <image src="{{post.member.avatar}}" class="avatar-img" mode="scaleToFill"></image>
@@ -32,13 +33,14 @@
                     <view class="content-time">{{post.timeFormat}}</view>
                     <view class="content-location" wx:if="{{post.location.isLbs === 1}}">
                         <navigator url="/pages/posts/position?pid={{pid}}">
-                            <image class="weui-btn_cell__icon" src="/assets/images/location.png"></image>{{post.location.poi}}
+                            <image class="weui-btn_cell__icon" src="/assets/images/location.png"></image>
+                            {{post.location.poi}}
                         </navigator>
                     </view>
                 </view>
             </view>
         </view>
-        <!--注销的成员信息-->
+        <!-- 注销的成员信息 -->
         <view class="weui-flex" wx:if="{{post.member.deactivate === true}}">
             <view class="member-avatar">
                 <image src="{{post.member.avatar}}" class="avatar-img" mode="scaleToFill"></image>
@@ -51,29 +53,91 @@
                     <view class="content-time">{{post.timeFormat}}</view>
                     <view class="content-location" wx:if="{{post.location.isLbs == 1}}">
                         <navigator url="/pages/posts/position?pid={{pid}}">
-                            <image class="weui-btn_cell__icon" src="/assets/images/location.png"></image>{{post.location.poi}}
+                            <image class="weui-btn_cell__icon" src="/assets/images/location.png"></image>
+                            {{post.location.poi}}
                         </navigator>
                     </view>
                 </view>
             </view>
         </view>
     </view>
-    <!--角标-->
-    <view class="card-label" wx:if="{{post.icons.name.label}}">
-        <image src="https://fresns.org/prototype/assets/images/temp/label.png" mode="aspectFit"></image>
+    <!-- 角标 -->
+    <view class="card-label" wx:if="{{post.icons}}">
+        <block wx:for="{{post.icons}}" wx:for-item="iconItem">
+            <image wx:if="{{iconItem.name === 'label'}}" src="{{iconItem.fileUrl}}" mode="aspectFit"></image>
+        </block>
     </view>
     <view class="card-body ^{{fsui}}">
-        <!--扩展内容-->
-        <slot name="extend-top"></slot>
-        <!--帖子文本-->
+        <!-- 扩展内容 -->
+        <view class="extend-bottom" wx:if="{{post.attachCount.extends > 0}}">
+            <block wx:for="{{post.extends}}" wx:for-item="postExtend">
+                <extend-info wx:if="{{postExtend.frame > 1 && postExtend.position === 1}}"></extend-info>
+                <extend-text wx:if="{{postExtend.frame === 1 && postExtend.position === 1}}"></extend-text>
+            </block>
+        </view>
+        <!-- 帖子文本 -->
         <contentType disabled="{{false}}" post="{{post}}"></contentType>
-        <!--权限信息-->
-        <slot name="allow"></slot>
-        <!--附件文件-->
-        <slot name="files"></slot>
-        <!--扩展内容-->
-        <slot name="extend-bottom"></slot>
-        <!--附属信息-->
+        <!-- 权限信息 -->
+        <view class="content-allow" wx:if="{{post.allowStatus === 1}}">
+            <view class="allow_mask_static"></view>
+            <view class="allow-info">
+                <view class="allow-text">可试读前 {{post.allowProportion}}% 内容</view>
+                <navigator class="weui-btn weui-btn_primary" url="/pages/webview?url={{post.allowBtnUrl}}">
+                    {{post.allowBtnName}}
+                </navigator>
+            </view>
+        </view>
+        <!-- 附件文件 -->
+        <view class="content-files">
+            <!-- 图片 -->
+            <view class="file-image-{{post.attachCount.images}}" wx:if="{{post.attachCount.images === 1}}">
+                <block wx:for="{{imageFiles}}" wx:for-item="fileItem" wx:key="imageRatioUrl">
+                    <image src="{{fileItem.imageRatioUrl}}" mode="widthFix" bindtap="ImageOpen"></image>
+                </block>
+            </view>
+            <view class="file-image-{{post.attachCount.images}}" wx:if="{{post.attachCount.images > 1}}">
+                <block wx:for="{{imageFiles}}" wx:for-item="fileItem" wx:key="imageSquareUrl">
+                    <image src="{{fileItem.imageSquareUrl}}" mode="widthFix" bindtap="ImageOpen"></image>
+                </block>
+            </view>
+            <!-- 视频 -->
+            <block wx:for="{{videoFiles}}" wx:for-item="fileItem" wx:key="videoUrl">
+                <view class="file-video" wx:if="{{post.attachCount.videos > 0}}">
+                    <video src="{{fileItem.videoUrl}}" controls poster="{{fileItem.videoGif || fileItem.videoCover}}" play-btn-position="center"></video>
+                </view>
+            </block>
+            <!-- <block wx:for="{{videoFiles}}" wx:for-item="fileItem" wx:key="videoUrl">
+                <view class="file-video" wx:if="{{post.attachCount.videos > 0}}">
+                    <image src="{{fileItem.videoGif || fileItem.videoCover}}" class="video_gif" mode="widthFix"></image>
+                    <a class="weui-btn weui-btn_mini weui-btn_default">
+                        <image src="/assets/images/play.png" class="weui-btn_cell__icon" mode="aspectFit"></image>
+                    </a>
+                </view>
+            </block> -->
+            <!-- 音频 -->
+            <block wx:for="{{audioFiles}}" wx:for-item="fileItem" wx:key="audioUrl">
+                <view class="file-audio" wx:if="{{post.attachCount.audios > 0}}">
+                    <audio name="{{fileItem.name}}" src="{{fileItem.audioUrl}}" controls loop></audio>
+                </view>
+            </block>
+            <!-- 文档 -->
+            <block wx:for="{{docFiles}}" wx:for-item="fileItem" wx:key="name">
+                <view class="file-doc" wx:if="{{post.attachCount.docs > 0}}">
+                    <view class="doc-icon">
+                        <image src="/assets/images/file.png" class="weui-btn_cell__icon" mode="aspectFit"></image>
+                    </view>
+                    <view class="doc-name">{{fileItem.name}}</view>
+                </view>
+            </block>
+        </view>
+        <!-- 扩展内容 -->
+        <view class="extend-bottom" wx:if="{{post.attachCount.extends > 0}}">
+            <block wx:for="{{post.extends}}" wx:for-item="postExtend">
+                <extend-info wx:if="{{postExtend.frame > 1 && postExtend.position === 2}}"></extend-info>
+                <extend-text wx:if="{{postExtend.frame === 1 && postExtend.position === 2}}"></extend-text>
+            </block>
+        </view>
+        <!-- 附属信息 -->
         <view class="content-append clearfix">
             <!-- 小组信息 -->
             <navigator class="content-group float-left" url="/pages/groups/detail?gid={{post.group.gid}}" wx:if="{{post.group.gid}}">
@@ -83,34 +147,58 @@
             <!-- 特殊成员 -->
             <navigator wx:if="{{post.memberListStatus == 1}}" class="content-members float-end" url="/pages/webview?url={{post.memberListUrl}}">
                 {{post.memberListName}}
-                <text wx:if="{{post.memberListCount}}" class="weui-badge">{{post.memberListCount}}</text>
+                <text wx:if="{{post.memberListCount}}" class="weui-badge">
+                    {{post.memberListCount}}
+                </text>
             </navigator>
         </view>
-        <!--一条热评-->
-        <slot name="comment"></slot>
+        <!-- 热评 -->
+        <view class="content-comment" wx:if="{{post.commentSetting.status}}">
+            <!-- 热评-标头 -->
+            <view class="content-comment-title clearfix">
+                <view class="float-left">
+                    <text class="weui-badge">热评</text>
+                </view>
+                <view class="float-end fg-1">
+                    {{post.commentSetting.likeCount}} {{post.likeName}}
+                </view>
+            </view>
+            <!-- 热评-正文 -->
+            <navigator class="content-comment-content" url="/pages/posts/detail?pid={{post.pid}}">
+                <navigator class="navigator-inline" url="/pages/profile/index?mid={{post.commentSetting.mid}}">
+                    {{post.commentSetting.nickname}}
+                </navigator>
+                :
+                <rich-text nodes="{{post.commentSetting.content}}"></rich-text>
+            </navigator>
+            <!-- 热评-附带图片 -->
+            <view class="comment-image-{{post.commentSetting.attachCount.images}}" wx:if="{{post.commentSetting.attachCount.images > 0}}">
+                <image wx:for="{{post.commentSetting.images}}" wx:for-item="imageItem" wx:key="imageSquareUrl" src="{{imageItem.imageSquareUrl}}" mode="widthFix" bindtap="ImageOpen"></image>
+            </view>
+        </view>
     </view>
     <view class="card-footer ^{{fsui}}">
-        <!--功能按钮-->
+        <!-- 功能按钮 -->
         <view class="weui-flex">
             <view class="weui-flex__item">
                 <view wx:if="{{post.likeStatus === 0}}" class="fs_btn" bindtap="onClickPostLike">
-                    <image src="/assets/images/content_like.png" class="card-footer-icon" mode="aspectFit"></image>
+                    <image src="{{iconsObj['like'] || '/assets/images/content_like.png'}}" class="card-footer-icon" mode="aspectFit"></image>
                     <text class="card-footer-text">{{post.likeCount}}</text>
                 </view>
                 <view wx:if="{{post.likeStatus === 1}}" class="fs_btn" bindtap="onClickPostLike">
-                    <image src="/assets/images/content_like_active.png" class="card-footer-icon" mode="aspectFit"></image>
+                    <image src="{{iconsObj['likeActive'] || '/assets/images/content_like_active.png'}}" class="card-footer-icon" mode="aspectFit"></image>
                     <text class="card-footer-text">{{post.likeCount}}</text>
                 </view>
             </view>
             <view class="weui-flex__item">
                 <view class="fs_btn" bindtap="onClickComment">
-                    <image src="/assets/images/content_comment.png" class="card-footer-icon" mode="aspectFit"></image>
+                    <image src="{{iconsObj['comment'] || '/assets/images/content_comment.png'}}" class="card-footer-icon" mode="aspectFit"></image>
                     <text class="card-footer-text">{{post.commentCount}}</text>
                 </view>
             </view>
             <view class="weui-flex__item">
                 <view class="fs_btn" bindtap="onClickShare">
-                    <image src="/assets/images/content_share.png" class="card-footer-icon" mode="aspectFit"></image>
+                    <image src="{{iconsObj['share'] || '/assets/images/content_share.png'}}" class="card-footer-icon" mode="aspectFit"></image>
                 </view>
             </view>
             <!-- <view class="weui-flex__item">
@@ -121,7 +209,7 @@
             <view class="weui-flex__item"></view>
             <view class="item_more">
                 <view class="fs_btn" data-post="{{post}}" bind:tap="onClickModifyPost">
-                    <image src="/assets/images/content_more.png" class="card-footer-icon" mode="aspectFit"></image>
+                    <image src="{{iconsObj['more'] || '/assets/images/content_more.png'}}" class="card-footer-icon" mode="aspectFit"></image>
                 </view>
             </view>
         </view>

@@ -9,4 +9,5 @@
 .page {
   background-color: var(--weui-BG-1);
   padding-bottom: 88px;
+  height: 100%
 }

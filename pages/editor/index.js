@@ -69,10 +69,6 @@ Page({
   onLoad: async function (options) {
     this._parseOptions(options)
 
-    wx.createSelectorQuery().select('#editor').context((res) => {
-      this.editorContext = res.context
-    }).exec()
-
     // 拉取编辑器配置数据
     const editorConfigRes = await Api.editor.editorConfigs({
       type: Type.Post,
@@ -83,6 +79,13 @@ Page({
       })
     }
 
+    await this._authorityCheck()
+
+    // 如果不允许，则直接不进行下面流程
+    if (!this.data.isEnable) {
+      return
+    }
+
     const stopWordsRes = await Api.info.infoStopWords()
     if (stopWordsRes.code === 0) {
       this.setData({
@@ -90,7 +93,9 @@ Page({
       })
     }
 
-    await this._authorityCheck()
+    wx.createSelectorQuery().select('#editor').context((res) => {
+      this.editorContext = res.context
+    }).exec()
 
     // if (this.data.type === Type.Post && !this.data.uuid) {
     //   await this.getDrafts()
@@ -104,11 +109,11 @@ Page({
         this.updateTitleAndContent()
       }, 10000)
     }
-
+  },
+  onShow: async function () {
     const location = chooseLocation.getLocation()
-    if (location === null || this.data.manualSelectLocation === false) {
-      // do nothing
-    } else {
+    if (location && this.data.manualSelectLocation === true) {
+      this.data.manualSelectLocation = false
       const { name, latitude, longitude, province, city, district, address } = location
       this.data.currentDraft.location = {
         'isLbs': 1,
@@ -458,6 +463,7 @@ Page({
       uuid: uuid,
     }
 
+    // TODO 替换参数
     let url = expand.url
     url.replace('{uuid}', uuid).
       replace('{sign}', await getPluginSign()).
@@ -475,6 +481,9 @@ Page({
       replace('{uploadToken}', '').
       replace('{uploadInfo}', '')
 
+    wx.navigateTo({
+      url: `/pages/webview?url=${url}`,
+    })
   },
   /**
    * 选择地址
@@ -496,6 +505,13 @@ Page({
         })
       },
     })
+  },
+  /**
+   * 删除地址
+   */
+  onDeleteLocation: async function () {
+    this.data.currentDraft.location = null
+    await this.updateDraft()
   },
   /**
    * 切换是否匿名

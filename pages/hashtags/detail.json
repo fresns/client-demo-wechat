@@ -2,8 +2,6 @@
   "navigationBarTitleText": "话题名",
   "usingComponents": {
     "post": "/components/post/list",
-    "list": "/components/post/content-list",
-    "box-info": "/components/extend/box-info",
-    "box-text": "/components/extend/box-text"
+    "list": "/components/post/content-list"
   }
 }

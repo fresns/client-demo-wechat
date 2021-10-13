@@ -3,7 +3,7 @@
     Copyright 2021-Present Jarvis Tang
     Licensed under the Apache-2.0 license
 * -->
-<page-meta root-font-size="system"/>
+<page-meta root-font-size="system" />
 <view wx:if="{{infoOverview}}" class="page" data-weui-theme="{{theme}}">
     <view class="weui-flex notify-column">
         <view class="weui-flex__item">
@@ -43,37 +43,27 @@
             </navigator>
         </view>
     </view>
-
-    <block wx:for="{{notifies}}" wx:for-item="notify" wx:key="nitifyId">
-        <view>
-            <text wx:if="{{notify.sourceType === 1}}">系统</text>
-            <text wx:if="{{notify.sourceType === 2}}">关注</text>
-            <text wx:if="{{notify.sourceType === 3}}">点赞</text>
-            <text wx:if="{{notify.sourceType === 4}}">评论</text>
-            <text wx:if="{{notify.sourceType === 5}}">提及</text>
-            <text wx:if="{{notify.sourceType === 5}}">推荐</text>
-            <text>{{notify.sourceBrief}}</text>
-        </view>
-    </block>
-
-    <!--    <view class="weui-cells__title">系统通知</view>-->
-    <!--    <view class="weui-cells weui-cells_after-title">-->
-    <!--        <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">-->
-    <!--            <view class="weui-cell__hd">-->
-    <!--                <image src="https://fresns.org/prototype/assets/images/temp/placeholder_icon.png"></image>-->
-    <!--            </view>-->
-    <!--            <view class="weui-cell__bd">cell standard</view>-->
-    <!--            <view class="weui-cell__ft weui-cell__ft_in-access">说明文字</view>-->
-    <!--        </navigator>-->
-    <!--        <navigator url="" class="weui-cell weui-cell_example weui-cell_access" hover-class="weui-cell_active">-->
-    <!--            <view class="weui-cell__hd">-->
-    <!--                <image src="https://fresns.org/prototype/assets/images/temp/placeholder_icon.png"></image>-->
-    <!--            </view>-->
-    <!--            <view class="weui-cell__bd">cell standard</view>-->
-    <!--            <view class="weui-cell__ft weui-cell__ft_in-access">说明文字</view>-->
-    <!--        </navigator>-->
-    <!--    </view>-->
-
+    <view class="weui-cells__title">通知消息</view>
+    <view class="weui-cells weui-cells_after-title">
+        <navigator url="/pages/messages/notify?type=1" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <view class="weui-cell__hd">
+                <image src="https://fresns.org/prototype/assets/images/temp/placeholder_icon.png"></image>
+            </view>
+            <view class="weui-cell__bd">系统</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access">
+                {{infoOverview.notifyUnread.system}}
+            </view>
+        </navigator>
+        <navigator url="/pages/messages/notify?type=6" class="weui-cell weui-cell_example weui-cell_access" hover-class="weui-cell_active">
+            <view class="weui-cell__hd">
+                <image src="https://fresns.org/prototype/assets/images/temp/placeholder_icon.png"></image>
+            </view>
+            <view class="weui-cell__bd">推荐</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access">
+                {{infoOverview.notifyUnread.recommend}}
+            </view>
+        </navigator>
+    </view>
     <view class="copyright">Powered by Fresns</view>
-    <tabbar></tabbar>
+    <tabbar activeLabel="message"></tabbar>
 </view>

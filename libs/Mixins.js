@@ -45,5 +45,11 @@ Page = (options) => {
     delete options.mixins
     options = merge(mixins, options)
   }
-  originPage(options)
+  originPage(Object.assign(options, {
+    forceUpdate () {
+      this.setData({
+        data: this.data,
+      })
+    },
+  }))
 }

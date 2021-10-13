@@ -42,13 +42,13 @@
             <view class="weui-cell__bd fg-0">钱包</view>
             <view class="weui-cell__ft weui-cell__ft_in-access">¥ {{user.wallet.balance}}</view>
         </navigator>
-        <navigator url="/pages/editor/draft" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <navigator url="/pages/editor/draft-box" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
             <view class="weui-cell__bd fg-0">草稿箱</view>
             <view class="weui-cell__ft weui-cell__ft_in-access">{{loginMember.draftCount.comments + loginMember.draftCount.posts}}</view>
         </navigator>
     </view>
 
-    <view class="user-extensions" wx:if="{{loginMemberCommon.profiles}}">
+    <view class="user-extensions" wx:if="{{loginMemberCommon.profiles.length !== 0}}">
         <navigator wx:for="{{loginMemberCommon.profiles}}" wx:for-item="profilesItem" wx:key="plugin" url="/pages/webview?url={{profilesItem.url}}">
             <view class="extensions-icon">
                 <image src="{{profilesItem.icon}}"></image>
@@ -58,9 +58,9 @@
     </view>
 
     <view class="weui-cells weui-cells_after-title">
-        <navigator url="/pages/user/members" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <navigator wx:if="{{user.members.length > 1}}" url="/pages/user/members" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
             <view class="weui-cell__bd fg-0">切换身份</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access">{{user.members.item}}</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access">{{user.members.length}}</view>
         </navigator>
         <view class="weui-cell weui-cell_access" bindtap="showLanguageDialog">
             <view class="weui-cell__bd fg-0">切换语言</view>
@@ -72,8 +72,8 @@
         </navigator>
     </view>
 
-    <view class="logout" bind:tap="onClickLogout">
-        <view class="weui-btn weui-btn_primary">退出登录</view>
+    <view class="logout">
+        <view class="weui-btn weui-btn_primary" bind:tap="onClickLogout">退出登录</view>
     </view>
 
     <view class="copyright">Powered by Fresns</view>
@@ -95,5 +95,5 @@
         </view>
     </view>
 
-    <tabbar></tabbar>
+    <tabbar activeLabel="user"></tabbar>
 </view>

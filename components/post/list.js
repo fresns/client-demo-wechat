@@ -14,7 +14,13 @@ Component({
     fsui: String,
     post: Object,
   },
-  data: {},
+  data: {
+    imageFiles: [],
+    videoFiles: [],
+    audioFiles: [],
+    docFiles: [],
+    iconsObj: {},
+  },
   lifetimes: {},
   methods: {
     onClickPostLike: async function () {
@@ -42,6 +48,29 @@ Component({
       const { post } = this.data
       wx.navigateTo({
         url: `/pages/editor/index?type=post&mode=modify&uuid=${post.pid}`,
+      })
+    },
+  },
+  observers: {
+    'post': function (post) {
+      post.icons = [
+        {
+          icon: 'a',
+          name: 'cc',
+        }, {
+          icon: 'b',
+          name: 'dc',
+        },
+      ]
+      this.setData({
+        imageFiles: post.files.filter(file => file.type === 1),
+        videoFiles: post.files.filter(file => file.type === 2),
+        audioFiles: post.files.filter(file => file.type === 3),
+        docFiles: post.files.filter(file => file.type === 4),
+        iconsObj: post.icons.reduce((obj, icon) => {
+          obj[icon.name] = icon
+          return obj
+        }, {}),
       })
     },
   },

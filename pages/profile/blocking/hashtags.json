@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "成员昵称",
+  "usingComponents": {
+    "hashtag": "/components/hashtag/list",
+    "profile-member": "/components/member/profile",
+    "profile-member": "/components/member/profile",
+    "profile-switch": "/components/member/switch"
+  }
+}

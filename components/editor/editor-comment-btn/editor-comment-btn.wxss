@@ -7,7 +7,8 @@
 @import "/assets/styles/fsui.wxss";
 
 .editor-comment-btn {
-
+    width: 90%;
+    margin: 0 auto;
 }
 
 .editor-comment-btn .weui-cell {

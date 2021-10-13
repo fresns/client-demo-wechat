@@ -40,5 +40,5 @@
     </view>
 
     <view class="copyright">Powered by Fresns</view>
-    <tabbar></tabbar>
+    <tabbar activeLabel="hashtags"></tabbar>
 </view>

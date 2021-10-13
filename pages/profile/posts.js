@@ -7,7 +7,7 @@ Page({
   mixins: [
     require('../../mixin/themeChanged'),
     require('../../mixin/imageGallery'),
-    require('./mixin/profileViewMemberHandler'),
+    require('../../mixin/handler/profileHandler'),
   ],
   data: {},
   onLoad: async function (options) {},

@@ -6,7 +6,7 @@
 Page({
   mixins: [
     require('../../mixin/themeChanged'),
-    require('./mixin/profileViewMemberHandler')
+    require('../../mixin/handler/profileHandler')
   ],
   data: {
   },

@@ -14,11 +14,11 @@
     "editor-lbs": "/components/editor/editor-lbs/editor-lbs",
     "editor-anonymous": "/components/editor/editor-anonymous/editor-anonymous",
 
-    "editor-file-display": "/components/editor/editor-file-display/editor-file-display",
-    "editor-authority": "/components/editor/editor-authority/editor-authority",
+    "editor-file": "/components/editor/editor-file/editor-file",
+    "editor-allow": "/components/editor/editor-allow/editor-allow",
     "editor-comment-btn": "/components/editor/editor-comment-btn/editor-comment-btn",
     "editor-members": "/components/editor/editor-members/editor-members",
-    "editor-extends-text": "/components/editor/editor-extends-text/editor-extends-text",
-    "editor-extends-info": "/components/editor/editor-extends-info/editor-extends-info"
+    "editor-extend-text": "/components/editor/editor-extend-text/editor-extend-text",
+    "editor-extend-info": "/components/editor/editor-extend-info/editor-extend-info"
   }
 }

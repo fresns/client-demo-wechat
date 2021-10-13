@@ -22,7 +22,7 @@ module.exports = {
         const idx = this.data.members.findIndex(value => value.mid === member.mid)
         this.setData({
           [`members[${idx}].likeStatus`]: 1,
-          [`members[${idx}].stats.likeMemberCount`]: this.data.members[idx].stats.likeMemberCount + 1,
+          [`members[${idx}].stats.likeMeCount`]: this.data.members[idx].stats.likeMeCount + 1,
         })
       }
       return
@@ -35,7 +35,7 @@ module.exports = {
         const idx = this.data.members.findIndex(value => value.mid === member.mid)
         this.setData({
           [`members[${idx}].likeStatus`]: 0,
-          [`members[${idx}].stats.likeMemberCount`]: this.data.members[idx].stats.likeMemberCount - 1,
+          [`members[${idx}].stats.likeMeCount`]: this.data.members[idx].stats.likeMeCount - 1,
         })
       }
       return
@@ -51,7 +51,7 @@ module.exports = {
         const idx = this.data.members.findIndex(value => value.mid === member.mid)
         this.setData({
           [`members[${idx}].followStatus`]: 1,
-          [`members[${idx}].stats.followMemberCount`]: this.data.members[idx].stats.followMemberCount + 1,
+          [`members[${idx}].stats.followMeCount`]: this.data.members[idx].stats.followMeCount + 1,
         })
       }
       return
@@ -64,7 +64,7 @@ module.exports = {
         const idx = this.data.members.findIndex(value => value.mid === member.mid)
         this.setData({
           [`members[${idx}].followStatus`]: 0,
-          [`members[${idx}].stats.followMemberCount`]: this.data.members[idx].stats.followMemberCount - 1,
+          [`members[${idx}].stats.followMeCount`]: this.data.members[idx].stats.followMeCount - 1,
         })
       }
       return
@@ -80,7 +80,7 @@ module.exports = {
         const idx = this.data.members.findIndex(value => value.mid === member.mid)
         this.setData({
           [`members[${idx}].shieldStatus`]: 1,
-          [`members[${idx}].stats.shieldMemberCount`]: this.data.members[idx].stats.shieldMemberCount + 1,
+          [`members[${idx}].stats.shieldMeCount`]: this.data.members[idx].stats.shieldMeCount + 1,
         })
       }
       return
@@ -93,7 +93,7 @@ module.exports = {
         const idx = this.data.members.findIndex(value => value.mid === member.mid)
         this.setData({
           [`members[${idx}].shieldStatus`]: 0,
-          [`members[${idx}].stats.shieldMemberCount`]: this.data.members[idx].stats.shieldMemberCount - 1,
+          [`members[${idx}].stats.shieldMeCount`]: this.data.members[idx].stats.shieldMeCount - 1,
         })
       }
       return

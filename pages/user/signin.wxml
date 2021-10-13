@@ -3,13 +3,14 @@
     Copyright 2021-Present Jarvis Tang
     Licensed under the Apache-2.0 license
 * -->
-<page-meta root-font-size="system" /><view class="page" data-weui-theme="{{theme}}">
+<page-meta root-font-size="system"/>
+<view class="page" data-weui-theme="{{theme}}">
     <radio-group bind:change="onLoginTypeChange">
         <view class="weui-grids">
             <label class="radio">
                 <navigator class="weui-grid" aria-role="button" url="javascript:">
                     <view class="weui-grid__icon">
-                        <radio value="0" checked="{{loginType === '0'}}" />
+                        <radio value="0" checked="{{loginType === '0'}}"/>
                     </view>
                     <view class="weui-grid__label">微信一键登录</view>
                 </navigator>
@@ -17,7 +18,7 @@
             <label class="radio">
                 <navigator class="weui-grid" aria-role="button" url="javascript:">
                     <view class="weui-grid__icon">
-                        <radio value="1" checked="{{loginType === '1'}}" />
+                        <radio value="1" checked="{{loginType === '1'}}"/>
                     </view>
                     <view class="weui-grid__label">账号密码登录</view>
                 </navigator>
@@ -25,7 +26,7 @@
             <label class="radio">
                 <navigator class="weui-grid" aria-role="button" url="javascript:">
                     <view class="weui-grid__icon">
-                        <radio value="2" checked="{{loginType === '2'}}" />
+                        <radio value="2" checked="{{loginType === '2'}}"/>
                     </view>
                     <view class="weui-grid__label">账号验证码登录</view>
                 </navigator>
@@ -34,13 +35,18 @@
     </radio-group>
 
     <block wx:if="{{loginType === '0'}}">
-		<view class="weui-form__tips-area we-login-agree">
+        <view class="weui-form__tips-area we-login-agree">
             <label aria-role="" class="weui-agree">
-                <checkbox aria-labelledby="js_agree_txt js_agree_link" class="weui-agree__checkbox-check" />
+                <checkbox-group bind:change="onChangeAgree">
+                    <checkbox value="agree" checked="{{isAgree}}" aria-labelledby="js_agree_txt js_agree_link" class="weui-agree__checkbox-check"/>
+                </checkbox-group>
                 <span class="weui-agree__checkbox"></span>
-                <span class="weui-agree__text"><text aria-hidden="true" id="js_agree_txt">阅读并同意</text><navigator id="js_agree_link">《相关条款》</navigator></span>
+                <span class="weui-agree__text">
+                    <text aria-hidden="true" id="js_agree_txt">阅读并同意</text>
+                    <navigator id="js_agree_link" url="/pages/about/policies">《相关条款》</navigator>
+                </span>
             </label>
-		</view>
+        </view>
         <view class="we-login-btn">
             <button class="weui-btn weui-btn_primary" type="primary">微信登录</button>
         </view>
@@ -57,10 +63,12 @@
                             </view>
                             <view class="weui-cell__bd">
                                 <label class="radio">
-                                    <radio value="0" checked="{{type === '0'}}" /> 手机号
+                                    <radio value="0" checked="{{type === '0'}}"/>
+                                    手机号
                                 </label>
                                 <label class="radio" style="margin-left:10px">
-                                    <radio value="1" checked="{{type === '1'}}" /> 邮箱
+                                    <radio value="1" checked="{{type === '1'}}"/>
+                                    邮箱
                                 </label>
                             </view>
                         </view>
@@ -75,7 +83,7 @@
                                 </picker>
                             </view>
                             <view class="weui-cell__bd">
-                                <input class="weui-input" type="number" placeholder="请输入号码" value="{{mobileNumber}}" bindinput="onMobileNumberChange" />
+                                <input class="weui-input" type="number" placeholder="请输入号码" value="{{mobileNumber}}" bindinput="onMobileNumberChange"/>
                             </view>
                         </view>
                     </block>
@@ -85,7 +93,7 @@
                                 <label class="weui-label">邮箱</label>
                             </view>
                             <view class="weui-cell__bd">
-                                <input class="weui-input" value="{{emailAddress}}" bindinput="onEmailAddressChange" placeholder="邮箱地址" placeholder-class="weui-input__placeholder" />
+                                <input class="weui-input" value="{{emailAddress}}" bindinput="onEmailAddressChange" placeholder="邮箱地址" placeholder-class="weui-input__placeholder"/>
                             </view>
                         </view>
                     </block>
@@ -94,19 +102,25 @@
                             <label class="weui-label">密码</label>
                         </view>
                         <view class="weui-cell__bd">
-                            <input class="weui-input" password="true" value="{{password}}" bindinput="onPasswordChange" placeholder="登录密码" placeholder-class="weui-input__placeholder" />
+                            <input class="weui-input" password="true" value="{{password}}" bindinput="onPasswordChange" placeholder="登录密码"
+                                   placeholder-class="weui-input__placeholder"/>
                         </view>
                     </view>
                 </view>
             </view>
         </view>
-		<view class="weui-form__tips-area">
+        <view class="weui-form__tips-area">
             <label aria-role="" class="weui-agree">
-                <checkbox aria-labelledby="js_agree_txt js_agree_link" class="weui-agree__checkbox-check" />
+                <checkbox-group bind:change="onChangeAgree">
+                    <checkbox value="agree" checked="{{isAgree}}" aria-labelledby="js_agree_txt js_agree_link" class="weui-agree__checkbox-check"/>
+                </checkbox-group>
                 <span class="weui-agree__checkbox"></span>
-                <span class="weui-agree__text"><text aria-hidden="true" id="js_agree_txt">阅读并同意</text><navigator id="js_agree_link">《相关条款》</navigator></span>
+                <span class="weui-agree__text">
+                    <text aria-hidden="true" id="js_agree_txt">阅读并同意</text>
+                    <navigator id="js_agree_link" url="/pages/about/policies">《相关条款》</navigator>
+                </span>
             </label>
-		</view>
+        </view>
         <view class="weui-form__opr-area">
             <button class="weui-btn weui-btn_primary" type="primary" bind:tap="onSubmit">提交登录</button>
         </view>
@@ -117,9 +131,9 @@
     </block>
 
     <block wx:if="{{loginType === '2'}}">
-		<view class="weui-form__control-area">
-			<view class="weui-cells__group weui-cells__group_form">
-				<view class="weui-cells weui-cells_form">
+        <view class="weui-form__control-area">
+            <view class="weui-cells__group weui-cells__group_form">
+                <view class="weui-cells weui-cells_form">
 
                     <radio-group bind:change="onTypeChange">
                         <view class="weui-cell weui-cell_active">
@@ -128,10 +142,12 @@
                             </view>
                             <view class="weui-cell__bd">
                                 <label class="radio">
-                                    <radio value="0" checked="{{type === '0'}}" /> 手机号
+                                    <radio value="0" checked="{{type === '0'}}"/>
+                                    手机号
                                 </label>
                                 <label class="radio" style="margin-left:10px">
-                                    <radio value="1" checked="{{type === '1'}}" /> 邮箱
+                                    <radio value="1" checked="{{type === '1'}}"/>
+                                    邮箱
                                 </label>
                             </view>
                         </view>
@@ -146,7 +162,7 @@
                                 </picker>
                             </view>
                             <view class="weui-cell__bd">
-                                <input class="weui-input" type="number" placeholder="请输入号码" value="{{mobileNumber}}" bindinput="onMobileNumberChange" />
+                                <input class="weui-input" type="number" placeholder="请输入号码" value="{{mobileNumber}}" bindinput="onMobileNumberChange"/>
                             </view>
                         </view>
                     </block>
@@ -156,27 +172,35 @@
                                 <label class="weui-label">邮箱</label>
                             </view>
                             <view class="weui-cell__bd">
-                                <input class="weui-input" value="{{emailAddress}}" bindinput="onEmailAddressChange" placeholder="邮箱地址" placeholder-class="weui-input__placeholder" />
+                                <input class="weui-input" value="{{emailAddress}}" bindinput="onEmailAddressChange" placeholder="邮箱地址" placeholder-class="weui-input__placeholder"/>
                             </view>
                         </view>
                     </block>
-					<view class="weui-cell weui-cell_active weui-cell_vcode weui-cell_wrap">
-						<view class="weui-cell__hd"><label class="weui-label">验证码</label></view>
-						<view class="weui-cell__bd">
-							<input class="weui-cell__control weui-cell__control_flex weui-input" type="text" placeholder="输入验证码" placeholder-class="weui-input__placeholder" bindinput="onVerifyCodeChange"/>
-							<view aria-role="button" class="weui-cell__control weui-btn weui-btn_default weui-vcode-btn" bind:tap="sendVerifyCode">获取验证码</view>
-						</view>
-					</view>
-				</view>
-			</view>
-		</view>
-		<view class="weui-form__tips-area">
+                    <view class="weui-cell weui-cell_active weui-cell_vcode weui-cell_wrap">
+                        <view class="weui-cell__hd">
+                            <label class="weui-label">验证码</label>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <input class="weui-cell__control weui-cell__control_flex weui-input" type="text" placeholder="输入验证码" placeholder-class="weui-input__placeholder"
+                                   bindinput="onVerifyCodeChange"/>
+                            <view aria-role="button" class="weui-cell__control weui-btn weui-btn_default weui-vcode-btn" bind:tap="sendVerifyCode">获取验证码</view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="weui-form__tips-area">
             <label aria-role="" class="weui-agree">
-                <checkbox aria-labelledby="js_agree_txt js_agree_link" class="weui-agree__checkbox-check" />
+                <checkbox-group bind:change="onChangeAgree">
+                    <checkbox value="agree" checked="{{isAgree}}" aria-labelledby="js_agree_txt js_agree_link" class="weui-agree__checkbox-check"/>
+                </checkbox-group>
                 <span class="weui-agree__checkbox"></span>
-                <span class="weui-agree__text"><text aria-hidden="true" id="js_agree_txt">阅读并同意</text><navigator id="js_agree_link">《相关条款》</navigator></span>
+                <span class="weui-agree__text">
+                    <text aria-hidden="true" id="js_agree_txt">阅读并同意</text>
+                    <navigator id="js_agree_link" url="/pages/about/policies">《相关条款》</navigator>
+                </span>
             </label>
-		</view>
+        </view>
         <view class="weui-form__opr-area">
             <button class="weui-btn weui-btn_primary" type="primary" bind:tap="onSubmit">提交登录</button>
         </view>

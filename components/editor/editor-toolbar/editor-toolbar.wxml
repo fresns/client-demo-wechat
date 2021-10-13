@@ -8,55 +8,55 @@
     <view class="weui-flex toolbar">
         <view class="weui-flex__item" data-type="emoji" wx:if="{{editorConfig.toolbar.emoji}}" bind:tap="onClickToolBar">
             <view class="tabbar_icon">
-                <image src="https://cdn.fresns.cn/configs/toolbar/default_emoji.png" class="weui-tabbar__icon"></image>
+                <image src="https://cdn.fresns.org/configs/toolbar/default_emoji.png" class="weui-tabbar__icon"></image>
             </view>
             <view class="weui-tabbar__label">表情</view>
         </view>
         <view class="weui-flex__item" data-type="image" wx:if="{{editorConfig.toolbar.image.status}}" bind:tap="onClickToolBar">
             <view class="tabbar_icon">
-                <image src="https://cdn.fresns.cn/configs/toolbar/default_image.png" class="weui-tabbar__icon"></image>
+                <image src="https://cdn.fresns.org/configs/toolbar/default_image.png" class="weui-tabbar__icon"></image>
             </view>
             <view class="weui-tabbar__label">图片</view>
         </view>
         <view class="weui-flex__item" data-type="video" wx:if="{{editorConfig.toolbar.video.status}}" bind:tap="onClickToolBar">
             <view class="tabbar_icon">
-                <image src="https://cdn.fresns.cn/configs/toolbar/default_video.png" class="weui-tabbar__icon"></image>
+                <image src="https://cdn.fresns.org/configs/toolbar/default_video.png" class="weui-tabbar__icon"></image>
             </view>
             <view class="weui-tabbar__label">视频</view>
         </view>
         <view class="weui-flex__item" data-type="audio" wx:if="{{editorConfig.toolbar.audio.status}}" bind:tap="onClickToolBar">
             <view class="tabbar_icon">
-                <image src="https://cdn.fresns.cn/configs/toolbar/default_audio.png" class="weui-tabbar__icon"></image>
+                <image src="https://cdn.fresns.org/configs/toolbar/default_audio.png" class="weui-tabbar__icon"></image>
             </view>
             <view class="weui-tabbar__label">音频</view>
         </view>
         <view class="weui-flex__item" data-type="doc" wx:if="{{editorConfig.toolbar.doc.status}}" bind:tap="onClickToolBar">
             <view class="tabbar_icon">
-                <image src="https://cdn.fresns.cn/configs/toolbar/default_doc.png" class="weui-tabbar__icon"></image>
+                <image src="https://cdn.fresns.org/configs/toolbar/default_doc.png" class="weui-tabbar__icon"></image>
             </view>
             <view class="weui-tabbar__label">文档</view>
         </view>
         <view class="weui-flex__item" data-type="title" wx:if="{{editorConfig.toolbar.title}}" bind:tap="onClickToolBar">
             <view class="tabbar_icon">
-                <image src="https://cdn.fresns.cn/configs/toolbar/default_title.png" class="weui-tabbar__icon"></image>
+                <image src="https://cdn.fresns.org/configs/toolbar/default_title.png" class="weui-tabbar__icon"></image>
             </view>
             <view class="weui-tabbar__label">标题</view>
         </view>
         <view class="weui-flex__item" data-type="mention" wx:if="{{editorConfig.toolbar.mention}}" bind:tap="onClickToolBar">
             <view class="tabbar_icon">
-                <image src="https://cdn.fresns.cn/configs/toolbar/default_mention.png" class="weui-tabbar__icon"></image>
+                <image src="https://cdn.fresns.org/configs/toolbar/default_mention.png" class="weui-tabbar__icon"></image>
             </view>
             <view class="weui-tabbar__label">艾特</view>
         </view>
         <view class="weui-flex__item" data-type="hashtags" wx:if="{{editorConfig.toolbar.hashtag.status}}" bind:tap="onClickToolBar">
             <view class="tabbar_icon">
-                <image src="https://cdn.fresns.cn/configs/toolbar/default_hashtag.png" class="weui-tabbar__icon"></image>
+                <image src="https://cdn.fresns.org/configs/toolbar/default_hashtag.png" class="weui-tabbar__icon"></image>
             </view>
             <view class="weui-tabbar__label">话题</view>
         </view>
         <view class="weui-flex__item" data-type="extension" wx:if="{{editorConfig.toolbar.expand.status}}" bind:tap="onClickToolBar">
             <view class="tabbar_icon">
-                <image src="https://cdn.fresns.cn/configs/toolbar/default_expand.png" class="weui-tabbar__icon"></image>
+                <image src="https://cdn.fresns.org/configs/toolbar/default_expand.png" class="weui-tabbar__icon"></image>
             </view>
             <view class="weui-tabbar__label">扩展</view>
         </view>
@@ -75,9 +75,23 @@
     <mp-searchbar wx:if="{{showType === 'member'}}" class="editor-fixed" search="{{onMemberTextChange}}" bindselectresult="onSearchMembers"/>
     <!-- search hashtags -->
     <mp-searchbar wx:if="{{showType === 'hashtags'}}" class="editor-fixed" search="{{onHashtagsTextChange}}" bindselectresult="onSearchHashtags"/>
-    <view wx:if="{{showType==='extension'}}" class="extension-fixed">
-        <block wx:for="{{editorConfig.toolbar.expand.list}}" wx:for-item="expand" wx:for-index="index" wx:key="index">
-            <view data-expand="{{expand}}" bind:tap="onClickExpand">{{expand.name}}</view>
-        </block>
+    <!--    <view wx:if="{{showType==='extension'}}" class="extension-fixed">-->
+    <!--        <block wx:for="{{editorConfig.toolbar.expand.list}}" wx:for-item="expand" wx:for-index="index" wx:key="index">-->
+    <!--            <view data-expand="{{expand}}" bind:tap="onClickExpand">{{expand.name}}</view>-->
+    <!--        </block>-->
+    <!--    </view>-->
+
+    <view wx:if="{{showType==='extension'}}" aria-role="dialog" aria-modal="true" aria-labelledby="js_dialog_title" class="fadeIn" bindtap="close">
+        <view class="weui-mask" aria-role="button" aria-label="关闭" bindtap="onClickToolBar"></view>
+        <view class="weui-actionsheet weui-actionsheet_toggle">
+            <view class="weui-actionsheet__menu">
+                <block wx:for="{{editorConfig.toolbar.expand.list}}" wx:for-item="expand" wx:for-index="index" wx:key="index">
+                    <view aria-role="button" class="weui-actionsheet__cell" data-expand="{{expand}}" bind:tap="onClickExpand">{{expand.name}}</view>
+                </block>
+            </view>
+            <view class="weui-actionsheet__action">
+                <view aria-role="button" class="weui-actionsheet__cell" bind:tap="onClickToolBar">取消</view>
+            </view>
+        </view>
     </view>
 </view>

@@ -1,7 +1,9 @@
 {
   "component": true,
   "usingComponents": {
-    "member": "/components/member/list"
+    "member": "/components/member/list",
+    "extend-info": "/components/extend/extend-info",
+    "extend-text": "/components/extend/extend-text"
   },
   "componentGenerics": {
     "contentType": true

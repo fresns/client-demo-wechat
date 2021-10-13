@@ -32,19 +32,6 @@
         </post>
     </view>
 
-
-<!--    &lt;!&ndash;帖子列表&ndash;&gt;-->
-<!--    <view class="post-list">-->
-<!--        <post generic:contentType="post-list" fsui="list-style">-->
-<!--            <view slot="files" class="content-files">-->
-<!--                <view class="file-image-1">-->
-<!--                    <image src="https://fresns.org/prototype/assets/images/temp/image.jpg" mode="widthFix" bindtap="ImageOpen">-->
-<!--                    </image>-->
-<!--                </view>-->
-<!--            </view>-->
-<!--        </post>-->
-<!--    </view>-->
-
     <!--File image Gallery-->
     <view wx:if="{{imageGallery}}" class="weui-gallery fadeIn" bindtap="ImageClose">
         <view class="weui-gallery__info">1/9</view>

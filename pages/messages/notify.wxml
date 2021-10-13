@@ -3,26 +3,91 @@
     Copyright 2021-Present Jarvis Tang
     Licensed under the Apache-2.0 license
 * -->
-<page-meta root-font-size="system"/>
+<page-meta root-font-size="system" />
 <view class="page" data-weui-theme="{{theme}}">
-
-  <view class="weui-cells__title">通知</view>
-  <view class="weui-cells weui-cells_after-title">
-    <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-      <view class="weui-cell__hd">
-        <image src="https://fresns.org/prototype/assets/images/temp/placeholder_icon.png"></image>
-      </view>
-      <view class="weui-cell__bd">cell standard</view>
-      <view class="weui-cell__ft weui-cell__ft_in-access">说明文字</view>
-    </navigator>
-    <navigator url="" class="weui-cell weui-cell_example weui-cell_access" hover-class="weui-cell_active">
-      <view class="weui-cell__hd">
-        <image src="https://fresns.org/prototype/assets/images/temp/placeholder_icon.png"></image>
-      </view>
-      <view class="weui-cell__bd">cell standard</view>
-      <view class="weui-cell__ft weui-cell__ft_in-access">说明文字</view>
-    </navigator>
-  </view>
-
-  <view class="copyright">Powered by Fresns</view>
+    <view class="weui-cells__title">消息列表</view>
+    <view class="weui-cells weui-cells_after-title">
+        <block wx:for="{{notifies}}" wx:for-item="notifyItem" wx:key="nitifyId">
+            <!--系统-->
+            <navigator wx:if="{{notifyItem.sourceType === 1}}" url="{{'/pages/webview?url=' + notifyItem.access_url || ''}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__hd">
+                    <image src="{{notifyItem.sourceMember.avatar}}"></image>
+                </view>
+                <view class="weui-cell__bd">
+                    {{notifyItem.sourceMember.nickname}}
+                    <text class="mname">@{{notifyItem.sourceMember.mname}}</text>
+                </view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">查看</view>
+            </navigator>
+            <!--关注-->
+            <navigator wx:if="{{notifyItem.sourceType === 2}}" url="/pages/profile/index?mid={{notifyItem.sourceMember.mid}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__hd">
+                    <image src="{{notifyItem.sourceMember.avatar}}"></image>
+                </view>
+                <view class="weui-cell__bd">
+                    {{notifyItem.sourceMember.nickname}}
+                    <text class="mname">@{{notifyItem.sourceMember.mname}}</text>
+                </view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">TA 关注了你</view>
+            </navigator>
+            <!--点赞-->
+            <navigator wx:if="{{notifyItem.sourceType === 3}}" url="/pages/profile/index?mid={{notifyItem.sourceMember.mid}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__hd">
+                    <image src="{{notifyItem.sourceMember.avatar}}"></image>
+                </view>
+                <view class="weui-cell__bd">
+                    {{notifyItem.sourceMember.nickname}}
+                    <text class="mname">@{{notifyItem.sourceMember.mname}}</text>
+                </view>
+                <view class="weui-cell__ft weui-cell__ft_in-access" wx:if="{{notifyItem.sourceClass === null}}">TA 点赞了你</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access" wx:if="{{notifyItem.sourceClass === 1}}">TA 点赞了你的帖子</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access" wx:if="{{notifyItem.sourceClass === 2}}">TA 点赞了你的评论</view>
+            </navigator>
+            <!--评论-帖子-->
+            <navigator wx:if="{{notifyItem.sourceType === 4 && notifyItem.sourceClass === 1}}" url="/pages/posts/detail?pid={{notifyItem.sourceUuid}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__hd">
+                    <image src="{{notifyItem.sourceMember.avatar}}"></image>
+                </view>
+                <view class="weui-cell__bd">
+                    {{notifyItem.sourceMember.nickname}}
+                    <text class="mname">@{{notifyItem.sourceMember.mname}}</text>
+                </view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">TA 评论了你的帖子</view>
+            </navigator>
+            <!--回复-评论-->
+            <navigator wx:if="{{notifyItem.sourceType === 4 && notifyItem.sourceClass === 2}}" url="/pages/comments/detail?cid={{notifyItem.sourceUuid}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__hd">
+                    <image src="{{notifyItem.sourceMember.avatar}}"></image>
+                </view>
+                <view class="weui-cell__bd">
+                    {{notifyItem.sourceMember.nickname}}
+                    <text class="mname">@{{notifyItem.sourceMember.mname}}</text>
+                </view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">TA 回复了你的评论</view>
+            </navigator>
+            <!--提及（艾特）-->
+            <navigator wx:if="{{notifyItem.sourceType === 5}}" url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__hd">
+                    <image src="{{notifyItem.sourceMember.avatar}}"></image>
+                </view>
+                <view class="weui-cell__bd">
+                    {{notifyItem.sourceMember.nickname}}
+                    <text class="mname">@{{notifyItem.sourceMember.mname}}</text>
+                </view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">TA 提及了你</view>
+            </navigator>
+            <!--推荐-->
+            <navigator wx:if="{{notifyItem.sourceType === 6}}" url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__hd">
+                    <image src="{{notifyItem.sourceMember.avatar}}"></image>
+                </view>
+                <view class="weui-cell__bd">
+                    {{notifyItem.sourceMember.nickname}}
+                    <text class="mname">@{{notifyItem.sourceMember.mname}}</text>
+                </view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">查看</view>
+            </navigator>
+        </block>
+    </view>
+    <view class="copyright">Powered by Fresns</view>
 </view>

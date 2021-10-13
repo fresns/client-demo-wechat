@@ -4,7 +4,12 @@
     Licensed under the Apache-2.0 license
 * -->
 <navigator url="/pages/posts/detail?pid={{post.pid}}" class="content-list">
-    <view class="content-title" wx:if="{{post.title}}">{{post.title}}</view>
+    <view class="content-title" wx:if="{{post.title}}">
+        <block wx:for="{{post.icons}}" wx:for-item="iconItem">
+            <image wx:if="{{iconItem.name === 'title'}}" src="{{iconItem.fileUrl}}" mode="heightFix"></image>
+        </block>
+        {{post.title}}
+    </view>
     <view class="fresns-content" wx:if="{{post.content}}">
         <rich-text nodes="{{post.content}}"></rich-text>
     </view>

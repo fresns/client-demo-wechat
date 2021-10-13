@@ -11,21 +11,29 @@ Component({
   },
   data: {
     poi: null,
-    showIOSDialog: false
-  },
-  close: function() {
-      this.setData({
-          showIOSDialog: false
-      });
-  },
-  openIOS: function () {
-      this.setData({
-          showIOSDialog: true
-      });
+    isShowSelectModal: false,
   },
   methods: {
     handleClickAddLocation: async function () {
       callPageFunction('onSelectLocation')
+    },
+    onClickReLocation: function () {
+      callPageFunction('onSelectLocation')
+      this.onClickCloseModal()
+    },
+    onClickDeleteLocation: function () {
+      callPageFunction('onDeleteLocation')
+      this.onClickCloseModal()
+    },
+    onClickShowModal: function () {
+      this.setData({
+        isShowSelectModal: true,
+      })
+    },
+    onClickCloseModal: function () {
+      this.setData({
+        isShowSelectModal: false,
+      })
     },
   },
   observers: {

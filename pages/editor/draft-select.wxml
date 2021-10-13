@@ -1,0 +1,24 @@
+<!-- *
+    Fresns 微信小程序 (https://fresns.org)
+    Copyright 2021-Present Jarvis Tang
+    Licensed under the Apache-2.0 license
+* -->
+<page-meta root-font-size="system" />
+<view class="page" data-weui-theme="{{theme}}">
+    <view class="weui-cells__title">不选择草稿</view>
+    <view>
+        <navigator class="weui-btn weui-btn_primary" aria-role="button" url="">创建新草稿</navigator>
+    </view>
+    <view class="weui-cells__title">选择草稿</view>
+    <view class="weui-cells weui-cells_after-title">
+        <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <view class="weui-cell__bd">cell standard</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </navigator>
+        <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <view class="weui-cell__bd">cell standard</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </navigator>
+    </view>
+    <view class="copyright">Powered by Fresns</view>
+</view>

@@ -4,8 +4,6 @@
     "detail": "/components/post/content-detail",
     "comment": "/components/comment/list",
     "comment-list": "/components/comment/content-list",
-    "box-info": "/components/extend/box-info",
-    "box-text": "/components/extend/box-text",
     "emoji": "/components/weui/emoji/index"
   }
 }

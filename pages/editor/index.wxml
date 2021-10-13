@@ -10,19 +10,23 @@
 
     <view class="weui-form">
         <view class="weui-cells">
+            <!--编辑器提示-->
             <editor-tips-global-limit wx:if="{{editorConfig.globalLimit.status}}" globalLimit="{{editorConfig.globalLimit}}"/>
             <editor-tips-role-limit wx:if="{{editorConfig.roleLimit.status}}" roleLimit="{{editorConfig.roleLimit}}"/>
             <editor-tips-edit-countdown wx:if="{{false}}"/>
+            <!--编辑器输入项-->
             <editor-group wx:if="{{editorConfig.features.postGroup.status}}"/>
             <editor-title wx:if="{{isShowTitleInput && (editorConfig.toolbar.title.view === 1 || currentDraft.title)}}" defaultTitle="{{currentDraft.title}}"/>
-            <!--正文输入框-->
+
             <view class="weui-cell weui-cell_active">
                 <view class="weui-cell__bd">
                     <editor id="editor" bindinput="onEditorInput" class="weui-textarea" placeholder-class="weui-input__placeholder" placeholder="请输入内容"></editor>
-                    <view aria-role="option" title="字数统计" class="weui-textarea-counter">{{editorContentWordCount || 0}}/{{editorConfig.features.contentWordCount}}</view>
+                    <view aria-role="option" title="字数统计" class="weui-textarea-counter">
+                        {{editorContentWordCount || 0}}/{{editorConfig.features.contentWordCount}}
+                    </view>
                 </view>
             </view>
-            <!--正文输入框 结束-->
+
             <view class="editor-features">
                 <view class="float-left">
                     <editor-lbs wx:if="{{editorConfig.features.isLbs.status || currentDraft.location}}" location="{{currentDraft.location}}"/>
@@ -31,8 +35,15 @@
                     <editor-anonymous wx:if="{{editorConfig.features.isAnonymous || currentDraft.isAnonymous === 1}}" isAnonymous="{{editorConfig.features.isAnonymous}}"/>
                 </view>
             </view>
-        </view>
 
+            <editor-file wx:if="{{currentDraft.files.length > 0}}"/>
+            <editor-extend-text/>
+            <editor-extend-info/>
+            <editor-allow/>
+            <editor-members/>
+            <editor-comment-btn/>
+        </view>
+        <!--发表按钮-->
         <view class="weui-form__opr-area" style="margin-top:60px;">
             <view class="weui-btn weui-btn_primary" aria-role="button" bind:tap="submitDraft">
                 提交发表

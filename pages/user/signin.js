@@ -2,9 +2,11 @@
  * Fresns 微信小程序 (https://fresns.org)
  * Copyright 2021-Present Jarvis Tang
  * Licensed under the Apache-2.0 license
- */import Api from '../../api/api'
+ */
+import Api from '../../api/api'
 import { base64_encode } from '../../libs/base64/base64'
 import { globalInfo } from '../../configs/fresnsGlobalInfo'
+import { getConfigItemValue } from '../../api/tool/replace-key'
 
 const LoginType = {
   WeChat: '0',
@@ -29,8 +31,8 @@ Page({
     emailAddress: '',
 
     // 手机相关信息
-    mobileAreaRange: ['+86', '+1', '+886'],
-    mobileAreaIndex: 0,
+    mobileAreaRange: [],
+    mobileAreaIndex: null,
     mobileNumber: '',
 
     // 密码
@@ -38,6 +40,21 @@ Page({
 
     // 验证码
     verifyCode: '',
+
+    // 是否同意用户协议
+    isAgree: false,
+  },
+  onLoad: async function (options) {
+    const [defaultCode, codeArray] = await Promise.all(
+      [
+        getConfigItemValue('send_sms_code'),
+        getConfigItemValue('send_sms_code_more'),
+      ],
+    )
+    this.setData({
+      mobileAreaRange: codeArray,
+      mobileAreaIndex: codeArray.indexOf(defaultCode + ''),
+    })
   },
   onLoginTypeChange: function (e) {
     this.setData({
@@ -77,7 +94,7 @@ Page({
     })
     return value
   },
-  onVerifyCodeChange: function(e) {
+  onVerifyCodeChange: function (e) {
     const value = e.detail.value
     this.setData({
       verifyCode: value,
@@ -113,11 +130,25 @@ Page({
       })
     }
   },
+  onChangeAgree: function (e) {
+    const isAgree = e.detail.value.includes('agree')
+    this.setData({
+      isAgree: isAgree,
+    })
+  },
   onSubmit: async function () {
+    if (!this.data.isAgree) {
+      wx.showToast({
+        title: '请先阅读并同意相关条款',
+        icon: 'none',
+      })
+      return
+    }
+
     const { loginType, type, emailAddress, mobileAreaRange, mobileAreaIndex, mobileNumber, password, verifyCode } = this.data
     let params = null
 
-    if (loginType === LoginType.Password ) {
+    if (loginType === LoginType.Password) {
       if (type === Type.Email) {
         params = {
           type: 1,
@@ -139,7 +170,7 @@ Page({
         params = {
           type: 1,
           account: emailAddress,
-          verifyCode: verifyCode
+          verifyCode: verifyCode,
         }
       }
       if (type === Type.Mobile) {
@@ -147,7 +178,7 @@ Page({
           type: 2,
           account: mobileNumber,
           countryCode: +mobileAreaRange[mobileAreaIndex],
-          verifyCode: verifyCode
+          verifyCode: verifyCode,
         }
       }
     }

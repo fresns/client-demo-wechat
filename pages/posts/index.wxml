@@ -27,146 +27,9 @@
         </view>
     </view>
 
+    <!--帖子列表-->
     <view class="post-list" wx:for="{{posts}}" wx:for-item="post" wx:key="pid">
-        <!-- 附带视频 -->
-        <post generic:contentType="post-list" fsui="list-style" post="{{post}}">
-            <!--            <view slot="files" class="content-files">-->
-            <!--                <view class="file-video">-->
-            <!--                    <image src="https://fresns.org/prototype/assets/images/temp/video.gif" class="video_gif" mode="widthFix">-->
-            <!--                    </image>-->
-            <!--                    <a class="weui-btn weui-btn_mini weui-btn_default">-->
-            <!--                        <image src="/assets/images/play.png" class="weui-btn_cell__icon" mode="aspectFit"></image>-->
-            <!--                    </a>-->
-            <!--                </view>-->
-            <!--            </view>-->
-        </post>
-
-        <!--        &lt;!&ndash; 附带视频 &ndash;&gt;-->
-        <!--        <post generic:contentType="post-list" fsui="list-style" post="{{post}}">-->
-        <!--            <view slot="files" class="content-files">-->
-        <!--                <view class="file-video">-->
-        <!--                    <image src="https://fresns.org/prototype/assets/images/temp/video.gif" class="video_gif" mode="widthFix">-->
-        <!--                    </image>-->
-        <!--                    <a class="weui-btn weui-btn_mini weui-btn_default">-->
-        <!--                        <image src="/assets/images/play.png" class="weui-btn_cell__icon" mode="aspectFit"></image>-->
-        <!--                    </a>-->
-        <!--                </view>-->
-        <!--            </view>-->
-        <!--        </post>-->
-
-        <!--        &lt;!&ndash; 附带音频 &ndash;&gt;-->
-        <!--        <post generic:contentType="post-list" fsui="list-style">-->
-        <!--            <view slot="files" class="content-files">-->
-        <!--                <view class="file-audio">-->
-        <!--                    <audio poster="{{poster}}" name="蜗牛快跑" author="ChinaZ" src="https://tangjie.me/media/woniu.mp3" id="myAudio"-->
-        <!--                           controls loop></audio>-->
-        <!--                </view>-->
-        <!--            </view>-->
-        <!--        </post>-->
-
-        <!--        &lt;!&ndash; 附带文档 &ndash;&gt;-->
-        <!--        <post generic:contentType="post-list" fsui="list-style">-->
-        <!--            <view slot="files" class="content-files">-->
-        <!--                <a class="file-doc">-->
-        <!--                    <view class="doc-icon">-->
-        <!--                        <image src="/assets/images/file.png" class="weui-btn_cell__icon" mode="aspectFit"></image>-->
-        <!--                    </view>-->
-        <!--                    <view class="doc-name">Fresns 免费开源的社交网络服务软件</view>-->
-        <!--                </a>-->
-        <!--                <a class="file-doc">-->
-        <!--                    <view class="doc-icon">-->
-        <!--                        <image src="/assets/images/file.png" class="weui-btn_cell__icon" mode="aspectFit"></image>-->
-        <!--                    </view>-->
-        <!--                    <view class="doc-name">Fresns 免费开源的社交网络服务软件</view>-->
-        <!--                </a>-->
-        <!--            </view>-->
-        <!--        </post>-->
-
-        <!--        &lt;!&ndash; 帖子有热评 &ndash;&gt;-->
-        <!--        <post generic:contentType="post-list" fsui="list-style">-->
-        <!--            <view slot="files" class="content-files">-->
-        <!--                <view class="file-image-1">-->
-        <!--                    <image src="https://fresns.org/prototype/assets/images/temp/image.jpg" mode="widthFix" bindtap="ImageOpen">-->
-        <!--                    </image>-->
-        <!--                </view>-->
-        <!--            </view>-->
-        <!--            <view slot="comment" class="content-comment">-->
-        <!--                <view class="content-comment-title clearfix">-->
-        <!--                    <view class="float-left">-->
-        <!--                        <text class="weui-badge">热评</text>-->
-        <!--                    </view>-->
-        <!--                    <view class="float-end fg-1">88 赞</view>-->
-        <!--                </view>-->
-        <!--                <navigator class="content-comment-content" url="/pages/posts/detail">-->
-        <!--                    <navigator class="navigator-inline" url="/pages/profile/index">用户昵称</navigator>:-->
-        <!--                    专为跨平台而打造的通用型社区产品，支持灵活多样的内容形态。-->
-        <!--                </navigator>-->
-        <!--                <view class="comment-image-1">-->
-        <!--                    <image src="https://fresns.org/prototype/assets/images/temp/image.jpg" mode="widthFix" bindtap="ImageOpen">-->
-        <!--                    </image>-->
-        <!--                </view>-->
-        <!--            </view>-->
-        <!--        </post>-->
-
-        <!--        &lt;!&ndash; 附带图片 2 张 &ndash;&gt;-->
-        <!--        <post generic:contentType="post-list" fsui="list-style">-->
-        <!--            <view slot="files" class="content-files">-->
-        <!--                <view class="file-image-2">-->
-        <!--                    <image src="https://fresns.org/prototype/assets/images/temp/image.jpg" mode="widthFix" bindtap="ImageOpen">-->
-        <!--                    </image>-->
-        <!--                    <image src="https://fresns.org/prototype/assets/images/temp/image.jpg" mode="widthFix" bindtap="ImageOpen">-->
-        <!--                    </image>-->
-        <!--                </view>-->
-        <!--            </view>-->
-        <!--        </post>-->
-
-        <!--        &lt;!&ndash; 附带图片 3 张 &ndash;&gt;-->
-        <!--        <post generic:contentType="post-list" fsui="list-style">-->
-        <!--            <view slot="files" class="content-files">-->
-        <!--                <view class="file-image-3">-->
-        <!--                    <image src="https://fresns.org/prototype/assets/images/temp/image.jpg" mode="widthFix" bindtap="ImageOpen">-->
-        <!--                    </image>-->
-        <!--                    <image src="https://fresns.org/prototype/assets/images/temp/image.jpg" mode="widthFix" bindtap="ImageOpen">-->
-        <!--                    </image>-->
-        <!--                    <image src="https://fresns.org/prototype/assets/images/temp/image.jpg" mode="widthFix" bindtap="ImageOpen">-->
-        <!--                    </image>-->
-        <!--                </view>-->
-        <!--            </view>-->
-        <!--        </post>-->
-
-        <!--        &lt;!&ndash; 附带图片 4 张 &ndash;&gt;-->
-        <!--        <post generic:contentType="post-list" fsui="list-style">-->
-        <!--            <view slot="files" class="content-files">-->
-        <!--                <view class="file-image-4">-->
-        <!--                    <image src="https://fresns.org/prototype/assets/images/temp/image.jpg" mode="widthFix" bindtap="ImageOpen">-->
-        <!--                    </image>-->
-        <!--                    <image src="https://fresns.org/prototype/assets/images/temp/image.jpg" mode="widthFix" bindtap="ImageOpen">-->
-        <!--                    </image>-->
-        <!--                    <image src="https://fresns.org/prototype/assets/images/temp/image.jpg" mode="widthFix" bindtap="ImageOpen">-->
-        <!--                    </image>-->
-        <!--                    <image src="https://fresns.org/prototype/assets/images/temp/image.jpg" mode="widthFix" bindtap="ImageOpen">-->
-        <!--                    </image>-->
-        <!--                </view>-->
-        <!--            </view>-->
-        <!--        </post>-->
-
-        <!--        &lt;!&ndash; 附带图片 5 张 &ndash;&gt;-->
-        <!--        <post generic:contentType="post-list" fsui="list-style">-->
-        <!--            <view slot="files" class="content-files">-->
-        <!--                <view class="file-image-5">-->
-        <!--                    <image src="https://fresns.org/prototype/assets/images/temp/image.jpg" mode="widthFix" bindtap="ImageOpen">-->
-        <!--                    </image>-->
-        <!--                    <image src="https://fresns.org/prototype/assets/images/temp/image.jpg" mode="widthFix" bindtap="ImageOpen">-->
-        <!--                    </image>-->
-        <!--                    <image src="https://fresns.org/prototype/assets/images/temp/image.jpg" mode="widthFix" bindtap="ImageOpen">-->
-        <!--                    </image>-->
-        <!--                    <image src="https://fresns.org/prototype/assets/images/temp/image.jpg" mode="widthFix" bindtap="ImageOpen">-->
-        <!--                    </image>-->
-        <!--                    <image src="https://fresns.org/prototype/assets/images/temp/image.jpg" mode="widthFix" bindtap="ImageOpen">-->
-        <!--                    </image>-->
-        <!--                </view>-->
-        <!--            </view>-->
-        <!--        </post>-->
+        <post generic:contentType="post-list" fsui="list-style" post="{{post}}"></post>
     </view>
 
     <!--File image Gallery-->
@@ -195,5 +58,5 @@
     </view>
 
     <view class="copyright">Powered by Fresns</view>
-    <tabbar></tabbar>
+    <tabbar activeLabel="post"></tabbar>
 </view>

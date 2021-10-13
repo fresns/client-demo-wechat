@@ -3,72 +3,82 @@
  * Copyright 2021-Present Jarvis Tang
  * Licensed under the Apache-2.0 license
  */
-import { getCurPage } from '../../util/getCurPage'
 import Api from '../../api/api'
+import { globalInfo } from '../../configs/fresnsGlobalInfo'
 
 Component({
-  properties: {},
+  properties: {
+    activeLabel: String,
+  },
 
   /**
    * 组件的初始数据
    */
   data: {
-    curRoute: null,
     tabs: [
       {
+        label: 'portal',
         text: '门户',
         route: '/pages/portal/index',
-        iconPath: 'https://cdn.fresns.cn/configs/tabbar/default_home.png',
-        selectedIconPath: 'https://cdn.fresns.cn/configs/tabbar/default_home_active.png',
+        iconPath: 'https://cdn.fresns.org/configs/tabbar/default_home.png',
+        selectedIconPath: 'https://cdn.fresns.org/configs/tabbar/default_home_active.png',
       },
       {
+        label: 'member',
         text: '成员',
         route: '/pages/members/index',
-        iconPath: 'https://cdn.fresns.cn/configs/tabbar/default_member.png',
-        selectedIconPath: 'https://cdn.fresns.cn/configs/tabbar/default_member_active.png',
+        iconPath: 'https://cdn.fresns.org/configs/tabbar/default_member.png',
+        selectedIconPath: 'https://cdn.fresns.org/configs/tabbar/default_member_active.png',
       },
       {
+        label: 'group',
         text: '小组',
         route: '/pages/groups/index',
-        iconPath: 'https://cdn.fresns.cn/configs/tabbar/default_group.png',
-        selectedIconPath: 'https://cdn.fresns.cn/configs/tabbar/default_group_active.png',
+        iconPath: 'https://cdn.fresns.org/configs/tabbar/default_group.png',
+        selectedIconPath: 'https://cdn.fresns.org/configs/tabbar/default_group_active.png',
       },
       {
+        label: 'hashtags',
         text: '话题',
         route: '/pages/hashtags/index',
-        iconPath: 'https://cdn.fresns.cn/configs/tabbar/default_hashtag.png',
-        selectedIconPath: 'https://cdn.fresns.cn/configs/tabbar/default_hashtag_active.png',
+        iconPath: 'https://cdn.fresns.org/configs/tabbar/default_hashtag.png',
+        selectedIconPath: 'https://cdn.fresns.org/configs/tabbar/default_hashtag_active.png',
       },
       {
+        label: 'post',
         text: '帖子',
         route: '/pages/posts/index',
-        iconPath: 'https://cdn.fresns.cn/configs/tabbar/default_post.png',
-        selectedIconPath: 'https://cdn.fresns.cn/configs/tabbar/default_post_active.png',
+        iconPath: 'https://cdn.fresns.org/configs/tabbar/default_post.png',
+        selectedIconPath: 'https://cdn.fresns.org/configs/tabbar/default_post_active.png',
       },
       {
+        label: 'comment',
         text: '评论',
         route: '/pages/comments/index',
-        iconPath: 'https://cdn.fresns.cn/configs/tabbar/default_comment.png',
-        selectedIconPath: 'https://cdn.fresns.cn/configs/tabbar/default_comment_active.png',
+        iconPath: 'https://cdn.fresns.org/configs/tabbar/default_comment.png',
+        selectedIconPath: 'https://cdn.fresns.org/configs/tabbar/default_comment_active.png',
       },
       {
+        label: 'message',
         text: '消息',
         route: '/pages/messages/index',
-        iconPath: 'https://cdn.fresns.cn/configs/tabbar/default_message.png',
-        selectedIconPath: 'https://cdn.fresns.cn/configs/tabbar/default_message_active.png',
+        iconPath: 'https://cdn.fresns.org/configs/tabbar/default_message.png',
+        selectedIconPath: 'https://cdn.fresns.org/configs/tabbar/default_message_active.png',
       },
       {
+        label: 'user',
         text: '我',
         route: '/pages/user/index',
-        iconPath: 'https://cdn.fresns.cn/configs/tabbar/default_user.png',
-        selectedIconPath: 'https://cdn.fresns.cn/configs/tabbar/default_user_active.png',
+        iconPath: 'https://cdn.fresns.org/configs/tabbar/default_user.png',
+        selectedIconPath: 'https://cdn.fresns.org/configs/tabbar/default_user_active.png',
       },
     ],
   },
   lifetimes: {
     attached: async function () {
-      const curRoute = getCurPage().route
-      this.setData({ curRoute: '/' + curRoute })
+      if (!globalInfo.isLogin()) {
+        return
+      }
 
       const infoOverviewRes = await Api.info.infoOverview()
       if (infoOverviewRes.code === 0) {

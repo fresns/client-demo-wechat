@@ -20,7 +20,13 @@ Component({
   /**
    * 组件的初始数据
    */
-  data: {},
+  data: {
+    imageFiles: [],
+    videoFiles: [],
+    audioFiles: [],
+    docFiles: [],
+    iconsObj: {},
+  },
   /**
    * 组件的方法列表
    */
@@ -45,6 +51,29 @@ Component({
       const { comment } = this.data
       wx.navigateTo({
         url: `/pages/editor/index?type=comment&mode=modify&uuid=${comment.cid}&post_id=${comment.pid}`,
+      })
+    },
+  },
+  observers: {
+    'comment': function (comment) {
+      comment.icons = [
+        {
+          icon: 'a',
+          name: 'cc',
+        }, {
+          icon: 'b',
+          name: 'dc',
+        },
+      ]
+      this.setData({
+        imageFiles: comment.files.filter(file => file.type === 1),
+        videoFiles: comment.files.filter(file => file.type === 2),
+        audioFiles: comment.files.filter(file => file.type === 3),
+        docFiles: comment.files.filter(file => file.type === 4),
+        iconsObj: comment.icons.reduce((obj, icon) => {
+          obj[icon.name] = icon
+          return obj
+        }, {}),
       })
     },
   },

@@ -1,0 +1,74 @@
+<!-- *
+    Fresns 微信小程序 (https://fresns.org)
+    Copyright 2021-Present Jarvis Tang
+    Licensed under the Apache-2.0 license
+* -->
+<view class="content-files">
+    <!-- 图片 -->
+    <block wx:for="{{currentDraft.files}}" wx:for-item="fileItem" wx:key="imageRatioUrl">
+        <image src="{{fileItem.imageRatioUrl}}" mode="widthFix" bindtap="ImageOpen"></image>
+    </block>
+    <!-- 视频 -->
+    <block wx:for="{{currentDraft.files}}" wx:for-item="fileItem" wx:key="videoUrl">
+        <view class="file-video" wx:if="{{post.attachCount.videos > 0}}">
+            <image src="{{fileItem.videoGif || fileItem.videoCover}}" class="video_gif" mode="widthFix"></image>
+            <a class="weui-btn weui-btn_mini weui-btn_default">
+                <image src="/assets/images/play.png" class="weui-btn_cell__icon" mode="aspectFit"></image>
+            </a>
+        </view>
+    </block>
+    <!-- 音频 -->
+    <block wx:for="{{currentDraft.files}}" wx:for-item="fileItem" wx:key="audioUrl">
+        <view class="file-audio" wx:if="{{post.attachCount.audios > 0}}">
+            <audio name="{{fileItem.name}}" src="{{fileItem.audioUrl}}" controls loop></audio>
+        </view>
+    </block>
+    <!-- 文档 -->
+    <block wx:for="{{currentDraft.files}}" wx:for-item="fileItem" wx:key="name">
+        <view class="file-doc" wx:if="{{post.attachCount.docs > 0}}">
+            <view class="doc-icon">
+                <image src="/assets/images/file.png" class="weui-btn_cell__icon" mode="aspectFit"></image>
+            </view>
+            <view class="doc-name">{{fileItem.name}}</view>
+        </view>
+    </block>
+</view>
+<view class="weui-uploader">
+    <view class="weui-uploader__bd">
+        <!-- 图片 -->
+        <view class="file-image-{{images}}">
+            <image wx:for="{{imageFiles}}" wx:for-item="file" wx:key="fid" src="{{file.imageSquareUrl}}" mode="widthFix" bind:tap="onClickFile" data-file="{{file}}"></image>
+        </view>
+        <!-- 视频 -->
+        <view class="file-video" wx:for="{{videoFiles}}" wx:for-item="file" wx:key="fid" bind:tap="onClickFile" data-file="{{file}}">
+            <image src="{{file.videoGif || file.videoCover}}" class="video_gif" mode="widthFix"></image>
+            <a class="weui-btn weui-btn_mini weui-btn_default">
+                <image src="/assets/images/play.png" class="weui-btn_cell__icon" mode="aspectFit"></image>
+            </a>
+        </view>
+        <!-- 音频 -->
+        <view class="file-audio" wx:for="{{audioFiles}}" wx:for-item="file" wx:key="fid" bind:tap="onClickFile" data-file="{{file}}">
+            <audio name="{{file.name}}" src="{{file.audioUrl}}" controls loop></audio>
+        </view>
+        <!-- 文档 -->
+        <view class="file-doc" wx:for="{{docFiles}}" wx:for-item="file" wx:key="fid" bind:tap="onClickFile" data-file="{{file}}">
+            <view class="doc-icon">
+                <image src="/assets/images/file.png" class="weui-btn_cell__icon" mode="aspectFit"></image>
+            </view>
+            <view class="doc-name">{{file.name}}</view>
+        </view>
+    </view>
+    <view wx:if="{{isShowActionModal}}" aria-role="dialog" aria-modal="true" aria-labelledby="js_dialog_title" class="fadeIn" bindtap="close">
+        <view class="weui-mask" aria-role="button" aria-label="关闭" bindtap="onClickCloseModal"></view>
+        <view class="weui-actionsheet weui-actionsheet_toggle">
+            <view class="weui-actionsheet__menu">
+                <view aria-role="button" class="weui-actionsheet__cell">删除</view>
+            </view>
+            <view class="weui-actionsheet__action">
+                <view aria-role="button" class="weui-actionsheet__cell" bind:tap="onClickCloseModal">
+                    取消
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "隐私权和条款",
+  "usingComponents": {
+    "tabs": "/components/weui/tabs/index"
+  }
+}

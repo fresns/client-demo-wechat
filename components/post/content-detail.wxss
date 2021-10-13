@@ -9,3 +9,8 @@
 .content-detail {
   margin-bottom: 15px;
 }
+
+.content-title image {
+  height: 24px;
+  vertical-align: middle;
+}

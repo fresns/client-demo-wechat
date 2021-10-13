@@ -1,9 +1,9 @@
-<p align="center"><a href="https://fresns.org" target="_blank"><img src="https://cdn.fresns.cn/images/logo.png" width="300"></a></p>
+<p align="center"><a href="https://fresns.org" target="_blank"><img src="https://raw.githubusercontent.com/fresns/docs/main/images/Fresns%20Logo.png" width="300"></a></p>
 
 <p align="center">
-<img src="https://img.shields.io/badge/Fresns-1.x-yellow" alt="Fresns">
-<img src="https://img.shields.io/badge/WeUI-2.5.0-brightgreen" alt="WeUI">
-<img src="https://img.shields.io/badge/FsUI-2.5.0-blue" alt="FsUI">
+<img src="https://img.shields.io/badge/WeChat-Mini%20Program-brightgreen" alt="WeChat">
+<img src="https://img.shields.io/badge/Fresns%20API-1.x-blueviolet" alt="Fresns">
+<img src="https://img.shields.io/badge/WeUI-2.5.0-yellow" alt="WeUI">
 <img src="https://img.shields.io/badge/License-Apache--2.0-green" alt="License">
 </p>
 
@@ -16,10 +16,6 @@ Fresns 是一款免费开源的社交网络服务软件，专为跨平台而打�
 - 扩展插件开发者请阅读[扩展文档](https://fresns.org/extensions/)和[数据字典](https://fresns.org/database/)；
 - 客户端开发者（网站端、小程序、App）请阅读 [API 文档](https://fresns.org/api/)。
 
-## 免责申明
-
-Fresns 是一款支持多语言和跨时区的免费开源软件，研发和生态建设以开源组织方式协作，我们不为任何运营主体提供技术背书，不参与任何项目运营，不承担任何法律责任。由于下载代码即可使用，所以我们无法得知你的用途，但是请在使用时遵守所在国家和地区的法律法规，禁止用于违法违规业务。
-
 ## 技术框架
 
 | 框架 | 版本 | 用途 |
@@ -31,7 +27,7 @@ Fresns 是一款支持多语言和跨时区的免费开源软件，研发和生�
 
 遵循 [Fresns 客户端设计理念](https://fresns.org/extensions/idea.html#%E5%AE%A2%E6%88%B7%E7%AB%AF)，小程序以结构化方式实现了全部功能，使用者可以根据自己的需求，自定义页面风格、交互体验、栏目命名、入口路径等，实现各自个性化的运营场景。
 
-- 1、下载[代码包](https://gitee.com/fresns/wechat/releases)；
+- 1、下载[代码包](https://github.com/fresns/wechat/releases)；
 - 2、解压后使用[微信开发者工具](https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html)导入项目，项目名称和 AppID 填写你的小程序信息；
 - 3、将 `configs` 文件夹中的 `fresnsConfig.example.js` 文件名修改为 `fresnsConfig.js`，然后根据里面的描述填写你的配置信息；
 - 4、修改风格样式，或者使用第三方开发的风格样式覆盖原文件；

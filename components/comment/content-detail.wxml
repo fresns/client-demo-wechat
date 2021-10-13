@@ -4,6 +4,7 @@
     Licensed under the Apache-2.0 license
 * -->
 <view class="content-detail">
+    <!-- 详情页正文内容，需支持 Markdown 格式 -->
     <view class="fresns-content">
         <rich-text nodes="{{comment.content}}"></rich-text>
     </view>

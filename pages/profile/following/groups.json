@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "成员昵称",
+  "usingComponents": {
+    "group": "/components/group/list",
+    "profile-member": "/components/member/profile",
+    "profile-switch": "/components/member/switch"
+  }
+}

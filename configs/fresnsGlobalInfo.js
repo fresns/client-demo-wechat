@@ -144,6 +144,13 @@ export class GlobalInfo {
     })
   }
 
+  /**
+   * 判断用户是否登录
+   */
+  isLogin () {
+    return this.loginUser && this.loginMember
+  }
+
   _clearLoginStatus () {
     wx.removeStorageSync('token')
     wx.removeStorageSync('uid')
@@ -216,7 +223,7 @@ export class GlobalInfo {
   }
 
   get langTag () {
-    const systemLan = this.systemInfo?.language || "zh_CN"
+    const systemLan = this.systemInfo?.language || 'zh_CN'
     if (systemLan === 'zh_CN') {
       return 'zh-Hans'
     }

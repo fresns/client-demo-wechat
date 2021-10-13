@@ -4,7 +4,6 @@
  * Licensed under the Apache-2.0 license
  */
 import { request, uploadFile } from '../tool/request'
-import appConfig from '../../configs/fresnsConfig'
 
 const editor = {
   /**

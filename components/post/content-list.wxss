@@ -5,3 +5,8 @@
  */
 @import "/assets/styles/weui.wxss";
 @import "/assets/styles/fsui.wxss";
+
+.content-title image {
+    height: 24px;
+    vertical-align: middle;
+}

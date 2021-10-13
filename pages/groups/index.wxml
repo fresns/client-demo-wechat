@@ -32,7 +32,7 @@
             <block wx:for="{{groupCategories}}" wx:for-item="groupCategory" wx:key="gid">
                 <mp-vtabs-content tabIndex="{{index}}">
                     <view class="weui-panel weui-panel_access">
-                        <view class="weui-panel__hd">{{item.gname || '默认分类'}}</view>
+                        <view class="weui-panel__hd">{{groupCategory.gname || '默认分类'}}</view>
                         <view class="weui-panel__bd">
                             <group wx:for="{{groupCategory.tGroups}}" wx:for-item="group" wx:key="gid" group="{{group}}"></group>
                         </view>
@@ -48,5 +48,5 @@
         </mp-vtabs>
     </view>
     <view class="copyright">Powered by Fresns</view>
-    <tabbar></tabbar>
+    <tabbar activeLabel="group"></tabbar>
 </view>

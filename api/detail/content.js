@@ -34,9 +34,12 @@ const content = {
    * 获取帖子附近的[列表]
    * @return {wx.RequestTask}
    */
-  postNearbys: () => {
+  postNearbys: (options) => {
     return request({
       url: '/api/fresns/post/nearbys',
+      data: {
+        ...options
+      }
     })
   },
   /**

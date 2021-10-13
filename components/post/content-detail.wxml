@@ -4,7 +4,13 @@
     Licensed under the Apache-2.0 license
 * -->
 <view class="content-detail">
-    <view class="content-title" wx:if="{{post.title}}">{{post.title}}</view>
+    <view class="content-title" wx:if="{{post.title}}">
+        <block wx:for="{{post.icons}}" wx:for-item="iconItem">
+            <image wx:if="{{iconItem.name === 'title'}}" src="{{iconItem.fileUrl}}" mode="heightFix"></image>
+        </block>
+        {{post.title}}
+    </view>
+    <!-- 详情页正文内容，需支持 Markdown 格式 -->
     <view class="fresns-content" wx:if="{{post.content}}">
         <rich-text nodes="{{post.content}}"></rich-text>
     </view>
