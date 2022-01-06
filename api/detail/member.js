@@ -67,9 +67,12 @@ const member = {
    * 操作删除内容
    * @return {wx.RequestTask}
    */
-  memberDelete: () => {
+  memberDelete: (options = {}) => {
     return request({
       url: '/api/fresns/member/delete',
+      data: {
+        ...options,
+      },
     })
   },
   /**

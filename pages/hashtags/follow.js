@@ -13,7 +13,7 @@ Page({
   ],
   data: {
     // 当前页面数据
-    hashtags: [],
+    posts: [],
     // 下次请求时候的页码，初始值为 1
     page: 1,
     // 页面是否到底
@@ -34,7 +34,7 @@ Page({
     if (resultRes.code === 0) {
       const { pagination, list } = resultRes.data
       this.setData({
-        hashtags: this.data.hashtags.concat(list),
+        posts: this.data.posts.concat(list),
         page: this.data.page + 1,
         isReachBottom: pagination.current === pagination.lastPage,
       })

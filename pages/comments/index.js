@@ -28,7 +28,13 @@ Page({
   },
   shareComment: null,
   onLoad: async function (options) {
-    this.data.requestBody = await getConfigItemValue('menu_comment_config')
+    this.setData({
+      requestBody: await getConfigItemValue('menu_comment_config'),
+      comments: [],
+      page: 1,
+      isReachBottom: false,
+      isShowShareChoose: false,
+    })
     await this._loadCurPageData()
   },
   _loadCurPageData: async function () {

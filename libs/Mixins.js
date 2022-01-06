@@ -18,25 +18,29 @@ const originMethods = [
 ]
 
 function merge (mixins, options) {
+  let targetOptions = {}
+  mixins.push(options)
   mixins.forEach((mixin) => {
     if (Object.prototype.toString.call(mixin) !== '[object Object]') {
       throw new Error('mixin 类型必须为对象！')
     }
+
     for (let [key, value] of Object.entries(mixin)) {
       if (originProperties.includes(key)) {
-        options[key] = { ...value, ...options[key] }
+        targetOptions[key] = { ...value, ...targetOptions[key] }
       } else if (originMethods.includes(key)) {
-        const originFunc = options[key]
-        options[key] = async function (...args) {
+        const originFunc = targetOptions[key]
+        targetOptions[key] = async function (...args) {
+          originFunc && await originFunc.call(this, ...args)
           await value.call(this, ...args)
-          return originFunc && originFunc.call(this, ...args)
         }
       } else {
-        options = { ...mixin, ...options }
+        targetOptions = { ...mixin, ...targetOptions }
       }
     }
   })
-  return options
+
+  return targetOptions
 }
 
 Page = (options) => {
@@ -45,11 +49,5 @@ Page = (options) => {
     delete options.mixins
     options = merge(mixins, options)
   }
-  originPage(Object.assign(options, {
-    forceUpdate () {
-      this.setData({
-        data: this.data,
-      })
-    },
-  }))
+  originPage(options)
 }

@@ -43,9 +43,12 @@ const user = {
    * 重置密码
    * @return {wx.RequestTask}
    */
-  userReset: () => {
+  userReset: (options) => {
     return request({
       url: '/api/fresns/user/reset',
+      data: {
+        ...options
+      }
     })
   },
   /**
@@ -99,6 +102,19 @@ const user = {
       }
     })
   },
+
+  /**
+   * 用户修改账号验证
+   * @return {wx.RequestTask}
+   */
+  userVerification: (options) => {
+    return request({
+      url: '/api/fresns/user/verification',
+      data: {
+        ...options
+      }
+    })
+  }
 }
 
 module.exports = user

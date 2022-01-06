@@ -25,7 +25,12 @@ Page({
     isReachBottom: false,
   },
   onLoad: async function (options) {
-    this.data.requestBody = await getConfigItemValue('menu_comment_list_config')
+    this.setData({
+      requestBody: await getConfigItemValue('menu_comment_list_config'),
+      page: 1,
+      comments: [],
+      isReachBottom: false,
+    })
     await this._loadCurPageData()
   },
   _loadCurPageData: async function () {

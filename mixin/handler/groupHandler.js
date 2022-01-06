@@ -13,16 +13,16 @@ import Api from '../../api/api'
 module.exports = {
   data: {},
   onClickGroupLike: async function (e) {
-    const group = e?.currentTarget?.dataset?.group || e
-
+    const groupsKey = 'groups';
+    const group = e.currentTarget.dataset.group;
     // 当前未喜欢，点击喜欢
     if (group.likeStatus === 0) {
       const res = await this.actionLike(group.gid)
       if (res.code === 0) {
         const idx = this.data.groups.findIndex(value => value.gid === group.gid)
         this.setData({
-          [`groups[${idx}].likeStatus`]: 1,
-          [`groups[${idx}].likeCount`]: this.data.groups[idx].likeCount + 1,
+          [`${groupsKey}[${idx}].likeStatus`]: 1,
+          [`${groupsKey}[${idx}].likeCount`]: this.data.groups[idx].likeCount + 1,
         })
       }
       return
@@ -34,24 +34,24 @@ module.exports = {
       if (res.code === 0) {
         const idx = this.data.groups.findIndex(value => value.gid === group.gid)
         this.setData({
-          [`groups[${idx}].likeStatus`]: 0,
-          [`groups[${idx}].likeCount`]: this.data.groups[idx].likeCount - 1,
+          [`${groupsKey}[${idx}].likeStatus`]: 0,
+          [`${groupsKey}[${idx}].likeCount`]: this.data.groups[idx].likeCount - 1,
         })
       }
       return
     }
   },
   onClickGroupFollow: async function (e) {
-    const group = e?.currentTarget?.dataset?.group || e
-
+    const groupsKey = 'groups';
+    const group = e.currentTarget.dataset.group;
     // 当前未关注，点击关注
     if (group.followStatus === 0) {
       const res = await this.actionFollow(group.gid)
       if (res.code === 0) {
         const idx = this.data.groups.findIndex(value => value.gid === group.gid)
         this.setData({
-          [`groups[${idx}].followStatus`]: 1,
-          [`groups[${idx}].followCount`]: this.data.groups[idx].followCount + 1,
+          [`${groupsKey}[${idx}].followStatus`]: 1,
+          [`${groupsKey}[${idx}].followCount`]: this.data.groups[idx].followCount + 1,
         })
       }
       return
@@ -63,24 +63,24 @@ module.exports = {
       if (res.code === 0) {
         const idx = this.data.groups.findIndex(value => value.gid === group.gid)
         this.setData({
-          [`groups[${idx}].followStatus`]: 0,
-          [`groups[${idx}].followCount`]: this.data.groups[idx].followCount - 1,
+          [`${groupsKey}[${idx}].followStatus`]: 0,
+          [`${groupsKey}[${idx}].followCount`]: this.data.groups[idx].followCount - 1,
         })
       }
       return
     }
   },
   onClickGroupBlock: async function (e) {
-    const group = e?.currentTarget?.dataset?.group || e
-
+    const groupsKey = 'groups';
+    const group = e.currentTarget.dataset.group;
     // 当前未关注，点击关注
     if (group.shieldStatus === 0) {
       const res = await this.actionBlock(group.gid)
       if (res.code === 0) {
         const idx = this.data.groups.findIndex(value => value.gid === group.gid)
         this.setData({
-          [`groups[${idx}].shieldStatus`]: 1,
-          [`groups[${idx}].shieldCount`]: this.data.groups[idx].shieldCount + 1,
+          [`${groupsKey}[${idx}].shieldStatus`]: 1,
+          [`${groupsKey}[${idx}].shieldCount`]: this.data.groups[idx].shieldCount + 1,
         })
       }
       return
@@ -92,8 +92,8 @@ module.exports = {
       if (res.code === 0) {
         const idx = this.data.groups.findIndex(value => value.gid === group.gid)
         this.setData({
-          [`groups[${idx}].shieldStatus`]: 0,
-          [`groups[${idx}].shieldCount`]: this.data.groups[idx].shieldCount - 1,
+          [`${groupsKey}[${idx}].shieldStatus`]: 0,
+          [`${groupsKey}[${idx}].shieldCount`]: this.data.groups[idx].shieldCount - 1,
         })
       }
       return

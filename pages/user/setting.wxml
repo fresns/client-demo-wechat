@@ -3,74 +3,349 @@
     Copyright 2021-Present Jarvis Tang
     Licensed under the Apache-2.0 license
 * -->
-<page-meta root-font-size="system"/>
+<page-meta root-font-size="system" />
 <view class="page" data-weui-theme="{{theme}}">
-
     <view class="weui-cells__title">个人资料</view>
     <view class="weui-cells weui-cells_after-title">
-        <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="chooseImage">
             <view class="weui-cell__bd fg-0">头像</view>
             <view class="weui-cell__ft weui-cell__ft_in-access">
-                <image src="https://tangjie.me/media/avatar.jpg" class="avatar-img" mode="scaleToFill"></image>
+                <image src="{{ member.avatar }}" class="avatar-img" mode="scaleToFill"></image>
             </view>
-        </navigator>
-        <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        </view>
+        <view bind:tap="showModifyDialog" data-value="{{ member.nickname }}" data-event="modifyNickname" data-title="昵称" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
             <view class="weui-cell__bd fg-0">昵称</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access">{{member.memberNicknameName}}</view>
-        </navigator>
-        <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <view class="weui-cell__ft weui-cell__ft_in-access">{{ member.nickname }}</view>
+        </view>
+        <view bind:tap="showModifyDialog" data-value="{{ member.mname }}" data-event="modifyMName" data-title="用户名" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
             <view class="weui-cell__bd fg-0">用户名</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access">Jarvis</view>
-        </navigator>
-        <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <view class="weui-cell__ft weui-cell__ft_in-access">{{ member.mname }}</view>
+        </view>
+        <view bind:tap="showModifyDialog" data-value="{{ member.bio }}" data-event="modifyBio" data-title="Bio" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
             <view class="weui-cell__bd fg-0">Bio</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access">给时光以生命，而非给生命以时光！</view>
-        </navigator>
-        <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-            <view class="weui-cell__bd fg-0">性别</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access">男</view>
-        </navigator>
-        <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-            <view class="weui-cell__bd fg-0">生日</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access">1990-01-01</view>
-        </navigator>
+            <view class="weui-cell__ft weui-cell__ft_in-access">{{ member.bio }}</view>
+        </view>
+        <picker bindchange="modifyGender" value="{{member.gender}}" range="{{genders}}">
+            <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd fg-0">性别</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">
+                    {{genders[member.gender]}}
+                </view>
+            </view>
+        </picker>
+        <date-time-picker mode="datetime" value="{{member.birthday}}" bindchange="modifyBirthday">
+            <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd fg-0">生日</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">{{ member.birthday }}</view>
+            </view>
+        </date-time-picker>
     </view>
-
     <view class="weui-cells__title">偏好设置</view>
     <view class="weui-cells weui-cells_after-title">
-        <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-            <view class="weui-cell__bd fg-0">会话设置</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access">我关注的人和已认证的人</view>
-        </navigator>
-        <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-            <view class="weui-cell__bd fg-0">偏好时区</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access">+8</view>
-        </navigator>
-        <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-            <view class="weui-cell__bd fg-0">偏好语言</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access">简体中文</view>
-        </navigator>
+        <picker bindchange="modifyDialogLimit" value="{{member.dialogLimit-1}}" range="{{dialogLimits}}">
+            <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd fg-0">会话设置</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">
+                    {{dialogLimits[member.dialogLimit-1]}}
+                </view>
+            </view>
+        </picker>
+        <picker bindchange="modifyTimezone" range="{{utc}}" value="{{utcIndex}}" range-key="{{'name'}}">
+            <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd fg-0">偏好时区</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">{{ utc[utcIndex].name}}</view>
+            </view>
+        </picker>
+        <picker bindchange="modifyLanguage" range="{{languageMenus}}" value="{{languageMenusIndex}}" range-key="{{'langName'}}">
+            <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd fg-0">偏好语言</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">
+                    {{languageMenus[languageMenusIndex].langName}}
+                </view>
+            </view>
+        </picker>
     </view>
-
     <view class="weui-cells__title">账号设置</view>
     <view class="weui-cells weui-cells_after-title">
-        <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell weui-cell_access" bind:tap="showModifyDialog" data-value="{{ user.phone }}" data-event="modifyUserPhone" data-title="手机号" hover-class="weui-cell_active">
             <view class="weui-cell__bd fg-0">手机号</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access">+86 186******27</view>
-        </navigator>
-        <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <view class="weui-cell__ft weui-cell__ft_in-access">{{ user.phone }}</view>
+        </view>
+        <view class="weui-cell weui-cell_access" bind:tap="showModifyDialog" data-value="{{ user.email }}" data-event="modifyUserEmail" data-title="邮箱" hover-class="weui-cell_active">
             <view class="weui-cell__bd fg-0">邮箱</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access">ja*********@gmail.com</view>
-        </navigator>
-        <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <view class="weui-cell__ft weui-cell__ft_in-access">{{ user.email }}</view>
+        </view>
+        <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bind:tap="showModifyDialog" data-event="modifyUserLoginPassword" data-title="登录密码">
             <view class="weui-cell__bd fg-0">登录密码</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-        </navigator>
-        <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <view class="weui-cell__ft weui-cell__ft_in-access">
+                {{ user.password ? "已设置" : "未设置" }}
+            </view>
+        </view>
+        <view class="weui-cell weui-cell_access" bind:tap="showModifyDialog" data-event="modifyUserWalletPassword" data-title="钱包密码" hover-class="weui-cell_active">
             <view class="weui-cell__bd fg-0">钱包密码</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-        </navigator>
+            <view class="weui-cell__ft weui-cell__ft_in-access">
+                {{ user.wallet.password ? "已设置" : "未设置" }}
+            </view>
+        </view>
     </view>
-
+    <!--half-screen-dialog-->
+    <mp-half-screen-dialog show="{{ showModifyDialog }}" maskClosable="{{false}}" closabled="{{true}}" title="编辑{{ modifyDialogTitle }}">
+        <view slot="desc">
+            <block wx:if="{{ modifyDialogEvent === 'modifyBio'}}">
+                <view class="weui-cell weui-cell_active">
+                    <view class="weui-cell__bd">
+                        <textarea bindinput="onModifyDialogChange" auto-height="{{true}}" value="{{ modifyDialogValue }}" placeholder="{{ modifyDialogTitle }}" placeholder-class="weui-textarea__placeholder" class="weui-textarea"></textarea>
+                    </view>
+                </view>
+            </block>
+            <block wx:elif="{{ modifyDialogEvent === 'modifyUserPhone'}}">
+                <view class="weui-cells__group weui-cells__group_form">
+                    <view class="weui-cells weui-cells_form">
+                        <block wx:if="{{user.phone}}">
+                            <mp-cell title="手机号" ext-class="weui-cell_vcode">
+                                <input value="+{{ user.phone }}" disabled="{{true}}" class="weui-input" />
+                                <button slot="footer" type="default" bind:tap="sendVerifyCode" data-type="oldPhone" class="weui-vcode-btn">
+                                    验证码
+                                </button>
+                            </mp-cell>
+                            <mp-cell title="验证码" ext-class="weui-cell_vcode">
+                                <input type="text" bindinput="onVerifyCodeChange" value="" class="weui-input" placeholder="请输入验证码" />
+                                <button slot="footer" type="default" class="weui-vcode-btn" bind:tap="userVerification" data-code-type="2">
+                                    验证
+                                </button>
+                            </mp-cell>
+                        </block>
+                        <view hidden="{{ user.phone ? verifyCodeVerified === false :  false}}">
+                            <view class="weui-cell weui-cell_active weui-cell_select weui-cell_select-before">
+                                <view class="weui-cell__hd">
+                                    <picker aria-role="combobox" bindchange="onMobileAreaPickerChange" range="{{mobileAreaRange}}" value="{{mobileAreaIndex}}">
+                                        <view class="weui-select" style="width: 3em">
+                                            {{mobileAreaRange[mobileAreaIndex]}}
+                                        </view>
+                                    </picker>
+                                </view>
+                                <view class="weui-cell__bd">
+                                    <input class="weui-input" type="number" placeholder="请输入新手机号码" bindinput="onNewPhoneNumberChange" />
+                                </view>
+                            </view>
+                            <mp-cell title="新验证码" ext-class="weui-cell_vcode">
+                                <input bindinput="onNewVerifyCodeChange" class="weui-input" placeholder="请输入新验证码" />
+                                <button slot="footer" type="default" bind:tap="sendVerifyCode" data-type="newPhone" class="weui-vcode-btn">
+                                    验证码
+                                </button>
+                            </mp-cell>
+                        </view>
+                    </view>
+                </view>
+            </block>
+            <block wx:elif="{{ modifyDialogEvent === 'modifyUserEmail'}}">
+                <view class="weui-cells__group weui-cells__group_form">
+                    <view class="weui-cells weui-cells_form">
+                        <block wx:if="{{user.email}}">
+                            <mp-cell title="手机号" ext-class="weui-cell_vcode">
+                                <input value="{{ user.email }}" disabled="{{true}}" class="weui-input" />
+                                <button slot="footer" type="default" bind:tap="sendVerifyCode" data-type="oldEmail" class="weui-vcode-btn">
+                                    验证码
+                                </button>
+                            </mp-cell>
+                            <mp-cell title="验证码" ext-class="weui-cell_vcode">
+                                <input type="text" bindinput="onVerifyCodeChange" class="weui-input" placeholder="请输入验证码" />
+                                <button slot="footer" type="default" class="weui-vcode-btn" bind:tap="userVerification" data-code-type="1">
+                                    验证
+                                </button>
+                            </mp-cell>
+                        </block>
+                        <view hidden="{{ user.email ? verifyCodeVerified === false :  false}}">
+                            <mp-cell title="新邮箱" ext-class="weui-cell_vcode">
+                                <input bindinput="onNewEmailChange" class="weui-input" placeholder="请输入新邮箱" />
+                            </mp-cell>
+                            <mp-cell title="新验证码" ext-class="weui-cell_vcode">
+                                <input bindinput="onNewVerifyCodeChange" class="weui-input" placeholder="请输入新验证码" />
+                                <button slot="footer" type="default" bind:tap="sendVerifyCode" data-type="newEmail" class="weui-vcode-btn">
+                                    验证码
+                                </button>
+                            </mp-cell>
+                        </view>
+                    </view>
+                </view>
+            </block>
+            <block wx:elif="{{ modifyDialogEvent === 'modifyUserLoginPassword'}}">
+                <view class="weui-cells__group weui-cells__group_form">
+                    <view class="weui-cells weui-cells_form">
+                        <radio-group bind:change="onModifyPwdType">
+                            <view class="weui-cell weui-cell_active">
+                                <view class="weui-cell__bd">
+                                    <label class="radio" hidden="{{!user.password}}">
+                                        <radio value="1" checked="{{modifyPwdType === '1'}}" />
+                                        密码
+                                    </label>
+                                    <label class="radio" style="margin-left:10px">
+                                        <radio value="2" checked="{{modifyPwdType === '2'}}" />
+                                        邮箱
+                                    </label>
+                                    <label class="radio" style="margin-left:10px">
+                                        <radio value="3" checked="{{modifyPwdType === '3'}}" />
+                                        手机号
+                                    </label>
+                                </view>
+                            </view>
+                        </radio-group>
+                        <block wx:if="{{modifyPwdType === '1'}}">
+                            <view class="weui-cell weui-cell_active">
+                                <view class="weui-cell__hd">
+                                    <label class="weui-label">当前密码</label>
+                                </view>
+                                <view class="weui-cell__bd">
+                                    <input class="weui-input" password="{{true}}" value="{{currentPassword}}" bindinput="onCurrentPasswordChange" placeholder="当前密码" placeholder-class="weui-input__placeholder" />
+                                </view>
+                            </view>
+                        </block>
+                        <block wx:if="{{modifyPwdType === '2'}}">
+                            <view class="weui-cell weui-cell_active">
+                                <view class="weui-cell__hd">
+                                    <label class="weui-label">邮箱</label>
+                                </view>
+                                <view class="weui-cell__bd">
+                                    <input class="weui-input" value="{{user.email}}" disabled="{{true}}" placeholder-class="weui-input__placeholder" />
+                                </view>
+                            </view>
+                            <mp-cell title="验证码" ext-class="weui-cell_vcode">
+                                <input type="text" bindinput="onVerifyCodeChange" value="" class="weui-input" placeholder="请输入验证码" />
+                                <button slot="footer" type="default" data-type="emailEditPwd" class="weui-vcode-btn" bind:tap="sendVerifyCode">
+                                    验证码
+                                </button>
+                            </mp-cell>
+                        </block>
+                        <block wx:if="{{modifyPwdType === '3'}}">
+                            <view class="weui-cell weui-cell_active">
+                                <view class="weui-cell__hd">
+                                    <label class="weui-label">手机号</label>
+                                </view>
+                                <view class="weui-cell__bd">
+                                    <input class="weui-input" value="{{user.phone}}" disabled="{{true}}" placeholder-class="weui-input__placeholder" />
+                                </view>
+                            </view>
+                            <mp-cell title="验证码" ext-class="weui-cell_vcode">
+                                <input type="text" bindinput="onVerifyCodeChange" value="" class="weui-input" placeholder="请输入验证码" />
+                                <button slot="footer" type="default" class="weui-vcode-btn" bind:tap="sendVerifyCode" data-type="phoneEditPwd">
+                                    验证码
+                                </button>
+                            </mp-cell>
+                        </block>
+                        <view class="weui-cell weui-cell_active">
+                            <view class="weui-cell__hd">
+                                <label class="weui-label">新密码</label>
+                            </view>
+                            <view class="weui-cell__bd">
+                                <input class="weui-input" password="{{true}}" value="{{password}}" bindinput="onPasswordChange" placeholder="新密码" placeholder-class="weui-input__placeholder" />
+                            </view>
+                        </view>
+                        <view class="weui-cell weui-cell_active">
+                            <view class="weui-cell__hd">
+                                <label class="weui-label">确认密码</label>
+                            </view>
+                            <view class="weui-cell__bd">
+                                <input class="weui-input" password="{{true}}" value="{{confirmPassword}}" bindinput="onConfirmPasswordChange" placeholder="再输一次密码" placeholder-class="weui-input__placeholder" />
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </block>
+            <block wx:elif="{{ modifyDialogEvent === 'modifyUserWalletPassword'}}">
+                <view class="weui-cells__group weui-cells__group_form">
+                    <view class="weui-cells weui-cells_form">
+                        <radio-group bind:change="onModifyWalletPwdType">
+                            <view class="weui-cell weui-cell_active">
+                                <view class="weui-cell__bd">
+                                    <label class="radio" hidden="{{!user.wallet.password}}">
+                                        <radio value="1" checked="{{modifyWalletPwdType === '1'}}" />
+                                        密码
+                                    </label>
+                                    <label class="radio" style="margin-left:10px">
+                                        <radio value="2" checked="{{modifyWalletPwdType === '2'}}" />
+                                        邮箱
+                                    </label>
+                                    <label class="radio" style="margin-left:10px">
+                                        <radio value="3" checked="{{modifyWalletPwdType === '3'}}" />
+                                        手机号
+                                    </label>
+                                </view>
+                            </view>
+                        </radio-group>
+                        <block wx:if="{{modifyWalletPwdType === '1'}}">
+                            <view class="weui-cell weui-cell_active">
+                                <view class="weui-cell__hd">
+                                    <label class="weui-label">当前密码</label>
+                                </view>
+                                <view class="weui-cell__bd">
+                                    <input class="weui-input" password="{{true}}" value="{{currentWalletPassword}}" bindinput="onCurrentWalletPasswordChange" placeholder="当前密码" placeholder-class="weui-input__placeholder" />
+                                </view>
+                            </view>
+                        </block>
+                        <block wx:if="{{modifyWalletPwdType === '2'}}">
+                            <view class="weui-cell weui-cell_active">
+                                <view class="weui-cell__hd">
+                                    <label class="weui-label">邮箱</label>
+                                </view>
+                                <view class="weui-cell__bd">
+                                    <input class="weui-input" value="{{user.email}}" disabled="{{true}}" placeholder-class="weui-input__placeholder" />
+                                </view>
+                            </view>
+                            <mp-cell title="验证码" ext-class="weui-cell_vcode">
+                                <input type="text" bindinput="onVerifyCodeChange" value="" class="weui-input" placeholder="请输入验证码" />
+                                <button slot="footer" type="default" data-type="emailEditPwd" class="weui-vcode-btn" bind:tap="sendVerifyCode">
+                                    验证码
+                                </button>
+                            </mp-cell>
+                        </block>
+                        <block wx:if="{{modifyWalletPwdType === '3'}}">
+                            <view class="weui-cell weui-cell_active">
+                                <view class="weui-cell__hd">
+                                    <label class="weui-label">手机号</label>
+                                </view>
+                                <view class="weui-cell__bd">
+                                    <input class="weui-input" value="{{user.phone}}" disabled="{{true}}" placeholder-class="weui-input__placeholder" />
+                                </view>
+                            </view>
+                            <mp-cell title="验证码" ext-class="weui-cell_vcode">
+                                <input type="text" bindinput="onVerifyCodeChange" value="" class="weui-input" placeholder="请输入验证码" />
+                                <button slot="footer" type="default" class="weui-vcode-btn" bind:tap="sendVerifyCode" data-type="phoneEditPwd">
+                                    验证码
+                                </button>
+                            </mp-cell>
+                        </block>
+                        <view class="weui-cell weui-cell_active">
+                            <view class="weui-cell__hd">
+                                <label class="weui-label">新密码</label>
+                            </view>
+                            <view class="weui-cell__bd">
+                                <input class="weui-input" password="{{true}}" value="{{walletPassword}}" bindinput="onWalletPasswordChange" placeholder="新密码" placeholder-class="weui-input__placeholder" />
+                            </view>
+                        </view>
+                        <view class="weui-cell weui-cell_active">
+                            <view class="weui-cell__hd">
+                                <label class="weui-label">确认密码</label>
+                            </view>
+                            <view class="weui-cell__bd">
+                                <input class="weui-input" password="{{true}}" value="{{confirmWalletPassword}}" bindinput="onConfirmWalletPassword" placeholder="再输一次密码" placeholder-class="weui-input__placeholder" />
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </block>
+            <block wx:else>
+                <view class="weui-cell weui-cell_active">
+                    <view class="weui-cell__bd">
+                        <input class="weui-input" value="{{ modifyDialogValue }}" bindinput="onModifyDialogChange" placeholder="{{ modifyDialogTitle }}" placeholder-class="weui-input__placeholder" />
+                    </view>
+                </view>
+            </block>
+        </view>
+        <view class="weui-cell weui-cell_active" slot="footer">
+            <button class="weui-btn weui-btn_primary" type="primary" bind:tap="{{ modifyDialogEvent }}">
+                确认
+            </button>
+        </view>
+    </mp-half-screen-dialog>
     <view class="copyright">Powered by Fresns</view>
 </view>

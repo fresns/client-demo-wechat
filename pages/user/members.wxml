@@ -22,3 +22,17 @@
     </view>
     <view class="copyright">Powered by Fresns</view>
 </view>
+<mp-half-screen-dialog show="{{ isPasswordDialogVisible }}" maskClosable="{{false}}" closabled="{{true}}" title="登录">
+    <view slot="desc">
+        <view class="weui-cell weui-cell_active">
+            <view class="weui-cell__bd">
+                <input class="weui-input" bindinput="onInputPassword" placeholder="请输入登录密码" placeholder-class="weui-input__placeholder" />
+            </view>
+        </view>
+    </view>
+    <view class="weui-cell weui-cell_active" slot="footer">
+        <button class="weui-btn weui-btn_primary" type="primary" bind:tap="onSubmitPassword">
+            确认
+        </button>
+    </view>
+</mp-half-screen-dialog>

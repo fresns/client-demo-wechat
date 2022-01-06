@@ -12,17 +12,15 @@ import Api from '../../api/api'
  */
 module.exports = {
   data: {},
-  onClickPostLike: async function (e) {
-    const post = e?.currentTarget?.dataset?.post || e
-
+  onClickPostLike: async function (post, postsKey = 'posts') {
     // 当前未喜欢，点击喜欢
     if (post.likeStatus === 0) {
       const res = await this.actionLike(post.pid)
       if (res.code === 0) {
         const idx = this.data.posts.findIndex(value => value.pid === post.pid)
         this.setData({
-          [`posts[${idx}].likeStatus`]: 1,
-          [`posts[${idx}].likeCount`]: this.data.posts[idx].likeCount + 1,
+          [`${postsKey}[${idx}].likeStatus`]: 1,
+          [`${postsKey}[${idx}].likeCount`]: this.data.posts[idx].likeCount + 1,
         })
       }
       return
@@ -34,24 +32,22 @@ module.exports = {
       if (res.code === 0) {
         const idx = this.data.posts.findIndex(value => value.pid === post.pid)
         this.setData({
-          [`posts[${idx}].likeStatus`]: 0,
-          [`posts[${idx}].likeCount`]: this.data.posts[idx].likeCount - 1,
+          [`${postsKey}[${idx}].likeStatus`]: 0,
+          [`${postsKey}[${idx}].likeCount`]: this.data.posts[idx].likeCount - 1,
         })
       }
       return
     }
   },
-  onClickPostFollow: async function (e) {
-    const post = e?.currentTarget?.dataset?.post || e
-
+  onClickPostFollow: async function (post, postsKey = 'posts') {
     // 当前未关注，点击关注
     if (post.followStatus === 0) {
       const res = await this.actionFollow(post.pid)
       if (res.code === 0) {
         const idx = this.data.posts.findIndex(value => value.pid === post.pid)
         this.setData({
-          [`posts[${idx}].followStatus`]: 1,
-          [`posts[${idx}].followCount`]: this.data.posts[idx].followCount + 1,
+          [`${postsKey}[${idx}].followStatus`]: 1,
+          [`${postsKey}[${idx}].followCount`]: this.data.posts[idx].followCount + 1,
         })
       }
       return
@@ -63,24 +59,22 @@ module.exports = {
       if (res.code === 0) {
         const idx = this.data.posts.findIndex(value => value.pid === post.pid)
         this.setData({
-          [`posts[${idx}].followStatus`]: 0,
-          [`posts[${idx}].followCount`]: this.data.posts[idx].followCount - 1,
+          [`${postsKey}[${idx}].followStatus`]: 0,
+          [`${postsKey}[${idx}].followCount`]: this.data.posts[idx].followCount - 1,
         })
       }
       return
     }
   },
-  onClickPostBlock: async function (e) {
-    const post = e?.currentTarget?.dataset?.post || e
-
+  onClickPostBlock: async function (post, postsKey = 'posts') {
     // 当前未关注，点击关注
     if (post.shieldStatus === 0) {
       const res = await this.actionBlock(post.pid)
       if (res.code === 0) {
         const idx = this.data.posts.findIndex(value => value.pid === post.pid)
         this.setData({
-          [`posts[${idx}].shieldStatus`]: 1,
-          [`posts[${idx}].shieldCount`]: this.data.posts[idx].shieldCount + 1,
+          [`${postsKey}[${idx}].shieldStatus`]: 1,
+          [`${postsKey}[${idx}].shieldCount`]: this.data.posts[idx].shieldCount + 1,
         })
       }
       return
@@ -92,8 +86,8 @@ module.exports = {
       if (res.code === 0) {
         const idx = this.data.posts.findIndex(value => value.pid === post.pid)
         this.setData({
-          [`posts[${idx}].shieldStatus`]: 0,
-          [`posts[${idx}].shieldCount`]: this.data.posts[idx].shieldCount - 1,
+          [`${postsKey}[${idx}].shieldStatus`]: 0,
+          [`${postsKey}[${idx}].shieldCount`]: this.data.posts[idx].shieldCount - 1,
         })
       }
       return

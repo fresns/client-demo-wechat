@@ -20,7 +20,7 @@ Page({
     isReachBottom: false,
   },
   onLoad: async function () {
-
+    await this._loadCurPageData();
   },
   _loadCurPageData: async function () {
     if (this.data.isReachBottom) {

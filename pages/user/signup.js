@@ -28,6 +28,9 @@ Page({
 
     // 验证码
     verifyCode: '',
+    // 验证码等待中
+    isVerifyCodeWaiting: false,
+    waitingRemainSeconds: 60,
 
     // 密码
     password: '',
@@ -36,9 +39,6 @@ Page({
 
     // 昵称
     nickname: '',
-
-    // 是否同意用户协议
-    isAgree: false,
   },
   onLoad: async function (options) {
     const [defaultCode, codeArray] = await Promise.all(
@@ -88,7 +88,16 @@ Page({
     return value
   },
   sendVerifyCode: async function (e) {
-    const { type, emailAddress, mobileAreaRange, mobileAreaIndex, mobileNumber } = this.data
+    const { type, emailAddress, mobileAreaRange, mobileAreaIndex, mobileNumber, isVerifyCodeWaiting, waitingRemainSeconds } = this.data
+
+    if (isVerifyCodeWaiting) {
+      wx.showToast({
+        title: `发送冷却中 ${waitingRemainSeconds}s`,
+        icon: 'none',
+      })
+      return
+    }
+
     let params = null
     if (type === Type.Email) {
       params = {
@@ -110,6 +119,19 @@ Page({
 
     const sendVerifyRes = await Api.info.infoSendVerifyCode(params)
     if (sendVerifyRes.code === 0) {
+      this.setData({ isVerifyCodeWaiting: true, waitingRemainSeconds: 60 })
+
+      const interval = setInterval(() => {
+        const now = this.data.waitingRemainSeconds - 1
+        this.setData({
+          waitingRemainSeconds: now,
+          isVerifyCodeWaiting: now > 0,
+        })
+        if (now <= 0) {
+          clearInterval(interval)
+        }
+      }, 1000)
+
       wx.showToast({
         title: '验证码发送成功',
         icon: 'none',
@@ -137,21 +159,7 @@ Page({
     })
     return value
   },
-  onChangeAgree: function (e) {
-    const isAgree = e.detail.value.includes('agree')
-    this.setData({
-      isAgree: isAgree,
-    })
-  },
   onSubmit: async function () {
-    if (!this.data.isAgree) {
-      wx.showToast({
-        title: '请先阅读并同意相关条款',
-        icon: 'none',
-      })
-      return
-    }
-
     const {
       type,
       emailAddress,

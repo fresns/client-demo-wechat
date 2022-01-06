@@ -10,6 +10,7 @@ Component({
   properties: {
     // 编辑器
     editorConfig: Object,
+    tableId: String
   },
   data: {
     showType: null,
@@ -35,7 +36,9 @@ Component({
           })
           that.tempMembers = tipsRes.data
           return tipsRes.data.map(v => ({
-            text: v.id,
+            text: v.nickname + " @" + v.name,
+            value: v.name,
+            id: v.id
           }))
         },
         // 话题搜索
@@ -48,7 +51,8 @@ Component({
           })
           that.tempHashtags = tipsRes.data
           return tipsRes.data.map(v => ({
-            text: v.id,
+            text: v.name,
+            id: v.id
           }))
         },
       })
@@ -70,6 +74,8 @@ Component({
   methods: {
     onClickToolBar: function (e) {
       const { type } = e.currentTarget.dataset
+      const { tableId } = this.data
+
       if (['audio', 'doc'].includes(type)) {
         return wx.showToast({
           title: '由于小程序限制，请到网站或 App 操作上传',
@@ -77,10 +83,14 @@ Component({
         })
       }
       if ('image' === type) {
-        return setTimeout(this.onSelectImage, 100)
+        return setTimeout(() => {
+          this._onSelectImage(tableId)
+        }, 100)
       }
       if ('video' === type) {
-        return setTimeout(this.onSelectVideo, 100)
+        return setTimeout(() => {
+          this._onSelectVideo(tableId)
+        }, 100)
       }
       if ('title' === type) {
         return callPageFunction('switchTitleInputShow')
@@ -88,13 +98,13 @@ Component({
       this.setData({ showType: type || null })
     },
     onSearchMembers: function (e) {
-      const { text } = e.detail.item
-      callPageFunction('onSelectMember', this.tempMembers?.find(v => v.id === text))
+      const { id } = e.detail.item
+      callPageFunction('onSelectMember', this.tempMembers?.find(v => v.id === id))
       this.setData({ showType: null })
     },
     onSearchHashtags: function (e) {
-      const { text } = e.detail.item
-      callPageFunction('onSelectHashtags', this.tempHashtags?.find(v => v.id === text))
+      const { id } = e.detail.item
+      callPageFunction('onSelectHashtags', this.tempHashtags?.find(v => v.id === id))
       this.setData({ showType: null })
     },
     /**
@@ -109,7 +119,7 @@ Component({
     /**
      * 选择图片
      */
-    onSelectImage: function (e) {
+    _onSelectImage: function (tableId) {
       wx.chooseImage({
         count: 1,
         sizeType: ['original', 'compressed'],
@@ -119,12 +129,12 @@ Component({
           const uploadRes = await Api.editor.editorUpload(tempFilePaths[0], {
             type: 1,
             tableType: 8,
+            tableId,
             tableName: 'post_logs',
             tableField: 'files_json',
             mode: 1,
             file: tempFilePaths[0],
           })
-
           const resultFile = uploadRes.data.files[0]
           callPageFunction('onAddedFile', resultFile)
           this.setData({ showType: null })
@@ -134,7 +144,7 @@ Component({
     /**
      * 选择视频
      */
-    onSelectVideo: function (e) {
+    _onSelectVideo: function (tableId) {
       wx.chooseVideo({
         success: async (res) => {
           const { duration, tempFilePath, thumbTempFilePath, width, height, size } = res
@@ -143,6 +153,7 @@ Component({
             tableType: 8,
             tableName: 'post_logs',
             tableField: 'files_json',
+            tableId: tableId,
             mode: 1,
             file: tempFilePath,
           })
@@ -160,6 +171,6 @@ Component({
       const { expand } = e.target.dataset
       callPageFunction('onSelectExpand', expand)
     },
-    nothing: function () {},
+    nothing: function () { },
   },
 })

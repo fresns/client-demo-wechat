@@ -21,6 +21,11 @@ Page({
     isReachBottom: false,
   },
   onLoad: async function (options) {
+    this.setData({
+      comments: [],
+      page: 1,
+      isReachBottom: false,
+    })
     await this._loadCurPageData()
   },
   _loadCurPageData: async function () {

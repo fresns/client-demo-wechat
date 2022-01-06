@@ -28,7 +28,7 @@ export class GlobalInfo {
 
   waitingLoginResolveQueue = []
 
-  async init () {
+  async init() {
     await Promise.all([
       this._initSiteMode(),
       this._initSystemInfo(),
@@ -39,7 +39,7 @@ export class GlobalInfo {
    * 刷新当前登录用户
    * @returns {Promise<void>}
    */
-  async getLoginUser () {
+  async getLoginUser() {
     if (!this.uid || !this.mid || !this.token) {
       navigateToSignin()
       return
@@ -62,7 +62,7 @@ export class GlobalInfo {
    * @param passwordStr
    * @returns {Promise<void>}
    */
-  async selectMember (member, passwordStr = '') {
+  async selectMember(member, passwordStr = '') {
     const memberAuthRes = await Api.member.memberAuth(Object.assign({
       mid: member.mid,
     }, member.password && {
@@ -81,6 +81,7 @@ export class GlobalInfo {
 
       Object.assign(getApp().globalData, this.values())
     }
+    return memberAuthRes;
   }
 
   /**
@@ -88,7 +89,7 @@ export class GlobalInfo {
    * @param params
    * @returns {Promise<boolean>}
    */
-  async login (params) {
+  async login(params) {
     this._clearLoginStatus()
     const loginRes = await Api.user.userLogin(params)
     switch (loginRes.code) {
@@ -122,7 +123,7 @@ export class GlobalInfo {
    * 登出当前用户
    * @returns {Promise<void>}
    */
-  async logout () {
+  async logout() {
     this._clearLoginStatus()
     wx.redirectTo({
       url: '/pages/portal/index',
@@ -133,7 +134,7 @@ export class GlobalInfo {
    * 阻塞状态直到用户完成整个登录
    * @returns {Promise<unknown>}
    */
-  async awaitLogin () {
+  async awaitLogin() {
     return new Promise(resolve => {
       if (this.loginUser && this.loginMember) {
         resolve()
@@ -147,11 +148,11 @@ export class GlobalInfo {
   /**
    * 判断用户是否登录
    */
-  isLogin () {
+  isLogin() {
     return this.loginUser && this.loginMember
   }
 
-  _clearLoginStatus () {
+  _clearLoginStatus() {
     wx.removeStorageSync('token')
     wx.removeStorageSync('uid')
     wx.removeStorageSync('mid')
@@ -160,7 +161,7 @@ export class GlobalInfo {
     this.currentMemberId = null
   }
 
-  values () {
+  values() {
     return {
       siteMode: this.siteMode,
       isDarkMode: this.isDarkMode,
@@ -172,14 +173,14 @@ export class GlobalInfo {
     }
   }
 
-  async _initSiteMode () {
+  async _initSiteMode() {
     const siteMode = await getConfigItemByItemKey('site_mode')
     if (siteMode !== null) {
       this.siteMode = siteMode.itemValue
     }
   }
 
-  async _initSystemInfo () {
+  async _initSystemInfo() {
     const systemInfo = wx.getSystemInfoSync()
     const networkInfo = wx.getNetworkType()
     this.systemInfo = systemInfo
@@ -210,19 +211,19 @@ export class GlobalInfo {
     }
   }
 
-  get uid () {
+  get uid() {
     return wx.getStorageSync('uid') || null
   }
 
-  get token () {
+  get token() {
     return wx.getStorageSync('token') || null
   }
 
-  get mid () {
+  get mid() {
     return wx.getStorageSync('mid') || null
   }
 
-  get langTag () {
+  get langTag() {
     const systemLan = this.systemInfo?.language || 'zh_CN'
     if (systemLan === 'zh_CN') {
       return 'zh-Hans'

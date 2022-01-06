@@ -1,9 +1,9 @@
-<p align="center"><a href="https://fresns.org" target="_blank"><img src="https://raw.githubusercontent.com/fresns/docs/main/images/Fresns%20Logo.png" width="300"></a></p>
+<p align="center"><a href="https://fresns.org" target="_blank"><img src="https://cdn.fresns.org/images/logo.png" width="300"></a></p>
 
 <p align="center">
 <img src="https://img.shields.io/badge/WeChat-Mini%20Program-brightgreen" alt="WeChat">
 <img src="https://img.shields.io/badge/Fresns%20API-1.x-blueviolet" alt="Fresns">
-<img src="https://img.shields.io/badge/WeUI-2.5.0-yellow" alt="WeUI">
+<img src="https://img.shields.io/badge/WeUI-2.5.4-yellow" alt="WeUI">
 <img src="https://img.shields.io/badge/License-Apache--2.0-green" alt="License">
 </p>
 
@@ -16,12 +16,16 @@ Fresns 是一款免费开源的社交网络服务软件，专为跨平台而打�
 - 扩展插件开发者请阅读[扩展文档](https://fresns.org/extensions/)和[数据字典](https://fresns.org/database/)；
 - 客户端开发者（网站端、小程序、App）请阅读 [API 文档](https://fresns.org/api/)。
 
+## 免责申明
+
+Fresns 是一款支持多语言和跨时区的免费开源软件，研发和生态建设以开源组织方式协作，我们不为任何运营主体提供技术背书，不参与任何项目运营，不承担任何法律责任。由于下载代码即可使用，所以我们无法得知你的用途，但是请在使用时遵守所在国家和地区的法律法规，禁止用于违法违规业务。
+
 ## 技术框架
 
 | 框架 | 版本 | 用途 |
 | --- | --- | --- |
 | [Fresns](https://github.com/fresns/fresns) | 1.x | 后端 API |
-| [WeUI](https://github.com/Tencent/weui-wxss) | 2.5.0 | 小程序 UI 框架 |
+| [WeUI](https://github.com/Tencent/weui-wxss) | 2.5.4 | 小程序 UI 框架 |
 
 ## 使用说明
 

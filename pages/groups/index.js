@@ -25,6 +25,7 @@ Page({
     isReachBottom: false,
   },
   async onLoad () {
+    console.log('group index onload')
     this.data.requestBody = await getConfigItemValue('menu_group_config')
     await this._loadCurPageData()
   },

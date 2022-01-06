@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "选择成员",
-  "usingComponents": {}
+  "usingComponents": {
+    "mp-half-screen-dialog": "weui-miniprogram/half-screen-dialog/half-screen-dialog"
+  }
 }

@@ -155,11 +155,12 @@
                 </view>
             </view>
             <view class="weui-flex__item"></view>
-            <view class="item_more">
-                <view class="fs_btn" data-post="{{post}}" bind:tap="onClickMoreMenu">
+            <view class="item_more" data-comment="{{comment}}" bind:tap="onClickMoreMenu">
+                <view class="fs_btn">
                     <image src="{{iconsObj['more'] || '/assets/images/content_more.png'}}" class="card-footer-icon" mode="aspectFit"></image>
                 </view>
             </view>
+             <mp-actionSheet bindactiontap="onClickMark" show="{{showMoreMenu}}" actions="{{marks}}"></mp-actionSheet>
         </view>
     </view>
     <!-- 所属帖子 -->

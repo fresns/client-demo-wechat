@@ -10,6 +10,7 @@ Page({
     require('../../mixin/themeChanged'),
     require('../../mixin/loginInterceptor'),
     require('../../mixin/imageGallery'),
+    require('../../mixin/handler/postHandler'),
   ],
   /** 页面数据 **/
   data: {
@@ -21,6 +22,11 @@ Page({
     isReachBottom: false,
   },
   onLoad: async function () {
+    this.setData({
+      posts: [],
+      page: 1,
+      isReachBottom: false
+    })
     await this._loadCurPageData()
   },
   _loadCurPageData: async function () {

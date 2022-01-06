@@ -39,19 +39,19 @@
             </view>
             <view slot="btn" class="interactive-btn">
                 <view class="weui-btn weui-btn_mini {{member.likeStatus === 1 ? 'weui-btn_primary' : 'weui-btn_default'}}" data-member="{{member}}" bind:tap="onClickMemberLike">
+                    <image wx:if="{{member.likeStatus === 0}}" class="weui-btn_cell__icon" src="/assets/images/like.png"></image>
                     <image wx:if="{{member.likeStatus === 1}}" class="weui-btn_cell__icon" src="/assets/images/like-active.png"></image>
-                    <image wx:else class="weui-btn_cell__icon" src="/assets/images/like.png"></image>
-                    {{util.formatNumber(member.stats.likeMemberCount)}}
+                    {{member.stats.likeMeCount}}
                 </view>
-                <view class="weui-btn weui-btn_mini {{member.followStatus === 1 ? 'weui-btn_primary' : 'weui-btn_default'}}" data-member="{{member}}" bind:tap="onClickFollow">
+                <view class="weui-btn weui-btn_mini {{member.followStatus === 1 ? 'weui-btn_primary' : 'weui-btn_default'}}" data-member="{{member}}" bind:tap="onClickMemberFollow">
+                    <image wx:if="{{member.followStatus === 0}}" class="weui-btn_cell__icon" src="/assets/images/follow.png"></image>
                     <image wx:if="{{member.followStatus === 1}}" class="weui-btn_cell__icon" src="/assets/images/follow-active.png"></image>
-                    <image wx:elif="{{member.followStatus === 0}}" class="weui-btn_cell__icon" src="/assets/images/follow.png"></image>
-                    {{util.formatNumber(member.stats.followMemberCount)}}
+                    {{member.stats.followMeCount}}
                 </view>
-                <view class="weui-btn weui-btn_mini {{member.shieldStatus === 1 ? 'weui-btn_primary' : 'weui-btn_default'}}" data-member="{{member}}" bind:tap="onClickBlock">
+                <view class="weui-btn weui-btn_mini {{member.shieldStatus === 1 ? 'weui-btn_primary' : 'weui-btn_default'}}" data-member="{{member}}" bind:tap="onClickMemberBlock">
+                    <image wx:if="{{member.shieldStatus === 0}}" class="weui-btn_cell__icon" src="/assets/images/shield.png"></image>
                     <image wx:if="{{member.shieldStatus === 1}}" class="weui-btn_cell__icon" src="/assets/images/shield-active.png"></image>
-                    <image wx:else class="weui-btn_cell__icon" src="/assets/images/shield.png"></image>
-                    {{util.formatNumber(member.stats.shieldMemberCount)}}
+                    {{member.stats.shieldMeCount}}
                 </view>
             </view>
         </member>

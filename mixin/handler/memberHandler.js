@@ -13,16 +13,16 @@ import Api from '../../api/api'
 module.exports = {
   data: {},
   onClickMemberLike: async function (e) {
-    const member = e?.currentTarget?.dataset?.member || e
-
+    const membersKey = 'members';
+    const member = e.currentTarget.dataset.member;
     // 当前未喜欢，点击喜欢
     if (member.likeStatus === 0) {
       const res = await this.actionLike(member.mid)
       if (res.code === 0) {
         const idx = this.data.members.findIndex(value => value.mid === member.mid)
         this.setData({
-          [`members[${idx}].likeStatus`]: 1,
-          [`members[${idx}].stats.likeMeCount`]: this.data.members[idx].stats.likeMeCount + 1,
+          [`${membersKey}[${idx}].likeStatus`]: 1,
+          [`${membersKey}[${idx}].stats.likeMeCount`]: this.data.members[idx].stats.likeMeCount + 1,
         })
       }
       return
@@ -34,24 +34,24 @@ module.exports = {
       if (res.code === 0) {
         const idx = this.data.members.findIndex(value => value.mid === member.mid)
         this.setData({
-          [`members[${idx}].likeStatus`]: 0,
-          [`members[${idx}].stats.likeMeCount`]: this.data.members[idx].stats.likeMeCount - 1,
+          [`${membersKey}[${idx}].likeStatus`]: 0,
+          [`${membersKey}[${idx}].stats.likeMeCount`]: this.data.members[idx].stats.likeMeCount - 1,
         })
       }
       return
     }
   },
   onClickMemberFollow: async function (e) {
-    const member = e?.currentTarget?.dataset?.member || e
-
+    const membersKey = 'members';
+    const member = e.currentTarget.dataset.member;
     // 当前未关注，点击关注
     if (member.followStatus === 0) {
       const res = await this.actionFollow(member.mid)
       if (res.code === 0) {
         const idx = this.data.members.findIndex(value => value.mid === member.mid)
         this.setData({
-          [`members[${idx}].followStatus`]: 1,
-          [`members[${idx}].stats.followMeCount`]: this.data.members[idx].stats.followMeCount + 1,
+          [`${membersKey}[${idx}].followStatus`]: 1,
+          [`${membersKey}[${idx}].stats.followMeCount`]: this.data.members[idx].stats.followMeCount + 1,
         })
       }
       return
@@ -63,24 +63,24 @@ module.exports = {
       if (res.code === 0) {
         const idx = this.data.members.findIndex(value => value.mid === member.mid)
         this.setData({
-          [`members[${idx}].followStatus`]: 0,
-          [`members[${idx}].stats.followMeCount`]: this.data.members[idx].stats.followMeCount - 1,
+          [`${membersKey}[${idx}].followStatus`]: 0,
+          [`${membersKey}[${idx}].stats.followMeCount`]: this.data.members[idx].stats.followMeCount - 1,
         })
       }
       return
     }
   },
   onClickMemberBlock: async function (e) {
-    const member = e?.currentTarget?.dataset?.member || e
-
+    const membersKey = 'members';
+    const member = e.currentTarget.dataset.member;
     // 当前未关注，点击关注
     if (member.shieldStatus === 0) {
       const res = await this.actionBlock(member.mid)
       if (res.code === 0) {
         const idx = this.data.members.findIndex(value => value.mid === member.mid)
         this.setData({
-          [`members[${idx}].shieldStatus`]: 1,
-          [`members[${idx}].stats.shieldMeCount`]: this.data.members[idx].stats.shieldMeCount + 1,
+          [`${membersKey}[${idx}].shieldStatus`]: 1,
+          [`${membersKey}[${idx}].stats.shieldMeCount`]: this.data.members[idx].stats.shieldMeCount + 1,
         })
       }
       return
@@ -92,8 +92,8 @@ module.exports = {
       if (res.code === 0) {
         const idx = this.data.members.findIndex(value => value.mid === member.mid)
         this.setData({
-          [`members[${idx}].shieldStatus`]: 0,
-          [`members[${idx}].stats.shieldMeCount`]: this.data.members[idx].stats.shieldMeCount - 1,
+          [`${membersKey}[${idx}].shieldStatus`]: 0,
+          [`${membersKey}[${idx}].stats.shieldMeCount`]: this.data.members[idx].stats.shieldMeCount - 1,
         })
       }
       return

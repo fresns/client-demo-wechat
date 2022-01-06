@@ -62,7 +62,7 @@
         <view class="weui-mask" aria-role="button" aria-label="关闭" bindtap="onClickCloseModal"></view>
         <view class="weui-actionsheet weui-actionsheet_toggle">
             <view class="weui-actionsheet__menu">
-                <view aria-role="button" class="weui-actionsheet__cell">删除</view>
+                <view aria-role="button" class="weui-actionsheet__cell" bind:tap="onClickDelete">删除</view>
             </view>
             <view class="weui-actionsheet__action">
                 <view aria-role="button" class="weui-actionsheet__cell" bind:tap="onClickCloseModal">

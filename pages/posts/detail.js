@@ -14,16 +14,24 @@ Page({
     require('../../mixin/handler/postHandler'),
   ],
   data: {
+    pid: null,
     // 详情
     posts: [],
     // 评论列表
     commentList: [],
+
+    emojiShow: false,
+    functionShow: false,
+
+    quickCommentValue: '',
+    quickCommentImage: null,
 
     isShowShareChoose: false,
   },
   sharePost: null,
   onLoad: async function (options) {
     const { pid } = options
+    this.setData({ pid: pid })
     const postDetailRes = await Api.content.postDetail({
       pid: pid,
     })
@@ -32,7 +40,10 @@ Page({
         posts: [postDetailRes.data.detail],
       })
     }
-
+    await this.loadCommentList()
+  },
+  loadCommentList: async function () {
+    const { pid } = this.data
     const commentsRes = await Api.content.commentLists({
       searchPid: pid,
     })
@@ -40,6 +51,54 @@ Page({
       this.setData({
         commentList: commentsRes.data.list,
       })
+    }
+  },
+  onInputChange: function (e) {
+    const value = e.detail.value
+    this.setData({
+      quickCommentValue: value,
+    })
+    return value
+  },
+  onSelectImage: function (e) {
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success: async (res) => {
+        const { tempFilePaths, tempFiles } = res
+        const uploadRes = await Api.editor.editorUpload(tempFilePaths[0], {
+          type: 1,
+          tableType: 8,
+          tableName: 'post_logs',
+          tableField: 'files_json',
+          mode: 1,
+          file: tempFilePaths[0],
+        })
+
+        const resultFile = uploadRes.data.files[0]
+        this.setData({
+          quickCommentImage: resultFile,
+        })
+      },
+    })
+  },
+  quickComment: async function () {
+    const publishRes = await Api.editor.editorPublish({
+      type: 2,
+      commentPid: this.data.pid,
+      content: this.data.quickCommentValue,
+      isMarkdown: 0,
+      isAnonymous: 0,
+      file: this.data.quickCommentImage,
+    })
+    if (publishRes.code === 0) {
+      wx.showToast({
+        title: '发布成功',
+        icon: 'none',
+      })
+      this.setData({ quickCommentValue: '', quickCommentImage: null })
+      await this.loadCommentList()
     }
   },
   /**

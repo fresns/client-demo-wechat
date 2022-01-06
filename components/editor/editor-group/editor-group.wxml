@@ -8,8 +8,10 @@
         <label class="weui-label" style="width: 3em">小组</label>
     </view>
     <view class="weui-cell__bd">
-        <picker aria-role="combobox" bindchange="bindGroupChange" range="{{array1}}">
-            <view class="weui-select">{{array1[value1]}}</view>
+        <picker aria-role="combobox" mode="multiSelector" range-key="name" bindchange="bindMultiPickerChange" value="{{multiIndex}}" bindcolumnchange="bindMultiPickerColumnChange" range="{{multiArray}}">
+            <view class="weui-select">
+                {{ currentGroupName }}
+            </view>
         </picker>
     </view>
 </view>

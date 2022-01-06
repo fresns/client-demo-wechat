@@ -13,16 +13,16 @@ import Api from '../../api/api'
 module.exports = {
   data: {},
   onClickHashtagLike: async function (e) {
-    const hashtag = e?.currentTarget?.dataset?.hashtag || e
-
+    const hashtagsKey = 'hashtags';
+    const hashtag = e.currentTarget.dataset.hashtag;
     // 当前未喜欢，点击喜欢
     if (hashtag.likeStatus === 0) {
       const res = await this.actionLike(hashtag.huri)
       if (res.code === 0) {
         const idx = this.data.hashtags.findIndex(value => value.huri === hashtag.huri)
         this.setData({
-          [`hashtags[${idx}].likeStatus`]: 1,
-          [`hashtags[${idx}].likeCount`]: this.data.hashtags[idx].likeCount + 1,
+          [`${hashtagsKey}[${idx}].likeStatus`]: 1,
+          [`${hashtagsKey}[${idx}].likeCount`]: this.data.hashtags[idx].likeCount + 1,
         })
       }
       return
@@ -34,24 +34,24 @@ module.exports = {
       if (res.code === 0) {
         const idx = this.data.hashtags.findIndex(value => value.huri === hashtag.huri)
         this.setData({
-          [`hashtags[${idx}].likeStatus`]: 0,
-          [`hashtags[${idx}].likeCount`]: this.data.hashtags[idx].likeCount - 1,
+          [`${hashtagsKey}[${idx}].likeStatus`]: 0,
+          [`${hashtagsKey}[${idx}].likeCount`]: this.data.hashtags[idx].likeCount - 1,
         })
       }
       return
     }
   },
   onClickHashtagFollow: async function (e) {
-    const { hashtag } = e.currentTarget.dataset
-
+    const hashtagsKey = 'hashtags';
+    const hashtag = e.currentTarget.dataset.hashtag;
     // 当前未关注，点击关注
     if (hashtag.followStatus === 0) {
       const res = await this.actionFollow(hashtag.huri)
       if (res.code === 0) {
         const idx = this.data.hashtags.findIndex(value => value.huri === hashtag.huri)
         this.setData({
-          [`hashtags[${idx}].followStatus`]: 1,
-          [`hashtags[${idx}].followCount`]: this.data.hashtags[idx].followCount + 1,
+          [`${hashtagsKey}[${idx}].followStatus`]: 1,
+          [`${hashtagsKey}[${idx}].followCount`]: this.data.hashtags[idx].followCount + 1,
         })
       }
       return
@@ -63,24 +63,24 @@ module.exports = {
       if (res.code === 0) {
         const idx = this.data.hashtags.findIndex(value => value.huri === hashtag.huri)
         this.setData({
-          [`hashtags[${idx}].followStatus`]: 0,
-          [`hashtags[${idx}].followCount`]: this.data.hashtags[idx].followCount - 1,
+          [`${hashtagsKey}[${idx}].followStatus`]: 0,
+          [`${hashtagsKey}[${idx}].followCount`]: this.data.hashtags[idx].followCount - 1,
         })
       }
       return
     }
   },
   onClickHashtagBlock: async function (e) {
-    const { hashtag } = e.currentTarget.dataset
-
+    const hashtagsKey = 'hashtags';
+    const hashtag = e.currentTarget.dataset.hashtag;
     // 当前未关注，点击关注
     if (hashtag.shieldStatus === 0) {
       const res = await this.actionBlock(hashtag.huri)
       if (res.code === 0) {
         const idx = this.data.hashtags.findIndex(value => value.huri === hashtag.huri)
         this.setData({
-          [`hashtags[${idx}].shieldStatus`]: 1,
-          [`hashtags[${idx}].shieldCount`]: this.data.hashtags[idx].shieldCount + 1,
+          [`${hashtagsKey}[${idx}].shieldStatus`]: 1,
+          [`${hashtagsKey}[${idx}].shieldCount`]: this.data.hashtags[idx].shieldCount + 1,
         })
       }
       return
@@ -92,8 +92,8 @@ module.exports = {
       if (res.code === 0) {
         const idx = this.data.hashtags.findIndex(value => value.huri === hashtag.huri)
         this.setData({
-          [`hashtags[${idx}].shieldStatus`]: 0,
-          [`hashtags[${idx}].shieldCount`]: this.data.hashtags[idx].shieldCount - 1,
+          [`${hashtagsKey}[${idx}].shieldStatus`]: 0,
+          [`${hashtagsKey}[${idx}].shieldCount`]: this.data.hashtags[idx].shieldCount - 1,
         })
       }
       return

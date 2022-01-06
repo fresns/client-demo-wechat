@@ -50,18 +50,18 @@ Page({
     isShowTitleInput: true,
     // 内容字数长度
     editorContentWordCount: 0,
-
     // 现在的草稿
     drafts: null,
     // 是否显示草稿选择器
     isShowDraftSelector: false,
     // 当前的草稿
     currentDraft: null,
-
     // 是否主动选择地址
     manualSelectLocation: false,
     // 禁用词
     stopWords: null,
+    // 草稿id
+    draftId:null,
   },
   editorContext: null,
   updateTimer: null,
@@ -97,11 +97,11 @@ Page({
       this.editorContext = res.context
     }).exec()
 
-    // if (this.data.type === Type.Post && !this.data.uuid) {
-    //   await this.getDrafts()
-    // } else {
-    await this._createDraft()
-    // }
+    if (this.data.type === Type.Post && this.data.draftId) {
+      await this.getDraft()
+    } else {
+      await this._createDraft()
+    }
 
     // 定时更新
     if (!this.updateTimer) {
@@ -141,7 +141,7 @@ Page({
   },
   _parseOptions: function (options) {
     console.log('post editor options:', options)
-    const { type, mode, uuid, pid } = options
+    const { type, mode, uuid, pid, draftId } = options
     if (type === 'post') {
       this.setData({ type: Type.Post })
     }
@@ -154,6 +154,9 @@ Page({
     }
     if (mode === 'modify') {
       this.setData({ mode: Mode.Modify })
+    }
+    if (draftId) {
+      this.setData({ draftId })
     }
     this.setData({ uuid: uuid, postId: pid })
   },
@@ -215,7 +218,7 @@ Page({
     })
     if (editorDetailRes.code === 0) {
       const draftDetail = editorDetailRes.data.detail
-
+      console.log(draftDetail);
       if (editorDetailRes.code === 0) {
         this.setData({
           isShowDraftSelector: false,
@@ -228,15 +231,21 @@ Page({
       }
     }
   },
-  getDrafts: async function () {
-    const draftRes = await Api.editor.editorLists({
+  getDraft: async function (draftId) {
+    const editorDetailRes = await Api.editor.editorDetail({
       type: this.data.type,
-      status: 1,
+      logId: this.data.draftId,
     })
-    if (draftRes.code === 0) {
+    const draftDetail = editorDetailRes.data.detail
+
+    if (editorDetailRes.code === 0) {
       this.setData({
-        isShowDraftSelector: true,
-        drafts: draftRes.data.list,
+        isShowDraftSelector: false,
+        currentDraft: draftDetail,
+      })
+
+      this.editorContext.setContents({
+        html: draftDetail.content,
       })
     }
   },
@@ -270,20 +279,12 @@ Page({
     await Api.editor.editorUpdate({
       logType: this.data.type,
       logId: currentDraft.id,
-      isPluginEdit: 0,
-      pluginUnikey: '',
-      // types: '',
-      // gid: '',
+      gid: currentDraft.gid,
       title: currentDraft.title,
       content: currentDraft.content,
       isMarkdown: 0,
       isAnonymous: currentDraft.isAnonymous,
-      memberListJson: currentDraft.memberList && JSON.stringify(currentDraft.memberList),
-      commentSetJson: currentDraft.commentSetting && JSON.stringify(currentDraft.commentSetting),
-      allowJson: currentDraft.allow && JSON.stringify(currentDraft.allow),
-      locationJson: currentDraft.location && JSON.stringify(currentDraft.location),
-      filesJson: currentDraft.files?.length > 0 && JSON.stringify(currentDraft.files),
-      extendsJson: currentDraft.extends?.length > 0 && JSON.stringify(currentDraft.extends),
+      filesJson: JSON.stringify(currentDraft.files)
     })
 
     this.setData({
@@ -301,10 +302,10 @@ Page({
     const updateRes = await Api.editor.editorUpdate({
       logType: this.data.type,
       logId: currentDraft.id,
-      // type: '',
-      // gid: '',
+      gid: currentDraft.gid,
       title: currentDraft.title,
       content: currentDraft.content,
+      filesJson: JSON.stringify(currentDraft.files)
     })
   },
   /**
@@ -322,6 +323,9 @@ Page({
       wx.showToast({
         title: '提交成功',
         icon: 'success',
+      })
+      wx.redirectTo({
+        url: '/pages/posts/index',
       })
     }
   },
@@ -403,6 +407,13 @@ Page({
       currentDraft: this.data.currentDraft,
     })
   },
+  // 小组变更
+  onSelectGroup: function (e) {
+    this.data.currentDraft.gid = e.detail.value;
+    this.setData({
+      currentDraft: this.data.currentDraft,
+    })
+  },
   /**
    * 选择 emoji 表情
    * @param emoji
@@ -416,7 +427,10 @@ Page({
    * 上传完毕文件的回调
    */
   onAddedFile: async function (file) {
-    this.data.currentDraft.files.push(file)
+    this.data.currentDraft.files.push(file);
+    this.setData({
+      currentDraft: this.data.currentDraft
+    })
     await this.updateDraft()
   },
   /**
@@ -424,7 +438,14 @@ Page({
    */
   onRemovedFile: async function (fileId) {
     this.data.currentDraft.files = this.data.currentDraft.files.filter(file => file.fid !== fileId)
-    await this.updateDraft()
+    this.setData({
+      currentDraft: this.data.currentDraft
+    })
+    const updateDraftRes = await this.updateDraft()
+    wx.showToast({
+      title: '删除成功',
+      icon: 'success',
+    })
   },
   /**
    * 选择用户

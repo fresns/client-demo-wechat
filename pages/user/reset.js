@@ -4,6 +4,7 @@
  * Licensed under the Apache-2.0 license
  */
 import Api from '../../api/api'
+import { getConfigItemValue } from '../../api/tool/replace-key'
 
 const Type = {
   Mobile: '0',
@@ -21,17 +22,32 @@ Page({
     emailAddress: '',
 
     // 手机相关信息
-    mobileAreaRange: ['+86', '+1', '+886'],
-    mobileAreaIndex: 0,
+    mobileAreaRange: [],
+    mobileAreaIndex: null,
     mobileNumber: '',
 
     // 验证码
     verifyCode: '',
+    // 验证码等待中
+    isVerifyCodeWaiting: false,
+    waitingRemainSeconds: 60,
 
     // 密码
     password: '',
     // 二次确认密码
     confirmPassword: '',
+  },
+  onLoad: async function () {
+    const [defaultCode, codeArray] = await Promise.all(
+      [
+        getConfigItemValue('send_sms_code'),
+        getConfigItemValue('send_sms_code_more'),
+      ],
+    )
+    this.setData({
+      mobileAreaRange: codeArray,
+      mobileAreaIndex: codeArray.indexOf(defaultCode + ''),
+    })
   },
   onTypeChange: function (e) {
     this.setData({
@@ -69,21 +85,28 @@ Page({
     return value
   },
   sendVerifyCode: async function (e) {
-    const { type, emailAddress, mobileAreaRange, mobileAreaIndex, mobileNumber } = this.data
+    const { type, emailAddress, mobileAreaRange, mobileAreaIndex, mobileNumber, isVerifyCodeWaiting, waitingRemainSeconds } = this.data
+    if (isVerifyCodeWaiting) {
+      wx.showToast({
+        title: `发送冷却中 ${waitingRemainSeconds}s`,
+        icon: 'none',
+      })
+      return
+    }
     let params = null
     if (type === Type.Email) {
       params = {
         type: 1,
-        useType: 1,
-        templateId: 2,
+        useType: 2,
+        templateId: 5,
         account: emailAddress,
       }
     }
     if (type === Type.Mobile) {
       params = {
         type: 2,
-        useType: 1,
-        templateId: 2,
+        useType: 2,
+        templateId: 5,
         account: mobileNumber,
         countryCode: +mobileAreaRange[mobileAreaIndex],
       }
@@ -91,6 +114,19 @@ Page({
 
     const sendVerifyRes = await Api.info.infoSendVerifyCode(params)
     if (sendVerifyRes.code === 0) {
+      this.setData({ isVerifyCodeWaiting: true, waitingRemainSeconds: 60 })
+
+      const interval = setInterval(() => {
+        const now = this.data.waitingRemainSeconds - 1
+        this.setData({
+          waitingRemainSeconds: now,
+          isVerifyCodeWaiting: now > 0,
+        })
+        if (now <= 0) {
+          clearInterval(interval)
+        }
+      }, 1000)
+
       wx.showToast({
         title: '验证码发送成功',
         icon: 'none',
@@ -136,7 +172,7 @@ Page({
         account: mobileNumber,
         countryCode: +mobileAreaRange[mobileAreaIndex],
         verifyCode: verifyCode,
-        password: password,
+        newPassword: password,
       }
     }
     if (type === Type.Email) {
@@ -144,11 +180,11 @@ Page({
         type: 1,
         account: emailAddress,
         verifyCode: verifyCode,
-        password: password,
+        newPassword: password,
       }
     }
 
-    const registerRes = await Api.user.userRegister(params)
+    const registerRes = await Api.user.userReset(params)
     if (registerRes.code === 0) {
       wx.showToast({
         title: '密码重置成功',

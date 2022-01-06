@@ -1,6 +1,7 @@
 {
   "component": true,
   "usingComponents": {
-    "tabs": "/components/weui/tabs/index"
+    "tabs": "/components/weui/tabs/index",
+    "mp-searchbar": "weui-miniprogram/searchbar/searchbar"
   }
 }

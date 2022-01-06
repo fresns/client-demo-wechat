@@ -15,6 +15,7 @@ Component({
     audioFiles: [],
     docFiles: [],
     isShowActionModal: false,
+    checkedFid: null,
   },
   methods: {
     attached: function () {
@@ -30,15 +31,17 @@ Component({
         docFiles: files.filter(file => file.type === 4),
       })
     },
-    onClickFile: function () {
-      this.setData({ isShowActionModal: true })
+    onClickFile: function (e) {
+      this.setData({
+        isShowActionModal: true,
+        checkedFid:e.currentTarget.dataset?.file?.fid
+      })
     },
     onClickCloseModal: function () {
       this.setData({ isShowActionModal: false })
     },
-    onClickDelete: function (e) {
-      const { file } = e.target.dataset
-      callPageFunction('onRemovedFile', file.fid)
+    onClickDelete: function () {
+      callPageFunction('onRemovedFile', this.data.checkedFid)
     },
   },
   observers: {

@@ -26,6 +26,8 @@ Component({
     audioFiles: [],
     docFiles: [],
     iconsObj: {},
+    showMoreMenu: false,
+    marks: [],
   },
   /**
    * 组件的方法列表
@@ -46,34 +48,73 @@ Component({
     onClickShare: async function () {
       callPageFunction('onClickShare', this.data.comment)
     },
-    onClickCreateComment: async function () {},
-    onClickModifyComment: async function (e) {
-      const { comment } = this.data
+    onClickCreateComment: async function () { },
+
+    _onClickModifyComment: function (comment) {
       wx.navigateTo({
         url: `/pages/editor/index?type=comment&mode=modify&uuid=${comment.cid}&post_id=${comment.pid}`,
       })
     },
+    _onClickCommentFollow: function (comment) {
+      callPageFunction('onClickCommentFollow', comment)
+    },
+    _onClickCommentBlock: function (comment) {
+      callPageFunction('onClickCommentBlock', comment)
+    },
+    _onclickMemberDelete: function (comment) {
+      Api.member.memberDelete({
+        type: 2,
+        uuid: comment.cid
+      }).then(function (memberDeleteRes) {
+        if (memberDeleteRes.code === 0) {
+          callPageFunction('onLoad')
+        }
+      })
+    },
+    onClickMoreMenu: async function (e) {
+      const comment = this.data.comment;
+      const showMoreMenu = true;
+      let marks = [];
+      if (comment.editStatus.isMe && comment.editStatus.canEdit) {
+        marks.push({ text: "编辑", value: "_onClickModifyComment" })
+      }
+      if (comment.editStatus.isMe && comment.editStatus.canDelete) {
+        marks.push({ text: "删除", value: "_onclickMemberDelete" })
+      }
+      if (comment.followSetting) {
+        marks.push({ text: comment.followStatus ? "已" + comment.followName : comment.followName, value: "_onClickCommentFollow" })
+      }
+      if (comment.shieldSetting) {
+        marks.push({ text: comment.shieldStatus ? "已" + comment.shieldName : comment.shieldName, value: "_onClickCommentBlock" })
+      }
+      this.setData({
+        showMoreMenu,
+        marks,
+      })
+    },
+    onClickMark: async function (e) {
+      const value = e.detail.value
+      this[value](this.data.comment);
+      this.setData({
+        showMoreMenu: false
+      })
+    }
   },
   observers: {
     'comment': function (comment) {
-      comment.icons = [
-        {
-          icon: 'a',
-          name: 'cc',
-        }, {
-          icon: 'b',
-          name: 'dc',
-        },
-      ]
+      if (!comment) {
+        return
+      }
+
       this.setData({
-        imageFiles: comment.files.filter(file => file.type === 1),
-        videoFiles: comment.files.filter(file => file.type === 2),
-        audioFiles: comment.files.filter(file => file.type === 3),
-        docFiles: comment.files.filter(file => file.type === 4),
-        iconsObj: comment.icons.reduce((obj, icon) => {
+        imageFiles: comment.files?.filter(file => file.type === 1) || [],
+        videoFiles: comment.files?.filter(file => file.type === 2) || [],
+        audioFiles: comment.files?.filter(file => file.type === 3) || [],
+        docFiles: comment.files?.filter(file => file.type === 4) || [],
+        iconsObj: comment.icons?.reduce((obj, icon) => {
           obj[icon.name] = icon
           return obj
-        }, {}),
+        }, {}) || {},
       })
     },
   },

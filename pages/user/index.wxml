@@ -30,14 +30,14 @@
     </view>
 
     <view class="weui-cells weui-cells_after-title">
-        <navigator url="/pages/editor/index" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <navigator url="/pages/editor/draft-select" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
             <view class="weui-cell__bd fg-0">发表</view>
             <view class="weui-cell__ft weui-cell__ft_in-access"></view>
         </navigator>
-        <navigator url="/pages/search/index" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <!-- <navigator url="/pages/search/index" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
             <view class="weui-cell__bd fg-0">搜索</view>
             <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-        </navigator>
+        </navigator> -->
         <navigator url="/pages/user/wallet" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
             <view class="weui-cell__bd fg-0">钱包</view>
             <view class="weui-cell__ft weui-cell__ft_in-access">¥ {{user.wallet.balance}}</view>

@@ -35,20 +35,15 @@
     </radio-group>
 
     <block wx:if="{{loginType === '0'}}">
-        <view class="weui-form__tips-area we-login-agree">
-            <label aria-role="" class="weui-agree">
-                <checkbox-group bind:change="onChangeAgree">
-                    <checkbox value="agree" checked="{{isAgree}}" aria-labelledby="js_agree_txt js_agree_link" class="weui-agree__checkbox-check"/>
-                </checkbox-group>
-                <span class="weui-agree__checkbox"></span>
-                <span class="weui-agree__text">
-                    <text aria-hidden="true" id="js_agree_txt">阅读并同意</text>
-                    <navigator id="js_agree_link" url="/pages/about/policies">《相关条款》</navigator>
-                </span>
-            </label>
-        </view>
-        <view class="we-login-btn">
+        <view class="we-login-agree">
             <button class="weui-btn weui-btn_primary" type="primary">微信登录</button>
+            <view class="weui-form__tips-area">
+                <label class="weui-agree">
+                    <span class="weui-agree__text">
+                        <text aria-hidden="true" id="js_agree_txt">微信登录暂未开发，请使用账号登录</text>
+                    </span>
+                </label>
+            </view>
         </view>
     </block>
 
@@ -102,24 +97,11 @@
                             <label class="weui-label">密码</label>
                         </view>
                         <view class="weui-cell__bd">
-                            <input class="weui-input" password="true" value="{{password}}" bindinput="onPasswordChange" placeholder="登录密码"
-                                   placeholder-class="weui-input__placeholder"/>
+                            <input class="weui-input" password="true" value="{{password}}" bindinput="onPasswordChange" placeholder="登录密码" placeholder-class="weui-input__placeholder"/>
                         </view>
                     </view>
                 </view>
             </view>
-        </view>
-        <view class="weui-form__tips-area">
-            <label aria-role="" class="weui-agree">
-                <checkbox-group bind:change="onChangeAgree">
-                    <checkbox value="agree" checked="{{isAgree}}" aria-labelledby="js_agree_txt js_agree_link" class="weui-agree__checkbox-check"/>
-                </checkbox-group>
-                <span class="weui-agree__checkbox"></span>
-                <span class="weui-agree__text">
-                    <text aria-hidden="true" id="js_agree_txt">阅读并同意</text>
-                    <navigator id="js_agree_link" url="/pages/about/policies">《相关条款》</navigator>
-                </span>
-            </label>
         </view>
         <view class="weui-form__opr-area">
             <button class="weui-btn weui-btn_primary" type="primary" bind:tap="onSubmit">提交登录</button>
@@ -181,25 +163,12 @@
                             <label class="weui-label">验证码</label>
                         </view>
                         <view class="weui-cell__bd">
-                            <input class="weui-cell__control weui-cell__control_flex weui-input" type="text" placeholder="输入验证码" placeholder-class="weui-input__placeholder"
-                                   bindinput="onVerifyCodeChange"/>
+                            <input class="weui-cell__control weui-cell__control_flex weui-input" type="text" placeholder="输入验证码" placeholder-class="weui-input__placeholder" bindinput="onVerifyCodeChange"/>
                             <view aria-role="button" class="weui-cell__control weui-btn weui-btn_default weui-vcode-btn" bind:tap="sendVerifyCode">获取验证码</view>
                         </view>
                     </view>
                 </view>
             </view>
-        </view>
-        <view class="weui-form__tips-area">
-            <label aria-role="" class="weui-agree">
-                <checkbox-group bind:change="onChangeAgree">
-                    <checkbox value="agree" checked="{{isAgree}}" aria-labelledby="js_agree_txt js_agree_link" class="weui-agree__checkbox-check"/>
-                </checkbox-group>
-                <span class="weui-agree__checkbox"></span>
-                <span class="weui-agree__text">
-                    <text aria-hidden="true" id="js_agree_txt">阅读并同意</text>
-                    <navigator id="js_agree_link" url="/pages/about/policies">《相关条款》</navigator>
-                </span>
-            </label>
         </view>
         <view class="weui-form__opr-area">
             <button class="weui-btn weui-btn_primary" type="primary" bind:tap="onSubmit">提交登录</button>

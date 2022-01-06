@@ -3,7 +3,8 @@
   "usingComponents": {
     "member": "/components/member/list",
     "extend-info": "/components/extend/extend-info",
-    "extend-text": "/components/extend/extend-text"
+    "extend-text": "/components/extend/extend-text",
+    "mp-actionSheet": "weui-miniprogram/actionsheet/actionsheet"
   },
   "componentGenerics": {
     "contentType": true

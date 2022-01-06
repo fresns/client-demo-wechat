@@ -31,7 +31,7 @@ export function request (options) {
     const { url, data = {} } = options
 
     Object.getOwnPropertyNames(data).forEach(dataKey => {
-      if (!data[dataKey]) {
+      if (data[dataKey] === null || data[dataKey] === undefined || data[dataKey] === '') {
         delete data[dataKey]
       }
     })
@@ -51,10 +51,11 @@ export function request (options) {
       globalInfo.deviceInfo && deviceInfoPaths.includes(options.url) && { deviceInfo: JSON.stringify(globalInfo.deviceInfo) },
     )
 
+    const sign = await getSign();
     wx.request({
       method: 'POST',
       header: Object.assign(header, {
-        sign: getSign(),
+         sign,
       }),
       url: appConfig.apiHost + url,
       data: data,

@@ -7,18 +7,18 @@
 <view class="page" data-weui-theme="{{theme}}">
     <view class="weui-cells__title">不选择草稿</view>
     <view>
-        <navigator class="weui-btn weui-btn_primary" aria-role="button" url="">创建新草稿</navigator>
+        <navigator class="weui-btn weui-btn_primary" aria-role="button" url="/pages/editor/index?type=post">
+            创建新草稿
+        </navigator>
     </view>
     <view class="weui-cells__title">选择草稿</view>
     <view class="weui-cells weui-cells_after-title">
-        <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-            <view class="weui-cell__bd">cell standard</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-        </navigator>
-        <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-            <view class="weui-cell__bd">cell standard</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-        </navigator>
+        <block wx:for="{{postsStatusOne.posts}}" wx:for-item="post">
+            <navigator url="/pages/editor/index?type=post&mode=modify&draftId={{post.id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">{{post.title ? post.title : "草稿 " + post.id}}</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </navigator>
+        </block>
     </view>
     <view class="copyright">Powered by Fresns</view>
 </view>

@@ -12,6 +12,7 @@ Page({
   mixins: [
     require('../../mixin/themeChanged'),
     require('../../mixin/imageGallery'),
+    require('../../mixin/handler/postHandler'),
   ],
   /** 页面数据 **/
   data: {
@@ -25,7 +26,12 @@ Page({
     isReachBottom: false,
   },
   onLoad: async function (options) {
-    this.data.requestBody = await getConfigItemValue('menu_post_list_config')
+    this.setData({
+      requestBody: await getConfigItemValue('menu_post_list_config'),
+      posts: [],
+      page: 1,
+      isReachBottom: false
+    })
     await this._loadCurPageData()
   },
   _loadCurPageData: async function () {

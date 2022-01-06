@@ -30,7 +30,7 @@
     <!--成员列表-->
     <view wx:for="{{members}}" wx:for-index="idx" wx:for-item="member" wx:key="mid" class="member-list">
         <member member="{{member}}">
-            <view slot="icons-body" class="member-icons weui-flex" wx:for="{{member.icons}}">
+            <view slot="icons-body" class="member-icons weui-flex">
                 <image wx:for="{{member.icons}}" wx:for-item="iconItem" wx:key="icon" src="{{iconItem.icon}}" alt="{{iconItem.name}}" mode="heightFix"></image>
             </view>
             <view slot="bio" class="member-bio">

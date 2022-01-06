@@ -18,17 +18,23 @@ Page({
     cid: null,
     comment: null,
     commentCommon: null,
+    comments: [],
 
     isShowShareChoose: false,
 
-    quickReplyContent: '',
-    quickReplyAnonymous: false,
+    quickCommentValue: '',
+    quickCommentImage: null,
+    // 下次请求时候的页码，初始值为 1
+    page: 1,
+    // 页面是否到底
+    isReachBottom: false,
   },
   shareComment: null,
   onLoad: async function (options) {
     const { cid } = options
     this.setData({ cid: cid })
     await this.loadCommentDetail()
+    await this.loadCommentList()
   },
   loadCommentDetail: async function () {
     const { cid } = this.data
@@ -42,20 +48,76 @@ Page({
       })
     }
   },
-  quickReplyComment: async function () {
-    const { cid, quickReplyContent, quickReplyAnonymous } = this.data
+  loadCommentList: async function () {
+    const { isReachBottom } = this.data
+    if (isReachBottom) {
+      return
+    }
+
+    const { cid, page, comments } = this.data
+    const resultRes = await Api.content.commentLists({
+      searchCid: cid,
+      page: page,
+    })
+    if (resultRes.code === 0) {
+      const { pagination, list } = resultRes.data
+      this.setData({
+        comments: comments.concat(list),
+        page: this.data.page + 1,
+        isReachBottom: pagination.current === pagination.lastPage,
+      })
+    }
+  },
+  onReachBottom: async function () {
+    await this.loadCommentList()
+  },
+  onInputChange: function (e) {
+    const value = e.detail.value
+    this.setData({
+      quickCommentValue: value,
+    })
+    return value
+  },
+  onSelectImage: function (e) {
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success: async (res) => {
+        const { tempFilePaths, tempFiles } = res
+        const uploadRes = await Api.editor.editorUpload(tempFilePaths[0], {
+          type: 1,
+          tableType: 8,
+          tableName: 'post_logs',
+          tableField: 'files_json',
+          mode: 1,
+          file: tempFilePaths[0],
+        })
+
+        const resultFile = uploadRes.data.files[0]
+        this.setData({
+          quickCommentImage: resultFile,
+        })
+      },
+    })
+  },
+  quickComment: async function () {
+    const { cid, pid } = this.data.comment
     const publishRes = await Api.editor.editorPublish({
       type: 2,
-      commentPid: cid,
-      content: quickReplyContent,
+      commentPid: pid,
+      commentCid: cid,
+      content: this.data.quickCommentValue,
       isMarkdown: 0,
-      isAnonymous: quickReplyAnonymous,
+      isAnonymous: 0,
+      file: this.data.quickCommentImage,
     })
     if (publishRes.code === 0) {
       wx.showToast({
         title: '发布成功',
         icon: 'none',
       })
+      this.setData({ quickCommentValue: '', quickCommentImage: null })
       await this.loadCommentDetail()
     }
   },

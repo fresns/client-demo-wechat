@@ -3,7 +3,7 @@
     Copyright 2021-Present Jarvis Tang
     Licensed under the Apache-2.0 license
 * -->
-<page-meta root-font-size="system"/>
+<page-meta root-font-size="system" />
 <view class="page" data-weui-theme="{{theme}}">
     <view class="weui-form__control-area">
         <view class="weui-cells__group weui-cells__group_form">
@@ -15,11 +15,11 @@
                         </view>
                         <view class="weui-cell__bd">
                             <label class="radio">
-                                <radio value="0" checked="{{type === '0'}}"/>
+                                <radio value="0" checked="{{type === '0'}}" />
                                 手机号
                             </label>
                             <label class="radio" style="margin-left:10px">
-                                <radio value="1" checked="{{type === '1'}}"/>
+                                <radio value="1" checked="{{type === '1'}}" />
                                 邮箱
                             </label>
                         </view>
@@ -35,7 +35,7 @@
                             </picker>
                         </view>
                         <view class="weui-cell__bd">
-                            <input class="weui-input" type="number" placeholder="请输入号码" value="{{mobileNumber}}" bindinput="onMobileNumberChange"/>
+                            <input class="weui-input" type="number" placeholder="请输入号码" value="{{mobileNumber}}" bindinput="onMobileNumberChange" />
                         </view>
                     </view>
                 </block>
@@ -45,7 +45,7 @@
                             <label class="weui-label">邮箱</label>
                         </view>
                         <view class="weui-cell__bd">
-                            <input class="weui-input" value="{{emailAddress}}" bindinput="onEmailAddressChange" placeholder="邮箱地址" placeholder-class="weui-input__placeholder"/>
+                            <input class="weui-input" value="{{emailAddress}}" bindinput="onEmailAddressChange" placeholder="邮箱地址" placeholder-class="weui-input__placeholder" />
                         </view>
                     </view>
                 </block>
@@ -54,8 +54,7 @@
                         <label class="weui-label">验证码</label>
                     </view>
                     <view class="weui-cell__bd">
-                        <input class="weui-cell__control weui-cell__control_flex weui-input" value="{{verifyCode}}" bindinput="onVerifyCodeChange" type="text" placeholder="输入验证码"
-                               placeholder-class="weui-input__placeholder"/>
+                        <input class="weui-cell__control weui-cell__control_flex weui-input" value="{{verifyCode}}" bindinput="onVerifyCodeChange" type="text" placeholder="输入验证码" placeholder-class="weui-input__placeholder" />
                         <view aria-role="button" class="weui-cell__control weui-btn weui-btn_default weui-vcode-btn" bind:tap="sendVerifyCode">
                             获取验证码
                         </view>
@@ -66,8 +65,7 @@
                         <label class="weui-label">登录密码</label>
                     </view>
                     <view class="weui-cell__bd">
-                        <input class="weui-input" password="{{true}}" value="{{password}}" bindinput="onPasswordChange" placeholder="登录密码"
-                               placeholder-class="weui-input__placeholder"/>
+                        <input class="weui-input" password="{{true}}" value="{{password}}" bindinput="onPasswordChange" placeholder="登录密码" placeholder-class="weui-input__placeholder" />
                     </view>
                 </view>
                 <view class="weui-cell weui-cell_active">
@@ -75,8 +73,7 @@
                         <label class="weui-label">确认密码</label>
                     </view>
                     <view class="weui-cell__bd">
-                        <input class="weui-input" password="{{true}}" value="{{confirmPassword}}" bindinput="onConfirmPasswordChange" placeholder="再输一次密码"
-                               placeholder-class="weui-input__placeholder"/>
+                        <input class="weui-input" password="{{true}}" value="{{confirmPassword}}" bindinput="onConfirmPasswordChange" placeholder="再输一次密码" placeholder-class="weui-input__placeholder" />
                     </view>
                 </view>
                 <view class="weui-cell weui-cell_active">
@@ -84,7 +81,7 @@
                         <label class="weui-label">用户昵称</label>
                     </view>
                     <view class="weui-cell__bd">
-                        <input class="weui-input" value="{{nickname}}" bindinput="onNicknameChange" placeholder="用户昵称" placeholder-class="weui-input__placeholder"/>
+                        <input class="weui-input" value="{{nickname}}" bindinput="onNicknameChange" placeholder="用户昵称" placeholder-class="weui-input__placeholder" />
                     </view>
                 </view>
             </view>
@@ -92,13 +89,10 @@
     </view>
     <view class="weui-form__tips-area">
         <label aria-role="" class="weui-agree">
-            <checkbox-group bind:change="onChangeAgree">
-                <checkbox value="agree" checked="{{isAgree}}" aria-labelledby="js_agree_txt js_agree_link" class="weui-agree__checkbox-check"/>
-            </checkbox-group>
-            <span class="weui-agree__checkbox"></span>
             <span class="weui-agree__text">
-                <text aria-hidden="true" id="js_agree_txt">阅读并同意</text>
-                <navigator id="js_agree_link" url="/pages/about/policies">《相关条款》</navigator>
+                <text aria-hidden="true" id="js_agree_txt">注册即表示同意本站条款</text>
+                <navigator id="js_agree_link" url="/pages/about/policies">《服务条款》</navigator>
+                <navigator id="js_agree_link" url="/pages/about/policies">《隐私政策》</navigator>
             </span>
         </label>
     </view>

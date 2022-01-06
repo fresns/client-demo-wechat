@@ -28,7 +28,13 @@ Page({
   },
   sharePost: null,
   onLoad: async function () {
-    this.data.requestBody = await getConfigItemValue('menu_post_config')
+    this.setData({
+      posts: [],
+      requestBody: getConfigItemValue('menu_post_config'),
+      isReachBottom: false,
+      isShowShareChoose: false,
+      page: 1,
+    })
     await this._loadCurPageData()
   },
   _loadCurPageData: async function () {

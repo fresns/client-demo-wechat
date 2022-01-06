@@ -3,6 +3,7 @@
  * Copyright 2021-Present Jarvis Tang
  * Licensed under the Apache-2.0 license
  */
+import member from '../../api/detail/member'
 import { globalInfo } from '../../configs/fresnsGlobalInfo'
 
 Page({
@@ -15,6 +16,7 @@ Page({
     isPasswordDialogVisible: false,
     // 输入的密码
     password: '',
+    currentMember: '',
   },
   onShow: async function () {
     const members = globalInfo.loginUser?.members
@@ -32,10 +34,13 @@ Page({
     if (member.password) {
       this.setData({
         isPasswordDialogVisible: true,
+        currentMember: member
       })
     } else {
       await globalInfo.selectMember(member)
-      wx.navigateBack()
+      wx.redirectTo({
+        url: '/pages/user/index',
+      })
     }
   },
   /**
@@ -56,17 +61,27 @@ Page({
    * @return {Promise<void>}
    */
   onSubmitPassword: async function (e) {
-    const { member } = e.currentTarget.dataset
+    const { currentMember } = this.data
     try {
-      await globalInfo.selectMember(member, this.data.password)
+      const selectMemberRes = await globalInfo.selectMember(currentMember, this.data.password)
+      const { message, code } = selectMemberRes
+      if (code === 0) {
+        this.setData({
+          isPasswordDialogVisible: false,
+          password: '',
+        })
+        wx.redirectTo({
+          url: '/pages/user/index',
+        })
+      }
+      if (code !== 0) {
+        wx.showToast({
+          title: message,
+          icon: 'none',
+        })
+      }
     } catch (e) {
       console.error(e.message)
-    } finally {
-      this.setData({
-        isPasswordDialogVisible: false,
-        password: '',
-      })
-      wx.navigateBack()
     }
   },
 })

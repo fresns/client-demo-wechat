@@ -12,17 +12,19 @@ import Api from '../../api/api'
  */
 module.exports = {
   data: {},
-  onClickCommentLike: async function (e) {
-    const comment = e?.currentTarget?.target?.comment || e
+  onClickCommentLike: async function (comment, options = { dataKey: 'comments', isArray: true }) {
+    const { dataKey, isArray } = options
+    const prefix = isArray ? `${dataKey}[${this.data[dataKey].findIndex(value => value.cid === comment.cid)}]` : dataKey
 
     // 当前未喜欢，点击喜欢
     if (comment.likeStatus === 0) {
       const res = await this.actionLike(comment.cid)
       if (res.code === 0) {
-        const idx = this.data.comments.findIndex(value => value.cid === comment.cid)
         this.setData({
-          [`comments[${idx}].likeStatus`]: 1,
-          [`comments[${idx}].likeCount`]: this.data.comments[idx].likeCount + 1,
+          [prefix]: Object.assign(comment, {
+            likeStatus: 1,
+            likeCount: comment.likeCount + 1,
+          }),
         })
       }
       return
@@ -32,26 +34,29 @@ module.exports = {
     if (comment.likeStatus === 1) {
       const res = await this.actionUnLike(comment.cid)
       if (res.code === 0) {
-        const idx = this.data.comments.findIndex(value => value.cid === comment.cid)
         this.setData({
-          [`comments[${idx}].likeStatus`]: 0,
-          [`comments[${idx}].likeCount`]: this.data.comments[idx].likeCount - 1,
+          [prefix]: Object.assign(comment, {
+            likeStatus: 0,
+            likeCount: comment.likeCount - 1,
+          }),
         })
       }
       return
     }
   },
-  onClickCommentFollow: async function (e) {
-    const comment = e?.currentTarget?.target?.comment || e
+  onClickCommentFollow: async function (comment, options = { dataKey: 'comments', isArray: true }) {
+    const { dataKey, isArray } = options
+    const prefix = isArray ? `${dataKey}[${this.data[dataKey].findIndex(value => value.cid === comment.cid)}]` : dataKey
 
     // 当前未关注，点击关注
     if (comment.followStatus === 0) {
       const res = await this.actionFollow(comment.cid)
       if (res.code === 0) {
-        const idx = this.data.comments.findIndex(value => value.cid === comment.cid)
         this.setData({
-          [`comments[${idx}].followStatus`]: 1,
-          [`comments[${idx}].followCount`]: this.data.comments[idx].followCount + 1,
+          [prefix]: Object.assign(comment, {
+            followStatus: 1,
+            followCount: comment.followCount + 1,
+          }),
         })
       }
       return
@@ -61,26 +66,29 @@ module.exports = {
     if (comment.followStatus === 1) {
       const res = await this.actionUnFollow(comment.cid)
       if (res.code === 0) {
-        const idx = this.data.comments.findIndex(value => value.cid === comment.cid)
         this.setData({
-          [`comments[${idx}].followStatus`]: 0,
-          [`comments[${idx}].followCount`]: this.data.comments[idx].followCount - 1,
+          [prefix]: Object.assign(comment, {
+            followStatus: 0,
+            followCount: comment.followCount - 1,
+          }),
         })
       }
       return
     }
   },
-  onClickCommentBlock: async function (e) {
-    const comment = e?.currentTarget?.target?.comment || e
+  onClickCommentBlock: async function (comment, options = { dataKey: 'comments', isArray: true }) {
+    const { dataKey, isArray } = options
+    const prefix = isArray ? `${dataKey}[${this.data[dataKey].findIndex(value => value.cid === comment.cid)}]` : dataKey
 
     // 当前未关注，点击关注
     if (comment.shieldStatus === 0) {
       const res = await this.actionBlock(comment.cid)
       if (res.code === 0) {
-        const idx = this.data.comments.findIndex(value => value.cid === comment.cid)
         this.setData({
-          [`comments[${idx}].shieldStatus`]: 1,
-          [`comments[${idx}].shieldCount`]: this.data.comments[idx].shieldCount + 1,
+          [prefix]: Object.assign(comment, {
+            shieldStatus: 1,
+            shieldCount: comment.shieldCount + 1,
+          }),
         })
       }
       return
@@ -90,10 +98,11 @@ module.exports = {
     if (comment.shieldStatus === 1) {
       const res = await this.actionUnBlock(comment.cid)
       if (res.code === 0) {
-        const idx = this.data.comments.findIndex(value => value.cid === comment.cid)
         this.setData({
-          [`comments[${idx}].shieldStatus`]: 0,
-          [`comments[${idx}].shieldCount`]: this.data.comments[idx].shieldCount - 1,
+          [prefix]: Object.assign(comment, {
+            shieldStatus: 0,
+            shieldCount: comment.shieldCount - 1,
+          }),
         })
       }
       return
