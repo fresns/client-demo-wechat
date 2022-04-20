@@ -5,33 +5,33 @@
 * -->
 <view class="card">
     <view class="card-header">
-        <!-- 成员信息 -->
-        <member member="{{post.member}}" wx:if="{{post.member.deactivate === false && post.member.anonymous === 0}}">
-            <view slot="icons-header" class="member-icons weui-flex" wx:if="{{post.member.icons}}">
-                <image wx:for="{{post.member.icons}}" wx:for-item="iconItem" wx:key="icon" src="{{iconItem.icon}}" alt="{{iconItem.name}}" mode="heightFix"></image>
+        <!-- 用户信息 -->
+        <user user="{{post.user}}" wx:if="{{post.user.deactivate === false && post.user.anonymous === 0}}">
+            <view slot="icons-header" class="user-icons weui-flex" wx:if="{{post.user.icons}}">
+                <image wx:for="{{post.user.icons}}" wx:for-item="iconItem" wx:key="icon" src="{{iconItem.icon}}" alt="{{iconItem.name}}" mode="heightFix"></image>
             </view>
             <view slot="interactive" class="weui-flex">
                 <view class="content-time">{{post.timeFormat}}</view>
-                <view class="content-location" wx:if="{{post.location.isLbs === 1}}">
+                <view class="content-location" wx:if="{{post.location.isLocation === 1}}">
                     <navigator url="/pages/posts/position?pid={{pid}}">
                         <image class="weui-btn_cell__icon" src="/assets/images/location.png"></image>
                         {{post.location.poi}}
                     </navigator>
                 </view>
             </view>
-        </member>
-        <!-- 匿名成员信息 -->
-        <view class="weui-flex" wx:if="{{post.member.deactivate === false && post.member.anonymous === 1}}">
-            <view class="member-avatar">
-                <image src="{{post.member.avatar}}" class="avatar-img" mode="scaleToFill"></image>
+        </user>
+        <!-- 匿名用户信息 -->
+        <view class="weui-flex" wx:if="{{post.user.deactivate === false && post.user.anonymous === 1}}">
+            <view class="user-avatar">
+                <image src="{{post.user.avatar}}" class="avatar-img" mode="scaleToFill"></image>
             </view>
             <view class="weui-flex__item">
-                <view class="member-info weui-flex">
-                    <view class="member-nickname">匿名者</view>
+                <view class="user-info weui-flex">
+                    <view class="user-nickname">匿名者</view>
                 </view>
                 <view slot="interactive" class="weui-flex">
                     <view class="content-time">{{post.timeFormat}}</view>
-                    <view class="content-location" wx:if="{{post.location.isLbs === 1}}">
+                    <view class="content-location" wx:if="{{post.location.isLocation === 1}}">
                         <navigator url="/pages/posts/position?pid={{pid}}">
                             <image class="weui-btn_cell__icon" src="/assets/images/location.png"></image>
                             {{post.location.poi}}
@@ -40,18 +40,18 @@
                 </view>
             </view>
         </view>
-        <!-- 注销的成员信息 -->
-        <view class="weui-flex" wx:if="{{post.member.deactivate === true}}">
-            <view class="member-avatar">
-                <image src="{{post.member.avatar}}" class="avatar-img" mode="scaleToFill"></image>
+        <!-- 注销的用户信息 -->
+        <view class="weui-flex" wx:if="{{post.user.deactivate === true}}">
+            <view class="user-avatar">
+                <image src="{{post.user.avatar}}" class="avatar-img" mode="scaleToFill"></image>
             </view>
             <view class="weui-flex__item">
-                <view class="member-info weui-flex">
-                    <view class="member-nickname">账号已注销</view>
+                <view class="user-info weui-flex">
+                    <view class="user-nickname">账号已注销</view>
                 </view>
                 <view slot="interactive" class="weui-flex">
                     <view class="content-time">{{post.timeFormat}}</view>
-                    <view class="content-location" wx:if="{{post.location.isLbs == 1}}">
+                    <view class="content-location" wx:if="{{post.location.isLocation == 1}}">
                         <navigator url="/pages/posts/position?pid={{pid}}">
                             <image class="weui-btn_cell__icon" src="/assets/images/location.png"></image>
                             {{post.location.poi}}
@@ -144,11 +144,11 @@
                 <image wx:if="{{post.group.cover}}" src="{{post.group.cover}}" class="group-icon" mode="aspectFit"></image>
                 {{post.group.gname}}
             </navigator>
-            <!-- 特殊成员 -->
-            <navigator wx:if="{{post.memberListStatus == 1}}" class="content-members float-end" url="/pages/webview?url={{post.memberListUrl}}">
-                {{post.memberListName}}
-                <text wx:if="{{post.memberListCount}}" class="weui-badge">
-                    {{post.memberListCount}}
+            <!-- 特殊用户 -->
+            <navigator wx:if="{{post.userListStatus == 1}}" class="content-users float-end" url="/pages/webview?url={{post.userListUrl}}">
+                {{post.userListName}}
+                <text wx:if="{{post.userListCount}}" class="weui-badge">
+                    {{post.userListCount}}
                 </text>
             </navigator>
         </view>
@@ -165,7 +165,7 @@
             </view>
             <!-- 热评-正文 -->
             <navigator class="content-comment-content" url="/pages/posts/detail?pid={{post.pid}}">
-                <navigator class="navigator-inline" url="/pages/profile/index?mid={{post.commentSetting.mid}}">
+                <navigator class="navigator-inline" url="/pages/profile/index?uid={{post.commentSetting.uid}}">
                     {{post.commentSetting.nickname}}
                 </navigator>
                 :

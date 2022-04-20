@@ -4,10 +4,10 @@
  * Licensed under the Apache-2.0 license
  */
 module.exports = [
-  "pages/members/follow",
-  'pages/members/likes',
-  'pages/members/following',
-  'pages/members/blocking',
+  "pages/users/follow",
+  'pages/users/likes',
+  'pages/users/following',
+  'pages/users/blocking',
 
   "pages/groups/follow",
   'pages/groups/likes',

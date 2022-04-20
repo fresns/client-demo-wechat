@@ -13,18 +13,16 @@ export class GlobalInfo {
 
   // 网站类型，是 public 还是 private
   siteMode = null
-  // 是否是暗黑模式
-  isDarkMode = null
   // 当前主题
   theme = null
   // 设备信息
   deviceInfo = {}
   // 用户数据
   loginUser = null
-  // 当前登录的 member 身份
-  loginMember = null
-  // 当前选中的身份 id，不选用对象，防止与 loginUser 中 member 参数不一致
-  currentMemberId = null
+  // 当前登录的 user 身份
+  loginUser = null
+  // 当前选中的身份 id，不选用对象，防止与 loginUser 中 user 参数不一致
+  currentUserId = null
 
   waitingLoginResolveQueue = []
 
@@ -40,7 +38,7 @@ export class GlobalInfo {
    * @returns {Promise<void>}
    */
   async getLoginUser() {
-    if (!this.uid || !this.mid || !this.token) {
+    if (!this.aid || !this.uid || !this.token) {
       navigateToSignin()
       return
     }
@@ -49,7 +47,7 @@ export class GlobalInfo {
       const userDetailRes = await Api.user.userDetail()
       if (userDetailRes.code === 0) {
         this.loginUser = userDetailRes.data
-        await this.selectMember(userDetailRes.data.members.find(member => member.mid === wx.getStorageSync('mid')))
+        await this.selectUser(userDetailRes.data.users.find(user => user.uid === wx.getStorageSync('uid')))
       }
     } catch (e) {
       navigateToSignin()
@@ -58,30 +56,30 @@ export class GlobalInfo {
 
   /**
    * 选择用户，之后刷新应用 globalData
-   * @param member
+   * @param user
    * @param passwordStr
    * @returns {Promise<void>}
    */
-  async selectMember(member, passwordStr = '') {
-    const memberAuthRes = await Api.member.memberAuth(Object.assign({
-      mid: member.mid,
-    }, member.password && {
+  async selectUser(user, passwordStr = '') {
+    const userAuthRes = await Api.user.userAuth(Object.assign({
+      uid: user.uid,
+    }, user.password && {
       password: passwordStr,
     }))
 
-    if (memberAuthRes.code === 0) {
-      wx.setStorageSync('token', memberAuthRes.data.token)
-      wx.setStorageSync('mid', member.mid)
+    if (userAuthRes.code === 0) {
+      wx.setStorageSync('token', userAuthRes.data.token)
+      wx.setStorageSync('uid', user.uid)
 
-      this.loginMember = memberAuthRes.data
-      this.currentMemberId = member.mid
+      this.loginUser = userAuthRes.data
+      this.currentUserId = user.uid
 
       this.waitingLoginResolveQueue.forEach(v => v())
       this.waitingLoginResolveQueue = []
 
       Object.assign(getApp().globalData, this.values())
     }
-    return memberAuthRes;
+    return userAuthRes;
   }
 
   /**
@@ -95,10 +93,10 @@ export class GlobalInfo {
     switch (loginRes.code) {
       case 0: {
         wx.setStorageSync('token', loginRes.data.token)
-        wx.setStorageSync('uid', loginRes.data.uid)
+        wx.setStorageSync('aid', loginRes.data.aid)
         this.loginUser = loginRes.data
-        if (loginRes.data.members.length === 1) {
-          await this.selectMember(loginRes.data.members[0])
+        if (loginRes.data.users.length === 1) {
+          await this.selectUser(loginRes.data.users[0])
           const pages = getCurrentPages()
           pages[pages.length - 2].onLoad()
           wx.navigateBack()
@@ -106,14 +104,14 @@ export class GlobalInfo {
           const pages = getCurrentPages()
           pages[pages.length - 2].onLoad()
           wx.redirectTo({
-            url: '/pages/user/members',
+            url: '/pages/user/users',
           })
         }
         return true
       }
       default: {
         wx.removeStorageSync('token')
-        wx.removeStorageSync('uid')
+        wx.removeStorageSync('aid')
         return false
       }
     }
@@ -136,7 +134,7 @@ export class GlobalInfo {
    */
   async awaitLogin() {
     return new Promise(resolve => {
-      if (this.loginUser && this.loginMember) {
+      if (this.loginUser && this.loginUser) {
         resolve()
       } else {
         this.waitingLoginResolveQueue.push(resolve)
@@ -149,27 +147,26 @@ export class GlobalInfo {
    * 判断用户是否登录
    */
   isLogin() {
-    return this.loginUser && this.loginMember
+    return this.loginUser && this.loginUser
   }
 
   _clearLoginStatus() {
     wx.removeStorageSync('token')
+    wx.removeStorageSync('aid')
     wx.removeStorageSync('uid')
-    wx.removeStorageSync('mid')
     this.loginUser = null
-    this.loginMember = null
-    this.currentMemberId = null
+    this.loginUser = null
+    this.currentUserId = null
   }
 
   values() {
     return {
       siteMode: this.siteMode,
-      isDarkMode: this.isDarkMode,
       theme: this.theme,
       deviceInfo: this.deviceInfo,
       loginUser: this.loginUser,
-      loginMember: this.loginMember,
-      currentMemberId: this.currentMemberId,
+      loginUser: this.loginUser,
+      currentUserId: this.currentUserId,
     }
   }
 
@@ -183,11 +180,11 @@ export class GlobalInfo {
   async _initSystemInfo() {
     const systemInfo = wx.getSystemInfoSync()
     const networkInfo = wx.getNetworkType()
+    const appBaseInfo = wx.getAppBaseInfo()
     this.systemInfo = systemInfo
     this.networkInfo = networkInfo
 
-    this.isDarkMode = systemInfo.theme === 'dark'
-    this.theme = systemInfo.theme
+    this.theme = appBaseInfo.theme
     this.deviceInfo = {
       'brand': systemInfo.brand,
       'model': systemInfo.model,
@@ -211,16 +208,16 @@ export class GlobalInfo {
     }
   }
 
-  get uid() {
-    return wx.getStorageSync('uid') || null
+  get aid() {
+    return wx.getStorageSync('aid') || null
   }
 
   get token() {
     return wx.getStorageSync('token') || null
   }
 
-  get mid() {
-    return wx.getStorageSync('mid') || null
+  get uid() {
+    return wx.getStorageSync('uid') || null
   }
 
   get langTag() {

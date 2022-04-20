@@ -52,7 +52,7 @@ Component({
 
     _onClickModifyComment: function (comment) {
       wx.navigateTo({
-        url: `/pages/editor/index?type=comment&mode=modify&uuid=${comment.cid}&post_id=${comment.pid}`,
+        url: `/pages/editor/index?type=comment&mode=modify&cid=${comment.cid}&pid=${comment.pid}`,
       })
     },
     _onClickCommentFollow: function (comment) {
@@ -61,12 +61,12 @@ Component({
     _onClickCommentBlock: function (comment) {
       callPageFunction('onClickCommentBlock', comment)
     },
-    _onclickMemberDelete: function (comment) {
-      Api.member.memberDelete({
+    _onclickUserDelete: function (comment) {
+      Api.user.userDelete({
         type: 2,
-        uuid: comment.cid
-      }).then(function (memberDeleteRes) {
-        if (memberDeleteRes.code === 0) {
+        fsid: comment.cid
+      }).then(function (userDeleteRes) {
+        if (userDeleteRes.code === 0) {
           callPageFunction('onLoad')
         }
       })
@@ -79,13 +79,13 @@ Component({
         marks.push({ text: "编辑", value: "_onClickModifyComment" })
       }
       if (comment.editStatus.isMe && comment.editStatus.canDelete) {
-        marks.push({ text: "删除", value: "_onclickMemberDelete" })
+        marks.push({ text: "删除", value: "_onclickUserDelete" })
       }
       if (comment.followSetting) {
         marks.push({ text: comment.followStatus ? "已" + comment.followName : comment.followName, value: "_onClickCommentFollow" })
       }
-      if (comment.shieldSetting) {
-        marks.push({ text: comment.shieldStatus ? "已" + comment.shieldName : comment.shieldName, value: "_onClickCommentBlock" })
+      if (comment.blockSetting) {
+        marks.push({ text: comment.blockStatus ? "已" + comment.blockName : comment.blockName, value: "_onClickCommentBlock" })
       }
       this.setData({
         showMoreMenu,

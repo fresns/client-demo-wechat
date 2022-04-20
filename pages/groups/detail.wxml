@@ -21,7 +21,7 @@
             <view class="weui-media-box__info__meta">{{groups[0].likeCount}} 人点赞</view>
             <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{groups[0].followCount}} 人加入</view>
             <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{groups[0].postCount}} 个帖子</view>
-            <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{groups[0].essenceCount}} 个精华帖</view>
+            <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{groups[0].digestCount}} 个精华帖</view>
         </view>
         <view slot="btn" class="interactive-btn">
             <view wx:if="{{groups[0].likeStatus === 0}}"
@@ -56,19 +56,19 @@
                 已加入
             </view>
 
-            <view wx:if="{{groups[0].shieldStatus === 0}}"
+            <view wx:if="{{groups[0].blockStatus === 0}}"
                   class="weui-btn weui-btn_mini weui-btn_default"
                   data-group="{{groups[0]}}"
                   bind:tap="onClickGroupBlock">
-                <image class="weui-btn_cell__icon" src="/assets/images/shield.png"></image>
+                <image class="weui-btn_cell__icon" src="/assets/images/block.png"></image>
                 屏蔽
             </view>
 
-            <view wx:if="{{groups[0].shieldStatus === 1}}"
+            <view wx:if="{{groups[0].blockStatus === 1}}"
                   class="weui-btn weui-btn_mini weui-btn_primary"
                   data-group="{{groups[0]}}"
                   bind:tap="onClickGroupBlock">
-                <image class="weui-btn_cell__icon" src="/assets/images/shield-active.png"></image>
+                <image class="weui-btn_cell__icon" src="/assets/images/block-active.png"></image>
                 已屏蔽
             </view>
         </view>

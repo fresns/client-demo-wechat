@@ -1,0 +1,99 @@
+<!-- *
+    Fresns 微信小程序 (https://fresns.org)
+    Copyright 2021-Present Jarvis Tang
+    Licensed under the Apache-2.0 license
+* -->
+<page-meta root-font-size="system"/>
+<view class="page" data-weui-theme="{{theme}}">
+    <view class="profile-header">
+        <view class="weui-flex">
+            <view class="profile-info">
+                <view class="profile-avatar">
+                    <image wx:if="{{loginUser.decorate}}" src="{{loginUser.decorate}}" class="avatar-decorate" mode="scaleToFill"></image>
+                    <image src="{{loginUser.avatar}}" class="avatar-img" mode="scaleToFill"></image>
+                </view>
+                <view class="profile-name">
+                    <text class="profile-nickname">{{loginUser.nickname}}</text>
+                    <text class="profile-username">{{loginUser.username}}</text>
+                </view>
+            </view>
+            <view class="weui-flex__item interactive-btn">
+                <navigator url="/pages/user/setting" class="weui-btn weui-btn_mini weui-btn_default">编辑个人资料</navigator>
+            </view>
+        </view>
+        <view class="user-bio">{{loginUser.bio}}</view>
+        <view class="weui-media-box__info">
+            <view class="weui-media-box__info__meta">{{loginUser.stats.likeMeCount}} 点赞</view>
+            <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{loginUser.stats.followMeCount}} 关注者</view>
+            <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{loginUser.stats.followUserCount}} 正在关注</view>
+        </view>
+    </view>
+
+    <view class="weui-cells weui-cells_after-title">
+        <navigator url="/pages/editor/draft-select" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <view class="weui-cell__bd fg-0">发表</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </navigator>
+        <!-- <navigator url="/pages/search/index" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <view class="weui-cell__bd fg-0">搜索</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </navigator> -->
+        <navigator url="/pages/user/wallet" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <view class="weui-cell__bd fg-0">钱包</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access">¥ {{user.wallet.balance}}</view>
+        </navigator>
+        <navigator url="/pages/editor/draft-box" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <view class="weui-cell__bd fg-0">草稿箱</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access">{{loginUser.draftCount.comments + loginUser.draftCount.posts}}</view>
+        </navigator>
+    </view>
+
+    <view class="user-extensions" wx:if="{{loginUserCommon.profiles.length !== 0}}">
+        <navigator wx:for="{{loginUserCommon.profiles}}" wx:for-item="profilesItem" wx:key="plugin" url="/pages/webview?url={{profilesItem.url}}">
+            <view class="extensions-icon">
+                <image src="{{profilesItem.icon}}"></image>
+            </view>
+            <view class="extensions-label">{{profilesItem.name}}</view>
+        </navigator>
+    </view>
+
+    <view class="weui-cells weui-cells_after-title">
+        <navigator wx:if="{{user.users.length > 1}}" url="/pages/user/users" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <view class="weui-cell__bd fg-0">切换身份</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access">{{user.users.length}}</view>
+        </navigator>
+        <view class="weui-cell weui-cell_access" bindtap="showLanguageDialog">
+            <view class="weui-cell__bd fg-0">切换语言</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </view>
+        <navigator url="/pages/about/fresns" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <view class="weui-cell__bd fg-0">关于</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </navigator>
+    </view>
+
+    <view class="logout">
+        <view class="weui-btn weui-btn_primary" bind:tap="onClickLogout">退出登录</view>
+    </view>
+
+    <view class="copyright">Powered by Fresns</view>
+
+    <view wx:if="{{languageDialog}}" class="fadeIn">
+        <view class="weui-mask"></view>
+        <view class="weui-actionsheet weui-actionsheet_toggle">
+            <view class="weui-actionsheet__title">
+                <view class="weui-actionsheet__title-text">切换显示语言</view>
+            </view>
+            <view class="weui-actionsheet__menu">
+                <view class="weui-actionsheet__cell">English</view>
+                <view class="weui-actionsheet__cell weui-actionsheet__cell_warn">简体中文</view>
+                <view class="weui-actionsheet__cell">繁體中文</view>
+            </view>
+            <view class="weui-actionsheet__action" bindtap="hideLanguageDialog">
+                <view class="weui-actionsheet__cell">取消</view>
+            </view>
+        </view>
+    </view>
+
+    <tabbar activeLabel="account"></tabbar>
+</view>

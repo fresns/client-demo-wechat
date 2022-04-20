@@ -8,7 +8,7 @@ import Api from '../../api/api'
 /**
  * type        Number  NO  操作类型 1.建立 2.取消
  * markType    Number  NO  标记类型 1.点赞 2.关注 3.屏蔽
- * markTarget  Number  NO  标记目标 1.成员 / 2.小组 / 3.话题 / 4.帖子 / 5.评论
+ * markTarget  Number  NO  标记目标 1.用户 / 2.小组 / 3.话题 / 4.帖子 / 5.评论
  */
 module.exports = {
   data: {},
@@ -74,33 +74,33 @@ module.exports = {
     const hashtagsKey = 'hashtags';
     const hashtag = e.currentTarget.dataset.hashtag;
     // 当前未关注，点击关注
-    if (hashtag.shieldStatus === 0) {
+    if (hashtag.blockStatus === 0) {
       const res = await this.actionBlock(hashtag.huri)
       if (res.code === 0) {
         const idx = this.data.hashtags.findIndex(value => value.huri === hashtag.huri)
         this.setData({
-          [`${hashtagsKey}[${idx}].shieldStatus`]: 1,
-          [`${hashtagsKey}[${idx}].shieldCount`]: this.data.hashtags[idx].shieldCount + 1,
+          [`${hashtagsKey}[${idx}].blockStatus`]: 1,
+          [`${hashtagsKey}[${idx}].blockCount`]: this.data.hashtags[idx].blockCount + 1,
         })
       }
       return
     }
 
     // 当前已关注，点击取消关注
-    if (hashtag.shieldStatus === 1) {
+    if (hashtag.blockStatus === 1) {
       const res = await this.actionUnBlock(hashtag.huri)
       if (res.code === 0) {
         const idx = this.data.hashtags.findIndex(value => value.huri === hashtag.huri)
         this.setData({
-          [`${hashtagsKey}[${idx}].shieldStatus`]: 0,
-          [`${hashtagsKey}[${idx}].shieldCount`]: this.data.hashtags[idx].shieldCount - 1,
+          [`${hashtagsKey}[${idx}].blockStatus`]: 0,
+          [`${hashtagsKey}[${idx}].blockCount`]: this.data.hashtags[idx].blockCount - 1,
         })
       }
       return
     }
   },
   actionLike: async function (id) {
-    return Api.member.memberMark({
+    return Api.user.userMark({
       type: 1,
       markType: 1,
       markTarget: 3,
@@ -108,7 +108,7 @@ module.exports = {
     })
   },
   actionUnLike: async function (id) {
-    return Api.member.memberMark({
+    return Api.user.userMark({
       type: 2,
       markType: 1,
       markTarget: 3,
@@ -116,7 +116,7 @@ module.exports = {
     })
   },
   actionFollow: async function (id) {
-    return Api.member.memberMark({
+    return Api.user.userMark({
       type: 1,
       markType: 2,
       markTarget: 3,
@@ -124,7 +124,7 @@ module.exports = {
     })
   },
   actionUnFollow: async function (id) {
-    return Api.member.memberMark({
+    return Api.user.userMark({
       type: 2,
       markType: 2,
       markTarget: 3,
@@ -132,7 +132,7 @@ module.exports = {
     })
   },
   actionBlock: async function (id) {
-    return Api.member.memberMark({
+    return Api.user.userMark({
       type: 1,
       markType: 3,
       markTarget: 3,
@@ -140,7 +140,7 @@ module.exports = {
     })
   },
   actionUnBlock: async function (id) {
-    return Api.member.memberMark({
+    return Api.user.userMark({
       type: 2,
       markType: 3,
       markTarget: 3,

@@ -1,0 +1,18 @@
+<!-- *
+    Fresns 微信小程序 (https://fresns.org)
+    Copyright 2021-Present Jarvis Tang
+    Licensed under the Apache-2.0 license
+* -->
+<view class="editor-users">
+    <mp-cell class="authority-head" title="特定用户配置：">
+        <view>
+            <text>修改</text>
+            <text>删除</text>
+        </view>
+    </mp-cell>
+    <mp-cell title="特定用户名称">
+        <view>
+            <text>打赏用户</text>
+        </view>
+    </mp-cell>
+</view>

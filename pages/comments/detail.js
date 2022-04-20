@@ -89,7 +89,7 @@ Page({
           type: 1,
           tableType: 8,
           tableName: 'post_logs',
-          tableField: 'files_json',
+          tableColumn: 'files_json',
           mode: 1,
           file: tempFilePaths[0],
         })

@@ -12,7 +12,7 @@ const editor = {
    */
   editorRevoke: () => {
     return request({
-      url: '/api/fresns/editor/revoke',
+      url: '/api/v1/editor/revoke',
     })
   },
   /**
@@ -21,7 +21,7 @@ const editor = {
    */
   editorSubmit: (options) => {
     return request({
-      url: '/api/fresns/editor/submit',
+      url: '/api/v1/editor/submit',
       data: {
         ...options,
       },
@@ -33,7 +33,7 @@ const editor = {
    */
   editorPublish: (options) => {
     return request({
-      url: '/api/fresns/editor/publish',
+      url: '/api/v1/editor/publish',
       data: {
         ...options
       }
@@ -45,7 +45,7 @@ const editor = {
    */
   editorDelete: (options) => {
     return request({
-      url: '/api/fresns/editor/delete',
+      url: '/api/v1/editor/delete',
       data: {
         ...options,
       },
@@ -57,7 +57,7 @@ const editor = {
    */
   editorUpdate: (options) => {
     return request({
-      url: '/api/fresns/editor/update',
+      url: '/api/v1/editor/update',
       data: {
         ...options,
       },
@@ -69,7 +69,7 @@ const editor = {
    */
   editorUpload: async (filePath, formData) => {
     return uploadFile(filePath, {
-      url: '/api/fresns/editor/upload',
+      url: '/api/v1/editor/upload',
       data: {
         ...formData
       }
@@ -81,7 +81,7 @@ const editor = {
    */
   editorUploadToken: () => {
     return request({
-      url: '/api/fresns/editor/uploadToken',
+      url: '/api/v1/editor/uploadToken',
     })
   },
   /**
@@ -90,7 +90,7 @@ const editor = {
    */
   editorCreate: (options) => {
     return request({
-      url: '/api/fresns/editor/create',
+      url: '/api/v1/editor/create',
       data: {
         ...options,
       },
@@ -102,7 +102,7 @@ const editor = {
    */
   editorDetail: (options) => {
     return request({
-      url: '/api/fresns/editor/detail',
+      url: '/api/v1/editor/detail',
       data: {
         ...options
       }
@@ -114,7 +114,7 @@ const editor = {
    */
   editorLists: (options) => {
     return request({
-      url: '/api/fresns/editor/lists',
+      url: '/api/v1/editor/lists',
       data: {
         ...options,
       },
@@ -126,7 +126,7 @@ const editor = {
    */
   editorConfigs: (options) => {
     return request({
-      url: '/api/fresns/editor/configs',
+      url: '/api/v1/editor/configs',
       data: {
         ...options,
       },

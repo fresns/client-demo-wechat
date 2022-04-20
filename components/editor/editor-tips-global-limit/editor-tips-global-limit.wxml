@@ -30,7 +30,7 @@
         </view>
         <view id="p3" class="weui-form-preview__item">
             <label class="weui-form-preview__label">限制说明</label>
-            <text class="weui-form-preview__value">{{globalLimit.limitPrompt}}</text>
+            <text class="weui-form-preview__value">{{globalLimit.limitTip}}</text>
         </view>
     </view>
 </view>

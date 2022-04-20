@@ -12,7 +12,7 @@ const message = {
    */
   dialogDelete: () => {
     return request({
-      url: '/api/fresns/dialog/delete',
+      url: '/api/v1/dialog/delete',
     })
   },
   /**
@@ -21,7 +21,7 @@ const message = {
    */
   dialogSend: () => {
     return request({
-      url: '/api/fresns/dialog/send',
+      url: '/api/v1/dialog/send',
     })
   },
   /**
@@ -30,7 +30,7 @@ const message = {
    */
   dialogRead: () => {
     return request({
-      url: '/api/fresns/dialog/read',
+      url: '/api/v1/dialog/read',
     })
   },
   /**
@@ -39,7 +39,7 @@ const message = {
    */
   dialogMessages: () => {
     return request({
-      url: '/api/fresns/dialog/messages',
+      url: '/api/v1/dialog/messages',
     })
   },
   /**
@@ -48,7 +48,7 @@ const message = {
    */
   dialogLists: () => {
     return request({
-      url: '/api/fresns/dialog/lists',
+      url: '/api/v1/dialog/lists',
     })
   },
   /**
@@ -57,7 +57,7 @@ const message = {
    */
   notifyDelete: () => {
     return request({
-      url: '/api/fresns/notify/delete',
+      url: '/api/v1/notify/delete',
     })
   },
   /**
@@ -66,7 +66,7 @@ const message = {
    */
   notifyRead: () => {
     return request({
-      url: '/api/fresns/notify/read',
+      url: '/api/v1/notify/read',
     })
   },
   /**
@@ -75,7 +75,7 @@ const message = {
    */
   notifyLists: (options) => {
     return request({
-      url: '/api/fresns/notify/lists',
+      url: '/api/v1/notify/lists',
       data: {
         ...options
       }

@@ -7,16 +7,16 @@ import Api from '../../api/api'
 
 module.exports = {
   data: {
-    curMember: null,
+    curUser: null,
   },
   onLoad: async function (options) {
-    const { mid } = options
-    const memberDetailRes = await Api.member.memberDetail({
-      viewMid: mid,
+    const { uid } = options
+    const userDetailRes = await Api.user.userDetail({
+      viewUid: uid,
     })
-    if (memberDetailRes.code === 0) {
+    if (userDetailRes.code === 0) {
       this.setData({
-        curMember: memberDetailRes.data.detail,
+        curUser: userDetailRes.data.detail,
       })
     }
   }

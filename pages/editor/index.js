@@ -40,7 +40,7 @@ Page({
     // 创建还是编辑
     mode: Mode.Create,
     // 编辑帖子或者编辑评论才会携带
-    uuid: null,
+    fsid: null,
     // 如果是写评论，此处会有话题 id
     postId: null,
 
@@ -59,7 +59,7 @@ Page({
     // 是否主动选择地址
     manualSelectLocation: false,
     // 禁用词
-    stopWords: null,
+    blockWords: null,
     // 草稿id
     draftId:null,
   },
@@ -86,10 +86,10 @@ Page({
       return
     }
 
-    const stopWordsRes = await Api.info.infoStopWords()
-    if (stopWordsRes.code === 0) {
+    const blockWordsRes = await Api.info.infoBlockWords()
+    if (blockWordsRes.code === 0) {
       this.setData({
-        stopWords: stopWordsRes.data.list,
+        blockWords: blockWordsRes.data.list,
       })
     }
 
@@ -116,7 +116,7 @@ Page({
       this.data.manualSelectLocation = false
       const { name, latitude, longitude, province, city, district, address } = location
       this.data.currentDraft.location = {
-        'isLbs': 1,
+        'isLocation': 1,
         'mapId': 5,
         'latitude': latitude,
         'longitude': longitude,
@@ -141,7 +141,7 @@ Page({
   },
   _parseOptions: function (options) {
     console.log('post editor options:', options)
-    const { type, mode, uuid, pid, draftId } = options
+    const { type, mode, fsid, pid, draftId } = options
     if (type === 'post') {
       this.setData({ type: Type.Post })
     }
@@ -158,7 +158,7 @@ Page({
     if (draftId) {
       this.setData({ draftId })
     }
-    this.setData({ uuid: uuid, postId: pid })
+    this.setData({ fsid: fsid, postId: pid })
   },
   _authorityCheck: async function () {
     const { editorConfig } = this.data
@@ -197,9 +197,9 @@ Page({
         this.data.currentDraft.allow = dataValue
       }
 
-      // 8 编辑器-特定成员列表配置
+      // 8 编辑器-特定用户列表配置
       if (callbackType === 8) {
-        this.data.currentDraft.memberList = dataValue
+        this.data.currentDraft.userList = dataValue
       }
 
       // 9 编辑器-扩展内容
@@ -210,10 +210,10 @@ Page({
     await this.updateDraft()
   },
   _createDraft: async function () {
-    const { type, uuid, postId } = this.data
+    const { type, fsid, postId } = this.data
     const editorDetailRes = await Api.editor.editorCreate({
       type: type,
-      uuid: uuid,
+      fsid: fsid,
       pid: postId,
     })
     if (editorDetailRes.code === 0) {
@@ -353,7 +353,7 @@ Page({
       type: 1,
       logId: this.data.currentDraft.id,
       deleteType: 2,
-      deleteUuid: '',
+      deleteFsid: '',
     })
   },
   /**
@@ -364,7 +364,7 @@ Page({
       type: 1,
       logId: this.data.currentDraft.id,
       deleteType: 3,
-      deleteUuid: '',
+      deleteFsid: '',
     })
   },
   /**
@@ -415,12 +415,12 @@ Page({
     })
   },
   /**
-   * 选择 emoji 表情
-   * @param emoji
+   * 选择 sticker 表情
+   * @param sticker
    */
-  onSelectEmoji: function (emoji) {
+  onSelectSticker: function (sticker) {
     this.editorContext.insertText({
-      text: `[${emoji.code}]`,
+      text: `[${sticker.code}]`,
     })
   },
   /**
@@ -449,11 +449,11 @@ Page({
   },
   /**
    * 选择用户
-   * @param member
+   * @param user
    */
-  onSelectMember: function (member) {
+  onSelectUser: function (user) {
     this.editorContext.insertText({
-      text: `@${member.nickname} `,
+      text: `@${user.nickname} `,
     })
   },
   /**
@@ -489,8 +489,8 @@ Page({
     url.replace('{uuid}', uuid).
       replace('{sign}', await getPluginSign()).
       replace('{langTag}', globalInfo.langTag).
+      replace('{aid}', globalInfo.aid).
       replace('{uid}', globalInfo.uid).
-      replace('{mid}', globalInfo.mid).
       replace('{rid}', '').
       replace('{gid}', '').
       replace('{pid}', '').

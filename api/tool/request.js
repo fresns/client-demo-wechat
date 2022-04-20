@@ -9,21 +9,21 @@ import appConfig from '../../configs/fresnsConfig'
 import { getSign, sign } from './sign'
 
 const deviceInfoPaths = [
-  '/api/fresns/info/sendVerifyCode',
-  '/api/fresns/info/uploadLog',
-  '/api/fresns/info/downloadFile',
-  '/api/fresns/user/register',
-  '/api/fresns/user/login',
-  '/api/fresns/user/delete',
-  '/api/fresns/user/restore',
-  '/api/fresns/user/reset',
-  '/api/fresns/user/edit',
-  '/api/fresns/member/auth',
-  '/api/fresns/member/edit',
-  '/api/fresns/dialog/send',
-  '/api/fresns/editor/create',
-  '/api/fresns/editor/publish',
-  '/api/fresns/editor/submit',
+  '/api/v1/info/sendVerifyCode',
+  '/api/v1/info/uploadLog',
+  '/api/v1/info/downloadFile',
+  '/api/v1/account/register',
+  '/api/v1/account/login',
+  '/api/v1/account/delete',
+  '/api/v1/account/restore',
+  '/api/v1/account/reset',
+  '/api/v1/account/edit',
+  '/api/v1/user/auth',
+  '/api/v1/user/edit',
+  '/api/v1/dialog/send',
+  '/api/v1/editor/create',
+  '/api/v1/editor/publish',
+  '/api/v1/editor/submit',
 ]
 
 export function request (options) {
@@ -39,14 +39,13 @@ export function request (options) {
     const header = Object.assign({
         platform: appConfig.platform,
         version: '1.0.0',
-        versionInt: 1,
         appId: appConfig.appId,
         timestamp: parseInt(new Date().valueOf() / 1000 + ''),
       },
       globalInfo.langTag && { langTag: globalInfo.langTag },
       globalInfo.timezone && { timezone: globalInfo.timezone },
+      globalInfo.aid && { aid: globalInfo.aid },
       globalInfo.uid && { uid: globalInfo.uid },
-      globalInfo.mid && { mid: globalInfo.mid },
       globalInfo.token && { token: globalInfo.token },
       globalInfo.deviceInfo && deviceInfoPaths.includes(options.url) && { deviceInfo: JSON.stringify(globalInfo.deviceInfo) },
     )
@@ -55,7 +54,7 @@ export function request (options) {
     wx.request({
       method: 'POST',
       header: Object.assign(header, {
-         sign,
+        sign,
       }),
       url: appConfig.apiHost + url,
       data: data,
@@ -110,14 +109,13 @@ export function uploadFile (filePath, options) {
     const header = Object.assign({
         platform: appConfig.platform,
         version: '1.0.0',
-        versionInt: 1,
         appId: appConfig.appId,
         timestamp: parseInt(new Date().valueOf() / 1000 + ''),
       },
       globalInfo.langTag && { langTag: globalInfo.langTag },
       globalInfo.timezone && { timezone: globalInfo.timezone },
+      globalInfo.aid && { aid: globalInfo.aid },
       globalInfo.uid && { uid: globalInfo.uid },
-      globalInfo.mid && { mid: globalInfo.mid },
       globalInfo.token && { token: globalInfo.token },
       globalInfo.deviceInfo && { deviceInfo: JSON.stringify(globalInfo.deviceInfo) },
     )

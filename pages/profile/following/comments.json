@@ -1,9 +1,9 @@
 {
-  "navigationBarTitleText": "成员昵称",
+  "navigationBarTitleText": "用户昵称",
   "usingComponents": {
     "comment": "/components/comment/list",
     "comment-list": "/components/comment/content-list",
-    "profile-member": "/components/member/profile",
-    "profile-switch": "/components/member/switch"
+    "profile-user": "/components/user/profile",
+    "profile-switch": "/components/user/switch"
   }
 }

@@ -8,7 +8,7 @@ import { debounce } from '../../util/debounce'
 import { callPrevPageFunction } from '../../util/callPrevPageFunction'
 
 const QueryType = {
-  Member: 1,
+  User: 1,
   Hashtags: 3,
 }
 
@@ -18,12 +18,12 @@ Page({
     inputShowed: false,
     inputVal: '',
 
-    queryType: QueryType.Member,
+    queryType: QueryType.User,
     results: [],
   },
   queryInputTips: null,
   onLoad: async function (options) {
-    // 1 成员、3 话题
+    // 1 用户、3 话题
     const { queryType } = options
     this.setData({
       queryType: +queryType,
@@ -43,8 +43,8 @@ Page({
   },
   onClickResult: async function (e) {
     const { result } = e.target.dataset
-    if (type === QueryType.Member) {
-      callPrevPageFunction('onSelectQueryMember', result)
+    if (type === QueryType.User) {
+      callPrevPageFunction('onSelectQueryUser', result)
     }
     if (type === QueryType.Hashtags) {
       callPrevPageFunction('onSelectQueryHashtags', result)

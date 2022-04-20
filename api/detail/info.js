@@ -12,7 +12,7 @@ const info = {
    */
   infoDownloadFile: () => {
     return request({
-      url: '/api/fresns/info/downloadFile',
+      url: '/api/v1/info/downloadFile',
     })
   },
   /**
@@ -21,7 +21,7 @@ const info = {
    */
   infoUploadLog: () => {
     return request({
-      url: '/api/fresns/info/uploadLog',
+      url: '/api/v1/info/uploadLog',
     })
   },
   /**
@@ -30,7 +30,7 @@ const info = {
    */
   infoInputTips: (options) => {
     return request({
-      url: '/api/fresns/info/inputTips',
+      url: '/api/v1/info/inputTips',
       data: {
         ...options
       }
@@ -42,7 +42,7 @@ const info = {
    */
   infoSendVerifyCode: (options) => {
     return request({
-      url: '/api/fresns/info/sendVerifyCode',
+      url: '/api/v1/info/sendVerifyCode',
       data: {
         ...options
       }
@@ -52,18 +52,18 @@ const info = {
    * 处理词列表
    * @return {wx.RequestTask}
    */
-  infoStopWords: () => {
+  infoBlockWords: () => {
     return request({
-      url: '/api/fresns/info/stopWords',
+      url: '/api/v1/info/blockWords',
     })
   },
   /**
    * 表情包
    * @return {wx.RequestTask}
    */
-  infoEmojis: () => {
+  infoStickers: () => {
     return request({
-      url: '/api/fresns/info/emojis',
+      url: '/api/v1/info/stickers',
     })
   },
   /**
@@ -72,7 +72,7 @@ const info = {
    */
   infoOverview: () => {
     return request({
-      url: '/api/fresns/info/overview',
+      url: '/api/v1/info/overview',
     })
   },
   /**
@@ -81,7 +81,7 @@ const info = {
    */
   infoExtensions: (options) => {
     return request({
-      url: '/api/fresns/info/extensions',
+      url: '/api/v1/info/extensions',
       data: {
         ...options
       }
@@ -93,7 +93,7 @@ const info = {
    */
   infoConfigs: (options) => {
     return request({
-      url: '/api/fresns/info/configs',
+      url: '/api/v1/info/configs',
       data: {
         ...options,
       }
@@ -105,7 +105,7 @@ const info = {
    */
   infoCallbacks: (options) => {
     return request({
-      url: '/api/fresns/info/callbacks',
+      url: '/api/v1/info/callbacks',
       data: {
         ...options,
       }

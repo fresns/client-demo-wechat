@@ -5,49 +5,49 @@
 * -->
 <view class="card ^detail-list">
     <view class="card-header">
-        <!-- 成员信息 -->
-        <member member="{{comment.member}}" wx:if="{{comment.member.deactivate === false && comment.member.anonymous === 0}}">
-            <view slot="icons-header" class="member-icons weui-flex" wx:if="{{comment.member.icons}}">
-                <image wx:for="{{comment.member.icons}}" wx:for-item="iconItem" wx:key="icon" src="{{iconItem.icon}}" alt="{{iconItem.name}}" mode="heightFix"></image>
+        <!-- 用户信息 -->
+        <user user="{{comment.user}}" wx:if="{{comment.user.deactivate === false && comment.user.anonymous === 0}}">
+            <view slot="icons-header" class="user-icons weui-flex" wx:if="{{comment.user.icons}}">
+                <image wx:for="{{comment.user.icons}}" wx:for-item="iconItem" wx:key="icon" src="{{iconItem.icon}}" alt="{{iconItem.name}}" mode="heightFix"></image>
             </view>
             <view slot="interactive" class="weui-flex">
                 <view class="content-time">{{comment.timeFormat}}</view>
-                <view class="content-location" wx:if="{{comment.location.isLbs === 1}}">
+                <view class="content-location" wx:if="{{comment.location.isLocation === 1}}">
                     <image class="weui-btn_cell__icon" src="/assets/images/location.png"></image>
                     {{comment.location.poi}}
                 </view>
             </view>
-        </member>
-        <!-- 匿名成员信息 -->
-        <view class="weui-flex" wx:if="{{comment.member.deactivate === false && comment.member.anonymous === 1}}">
-            <view class="member-avatar">
-                <image src="{{comment.member.avatar}}" class="avatar-img" mode="scaleToFill"></image>
+        </user>
+        <!-- 匿名用户信息 -->
+        <view class="weui-flex" wx:if="{{comment.user.deactivate === false && comment.user.anonymous === 1}}">
+            <view class="user-avatar">
+                <image src="{{comment.user.avatar}}" class="avatar-img" mode="scaleToFill"></image>
             </view>
             <view class="weui-flex__item">
-                <view class="member-info weui-flex">
-                    <view class="member-nickname">匿名者</view>
+                <view class="user-info weui-flex">
+                    <view class="user-nickname">匿名者</view>
                 </view>
                 <view slot="interactive" class="weui-flex">
                     <view class="content-time">{{comment.timeFormat}}</view>
-                    <view class="content-location" wx:if="{{comment.location.isLbs == 1}}">
+                    <view class="content-location" wx:if="{{comment.location.isLocation == 1}}">
                         <image class="weui-btn_cell__icon" src="/assets/images/location.png"></image>
                         {{comment.location.poi}}
                     </view>
                 </view>
             </view>
         </view>
-        <!-- 注销的成员信息 -->
-        <view class="weui-flex" wx:if="{{comment.member.deactivate === true}}">
-            <view class="member-avatar">
-                <image src="{{comment.member.avatar}}" class="avatar-img" mode="scaleToFill"></image>
+        <!-- 注销的用户信息 -->
+        <view class="weui-flex" wx:if="{{comment.user.deactivate === true}}">
+            <view class="user-avatar">
+                <image src="{{comment.user.avatar}}" class="avatar-img" mode="scaleToFill"></image>
             </view>
             <view class="weui-flex__item">
-                <view class="member-info weui-flex">
-                    <view class="member-nickname">账号已注销</view>
+                <view class="user-info weui-flex">
+                    <view class="user-nickname">账号已注销</view>
                 </view>
                 <view slot="interactive" class="weui-flex">
                     <view class="content-time">{{comment.timeFormat}}</view>
-                    <view class="content-location" wx:if="{{comment.location.isLbs === 1}}">
+                    <view class="content-location" wx:if="{{comment.location.isLocation === 1}}">
                         <image class="weui-btn_cell__icon" src="/assets/images/location.png"></image>
                         {{comment.location.poi}}
                     </view>

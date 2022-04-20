@@ -15,12 +15,20 @@ App({
   async onLaunch (options) {
     await globalInfo.init()
     this.globalData.globalInfo = globalInfo
+
+    const appBaseInfo = wx.getAppBaseInfo()
+    console.log(appBaseInfo)
+    this.onThemeChange(appBaseInfo)
+  },
+  onThemeChange(result) {
+    console.log(result);
+    this.globalData.theme = result.theme;
+    themeListeners.forEach((listener) => {
+        listener(result.theme);
+    })
   },
   themeChanged (theme) {
-    this.globalData.theme = theme
-    themeListeners.forEach((listener) => {
-      listener(theme)
-    })
+    this.onThemeChange({ theme })
   },
   watchThemeChange (listener) {
     if (themeListeners.indexOf(listener) < 0) {

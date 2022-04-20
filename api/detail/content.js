@@ -12,7 +12,7 @@ const content = {
    */
   commentDetail: (options) => {
     return request({
-      url: '/api/fresns/comment/detail',
+      url: '/api/v1/comment/detail',
       data: {
         ...options,
       },
@@ -24,7 +24,7 @@ const content = {
    */
   commentLists: (options) => {
     return request({
-      url: '/api/fresns/comment/lists',
+      url: '/api/v1/comment/lists',
       data: {
         ...options,
       },
@@ -36,7 +36,7 @@ const content = {
    */
   postNearbys: (options) => {
     return request({
-      url: '/api/fresns/post/nearbys',
+      url: '/api/v1/post/nearbys',
       data: {
         ...options
       }
@@ -51,14 +51,14 @@ const content = {
    * @param {number} options.mapId
    * @param {string} options.longitude
    * @param {string} options.latitude
-   * @param {number} options.sortNumber
+   * @param {number} options.rankNumber
    * @param {number} options.pageSize
    * @param {number} options.page
    * @return {wx.RequestTask}
    */
   postFollows: (options = {}) => {
     return request({
-      url: '/api/fresns/post/follows',
+      url: '/api/v1/post/follows',
       data: {
         ...options,
       },
@@ -70,7 +70,7 @@ const content = {
    */
   postDetail: (options) => {
     return request({
-      url: '/api/fresns/post/detail',
+      url: '/api/v1/post/detail',
       data: {
         ...options,
       },
@@ -82,7 +82,7 @@ const content = {
    */
   postLists: (options) => {
     return request({
-      url: '/api/fresns/post/lists',
+      url: '/api/v1/post/lists',
       data: {
         ...options,
       },
@@ -94,7 +94,7 @@ const content = {
    */
   hashtagDetail: (options) => {
     return request({
-      url: '/api/fresns/hashtag/detail',
+      url: '/api/v1/hashtag/detail',
       data: {
         ...options,
       },
@@ -106,7 +106,7 @@ const content = {
    */
   hashtagLists: (options) => {
     return request({
-      url: '/api/fresns/hashtag/lists',
+      url: '/api/v1/hashtag/lists',
       data: {
         ...options,
       },
@@ -118,7 +118,7 @@ const content = {
    */
   groupDetail: (options) => {
     return request({
-      url: '/api/fresns/group/detail',
+      url: '/api/v1/group/detail',
       data: {
         ...options,
       },
@@ -130,7 +130,7 @@ const content = {
    */
   groupLists: (options) => {
     return request({
-      url: '/api/fresns/group/lists',
+      url: '/api/v1/group/lists',
       data: {
         ...options,
       },
@@ -142,7 +142,7 @@ const content = {
    */
   groupTrees: (options) => {
     return request({
-      url: '/api/fresns/group/trees',
+      url: '/api/v1/group/trees',
       data: {
         ...options,
       },

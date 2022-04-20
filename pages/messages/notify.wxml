@@ -11,79 +11,79 @@
             <!--系统-->
             <navigator wx:if="{{notifyItem.sourceType === 1}}" url="{{'/pages/webview?url=' + notifyItem.access_url || ''}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
                 <view class="weui-cell__hd">
-                    <image src="{{notifyItem.sourceMember.avatar}}"></image>
+                    <image src="{{notifyItem.sourceUser.avatar}}"></image>
                 </view>
                 <view class="weui-cell__bd">
-                    {{notifyItem.sourceMember.nickname}}
-                    <text class="mname">@{{notifyItem.sourceMember.mname}}</text>
+                    {{notifyItem.sourceUser.nickname}}
+                    <text class="username">@{{notifyItem.sourceUser.username}}</text>
                 </view>
                 <view class="weui-cell__ft weui-cell__ft_in-access">查看</view>
             </navigator>
             <!--关注-->
-            <navigator wx:if="{{notifyItem.sourceType === 2}}" url="/pages/profile/index?mid={{notifyItem.sourceMember.mid}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <navigator wx:if="{{notifyItem.sourceType === 2}}" url="/pages/profile/index?uid={{notifyItem.sourceUser.uid}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
                 <view class="weui-cell__hd">
-                    <image src="{{notifyItem.sourceMember.avatar}}"></image>
+                    <image src="{{notifyItem.sourceUser.avatar}}"></image>
                 </view>
                 <view class="weui-cell__bd">
-                    {{notifyItem.sourceMember.nickname}}
-                    <text class="mname">@{{notifyItem.sourceMember.mname}}</text>
+                    {{notifyItem.sourceUser.nickname}}
+                    <text class="username">@{{notifyItem.sourceUser.username}}</text>
                 </view>
                 <view class="weui-cell__ft weui-cell__ft_in-access">TA 关注了你</view>
             </navigator>
             <!--点赞-->
-            <navigator wx:if="{{notifyItem.sourceType === 3}}" url="/pages/profile/index?mid={{notifyItem.sourceMember.mid}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <navigator wx:if="{{notifyItem.sourceType === 3}}" url="/pages/profile/index?uid={{notifyItem.sourceUser.uid}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
                 <view class="weui-cell__hd">
-                    <image src="{{notifyItem.sourceMember.avatar}}"></image>
+                    <image src="{{notifyItem.sourceUser.avatar}}"></image>
                 </view>
                 <view class="weui-cell__bd">
-                    {{notifyItem.sourceMember.nickname}}
-                    <text class="mname">@{{notifyItem.sourceMember.mname}}</text>
+                    {{notifyItem.sourceUser.nickname}}
+                    <text class="username">@{{notifyItem.sourceUser.username}}</text>
                 </view>
                 <view class="weui-cell__ft weui-cell__ft_in-access" wx:if="{{notifyItem.sourceClass === null}}">TA 点赞了你</view>
                 <view class="weui-cell__ft weui-cell__ft_in-access" wx:if="{{notifyItem.sourceClass === 1}}">TA 点赞了你的帖子</view>
                 <view class="weui-cell__ft weui-cell__ft_in-access" wx:if="{{notifyItem.sourceClass === 2}}">TA 点赞了你的评论</view>
             </navigator>
             <!--评论-帖子-->
-            <navigator wx:if="{{notifyItem.sourceType === 4 && notifyItem.sourceClass === 1}}" url="/pages/posts/detail?pid={{notifyItem.sourceUuid}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <navigator wx:if="{{notifyItem.sourceType === 4 && notifyItem.sourceClass === 1}}" url="/pages/posts/detail?pid={{notifyItem.sourceFsid}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
                 <view class="weui-cell__hd">
-                    <image src="{{notifyItem.sourceMember.avatar}}"></image>
+                    <image src="{{notifyItem.sourceUser.avatar}}"></image>
                 </view>
                 <view class="weui-cell__bd">
-                    {{notifyItem.sourceMember.nickname}}
-                    <text class="mname">@{{notifyItem.sourceMember.mname}}</text>
+                    {{notifyItem.sourceUser.nickname}}
+                    <text class="username">@{{notifyItem.sourceUser.username}}</text>
                 </view>
                 <view class="weui-cell__ft weui-cell__ft_in-access">TA 评论了你的帖子</view>
             </navigator>
             <!--回复-评论-->
-            <navigator wx:if="{{notifyItem.sourceType === 4 && notifyItem.sourceClass === 2}}" url="/pages/comments/detail?cid={{notifyItem.sourceUuid}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <navigator wx:if="{{notifyItem.sourceType === 4 && notifyItem.sourceClass === 2}}" url="/pages/comments/detail?cid={{notifyItem.sourceFsid}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
                 <view class="weui-cell__hd">
-                    <image src="{{notifyItem.sourceMember.avatar}}"></image>
+                    <image src="{{notifyItem.sourceUser.avatar}}"></image>
                 </view>
                 <view class="weui-cell__bd">
-                    {{notifyItem.sourceMember.nickname}}
-                    <text class="mname">@{{notifyItem.sourceMember.mname}}</text>
+                    {{notifyItem.sourceUser.nickname}}
+                    <text class="username">@{{notifyItem.sourceUser.username}}</text>
                 </view>
                 <view class="weui-cell__ft weui-cell__ft_in-access">TA 回复了你的评论</view>
             </navigator>
             <!--提及（艾特）-->
             <navigator wx:if="{{notifyItem.sourceType === 5}}" url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
                 <view class="weui-cell__hd">
-                    <image src="{{notifyItem.sourceMember.avatar}}"></image>
+                    <image src="{{notifyItem.sourceUser.avatar}}"></image>
                 </view>
                 <view class="weui-cell__bd">
-                    {{notifyItem.sourceMember.nickname}}
-                    <text class="mname">@{{notifyItem.sourceMember.mname}}</text>
+                    {{notifyItem.sourceUser.nickname}}
+                    <text class="username">@{{notifyItem.sourceUser.username}}</text>
                 </view>
                 <view class="weui-cell__ft weui-cell__ft_in-access">TA 提及了你</view>
             </navigator>
             <!--推荐-->
             <navigator wx:if="{{notifyItem.sourceType === 6}}" url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
                 <view class="weui-cell__hd">
-                    <image src="{{notifyItem.sourceMember.avatar}}"></image>
+                    <image src="{{notifyItem.sourceUser.avatar}}"></image>
                 </view>
                 <view class="weui-cell__bd">
-                    {{notifyItem.sourceMember.nickname}}
-                    <text class="mname">@{{notifyItem.sourceMember.mname}}</text>
+                    {{notifyItem.sourceUser.nickname}}
+                    <text class="username">@{{notifyItem.sourceUser.username}}</text>
                 </view>
                 <view class="weui-cell__ft weui-cell__ft_in-access">查看</view>
             </navigator>

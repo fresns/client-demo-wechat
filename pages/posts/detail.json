@@ -3,7 +3,6 @@
     "post": "/components/post/list",
     "detail": "/components/post/content-detail",
     "comment": "/components/comment/list",
-    "comment-list": "/components/comment/content-list",
-    "emoji": "/components/weui/emoji/index"
+    "comment-list": "/components/comment/content-list"
   }
 }

@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "成员",
-  "enablePullDownRefresh": true,
-  "usingComponents": {
-    "tabbar": "/components/tabbar/tabbar",
-    "member": "/components/member/list"
-  }
-}

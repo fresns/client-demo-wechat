@@ -5,15 +5,15 @@
 * -->
 <page-meta root-font-size="system"/>
 <view class="page" data-weui-theme="{{theme}}">
-    <profile-member member="{{curMember}}"/>
+    <profile-user user="{{curUser}}"/>
 
-    <profile-switch member="{{curMember}}"/>
+    <profile-switch user="{{curUser}}"/>
 
     <view class="content-list">
-        <member></member>
-        <member></member>
-        <member></member>
-        <member></member>
-        <member></member>
+        <user></user>
+        <user></user>
+        <user></user>
+        <user></user>
+        <user></user>
     </view>
 </view>

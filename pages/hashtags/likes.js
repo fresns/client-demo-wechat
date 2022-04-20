@@ -27,8 +27,8 @@ Page({
       return
     }
 
-    const resultRes = await Api.member.memberMarkLists({
-      viewMid: globalInfo.currentMemberId,
+    const resultRes = await Api.user.userMarkLists({
+      viewUid: globalInfo.currentUserId,
       viewType: 1,
       viewTarget: 3,
       page: this.data.page,

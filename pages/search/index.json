@@ -2,7 +2,7 @@
   "navigationBarTitleText": "搜索",
   "usingComponents": {
     "tabs": "/components/weui/tabs/index",
-    "member": "/components/member/list",
+    "user": "/components/user/list",
     "group": "/components/group/list",
     "hashtag": "/components/hashtag/list",
     "post": "/components/post/list",

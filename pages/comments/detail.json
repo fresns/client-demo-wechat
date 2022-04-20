@@ -2,7 +2,6 @@
   "usingComponents": {
     "comment": "/components/comment/list",
     "comment-list": "/components/comment/content-list",
-    "detail": "/components/comment/content-detail",
-    "emoji": "/components/weui/emoji/index"
+    "detail": "/components/comment/content-detail"
   }
 }

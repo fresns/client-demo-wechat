@@ -11,7 +11,7 @@ Page({
   ],
   /** 页面数据 **/
   data: {
-    tabs: [{ title: '成员' }, { title: '小组' }, { title: '话题' }, { title: '帖子' }, { title: '评论' }],
+    tabs: [{ title: '用户' }, { title: '小组' }, { title: '话题' }, { title: '帖子' }, { title: '评论' }],
     inputFocus: true,
     inputVal: '',
     activeTab: 0,

@@ -19,11 +19,10 @@ export async function sign (header, appSecret) {
   const strA = [
     'platform',
     'version',
-    'versionInt',
     'appId',
     'timestamp',
+    'aid',
     'uid',
-    'mid',
     'token',
   ].filter(v => header[v]).sort((a, b) => a.charCodeAt(0) - b.charCodeAt(0))
   const stringSignTemp = strA.map(key => `${key}=${header[key]}`).join('&') + `&key=${appSecret}`
@@ -40,11 +39,10 @@ export async function pluginSign (header, appSecret) {
   const strA = [
     'platform',
     'version',
-    'versionInt',
     'appId',
     'timestamp',
+    'aid',
     'uid',
-    'mid',
     'token',
   ].sort((a, b) => a.charCodeAt(0) - b.charCodeAt(0))
   const stringSignTemp = strA.map(key => `${key}=${header[key]}`).join('&') + `&key=${appSecret}`
@@ -57,12 +55,11 @@ export async function getSign () {
   const header = Object.assign({
       platform: appConfig.platform,
       version: '1.0.0',
-      versionInt: 1,
       appId: appConfig.appId,
       timestamp: parseInt(new Date().valueOf() / 1000 + ''),
     },
+    globalInfo.aid && { aid: globalInfo.aid },
     globalInfo.uid && { uid: globalInfo.uid },
-    globalInfo.mid && { mid: globalInfo.mid },
     globalInfo.token && { token: globalInfo.token },
   )
   return await sign(header, appConfig.appSecret)
@@ -72,12 +69,11 @@ export async function getPluginSign () {
   const header = Object.assign({
       platform: appConfig.platform,
       version: '1.0.0',
-      versionInt: 1,
       appId: appConfig.appId,
       timestamp: parseInt(new Date().valueOf() / 1000 + ''),
     },
+    globalInfo.aid && { aid: globalInfo.aid },
     globalInfo.uid && { uid: globalInfo.uid },
-    globalInfo.mid && { mid: globalInfo.mid },
     globalInfo.token && { token: globalInfo.token },
   )
   return await pluginSign(header, appConfig.appSecret)

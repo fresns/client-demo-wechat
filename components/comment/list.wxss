@@ -6,7 +6,7 @@
 @import "/assets/styles/weui.wxss";
 @import "/assets/styles/fsui.wxss";
 
-.member-icons {
+.user-icons {
   margin-top: 4px;
   margin-left: 6px;
 }

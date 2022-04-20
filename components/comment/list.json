@@ -1,7 +1,7 @@
 {
   "component": true,
   "usingComponents": {
-    "member": "/components/member/list",
+    "user": "/components/user/list",
     "extend-info": "/components/extend/extend-info",
     "extend-text": "/components/extend/extend-text",
     "mp-actionSheet": "weui-miniprogram/actionsheet/actionsheet"

@@ -14,31 +14,31 @@ Component({
   },
   data: {
     showType: null,
-    emojisList: null,
+    stickersList: null,
 
-    onMemberTextChange: null,
+    onUserTextChange: null,
     onHashtagsTextChange: null,
     tabs: [],
   },
-  tempMembers: null,
+  tempUsers: null,
   tempHashtags: null,
   lifetimes: {
     attached: async function () {
       const that = this
       this.setData({
-        // 成员搜索
-        onMemberTextChange: async function (search) {
+        // 用户搜索
+        onUserTextChange: async function (search) {
           if (!search) return
 
           const tipsRes = await Api.info.infoInputTips({
             queryType: 1,
             queryKey: search,
           })
-          that.tempMembers = tipsRes.data
+          that.tempUsers = tipsRes.data
           return tipsRes.data.map(v => ({
             text: v.nickname + " @" + v.name,
             value: v.name,
-            id: v.id
+            id: v.fsid
           }))
         },
         // 话题搜索
@@ -52,21 +52,21 @@ Component({
           that.tempHashtags = tipsRes.data
           return tipsRes.data.map(v => ({
             text: v.name,
-            id: v.id
+            id: v.fsid
           }))
         },
       })
 
-      const emojisRes = await Api.info.infoEmojis()
-      const emojisList = emojisRes.data.list
+      const stickersRes = await Api.info.infoStickers()
+      const stickersList = stickersRes.data.list
       this.setData({
-        emojisList: emojisList,
-        tabs: emojisList.map(item => ({
+        stickersList: stickersList,
+        tabs: stickersList.map(item => ({
           title: item.name,
           name: item.name,
           image: item.image,
           count: item.count,
-          emoji: item.emoji,
+          sticker: item.sticker,
         })),
       })
     },
@@ -97,9 +97,9 @@ Component({
       }
       this.setData({ showType: type || null })
     },
-    onSearchMembers: function (e) {
+    onSearchUsers: function (e) {
       const { id } = e.detail.item
-      callPageFunction('onSelectMember', this.tempMembers?.find(v => v.id === id))
+      callPageFunction('onSelectUser', this.tempUsers?.find(v => v.id === id))
       this.setData({ showType: null })
     },
     onSearchHashtags: function (e) {
@@ -108,13 +108,13 @@ Component({
       this.setData({ showType: null })
     },
     /**
-     * emoji 选择回调
+     * sticker 选择回调
      * @param e
      */
-    onSelectEmoji: function (e) {
-      const { emoji } = e.target.dataset
+    onSelectSticker: function (e) {
+      const { sticker } = e.target.dataset
       this.setData({ showType: null })
-      callPageFunction('onSelectEmoji', emoji)
+      callPageFunction('onSelectSticker', sticker)
     },
     /**
      * 选择图片
@@ -131,7 +131,7 @@ Component({
             tableType: 8,
             tableId,
             tableName: 'post_logs',
-            tableField: 'files_json',
+            tableColumn: 'files_json',
             mode: 1,
             file: tempFilePaths[0],
           })
@@ -152,7 +152,7 @@ Component({
             type: 2,
             tableType: 8,
             tableName: 'post_logs',
-            tableField: 'files_json',
+            tableColumn: 'files_json',
             tableId: tableId,
             mode: 1,
             file: tempFilePath,

@@ -4,7 +4,7 @@
  * Licensed under the Apache-2.0 license
  */
 import Api from '../../api/api'
-import { memberDelete } from '../../api/detail/member'
+import { userDelete } from '../../api/detail/user'
 import { callPageFunction } from '../../util/callPageFunction'
 import { getCurPage } from '../../util/getCurPage'
 
@@ -50,7 +50,7 @@ Component({
     },
     _onClickModifyPost: function (post) {
       wx.navigateTo({
-        url: `/pages/editor/index?type=post&mode=modify&uuid=${post.pid}`,
+        url: `/pages/editor/index?type=post&mode=modify&pid=${post.pid}`,
       })
     },
     _onClickPostFollow: function (post) {
@@ -59,13 +59,13 @@ Component({
     _onClickPostBlock: function (post) {
       callPageFunction('onClickPostBlock', post)
     },
-    _onclickMemberDelete: function (post) {
-      Api.member.memberDelete({
+    _onclickUserDelete: function (post) {
+      Api.user.userDelete({
         type: 1,
-        uuid: post.pid
-      }).then(function (memberDeleteRes) {
-        console.log(memberDeleteRes);
-        if (memberDeleteRes.code === 0) {
+        fsid: post.pid
+      }).then(function (userDeleteRes) {
+        console.log(userDeleteRes);
+        if (userDeleteRes.code === 0) {
           callPageFunction('onLoad')
         }
       })
@@ -79,13 +79,13 @@ Component({
         marks.push({ text: "编辑", value: "_onClickModifyPost" })
       }
       if (post.editStatus.isMe && post.editStatus.canDelete) {
-        marks.push({ text: "删除", value: "_onclickMemberDelete" })
+        marks.push({ text: "删除", value: "_onclickUserDelete" })
       }
       if (post.followSetting) {
         marks.push({ text: post.followStatus ? "已" + post.followName : post.followName, value: "_onClickPostFollow" })
       }
-      if (post.shieldSetting) {
-        marks.push({ text: post.shieldStatus ? "已" + post.shieldName : post.shieldName, value: "_onClickPostBlock" })
+      if (post.blockSetting) {
+        marks.push({ text: post.blockStatus ? "已" + post.blockName : post.blockName, value: "_onClickPostBlock" })
       }
       this.setData({
         showContentMoreActionsheet,

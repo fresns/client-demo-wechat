@@ -25,7 +25,7 @@
             </view>
             <view class="editor-features">
                 <view class="float-left">
-                    <editor-lbs wx:if="{{editorConfig.features.isLbs.status || currentDraft.location}}" location="{{currentDraft.location}}" />
+                    <editor-lbs wx:if="{{editorConfig.features.isLocation.status || currentDraft.location}}" location="{{currentDraft.location}}" />
                 </view>
                 <view class="float-end">
                     <editor-anonymous wx:if="{{editorConfig.features.isAnonymous || currentDraft.isAnonymous === 1}}" isAnonymous="{{editorConfig.features.isAnonymous}}" />
@@ -35,7 +35,7 @@
             <!-- <editor-extend-text />
             <editor-extend-info />
             <editor-allow />
-            <editor-members />
+            <editor-users />
             <editor-comment-btn /> -->
         </view>
         <!-- 发表按钮 -->

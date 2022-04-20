@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "我屏蔽的用户",
+  "usingComponents": {
+    "tabbar": "/components/tabbar/tabbar",
+    "user": "/components/user/list"
+  }
+}

@@ -2,12 +2,12 @@
   "pages": [
     "pages/portal/index",
 
-    "pages/members/index",
-    "pages/members/list",
-    "pages/members/follow",
-    "pages/members/likes",
-    "pages/members/following",
-    "pages/members/blocking",
+    "pages/users/index",
+    "pages/users/list",
+    "pages/users/follow",
+    "pages/users/likes",
+    "pages/users/following",
+    "pages/users/blocking",
 
     "pages/groups/index",
     "pages/groups/list",
@@ -52,13 +52,13 @@
     "pages/editor/draft-select",
     "pages/editor/draft-box",
 
-    "pages/user/index",
-    "pages/user/signup",
-    "pages/user/signin",
-    "pages/user/reset",
-    "pages/user/wallet",
-    "pages/user/members",
-    "pages/user/setting",
+    "pages/account/index",
+    "pages/account/register",
+    "pages/account/login",
+    "pages/account/reset",
+    "pages/account/wallet",
+    "pages/account/users",
+    "pages/account/setting",
 
     "pages/profile/index",
     "pages/profile/posts",
@@ -66,17 +66,17 @@
     "pages/profile/likers",
     "pages/profile/followers",
     "pages/profile/blockers",
-    "pages/profile/likes/members",
+    "pages/profile/likes/users",
     "pages/profile/likes/groups",
     "pages/profile/likes/hashtags",
     "pages/profile/likes/posts",
     "pages/profile/likes/comments",
-    "pages/profile/following/members",
+    "pages/profile/following/users",
     "pages/profile/following/groups",
     "pages/profile/following/hashtags",
     "pages/profile/following/posts",
     "pages/profile/following/comments",
-    "pages/profile/blocking/members",
+    "pages/profile/blocking/users",
     "pages/profile/blocking/groups",
     "pages/profile/blocking/hashtags",
     "pages/profile/blocking/posts",
@@ -92,18 +92,14 @@
     "navigationBarTitleText": "Fresns",
     "navigationBarTextStyle": "@navTxtStyle"
   },
+  "style": "v2",
   "darkmode": true,
   "themeLocation": "theme.json",
-  "style": "v2",
+  "lazyCodeLoading": "requiredComponents",
   "sitemapLocation": "sitemap.json",
-  "navigateToMiniProgramAppIdList": [
-    "wxcdaa14554bd22f64",
-    "wxa0c2bde4b340f47a",
-    "wx179a37bc2f929a68"
-  ],
   "plugins": {
     "chooseLocation": {
-      "version": "1.0.6",
+      "version": "1.0.9",
       "provider": "wx76a9a06e5b4e693e"
     }
   },

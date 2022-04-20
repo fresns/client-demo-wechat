@@ -17,7 +17,7 @@
     "editor-file": "/components/editor/editor-file/editor-file",
     "editor-allow": "/components/editor/editor-allow/editor-allow",
     "editor-comment-btn": "/components/editor/editor-comment-btn/editor-comment-btn",
-    "editor-members": "/components/editor/editor-members/editor-members",
+    "editor-users": "/components/editor/editor-users/editor-users",
     "editor-extend-text": "/components/editor/editor-extend-text/editor-extend-text",
     "editor-extend-info": "/components/editor/editor-extend-info/editor-extend-info"
   }

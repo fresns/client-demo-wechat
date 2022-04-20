@@ -28,7 +28,7 @@
     font-size: 16px;
 }
 
-.emoji-box {
+.sticker-box {
     position: fixed;
     bottom: 68px;
     width: 100%;
@@ -38,7 +38,7 @@
     border-top: 1px solid var(--weui-FG-3);
 }
 
-.emoji-image {
+.sticker-image {
     width: 30px;
     height: 30px;
     margin: 8px;

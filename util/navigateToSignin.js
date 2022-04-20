@@ -6,9 +6,9 @@
 export function navigateToSignin () {
   const pages = getCurrentPages()
   const curPage = pages[pages.length - 1]
-  if (curPage.route !== 'pages/user/signin') {
+  if (curPage.route !== 'pages/account/login') {
     wx.navigateTo({
-      url: '/pages/user/signin',
+      url: '/pages/account/login',
     })
   }
 }

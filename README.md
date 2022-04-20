@@ -1,9 +1,9 @@
-<p align="center"><a href="https://fresns.org" target="_blank"><img src="https://cdn.fresns.org/images/logo.png" width="300"></a></p>
+<p align="center"><a href="https://fresns.org" target="_blank"><img src="https://raw.githubusercontent.com/fresns/docs/main/images/Fresns-Logo(orange).png" width="300"></a></p>
 
 <p align="center">
 <img src="https://img.shields.io/badge/WeChat-Mini%20Program-brightgreen" alt="WeChat">
 <img src="https://img.shields.io/badge/Fresns%20API-1.x-blueviolet" alt="Fresns">
-<img src="https://img.shields.io/badge/WeUI-2.5.4-yellow" alt="WeUI">
+<img src="https://img.shields.io/badge/WeUI-2.5.6-yellow" alt="WeUI">
 <img src="https://img.shields.io/badge/License-Apache--2.0-green" alt="License">
 </p>
 
@@ -25,7 +25,7 @@ Fresns 是一款支持多语言和跨时区的免费开源软件，研发和生�
 | 框架 | 版本 | 用途 |
 | --- | --- | --- |
 | [Fresns](https://github.com/fresns/fresns) | 1.x | 后端 API |
-| [WeUI](https://github.com/Tencent/weui-wxss) | 2.5.4 | 小程序 UI 框架 |
+| [WeUI](https://github.com/Tencent/weui-wxss) | 2.5.6 | 小程序 UI 框架 |
 
 ## 使用说明
 
@@ -42,15 +42,6 @@ Fresns 是一款支持多语言和跨时区的免费开源软件，研发和生�
 Fresns 的开源社区正在急速增长中，如果你认可我们的开源软件，有兴趣为 Fresns 的发展做贡献，竭诚欢迎[加入我们](https://fresns.org/community/join.html)一起开发完善。无论是[报告错误](https://fresns.org/guide/feedback.html)或是 Pull Request 开发，那怕是修改一个错别字也是对我们莫大的帮助。
 
 贡献指南：[https://fresns.org/contributing/](https://fresns.org/contributing/)
-
-## 联系信息
-
-- 官方网站：[https://fresns.org](https://fresns.org/)
-- 项目发起人：[Jarvis Tang](https://tangjie.me/)
-- 电子邮箱：[jarvis.okay@gmail.com](mailto:jarvis.okay@gmail.com)
-- QQ 群：[5980111](https://qm.qq.com/cgi-bin/qm/qr?k=R2pfcPUd4Nyc87AKdkuHP9yJ0MhddUaz&jump_from=webapi)
-- Telegram 群：[https://t.me/fresns_zh](https://t.me/fresns_zh)
-- 微信群：[点击查看加群二维码](https://tangjie.me/media/wechat/fresns.jpg)
 
 ## 许可协议
 

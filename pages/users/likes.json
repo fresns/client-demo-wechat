@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "我点赞的用户",
+  "usingComponents": {
+    "tabbar": "/components/tabbar/tabbar",
+    "user": "/components/user/list"
+  }
+}

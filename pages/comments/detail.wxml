@@ -47,16 +47,16 @@
         </label>
       </view>
       <view hover-class="active" class="reply_button replay_emotion_button" bindtap="onSelectImage">
-        <image src="/assets/images/reply_tool_emoji.svg" mode='aspectFit' class="reply_tool_pic"></image>
+        <image src="/assets/images/reply_tool_sticker.svg" mode='aspectFit' class="reply_tool_pic"></image>
       </view>
       <view hover-class="active" class="reply_button replay_media_button" bindtap="quickComment">
         <image src="/assets/images/reply_tool_add.png" mode='aspectFit' class="reply_tool_pic"></image>
       </view>
     </view>
-<!--    <view class="reply_panel_wrp" hidden="{{!emojiShow && !functionShow}}">-->
-<!--      <view class="reply_panel {{emojiShow ? 'show': ''}}" hidden="{{!emojiShow}}">-->
-<!--        &lt;!&ndash; 这里放emoji_area &ndash;&gt;-->
-<!--        <emoji bindinsertemoji="insertEmoji" binddelemoji="deleteEmoji"></emoji>-->
+<!--    <view class="reply_panel_wrp" hidden="{{!stickerShow && !functionShow}}">-->
+<!--      <view class="reply_panel {{stickerShow ? 'show': ''}}" hidden="{{!stickerShow}}">-->
+<!--        &lt;!&ndash; 这里放sticker_area &ndash;&gt;-->
+<!--        <sticker bindinsertsticker="insertSticker" binddelsticker="deleteSticker"></sticker>-->
 <!--      </view>-->
 <!--      <view class="reply_panel {{functionShow ? 'show': ''}}" hidden="{{!functionShow}}">-->
 <!--        <swiper indicator-dots="{{true}}" indicator-color="#bbbbbb" indicator-active-color="#8c8c8c">-->
