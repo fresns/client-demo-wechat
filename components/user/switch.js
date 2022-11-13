@@ -1,18 +1,18 @@
-import { getCurPage } from '../../util/getCurPage'
+import { getCurPage } from '../../util/getCurPage';
 
 Component({
-  properties: {
-    user: Object,
-  },
-  data: {
-    curRoute: '',
-  },
-  lifetimes: {
-    attached () {
-      this.setData({
-        curRoute: getCurPage().route,
-      })
+    properties: {
+        user: Object,
     },
-  },
-  methods: {},
-})
+    data: {
+        curRoute: '',
+    },
+    lifetimes: {
+        attached() {
+            this.setData({
+                curRoute: getCurPage().route,
+            });
+        },
+    },
+    methods: {},
+});

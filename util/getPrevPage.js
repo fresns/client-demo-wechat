@@ -3,7 +3,7 @@
  * Copyright 2021-Present Jarvis Tang
  * Licensed under the Apache-2.0 license
  */
-export function getPrevPage () {
-  const pages = getCurrentPages()
-  return pages[pages.length - 2]
+export function getPrevPage() {
+    const pages = getCurrentPages();
+    return pages[pages.length - 2];
 }

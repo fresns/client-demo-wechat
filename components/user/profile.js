@@ -1,15 +1,13 @@
 Component({
-  properties: {
-    user: Object,
-  },
-  data: {},
-  lifetimes: {
-    attached () {
+    properties: {
+        user: Object,
     },
-  },
-  methods: {},
-  observers: {
-    user: function (user) {
-    }
-  }
-})
+    data: {},
+    lifetimes: {
+        attached() {},
+    },
+    methods: {},
+    observers: {
+        user: function (user) {},
+    },
+});

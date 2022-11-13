@@ -4,13 +4,12 @@
  * Licensed under the Apache-2.0 license
  */
 Component({
-  properties: {
-    group: Object,
-  },
-  data: {},
-  lifetimes: {
-    attached: async function () {
+    properties: {
+        group: Object,
     },
-  },
-  methods: {},
-})
+    data: {},
+    lifetimes: {
+        attached: async function () {},
+    },
+    methods: {},
+});

@@ -4,38 +4,38 @@
  * Licensed under the Apache-2.0 license
  */
 module.exports = [
-  "pages/users/follow",
-  'pages/users/likes',
-  'pages/users/following',
-  'pages/users/blocking',
+    'pages/users/follow',
+    'pages/users/likes',
+    'pages/users/following',
+    'pages/users/blocking',
 
-  "pages/groups/follow",
-  'pages/groups/likes',
-  'pages/groups/following',
-  'pages/groups/blocking',
+    'pages/groups/follow',
+    'pages/groups/likes',
+    'pages/groups/following',
+    'pages/groups/blocking',
 
-  "pages/hashtags/follow",
-  'pages/hashtags/likes',
-  'pages/hashtags/following',
-  'pages/hashtags/blocking',
+    'pages/hashtags/follow',
+    'pages/hashtags/likes',
+    'pages/hashtags/following',
+    'pages/hashtags/blocking',
 
-  "pages/posts/follows",
-  "pages/posts/likes",
-  "pages/posts/following",
-  "pages/posts/blocking",
+    'pages/posts/follows',
+    'pages/posts/likes',
+    'pages/posts/following',
+    'pages/posts/blocking',
 
-  "pages/comments/likes",
-  "pages/comments/following",
-  "pages/comments/blocking",
+    'pages/comments/likes',
+    'pages/comments/following',
+    'pages/comments/blocking',
 
-  "pages/messages/index",
-  "pages/messages/notify",
-  "pages/messages/dialog",
+    'pages/messages/index',
+    'pages/messages/notify',
+    'pages/messages/dialog',
 
-  "pages/user/index",
-  "pages/user/wallet",
-  "pages/user/setting",
+    'pages/user/index',
+    'pages/user/wallet',
+    'pages/user/setting',
 
-  "pages/editor/index",
-  "pages/editor/draft",
-]
+    'pages/editor/index',
+    'pages/editor/draft',
+];

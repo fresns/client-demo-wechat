@@ -4,25 +4,24 @@
  * Licensed under the Apache-2.0 license
  */
 Page({
-  /** 外部 mixin 引入 **/
-  mixins: [
-    require('../../../mixin/themeChanged'),
-    require('../../../mixin/imageGallery'),
-    require('../../../mixin/handler/profileHandler')
-  ],
-  /** 页面数据 **/
-  data: {
-  },
-  /** 右上角菜单-分享给好友 **/
-  onShareAppMessage: function () {
-    return {
-      title: 'Fresns',
-    }
-  },
-  /** 右上角菜单-分享到朋友圈 **/
-  onShareTimeline: function () {
-    return {
-      title: 'Fresns',
-    }
-  },
-})
+    /** 外部 mixin 引入 **/
+    mixins: [
+        require('../../../mixin/themeChanged'),
+        require('../../../mixin/imageGallery'),
+        require('../../../mixin/handler/profileHandler'),
+    ],
+    /** 页面数据 **/
+    data: {},
+    /** 右上角菜单-分享给好友 **/
+    onShareAppMessage: function () {
+        return {
+            title: 'Fresns',
+        };
+    },
+    /** 右上角菜单-分享到朋友圈 **/
+    onShareTimeline: function () {
+        return {
+            title: 'Fresns',
+        };
+    },
+});

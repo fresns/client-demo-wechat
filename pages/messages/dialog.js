@@ -4,9 +4,6 @@
  * Licensed under the Apache-2.0 license
  */
 Page({
-  /** 外部 mixin 引入 **/
-  mixins: [
-    require('../../mixin/themeChanged'),
-    require('../../mixin/loginInterceptor'),
-  ],
+    /** 外部 mixin 引入 **/
+    mixins: [require('../../mixin/themeChanged'), require('../../mixin/loginInterceptor')],
 });

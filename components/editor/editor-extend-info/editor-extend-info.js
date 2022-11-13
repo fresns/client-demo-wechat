@@ -4,7 +4,7 @@
  * Licensed under the Apache-2.0 license
  */
 Component({
-  properties: {},
-  data: {},
-  methods: {},
-})
+    properties: {},
+    data: {},
+    methods: {},
+});
