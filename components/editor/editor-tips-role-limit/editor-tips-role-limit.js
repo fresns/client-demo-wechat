@@ -4,9 +4,9 @@
  * Licensed under the Apache-2.0 license
  */
 Component({
-  properties: {
-    roleLimit: Object
-  },
-  data: {},
-  methods: {},
-})
+    properties: {
+        roleLimit: Object,
+    },
+    data: {},
+    methods: {},
+});

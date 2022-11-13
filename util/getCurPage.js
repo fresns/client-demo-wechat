@@ -4,6 +4,6 @@
  * Licensed under the Apache-2.0 license
  */
 export function getCurPage() {
-  const pages = getCurrentPages()
-  return pages[pages.length - 1]
+    const pages = getCurrentPages();
+    return pages[pages.length - 1];
 }

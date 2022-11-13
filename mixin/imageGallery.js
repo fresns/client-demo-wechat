@@ -4,19 +4,18 @@
  * Licensed under the Apache-2.0 license
  */
 module.exports = {
-  data: {
-    imageGallery: false,
-  },
-  onLoad: function () {
-  },
-  ImageClose: function () {
-    this.setData({
-      imageGallery: false,
-    })
-  },
-  ImageOpen: function () {
-    this.setData({
-      imageGallery: true,
-    })
-  },
-}
+    data: {
+        imageGallery: false,
+    },
+    onLoad: function () {},
+    ImageClose: function () {
+        this.setData({
+            imageGallery: false,
+        });
+    },
+    ImageOpen: function () {
+        this.setData({
+            imageGallery: true,
+        });
+    },
+};

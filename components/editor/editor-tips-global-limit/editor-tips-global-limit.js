@@ -4,9 +4,9 @@
  * Licensed under the Apache-2.0 license
  */
 Component({
-  properties: {
-    globalLimit: Object
-  },
-  data: {},
-  methods: {},
-})
+    properties: {
+        globalLimit: Object,
+    },
+    data: {},
+    methods: {},
+});
