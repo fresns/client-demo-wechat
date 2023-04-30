@@ -1,99 +1,113 @@
 <!-- *
-    Fresns 微信小程序 (https://fresns.org)
-    Copyright 2021-Present Jarvis Tang
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
     Licensed under the Apache-2.0 license
 * -->
-<page-meta root-font-size="system"/>
-<view class="page" data-weui-theme="{{theme}}">
-    <view class="profile-header">
+<view class="page" data-weui-theme="{{ theme }}">
+    <!-- 已登录 -->
+    <view class="profile-header" wx:if="{{ userLogin }}">
         <view class="weui-flex">
             <view class="profile-info">
                 <view class="profile-avatar">
-                    <image wx:if="{{loginUser.decorate}}" src="{{loginUser.decorate}}" class="avatar-decorate" mode="scaleToFill"></image>
-                    <image src="{{loginUser.avatar}}" class="avatar-img" mode="scaleToFill"></image>
+                    <image wx:if="{{ fresnsUser.decorate }}" src="{{ fresnsUser.decorate }}" class="avatar-decorate" mode="scaleToFill"></image>
+                    <image src="{{ fresnsUser.avatar }}" class="avatar-img" mode="scaleToFill"></image>
                 </view>
                 <view class="profile-name">
-                    <text class="profile-nickname">{{loginUser.nickname}}</text>
-                    <text class="profile-username">{{loginUser.username}}</text>
+                    <text class="profile-nickname">{{ fresnsUser.nickname }}</text>
+                    <text class="profile-username">{{ fresnsUser.username }}</text>
                 </view>
             </view>
             <view class="weui-flex__item interactive-btn">
-                <navigator url="/pages/user/setting" class="weui-btn weui-btn_mini weui-btn_default">编辑个人资料</navigator>
+                <navigator url="/pages/account/setting" class="weui-btn weui-btn_mini weui-btn_default">
+                    {{ fresnsConfig.menu_account_settings }}
+                </navigator>
             </view>
         </view>
-        <view class="user-bio">{{loginUser.bio}}</view>
+        <view class="user-bio" wx-if="{{ fresnsUser.bio }}">{{ fresnsUser.bio }}</view>
         <view class="weui-media-box__info">
-            <view class="weui-media-box__info__meta">{{loginUser.stats.likeMeCount}} 点赞</view>
-            <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{loginUser.stats.followMeCount}} 关注者</view>
-            <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{loginUser.stats.followUserCount}} 正在关注</view>
+            <view class="weui-media-box__info__meta">{{ fresnsUser.stats.likeMeCount }} 点赞</view>
+            <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">
+                {{ fresnsUser.stats.followMeCount }} 关注者
+            </view>
+            <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">
+                {{ fresnsUser.stats.followUserCount }} 正在关注
+            </view>
         </view>
     </view>
 
-    <view class="weui-cells weui-cells_after-title">
-        <navigator url="/pages/editor/draft-select" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-            <view class="weui-cell__bd fg-0">发表</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-        </navigator>
-        <!-- <navigator url="/pages/search/index" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-            <view class="weui-cell__bd fg-0">搜索</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-        </navigator> -->
-        <navigator url="/pages/user/wallet" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-            <view class="weui-cell__bd fg-0">钱包</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access">¥ {{user.wallet.balance}}</view>
-        </navigator>
-        <navigator url="/pages/editor/draft-box" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-            <view class="weui-cell__bd fg-0">草稿箱</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access">{{loginUser.draftCount.comments + loginUser.draftCount.posts}}</view>
+    <!-- 未登录 -->
+    <view class="profile-header" wx:if="{{ !userLogin }}">
+        <navigator url="/pages/account/login" class="weui-btn weui-btn_primary login">
+            {{ fresnsLang.accountLogin }}
         </navigator>
     </view>
 
-    <view class="user-extensions" wx:if="{{loginUserCommon.profiles.length !== 0}}">
-        <navigator wx:for="{{loginUserCommon.profiles}}" wx:for-item="profilesItem" wx:key="plugin" url="/pages/webview?url={{profilesItem.url}}">
+    <view class="weui-cells weui-cells_after-title">
+        <navigator url="/pages/search/index" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <view class="weui-cell__bd">{{ fresnsConfig.menu_search }}</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </navigator>
+    </view>
+
+    <view class="weui-cells weui-cells_after-title">
+        <navigator url="/pages/editor/index?type=post" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <view class="weui-cell__bd">{{ fresnsConfig.publish_post_name }}</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </navigator>
+        <navigator url="/pages/account/wallet" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <view class="weui-cell__bd">{{ fresnsConfig.menu_account_wallet }}</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access">{{ account.wallet.balance }}</view>
+        </navigator>
+        <navigator url="/pages/editor/draft-box?type=post" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <view class="weui-cell__bd">{{ fresnsConfig.menu_editor_drafts }}</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access">{{ fresnsUserPanel.draftCount.posts }}</view>
+        </navigator>
+    </view>
+
+    <view class="user-extensions" wx:if="{{ fresnsUserPanel.features.length > 0 }}">
+        <navigator wx:for="{{ fresnsUserPanel.features }}" wx:for-item="item" wx:key="plugin" url="/pages/webview?url={{ item.url }}">
             <view class="extensions-icon">
-                <image src="{{profilesItem.icon}}"></image>
+                <image src="{{ item.icon }}"></image>
             </view>
-            <view class="extensions-label">{{profilesItem.name}}</view>
+            <view class="extensions-label">{{ item.name }}</view>
         </navigator>
     </view>
 
     <view class="weui-cells weui-cells_after-title">
-        <navigator wx:if="{{user.users.length > 1}}" url="/pages/user/users" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-            <view class="weui-cell__bd fg-0">切换身份</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access">{{user.users.length}}</view>
+        <navigator wx:if="{{ fresnsAccount.users.length > 1 }}" url="/pages/account/users" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <view class="weui-cell__bd">{{ fresnsLang.optionUser }}</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access">{{ fresnsAccount.users.length }}</view>
         </navigator>
-        <view class="weui-cell weui-cell_access" bindtap="showLanguageDialog">
-            <view class="weui-cell__bd fg-0">切换语言</view>
+        <view class="weui-cell weui-cell_access" bind:tap="showLanguageSheet">
+            <view class="weui-cell__bd">{{ fresnsLang.optionLanguage }}</view>
             <view class="weui-cell__ft weui-cell__ft_in-access"></view>
         </view>
-        <navigator url="/pages/about/fresns" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-            <view class="weui-cell__bd fg-0">关于</view>
+        <navigator url="/pages/portal/fresns" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <view class="weui-cell__bd">{{ fresnsLang.about }}</view>
             <view class="weui-cell__ft weui-cell__ft_in-access"></view>
         </navigator>
     </view>
 
-    <view class="logout">
-        <view class="weui-btn weui-btn_primary" bind:tap="onClickLogout">退出登录</view>
+    <mp-actionSheet bindactiontap="langBtnClick" show="{{ showLangActionSheet }}" actions="{{ langGroups }}"/>
+
+    <view class="logout" wx:if="{{ accountLogin }}">
+        <view class="weui-btn weui-btn_warn" bind:tap="onClickLogout">{{ fresnsLang.accountLogout }}</view>
+        <mp-dialog bindbuttontap="onConfirmLogout" show="{{ showLogoutDialog }}" buttons="{{ loginButtons }}" title="{{ fresnsLang.accountLogout }}"/>
     </view>
 
-    <view class="copyright">Powered by Fresns</view>
-
-    <view wx:if="{{languageDialog}}" class="fadeIn">
-        <view class="weui-mask"></view>
-        <view class="weui-actionsheet weui-actionsheet_toggle">
-            <view class="weui-actionsheet__title">
-                <view class="weui-actionsheet__title-text">切换显示语言</view>
-            </view>
-            <view class="weui-actionsheet__menu">
-                <view class="weui-actionsheet__cell">English</view>
-                <view class="weui-actionsheet__cell weui-actionsheet__cell_warn">简体中文</view>
-                <view class="weui-actionsheet__cell">繁體中文</view>
-            </view>
-            <view class="weui-actionsheet__action" bindtap="hideLanguageDialog">
-                <view class="weui-actionsheet__cell">取消</view>
-            </view>
+    <view class="weui-footer">
+        <view class="weui-footer__links">
+            <navigator class="weui-footer__link weui-wa-hotarea" url="/pages/portal/policies?active=terms">{{ fresnsLang.accountPoliciesTerms }}</navigator>
+            <navigator class="weui-footer__link weui-wa-hotarea" url="/pages/portal/policies?active=privacy">{{ fresnsLang.accountPoliciesPrivacy }}</navigator>
+            <navigator class="weui-footer__link weui-wa-hotarea" url="/pages/portal/policies?active=cookies">{{ fresnsLang.accountPoliciesCookies }}</navigator>
+            <navigator class="weui-footer__link weui-wa-hotarea" url="/pages/portal/policies?active=accountDelete">{{ fresnsLang.accountPoliciesDelete }}</navigator>
         </view>
     </view>
 
+    <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
+        <text class="weui-loadmore__tips">Powered by Fresns</text>
+    </view>
+
+    <!-- Tabbar -->
     <tabbar activeLabel="account"></tabbar>
 </view>

@@ -1,0 +1,50 @@
+<!-- *
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
+    Licensed under the Apache-2.0 license
+* -->
+<view class="page" data-weui-theme="{{ theme }}">
+    <view class="weui-flex tab-navbar weui-navbar">
+        <view class="weui-flex__item weui-navbar__item {{ !type ? 'weui-navbar__item_on' : '' }}">
+            <navigator url="/pages/notifications/index" open-type="redirect">全部</navigator>
+        </view>
+        <view class="weui-flex__item weui-navbar__item {{ type == 1 ? 'weui-navbar__item_on' : '' }}">
+            <navigator url="/pages/notifications/index?type=1" open-type="redirect">系统</navigator>
+        </view>
+        <view class="weui-flex__item weui-navbar__item {{ type == 2 ? 'weui-navbar__item_on' : '' }}">
+            <navigator url="/pages/notifications/index?type=2" open-type="redirect">推荐</navigator>
+        </view>
+        <view class="weui-flex__item weui-navbar__item {{ type == 3 ? 'weui-navbar__item_on' : '' }}">
+            <navigator url="/pages/notifications/index?type=3" open-type="redirect">点赞</navigator>
+        </view>
+        <view class="weui-flex__item weui-navbar__item {{ type == 4 ? 'weui-navbar__item_on' : '' }}">
+            <navigator url="/pages/notifications/index?type=4" open-type="redirect">踩</navigator>
+        </view>
+        <view class="weui-flex__item weui-navbar__item {{ type == 5 ? 'weui-navbar__item_on' : '' }}">
+            <navigator url="/pages/notifications/index?type=5" open-type="redirect">关注</navigator>
+        </view>
+        <view class="weui-flex__item weui-navbar__item {{ type == 6 ? 'weui-navbar__item_on' : '' }}">
+            <navigator url="/pages/notifications/index?type=6" open-type="redirect">屏蔽</navigator>
+        </view>
+        <view class="weui-flex__item weui-navbar__item {{ type == 7 ? 'weui-navbar__item_on' : '' }}">
+            <navigator url="/pages/notifications/index?type=7" open-type="redirect">提及</navigator>
+        </view>
+        <view class="weui-flex__item weui-navbar__item {{ type == 8 ? 'weui-navbar__item_on' : '' }}">
+            <navigator url="/pages/notifications/index?type=8" open-type="redirect">评论</navigator>
+        </view>
+    </view>
+
+    <!-- 通知列表 -->
+    <view class="notifications">
+    </view>
+
+    <!-- 加载动效 -->
+    <loading status="{{ loadingStatus }}" tipType="{{ loadingTipType }}"></loading>
+
+    <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
+        <text class="weui-loadmore__tips">Powered by Fresns</text>
+    </view>
+
+    <!-- Tabbar -->
+    <tabbar activeLabel="notifications"></tabbar>
+</view>

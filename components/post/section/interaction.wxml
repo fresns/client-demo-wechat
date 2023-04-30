@@ -1,0 +1,61 @@
+<!-- *
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
+    Licensed under the Apache-2.0 license
+* -->
+<view class="weui-flex">
+    <!-- 点赞 -->
+    <view class="weui-flex__item" wx:if="{{ post.interaction.likeSetting }}">
+        <view class="fs_btn" bind:tap="onClickPostLike">
+            <image wx:if="{{ ! post.interaction.likeStatus }}" src="{{ '/assets/interaction/content-like.png' }}" class="card-footer-icon" mode="aspectFit"></image>
+            <image wx:if="{{ post.interaction.likeStatus }}" src="{{ '/assets/interaction/content-like-active.png' }}" class="card-footer-icon" mode="aspectFit"></image>
+            <text wx:if="{{ post.likeCount }}" class="card-footer-text">{{ post.likeCount }}</text>
+        </view>
+    </view>
+
+    <!-- 点踩 -->
+    <view class="weui-flex__item" wx:if="{{ post.interaction.dislikeSetting }}">
+        <view class="fs_btn" bind:tap="onClickPostDislike">
+            <image wx:if="{{ ! post.interaction.dislikeStatus }}" src="{{ '/assets/interaction/content-dislike.png' }}" class="card-footer-icon" mode="aspectFit"></image>
+            <image wx:if="{{ post.interaction.dislikeStatus }}" src="{{ '/assets/interaction/content-dislike-active.png' }}" class="card-footer-icon" mode="aspectFit"></image>
+            <text wx:if="{{ post.dislikeCount }}" class="card-footer-text">{{ post.dislikeCount }}</text>
+        </view>
+    </view>
+
+    <!-- 评论 -->
+    <view class="weui-flex__item" wx:if="{{ type == 'list' }}">
+        <view class="fs_btn" bind:tap="onClickCreateComment">
+            <image src="{{ '/assets/interaction/content-comment.png' }}" class="card-footer-icon" mode="aspectFit"></image>
+            <text wx:if="{{ post.postCount }}" class="card-footer-text">{{ post.postCount }}</text>
+        </view>
+
+        <!-- 评论框 -->
+        <mp-half-screen-dialog show="{{ showCommentBox }}" maskClosable="{{ false }}" title="{{ title }}">
+            <view slot="desc">
+                <comment-box pid="{{ post.pid }}" cid="" />
+            </view>
+        </mp-half-screen-dialog>
+    </view>
+
+    <!-- 分享 -->
+    <view class="weui-flex__item">
+        <view class="fs_btn" bind:tap="onClickShare">
+            <image src="{{ '/assets/interaction/content-share.png' }}" class="card-footer-icon" mode="aspectFit"></image>
+        </view>
+    </view>
+
+    <view class="weui-flex__item"></view>
+
+    <!-- 更多 -->
+    <view class="item_more" data-post="{{ post }}" bind:tap="onClickContentMore">
+        <view class="fs_btn">
+            <image src="{{ '/assets/interaction/content-more.png' }}" class="card-footer-icon" mode="aspectFit"></image>
+        </view>
+    </view>
+
+    <!-- 分享菜单 -->
+    <mp-actionSheet show="{{ showShareActionSheet }}" actions="{{ shareActionGroups }}" title="{{ title }}" bindactiontap="actionClickShare"/>
+
+    <!-- 更多菜单 -->
+    <mp-actionSheet show="{{ showActionSheet }}" actions="{{ actionGroups }}" title="{{ title }}" bindactiontap="actionClickMore"/>
+</view>

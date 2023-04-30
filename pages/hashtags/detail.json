@@ -1,7 +1,9 @@
 {
-  "navigationBarTitleText": "话题名",
+  "navigationBarTitleText": "话题",
+  "enablePullDownRefresh": true,
   "usingComponents": {
-    "post": "/components/post/list",
-    "list": "/components/post/content-list"
+    "interaction": "/components/hashtag/interaction",
+    "loading": "/components/loading/loading",
+    "post": "/components/post/post"
   }
 }

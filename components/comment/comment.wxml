@@ -1,0 +1,57 @@
+<!-- *
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
+    Licensed under the Apache-2.0 license
+* -->
+<view class="card">
+    <view class="card-header">
+        <!-- 用户信息 -->
+        <creator creator="{{ comment.creator }}" isAnonymous="{{ comment.isAnonymous }}" createTimeFormat="{{ comment.createTimeFormat }}" location="{{ comment.location }}"></creator>
+    </view>
+
+    <!-- 评论回复: 对方的文本 -->
+    <view class="reply-to-comment {{ (type == 'list') ? 'list-style' : '' }}" wx:if="{{ comment.replyToComment }}">
+        <reply-to-comment comment="{{ comment.replyToComment }}"></reply-to-comment>
+    </view>
+
+    <view class="card-body {{ (type == 'list') ? 'list-style' : '' }}" bind:tap="onClickToDetail">
+        <!-- 评论内容 -->
+        <view class="fresns-content">
+            <view class="content-text">
+                <mp-html content="{{ commentContent }}" markdown="{{ comment.isMarkdown }}" lazy-load="true" />
+            </view>
+
+            <view class="content-brief" wx:if="{{ type == 'list' && comment.isBrief }}">
+                <navigator class="navigator-inline" url="/pages/comments/detail?cid={{ comment.cid }}">全文</navigator>
+            </view>
+        </view>
+
+        <!-- 附件文件 -->
+        <files files="{{ comment.files }}" fileCount="{{ comment.fileCount }}"/>
+
+        <!-- 评论预览 -->
+        <view wx:if="{{ comment.subComments.length > 0 }}">
+            <navigator class="sub-comments" url="/pages/comments/detail?cid={{ comment.cid }}">
+                <view class="preview-list" wx:for="{{ comment.subComments }}" wx:for-item="subComment" wx:key="cid">
+                    <view class="preview-list-nickname">
+                        <text wx:if="{{ ! subComment.creator.status }}">{{ creatorDeactivate }}</text>
+                        <text wx:elif="{{ subComment.isAnonymous }}">{{ creatorAnonymous }}</text>
+                        <navigator wx:else class="navigator-inline" url="{{ userHomePath + subComment.creator.fsid }}">{{ subComment.creator.nickname }}</navigator>:
+                    </view>
+                    <rich-text nodes="{{ subComment.content }}" class="weui-flex__item" />
+                </view>
+                <view class="preview-count">共 {{ comment.commentCount }} 条回复</view>
+            </navigator>
+        </view>
+    </view>
+
+    <!-- 功能按钮 -->
+    <view class="card-footer {{ (type == 'list') ? 'list-style' : '' }}">
+        <interaction type="{{ type }}" comment="{{ comment }}"></interaction>
+    </view>
+
+    <!-- 所属帖子 -->
+    <view class="reply-to-post {{ (type == 'list') ? 'list-style' : '' }}" wx:if="{{ comment.replyToPost.creator }}">
+        <reply-to-post post="{{ comment.replyToPost }}"></reply-to-post>
+    </view>
+</view>

@@ -1,0 +1,33 @@
+{
+  "miniModuleId": "wx83fdce093d15146c",
+  "name": "Fresns",
+  "icon": "assets/images/icon.png",
+  "mini-android": {
+    "useProjectTemplate": true,
+    "projectPath": "miniapp/android",
+    "archivePath": "app/src/main/assets/SaaA_embed/wx83fdce093d15146c",
+    "buildArchiveEverytime": true,
+    "runArgs": {
+      "mainActivity": ".ui.MainActivity",
+      "variant": "ArmDebug"
+    },
+    "buildArgs": {
+      "variant": "ArmRelease"
+    }
+  },
+  "mini-ios": {
+    "useProjectTemplate": true,
+    "projectPath": "miniapp/ios",
+    "archivePath": "demo/Kernel/MiniApp.bundle/Saaa/wx83fdce093d15146c",
+    "buildArchiveEverytime": true,
+    "runArgs": {
+      "scheme": "miniapp-demo"
+    },
+    "buildArgs": {
+      "scheme": "miniapp-demo",
+      "exportOptionPlistPath": ""
+    }
+  },
+  "version": "2.0.0",
+  "description": "一套完整的社交社区产品解决方案，覆盖网页、小程序、iOS、Android 等各端，全端免费开源、自由使用。"
+}

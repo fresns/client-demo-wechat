@@ -1,87 +1,30 @@
-<wxs module="util" src="/util/interactive.wxs"></wxs>
-
-<block>
-    <view class="weui-flex tab-navbar weui-navbar">
-        <view class="weui-flex__item weui-navbar__item">
-            <view class="profile-tab-text">TA 点赞的</view>
-        </view>
-        <view class="weui-flex__item weui-navbar__item {{curRoute === 'pages/profile/likes/users' ? 'weui-navbar__item_on': ''}}">
-            <navigator url="/pages/profile/likes/users?uid={{user.uid}}" open-type="redirect">用户</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item {{curRoute === 'pages/profile/likes/groups' ? 'weui-navbar__item_on': ''}}">
-            <navigator url="/pages/profile/likes/groups?uid={{user.uid}}" open-type="redirect">小组</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item {{curRoute === 'pages/profile/likes/hashtags' ? 'weui-navbar__item_on': ''}}">
-            <navigator url="/pages/profile/likes/hashtags?uid={{user.uid}}" open-type="redirect">话题</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item {{curRoute === 'pages/profile/likes/posts' ? 'weui-navbar__item_on': ''}}">
-            <navigator url="/pages/profile/likes/posts?uid={{user.uid}}" open-type="redirect">帖子</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item {{curRoute === 'pages/profile/likes/comments' ? 'weui-navbar__item_on': ''}}">
-            <navigator url="/pages/profile/likes/comments?uid={{user.uid}}" open-type="redirect">评论</navigator>
-        </view>
+<!-- *
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
+    Licensed under the Apache-2.0 license
+* -->
+<view class="weui-flex tab-navbar weui-navbar">
+    <view class="weui-flex__item weui-navbar__item" bind:tap="onClickToPosts">
+        <view class="profile-tab-text">帖子</view>
     </view>
-
-    <view class="weui-flex tab-navbar weui-navbar">
-        <view class="weui-flex__item weui-navbar__item">
-            <view class="profile-tab-text">TA 关注的</view>
-        </view>
-        <view class="weui-flex__item weui-navbar__item {{curRoute === 'pages/profile/following/users' ? 'weui-navbar__item_on': ''}}">
-            <navigator url="/pages/profile/following/users?uid={{user.uid}}" open-type="redirect">用户</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item {{curRoute === 'pages/profile/following/groups' ? 'weui-navbar__item_on': ''}}">
-            <navigator url="/pages/profile/following/groups?uid={{user.uid}}" open-type="redirect">小组</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item {{curRoute === 'pages/profile/following/hashtags' ? 'weui-navbar__item_on': ''}}">
-            <navigator url="/pages/profile/following/hashtags?uid={{user.uid}}" open-type="redirect">话题</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item {{curRoute === 'pages/profile/following/posts' ? 'weui-navbar__item_on': ''}}">
-            <navigator url="/pages/profile/following/posts?uid={{user.uid}}" open-type="redirect">帖子</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item {{curRoute === 'pages/profile/following/comments' ? 'weui-navbar__item_on': ''}}">
-            <navigator url="/pages/profile/following/comments?uid={{user.uid}}" open-type="redirect">评论</navigator>
-        </view>
+    <view class="weui-flex__item weui-navbar__item" bind:tap="onClickToComments">
+        <view class="profile-tab-text">评论</view>
     </view>
-
-    <view class="weui-flex tab-navbar weui-navbar">
-        <view class="weui-flex__item weui-navbar__item">
-            <view class="profile-tab-text">TA 屏蔽的</view>
-        </view>
-        <view class="weui-flex__item weui-navbar__item {{curRoute === 'pages/profile/blocking/users' ? 'weui-navbar__item_on': ''}}">
-            <navigator url="/pages/profile/blocking/users?uid={{user.uid}}" open-type="redirect">用户</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item {{curRoute === 'pages/profile/blocking/groups' ? 'weui-navbar__item_on': ''}}">
-            <navigator url="/pages/profile/blocking/groups?uid={{user.uid}}" open-type="redirect">小组</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item {{curRoute === 'pages/profile/blocking/hashtags' ? 'weui-navbar__item_on': ''}}">
-            <navigator url="/pages/profile/blocking/hashtags?uid={{user.uid}}" open-type="redirect">话题</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item {{curRoute === 'pages/profile/blocking/posts' ? 'weui-navbar__item_on': ''}}">
-            <navigator url="/pages/profile/blocking/posts?uid={{user.uid}}" open-type="redirect">帖子</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item {{curRoute === 'pages/profile/blocking/comments' ? 'weui-navbar__item_on': ''}}">
-            <navigator url="/pages/profile/blocking/comments?uid={{user.uid}}" open-type="redirect">评论</navigator>
-        </view>
+    <view class="weui-flex__item weui-navbar__item" bind:tap="onClickInteractions">
+        <view class="profile-tab-text">互动 ▿</view>
     </view>
-
-    <view class="weui-flex tab-navbar weui-navbar">
-        <view class="weui-flex__item weui-navbar__item {{curRoute === 'pages/profile/index' ? 'weui-navbar__item_on': ''}}">
-            <navigator url="/pages/profile/index?uid={{user.uid}}" open-type="redirect">主页</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item {{curRoute === 'pages/profile/posts' ? 'weui-navbar__item_on': ''}}">
-            <navigator url="/pages/profile/posts?uid={{user.uid}}" open-type="redirect">帖子</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item {{curRoute === 'pages/profile/comments' ? 'weui-navbar__item_on': ''}}">
-            <navigator url="/pages/profile/comments?uid={{user.uid}}" open-type="redirect">评论</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item {{curRoute === 'pages/profile/likers' ? 'weui-navbar__item_on': ''}}">
-            <navigator url="/pages/profile/likers?uid={{user.uid}}" open-type="redirect">点赞 TA</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item {{curRoute === 'pages/profile/followers' ? 'weui-navbar__item_on': ''}}">
-            <navigator url="/pages/profile/followers?uid={{user.uid}}" open-type="redirect">关注 TA</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item {{curRoute === 'pages/profile/blockers' ? 'weui-navbar__item_on': ''}}">
-            <navigator url="/pages/profile/blockers?uid={{user.uid}}" open-type="redirect">屏蔽 TA</navigator>
-        </view>
+    <view class="weui-flex__item weui-navbar__item" bind:tap="onClickLikes">
+        <view class="profile-tab-text">赞 ▿</view>
     </view>
-</block>
+    <view class="weui-flex__item weui-navbar__item" bind:tap="onClickDislikes">
+        <view class="profile-tab-text">踩 ▿</view>
+    </view>
+    <view class="weui-flex__item weui-navbar__item" bind:tap="onClickFollowing">
+        <view class="profile-tab-text">关注 ▿</view>
+    </view>
+    <view class="weui-flex__item weui-navbar__item" bind:tap="onClickBlocking">
+        <view class="profile-tab-text">屏蔽 ▿</view>
+    </view>
+</view>
+
+<mp-actionSheet bindactiontap="btnClick" show="{{ showActionSheet }}" actions="{{ groups }}" title="{{ title }}"/>

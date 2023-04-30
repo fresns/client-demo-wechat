@@ -1,52 +1,14 @@
 <!-- *
-    Fresns 微信小程序 (https://fresns.org)
-    Copyright 2021-Present Jarvis Tang
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
     Licensed under the Apache-2.0 license
 * -->
-<page-meta root-font-size="system" />
-<view class="page" data-weui-theme="{{theme}}">
-    <tabs tabs="{{tabs}}" activeTab="{{activeTab}}" swiperClass="weui-tabs-swiper" activeClass="tab-bar-title__selected" bindtabclick="onTabChange" bindchange="onTabChange">
-        <block wx:for="{{tabs}}" wx:key="title">
-            <view class="tab-content" slot="tab-content-{{index}}">
-                <view class="weui-search-bar {{inputFocus ? 'weui-search-bar_focusing' : ''}}" id="searchBar-{{index}}">
-                    <form class="weui-search-bar__form">
-                        <view class="weui-search-bar__box">
-                            <i class="weui-icon-search"></i>
-                            <input type="text" class="weui-search-bar__input" placeholder="搜索{{item.title}}" value="{{inputVal}}" focus="{{inputFocus}}" bindinput="inputTyping" />
-                            <span class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput"></span>
-                        </view>
-                        <label class="weui-search-bar__label" bindtap="showInput">
-                            <i class="weui-icon-search"></i>
-                            <span class="weui-search-bar__text">搜索{{item.title}}</span>
-                        </label>
-                    </form>
-                    <view class="weui-search-bar__cancel-btn" bindtap="hideInput">取消</view>
-                </view>
-            </view>
-        </block>
-    </tabs>
-    <!-- 输入提示 -->
-    <view class="weui-cells searchbar-result" wx:if="{{inputVal.length > 0}}">
-        <view class="weui-cell weui-cell_active weui-cell_access">
-            <view class="weui-cell__bd weui-cell_primary">
-                <view>实时搜索文本</view>
-            </view>
-        </view>
-        <view class="weui-cell weui-cell_active weui-cell_access">
-            <view class="weui-cell__bd weui-cell_primary">
-                <view>实时搜索文本</view>
-            </view>
-        </view>
-        <view class="weui-cell weui-cell_active weui-cell_access">
-            <view class="weui-cell__bd weui-cell_primary">
-                <view>实时搜索文本</view>
-            </view>
-        </view>
+<view class="page" data-weui-theme="{{ theme }}">
+    <view  class="tip">
+        待开发
     </view>
-    <!-- 搜索结果 -->
-    <view class="search-list">
-        <post generic:contentType="post-list" fsui="list-style"></post>
-        <post generic:contentType="post-list" fsui="list-style"></post>
+
+    <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
+        <text class="weui-loadmore__tips">Powered by Fresns</text>
     </view>
-    <view class="copyright">Powered by Fresns</view>
 </view>

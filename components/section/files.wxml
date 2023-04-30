@@ -1,0 +1,48 @@
+<!-- *
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
+    Licensed under the Apache-2.0 license
+* -->
+<!-- 图片 -->
+<view class="content-files" wx:if="{{ fileCount.images > 0 }}">
+    <view class="file-image-{{ fileCount.images }}" wx:if="{{ fileCount.images === 1 }}">
+        <block wx:for="{{ files.images }}" wx:for-item="fileItem" wx:key="imageRatioUrl">
+            <image src="{{ fileItem.imageRatioUrl }}" data-url="{{ fileItem.imageBigUrl }}" mode="widthFix" catch:tap="previewImages"></image>
+        </block>
+    </view>
+    <view class="file-image-{{ fileCount.images }}" wx:if="{{ fileCount.images > 1 }}">
+        <block wx:for="{{ files.images }}" wx:for-item="fileItem" wx:key="imageSquareUrl">
+            <image src="{{ fileItem.imageSquareUrl }}" data-url="{{ fileItem.imageBigUrl }}" mode="widthFix" catch:tap="previewImages"></image>
+        </block>
+    </view>
+</view>
+
+<!-- 视频 -->
+<view class="content-files" wx:if="{{ fileCount.videos > 0 }}">
+    <block wx:for="{{ files.videos }}" wx:for-item="fileItem" wx:key="videoUrl">
+        <view class="file-video">
+            <video src="{{ fileItem.videoUrl }}" controls poster="{{ fileItem.videoPosterUrl }}" play-btn-position="center" catch:tap="handleFileTap"></video>
+        </view>
+    </block>
+</view>
+
+<!-- 音频 -->
+<view class="content-files" wx:if="{{ fileCount.audios > 0 }}">
+    <block wx:for="{{ files.audios }}" wx:for-item="fileItem" wx:key="audioUrl">
+        <view class="file-audio">
+            <audio name="{{ fileItem.name }}" src="{{ fileItem.audioUrl }}" controls loop catch:tap="handleFileTap"></audio>
+        </view>
+    </block>
+</view>
+
+<!-- 文档 -->
+<view class="content-files" wx:if="{{ fileCount.documents > 0 }}">
+    <block wx:for="{{ files.documents }}" wx:for-item="fileItem" wx:key="name" catch:tap="downloadFile">
+        <view class="file-document">
+            <view class="doc-icon">
+                <image src="/assets/images/file.png" class="weui-btn_cell__icon" mode="aspectFit"></image>
+            </view>
+            <view class="doc-name">{{ fileItem.name }}</view>
+        </view>
+    </block>
+</view>

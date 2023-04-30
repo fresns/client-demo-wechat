@@ -1,57 +1,120 @@
 /*!
- * Fresns 微信小程序 (https://fresns.org)
- * Copyright 2021-Present Jarvis Tang
+ * Fresns 微信小程序 (https://fresns.cn)
+ * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import Api from '../../api/api';
-import { globalInfo } from '../../configs/fresnsGlobalInfo';
+import { fresnsLogin } from '../../utils/fresnsLogin';
+import { fresnsConfig, fresnsLang, fresnsAccount, fresnsUser, fresnsUserPanel } from '../../api/tool/function';
+import { globalInfo } from '../../utils/fresnsGlobalInfo';
 
 Page({
-    mixins: [require('../../mixin/themeChanged'), require('../../mixin/loginInterceptor')],
-    data: {
-        user: null,
-        loginUser: null,
-        loginUserCommon: null,
-        languageDialog: false,
-    },
-    onLoad: async function (options) {
-        await this.loadUserInfo();
-    },
-    loadUserInfo: async function () {
-        await globalInfo.awaitLogin();
-        const [accountDetailRes, userDetailRes] = await Promise.all([
-            Api.account.userDetail(),
-            Api.user.userDetail({
-                viewUid: globalInfo.uid,
-            }),
-        ]);
-        if (accountDetailRes.code === 0 && userDetailRes.code === 0) {
-            this.setData({
-                account: accountDetailRes.data,
-                loginUser: userDetailRes.data.detail,
-                loginUserCommon: userDetailRes.data.common,
-            });
+  /** 外部 mixin 引入 **/
+  mixins: [
+    require('../../mixins/themeChanged'),
+  ],
+
+  /** 页面的初始数据 **/
+  data: {
+    accountLogin: false,
+    userLogin: false,
+
+    showLangActionSheet: false,
+    langGroups: [],
+
+    fresnsConfig: null,
+    fresnsLang: null,
+    fresnsAccount: null,
+    fresnsUser: null,
+    fresnsUserPanel: null,
+
+    showLogoutDialog: false,
+    loginButtons: [],
+  },
+
+  /** 监听页面加载 **/
+  onLoad: async function () {
+    wx.setNavigationBarTitle({
+      title: await fresnsConfig('menu_account'),
+    });
+
+    const langArr = await fresnsConfig('language_menus');
+
+    const langGroups = langArr.filter(item => item.isEnable).map(item => {
+      let text = item.langName
+      if (item.areaName) {
+        text = item.langName + ' (' + item.areaName + ')'
+      }
+
+      const newItem = {
+        text: text,
+        value: item.langTag
+      };
+
+      if (item.langTag === globalInfo.langTag) {
+        newItem.type = 'warn';
+      }
+
+      return newItem;
+    });
+
+    this.setData({
+      accountLogin: globalInfo.accountLogin,
+      userLogin: globalInfo.userLogin,
+      fresnsConfig: await fresnsConfig(),
+      fresnsLang: await fresnsConfig('language_pack_contents'),
+      fresnsAccount: await fresnsAccount('detail'),
+      fresnsUser: await fresnsUser('detail'),
+      fresnsUserPanel: await fresnsUserPanel(),
+      langGroups: langGroups,
+      loginButtons: [
+        {
+          text: await fresnsLang('cancel'),
+        },
+        {
+          text: await fresnsLang('confirm'),
+          extClass: 'warn',
         }
-    },
-    showLanguageDialog: function () {
-        this.setData({
-            languageDialog: true,
-        });
-    },
-    hideLanguageDialog: function () {
-        this.setData({
-            languageDialog: false,
-        });
-    },
-    selectLanguage: async function () {},
-    onClickLogout: async function () {
-        await globalInfo.logout();
-    },
-    /**
-     * 下拉刷新
-     */
-    onPullDownRefresh: async function () {
-        await this.loadUserInfo();
-        wx.stopPullDownRefresh();
-    },
+      ],
+    })
+  },
+
+  /** 切换语言菜单 **/
+  showLanguageSheet: function(e) {
+    this.setData({
+      showLangActionSheet: true,
+    })
+  },
+
+  /** 切换语言操作 **/
+  langBtnClick: function (e) {
+    wx.setStorageSync('langTag', e.detail.value);
+
+    this.setData({
+      showLangActionSheet: false,
+    });
+
+    wx.redirectTo({
+      url: '/pages/account/index',
+    });
+  },
+
+  /** 退出登录 **/
+  onClickLogout: function () {
+    this.setData({
+      showLogoutDialog: true,
+    });
+  },
+
+  /** 确认退出登录 **/
+  onConfirmLogout: async function (e) {
+    console.log(e);
+
+    if (e.detail.index === 1) {
+      await fresnsLogin.logout();
+    }
+
+    this.setData({
+      showLogoutDialog: false,
+    });
+  },
 });

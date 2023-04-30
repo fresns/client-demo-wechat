@@ -1,7 +1,9 @@
 {
-  "navigationBarTitleText": "小组名",
+  "navigationBarTitleText": "小组",
+  "enablePullDownRefresh": true,
   "usingComponents": {
-    "post": "/components/post/list",
-    "list": "/components/post/content-list"
+    "interaction": "/components/group/interaction",
+    "loading": "/components/loading/loading",
+    "post": "/components/post/post"
   }
 }

@@ -1,168 +1,141 @@
 /*!
- * Fresns 微信小程序 (https://fresns.org)
- * Copyright 2021-Present Jarvis Tang
+ * Fresns 微信小程序 (https://fresns.cn)
+ * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-
-import Api from '../../api/api';
+import { fresnsApi } from '../../api/api';
+import { fresnsConfig } from '../../api/tool/function';
 
 Page({
-    mixins: [require('../../mixin/themeChanged')],
-    data: {
-        tabs: ['帖子草稿', '评论草稿'],
-        activeIndex: 0,
-        FileGallery: false,
+  /** 外部 mixin 引入 **/
+  mixins: [
+    require('../../mixins/themeChanged'),
+    require('../../mixins/checkSiteMode'),
+    require('../../mixins/loginInterceptor'),
+  ],
 
-        // 草稿+审核拒绝
-        postsStatusOne: {
-            posts: [],
-            page: 1,
-            isReachBottom: false,
-        },
-        // 审核中
-        // postsStatusTwo: {
-        //   posts: [],
-        //   page: 1,
-        //   isReachBottom: false,
-        // },
+  /** 页面的初始数据 **/
+  data: {
+    tabs: [],
+    activeIndex: 0,
+    // 当前页面数据
+    type: null,
+    posts: [],
+    comments: [],
+    // 下次请求时候的页码，初始值为 1
+    page: 1,
+    // 加载状态
+    loadingStatus: false,
+    loadingTipType: 'none',
+    isReachBottom: false,
+  },
 
-        // 草稿+审核拒绝
-        commentsStatusOne: {
-            comments: [],
-            page: 1,
-            isReachBottom: false,
-        },
-        // 审核中
-        // commentsStatusTwo: {
-        //   comments: [],
-        //   page: 1,
-        //   isReachBottom: false,
-        // },
-    },
-    onLoad: async function (options) {
-        await this.loadPosts();
-        await this.loadComments();
-    },
-    loadPosts: async function () {
-        const { postsStatusOne, postsStatusTwo } = this.data;
+  /** 监听页面加载 **/
+  onLoad: async function (options) {
+    wx.setNavigationBarTitle({
+      title: await fresnsConfig('menu_editor_drafts'),
+    });
 
-        const [
-            draftPostsOneRes,
-            // draftPostsTwoRes
-        ] = await Promise.all([
-            Api.editor.editorLists({
-                type: 1,
-                status: 1,
-                page: postsStatusOne.page,
-            }),
-            // Api.editor.editorLists({
-            //   type: 1,
-            //   status: 2,
-            //   page: postsStatusTwo.page,
-            // }),
-        ]);
+    const type = options.type || 'post';
 
-        if (
-            draftPostsOneRes.code === 0
-            // && draftPostsTwoRes.code === 0
-        ) {
-            this.setData({
-                postsStatusOne: {
-                    posts: postsStatusOne.posts.concat(draftPostsOneRes.data.list),
-                    page: postsStatusOne.page + 1,
-                    isReachBottom:
-                        draftPostsOneRes.data.pagination.current === draftPostsOneRes.data.pagination.lastPage,
-                },
-                // postsStatusTwo: {
-                //   posts: postsStatusTwo.posts.concat(draftPostsOneRes.data.list),
-                //   page: postsStatusTwo.page + 1,
-                //   isReachBottom: draftPostsTwoRes.data.pagination.current === draftPostsTwoRes.data.pagination.lastPage,
-                // },
-            });
+    this.setData({
+      type: type,
+      activeIndex: (type == 'post') ? 0 : 1,
+      tabs: [
+        await fresnsConfig('post_name'),
+        await fresnsConfig('comment_name'),
+      ],
+    });
+
+    await this.loadFresnsPageData()
+  },
+
+  // Tab 切换
+  tabClick: async function (e) {
+    console.log(e);
+    this.setData({
+      activeIndex: e.currentTarget.id,
+      type: e.currentTarget.id == 0 ? 'post' : 'comment',
+      posts: [],
+      comments: [],
+      page: 1,
+      loadingTipType: 'none',
+      isReachBottom: false,
+    })
+
+    await this.loadFresnsPageData()
+  },
+
+  /** 加载列表数据 **/
+  loadFresnsPageData: async function () {
+    if (this.data.isReachBottom) {
+      return
+    }
+
+    wx.showNavigationBarLoading();
+
+    this.setData({
+      loadingStatus: true,
+    })
+
+    const type = this.data.type
+
+    const resultRes = await fresnsApi.editor.editorDrafts({
+      type: type,
+      page: this.data.page,
+    })
+
+    if (resultRes.code === 0) {
+      const { paginate, list } = resultRes.data
+      const isReachBottom = paginate.currentPage === paginate.lastPage
+
+      let newPosts = [];
+      let newComments = [];
+      let tipType = 'none';
+
+      if (type === 'post') {
+        newPosts = this.data.posts.concat(list);
+        if (isReachBottom) {
+          tipType = newPosts.length > 0 ? 'page' : 'empty'
         }
-    },
-    loadComments: async function () {
-        const { commentsStatusOne, commentsStatusTwo } = this.data;
-
-        const [
-            draftCommentsOneRes,
-            // draftCommentsTwoRes
-        ] = await Promise.all([
-            Api.editor.editorLists({
-                type: 2,
-                status: 1,
-                page: commentsStatusOne.page,
-            }),
-            // Api.editor.editorLists({
-            //   type: 2,
-            //   status: 2,
-            //   page: commentsStatusTwo.page,
-            // }),
-        ]);
-
-        if (
-            draftCommentsOneRes.code === 0
-            // && draftCommentsTwoRes.code === 0
-        ) {
-            this.setData({
-                commentsStatusOne: {
-                    comments: commentsStatusOne.comments.concat(draftCommentsOneRes.data.list),
-                    page: commentsStatusOne.page + 1,
-                    isReachBottom:
-                        draftCommentsOneRes.data.pagination.current === draftCommentsOneRes.data.pagination.lastPage,
-                },
-                // commentsStatusTwo: {
-                //   comments: commentsStatusTwo.comments.concat(draftPostsOneRes.data.list),
-                //   page: commentsStatusTwo.page + 1,
-                //   isReachBottom: draftCommentsTwoRes.data.pagination.current === draftCommentsTwoRes.data.pagination.lastPage,
-                // },
-            });
+      } else {
+        newComments = this.data.comments.concat(list);
+        if (isReachBottom) {
+          tipType = newComments.length > 0 ? 'page' : 'empty'
         }
-    },
-    onReachBottom: async function () {
-        const { activeIndex, postsStatusOne, commentsStatusOne } = this.data;
+      }
 
-        if (activeIndex === 0) {
-            if (postsStatusOne.isReachBottom) {
-                return;
-            }
+      this.setData({
+        posts: newPosts,
+        comments: newComments,
+        loadingTipType: tipType,
+        isReachBottom: isReachBottom,
+      })
+    }
 
-            const res = await Api.editor.editorLists({
-                type: 1,
-                status: 1,
-                page: postsStatusOne.page,
-            });
-            this.setData({
-                postsStatusOne: {
-                    posts: postsStatusOne.posts.concat(res.data.list),
-                    page: postsStatusOne.page + 1,
-                    isReachBottom: res.data.pagination.current === res.data.pagination.lastPage,
-                },
-            });
-        }
+    this.setData({
+      loadingStatus: false,
+    })
 
-        if (activeIndex === 1) {
-            if (commentsStatusOne.isReachBottom) {
-                return;
-            }
+    wx.hideNavigationBarLoading();
+  },
 
-            const res = await Api.editor.editorLists({
-                type: 2,
-                status: 1,
-                page: commentsStatusOne.page,
-            });
-            this.setData({
-                commentsStatusOne: {
-                    comments: commentsStatusOne.comments.concat(res.data.list),
-                    page: commentsStatusOne.page + 1,
-                    isReachBottom: res.data.pagination.current === res.data.pagination.lastPage,
-                },
-            });
-        }
-    },
-    tabClick: function (e) {
-        this.setData({
-            activeIndex: e.currentTarget.id,
-        });
-    },
-});
+  /** 监听用户下拉动作 **/
+  onPullDownRefresh: async function () {
+    this.setData({
+      posts: [],
+      comments: [],
+      page: 1,
+      loadingTipType: 'none',
+      isReachBottom: false,
+    })
+
+    await this.loadFresnsPageData()
+    wx.stopPullDownRefresh()
+  },
+
+  /** 监听用户上拉触底 **/
+  onReachBottom: async function () {
+    await this.loadFresnsPageData()
+  },
+})

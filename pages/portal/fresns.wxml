@@ -1,0 +1,44 @@
+<!-- *
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
+    Licensed under the Apache-2.0 license
+* -->
+<view class="page" data-weui-theme="{{ theme }}">
+    <view class="page__hd">
+        <view class="page__logo">
+            <image src="https://cdn.fresns.cn/images/logo.png" mode="widthFix" alt="Fresns"></image>
+        </view>
+        <view class="page__title">认识 Fresns</view>
+        <view class="page__desc">Fresns 是一款免费开源的社交网络服务软件，专为跨平台而打造的通用型社区产品，支持灵活多样的内容形态，可以满足多种运营场景，符合时代潮流，更开放且更易于二次开发。</view>
+        <view class="page__desc">Fresns 没有私有库，无需商业授权，完全免费开源，自由使用。全端产品解决方案覆盖网站、小程序、iOS、Android 等各端，并且全部采用原生语言开发。</view>
+    </view>
+
+    <view class="page__bd page__bd_spacing">
+        <!-- 介绍开始 -->
+        <view class="weui-panel weui-panel_access">
+            <view class="weui-panel__ft">
+                <navigator class="weui-cell weui-cell_active weui-cell_access weui-cell_link weui_fs" url="/pages/webview?url=https://fresns.cn">
+                    <view class="weui-cell__bd">官网</view>
+                    <text class="weui-cell__ft">https://fresns.cn</text>
+                </navigator>
+            </view>
+            <view class="weui-panel__ft">
+                <view class="weui-cell weui-cell_active weui-cell_access weui-cell_link" bind:tap="tapCopyMP">
+                    <view class="weui-cell__bd">公众号</view>
+                    <text class="weui-cell__ft">FresnsCN</text>
+                </view>
+            </view>
+            <view class="weui-panel__ft">
+                <navigator class="weui-cell weui-cell_active weui-cell_access weui-cell_link" url="/pages/webview?url=https://fresns.cn">
+                    <view class="weui-cell__bd">当前版本</view>
+                    <text class="weui-cell__ft">v{{ version }}</text>
+                </navigator>
+            </view>
+        </view>
+        <!-- 介绍结束 -->
+    </view>
+
+    <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
+        <text class="weui-loadmore__tips">Powered by Fresns</text>
+    </view>
+</view>

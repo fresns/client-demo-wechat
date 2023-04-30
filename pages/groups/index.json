@@ -1,9 +1,11 @@
 {
-  "navigationBarTitleText": "小组",
+  "navigationBarTitleText": "小组主页",
+  "enablePullDownRefresh": true,
   "usingComponents": {
+    "mp-vtabs": "@miniprogram-component-plus/vtabs",
+    "mp-vtabs-content": "@miniprogram-component-plus/vtabs-content",
     "tabbar": "/components/tabbar/tabbar",
-    "mp-vtabs": "/components/weui/vtabs/index",
-    "mp-vtabs-content": "/components/weui/vtabs-content/index",
-    "group": "/components/group/list"
+    "loading": "/components/loading/loading",
+    "group": "/components/group/group"
   }
 }

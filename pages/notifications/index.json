@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "通知",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "tabbar": "/components/tabbar/tabbar",
+    "loading": "/components/loading/loading",
+    "notification": "/components/message/notification"
+  }
+}

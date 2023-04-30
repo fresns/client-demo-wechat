@@ -1,8 +1,7 @@
 {
   "navigationBarTitleText": "设置",
   "usingComponents": {
-    "mp-half-screen-dialog": "weui-miniprogram/half-screen-dialog/half-screen-dialog",
-    "date-time-picker": "/components/weui/date-time-picker/date-time-picker",
-    "mp-cell": "weui-miniprogram/cell/cell"
+    "mp-cell": "weui-miniprogram/cell/cell",
+    "mp-half-screen-dialog": "weui-miniprogram/half-screen-dialog/half-screen-dialog"
   }
 }

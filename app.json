@@ -1,76 +1,96 @@
 {
   "pages": [
     "pages/portal/index",
+    "pages/portal/fresns",
+    "pages/portal/policies",
 
     "pages/users/index",
     "pages/users/list",
-    "pages/users/follow",
     "pages/users/likes",
+    "pages/users/dislikes",
     "pages/users/following",
     "pages/users/blocking",
 
     "pages/groups/index",
     "pages/groups/list",
-    "pages/groups/follow",
     "pages/groups/likes",
+    "pages/groups/dislikes",
     "pages/groups/following",
     "pages/groups/blocking",
     "pages/groups/detail",
 
     "pages/hashtags/index",
     "pages/hashtags/list",
-    "pages/hashtags/follow",
     "pages/hashtags/likes",
+    "pages/hashtags/dislikes",
     "pages/hashtags/following",
     "pages/hashtags/blocking",
     "pages/hashtags/detail",
 
     "pages/posts/index",
     "pages/posts/list",
-    "pages/posts/follows",
+    "pages/posts/nearby",
+    "pages/posts/location",
     "pages/posts/likes",
+    "pages/posts/dislikes",
     "pages/posts/following",
     "pages/posts/blocking",
-    "pages/posts/position",
     "pages/posts/detail",
 
     "pages/comments/index",
     "pages/comments/list",
+    "pages/comments/nearby",
+    "pages/comments/location",
     "pages/comments/likes",
+    "pages/comments/dislikes",
     "pages/comments/following",
     "pages/comments/blocking",
     "pages/comments/detail",
 
+    "pages/follows/all-posts",
+    "pages/follows/all-comments",
+    "pages/follows/user-posts",
+    "pages/follows/user-comments",
+    "pages/follows/group-posts",
+    "pages/follows/group-comments",
+    "pages/follows/hashtag-posts",
+    "pages/follows/hashtag-comments",
+
+    "pages/notifications/index",
+
     "pages/messages/index",
-    "pages/messages/notify",
-    "pages/messages/dialog",
+    "pages/messages/conversation",
 
     "pages/search/index",
 
-    "pages/editor/index",
-    "pages/editor/query",
-    "pages/editor/draft-select",
     "pages/editor/draft-box",
+    "pages/editor/index",
 
     "pages/account/index",
     "pages/account/register",
     "pages/account/login",
-    "pages/account/reset",
+    "pages/account/reset-password",
     "pages/account/wallet",
     "pages/account/users",
     "pages/account/setting",
 
-    "pages/profile/index",
     "pages/profile/posts",
     "pages/profile/comments",
-    "pages/profile/likers",
-    "pages/profile/followers",
-    "pages/profile/blockers",
+    "pages/profile/interactions/followers-you-follow",
+    "pages/profile/interactions/likers",
+    "pages/profile/interactions/dislikers",
+    "pages/profile/interactions/followers",
+    "pages/profile/interactions/blockers",
     "pages/profile/likes/users",
     "pages/profile/likes/groups",
     "pages/profile/likes/hashtags",
     "pages/profile/likes/posts",
     "pages/profile/likes/comments",
+    "pages/profile/dislikes/users",
+    "pages/profile/dislikes/groups",
+    "pages/profile/dislikes/hashtags",
+    "pages/profile/dislikes/posts",
+    "pages/profile/dislikes/comments",
     "pages/profile/following/users",
     "pages/profile/following/groups",
     "pages/profile/following/hashtags",
@@ -82,8 +102,6 @@
     "pages/profile/blocking/posts",
     "pages/profile/blocking/comments",
 
-    "pages/about/fresns",
-    "pages/about/policies",
     "pages/webview"
   ],
   "window": {
@@ -99,13 +117,8 @@
   "sitemapLocation": "sitemap.json",
   "plugins": {
     "chooseLocation": {
-      "version": "1.0.9",
+      "version": "1.0.10",
       "provider": "wx76a9a06e5b4e693e"
-    }
-  },
-  "permission": {
-    "scope.userLocation": {
-      "desc": "你的位置信息将用于编辑器，可发表带位置信息的内容"
     }
   },
   "useExtendedLib": {

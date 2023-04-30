@@ -1,11 +1,9 @@
 <!-- *
-    Fresns 微信小程序 (https://fresns.org)
-    Copyright 2021-Present Jarvis Tang
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
     Licensed under the Apache-2.0 license
 * -->
-<page-meta root-font-size="system"/>
-<view class="page" data-weui-theme="{{theme}}">
-
+<view class="page" data-weui-theme="{{ theme }}">
     <view class="weui-flex tab-navbar weui-navbar">
         <view class="weui-flex__item weui-navbar__item">
             <navigator url="/pages/groups/index" open-type="redirect">主页</navigator>
@@ -14,10 +12,13 @@
             <navigator url="/pages/groups/list" open-type="redirect">列表</navigator>
         </view>
         <view class="weui-flex__item weui-navbar__item">
-            <navigator url="/pages/groups/follow" open-type="redirect">关注</navigator>
+            <navigator url="/pages/follows/group-posts" open-type="redirect">关注</navigator>
         </view>
         <view class="weui-flex__item weui-navbar__item">
-            <navigator url="/pages/groups/likes" open-type="redirect">我点赞</navigator>
+            <navigator url="/pages/groups/likes" open-type="redirect">我赞</navigator>
+        </view>
+        <view class="weui-flex__item weui-navbar__item">
+            <navigator url="/pages/groups/dislikes" open-type="redirect">我踩</navigator>
         </view>
         <view class="weui-flex__item weui-navbar__item">
             <navigator url="/pages/groups/following" open-type="redirect">我关注</navigator>
@@ -27,18 +28,20 @@
         </view>
     </view>
 
-    <!--小组列表-->
-    <view class="weui-panel weui-panel_access">
-        <view class="weui-panel__bd">
-            <view class="weui-panel__bd">
-                <group wx:for="{{groups}}"
-                       wx:for-item="group"
-                       wx:key="gid"
-                       group="{{group}}"></group>
-            </view>
+    <!-- 小组列表 -->
+    <view class="weui-media-box weui-media-box_small-appmsg">
+        <view class="weui-cells">
+            <group wx:for="{{ groups }}" wx:for-index="idx" wx:for-item="group" wx:key="gid" group="{{ group }}"></group>
         </view>
     </view>
 
-    <view class="copyright">Powered by Fresns</view>
-    <tabbar></tabbar>
+    <!-- 加载动效 -->
+    <loading status="{{ loadingStatus }}" tipType="{{ loadingTipType }}"></loading>
+
+    <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
+        <text class="weui-loadmore__tips">Powered by Fresns</text>
+    </view>
+
+    <!-- Tabbar -->
+    <tabbar activeLabel="groups"></tabbar>
 </view>

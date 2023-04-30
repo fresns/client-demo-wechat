@@ -1,0 +1,204 @@
+/*!
+ * Fresns 微信小程序 (https://fresns.cn)
+ * Copyright 2021-Present 唐杰
+ * Licensed under the Apache-2.0 license
+ */
+@import "/assets/styles/weui.wxss";
+
+.editor-extend-info {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.editor-extend-info .small-square {
+    position: relative;
+    background: #e9ecef;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.editor-extend-info .small-square .delete {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 30px;
+    height: 30px;
+    background: #ffff;
+}
+
+.editor-extend-info .small-square .cover {
+    width: 50px;
+    height: 50px;
+}
+
+.editor-extend-info .small-square .content {
+    padding: 0 12px;
+    font-size: 14px;
+    line-height: 1.15;
+    flex: 1;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.editor-extend-info .small-square .button {
+    padding-right: 14px;
+}
+
+
+.editor-extend-info .large-square {
+    position: relative;
+    background: #e9ecef;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.editor-extend-info .large-square .delete {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 30px;
+    height: 30px;
+    background: #ffff;
+}
+
+.editor-extend-info .large-square .cover {
+    width: 100px;
+    height: 100px;
+}
+
+.editor-extend-info .large-square .content {
+    padding: 0 12px;
+    font-size: 14px;
+    line-height: 1.15;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+}
+
+.editor-extend-info .large-square .content .content-text {
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.editor-extend-info .large-square .content .content-primary {
+
+}
+
+.editor-extend-info .large-square .content .content-secondary {
+
+}
+
+.editor-extend-info .large-square .button {
+    padding-right: 14px;
+}
+
+
+.editor-extend-info .horizon-square {
+    position: relative;
+    background: #e9ecef;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.editor-extend-info .horizon-square .delete {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 30px;
+    height: 30px;
+    background: #ffff;
+}
+
+.editor-extend-info .horizon-square .cover {
+    width: 90px;
+    height: 100px;
+}
+
+.editor-extend-info .horizon-square .content {
+    padding: 0 12px;
+    font-size: 14px;
+    line-height: 1.15;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+}
+
+.editor-extend-info .horizon-square .content .content-text {
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.editor-extend-info .horizon-square .content .content-primary {
+
+}
+
+.editor-extend-info .horizon-square .content .content-secondary {
+
+}
+
+.editor-extend-info .horizon-square .button {
+    padding-right: 14px;
+}
+
+
+.editor-extend-info .vertical-square {
+    position: relative;
+    background: #e9ecef;
+    width: 100%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.editor-extend-info .vertical-square .delete {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 30px;
+    height: 30px;
+    background: #ffff;
+}
+
+.editor-extend-info .vertical-square .cover {
+    width: 110px;
+    height: 70px;
+}
+
+.editor-extend-info .vertical-square .content {
+    padding: 0 12px;
+    font-size: 14px;
+    line-height: 1.15;
+    flex: 1;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.editor-extend-info .vertical-square .button {
+    padding-right: 14px;
+}

@@ -1,0 +1,46 @@
+<!-- *
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
+    Licensed under the Apache-2.0 license
+* -->
+<block wx:if="{{ userLogin }}">
+    <view class="weui-cells weui-cells_form">
+        <view class="weui-cell" hover-class="weui-cell_active">
+            <view class="weui-cell__bd">
+                <textarea class="weui-textarea" placeholder="{{ fsLang.content }}" placeholder-class="weui-input__placeholder" rows="3"></textarea>
+                <view aria-role="option" class="weui-textarea-counter"><span>0</span>/200</view>
+            </view>
+        </view>
+    </view>
+
+    <view class="fresns-toolbar">
+        <view class="tool" wx:if="{{ fresnsConfig.comment_editor_sticker }}" data-type="sticker" bind:tap="onClickToolBar">
+            <image src="../../../assets/toolbar/sticker.png" class="weui-tabbar__icon"></image>
+        </view>
+
+        <view class="tool" wx:if="{{ fresnsConfig.comment_editor_image }}" data-type="image" bind:tap="onClickToolBar">
+            <image src="../../../assets/toolbar/image.png" class="weui-tabbar__icon"></image>
+        </view>
+
+        <view class="tool" wx:if="{{ fresnsConfig.comment_editor_anonymous }}">
+            <label class="checkbox">
+                <checkbox-group bindchange="bindSwitchAnonymous">
+                    <checkbox value="anonymous" checked="{{ isEnableAnonymous }}" />
+                    {{ fsLang.anonymous }}
+                </checkbox-group>
+            </label>
+        </view>
+
+        <view class="submit">
+            <view class="weui-btn weui-btn_mini weui-btn_primary weui-wa-hotarea" bind:tap="onClickSubmit">
+                {{ fresnsConfig.publish_comment_name }}
+            </view>
+        </view>
+    </view>
+</block>
+
+<block wx:if="{{ !userLogin }}">
+    <navigator url="/pages/account/login" class="weui-btn weui-btn_primary">
+        {{ fsLang.accountLogin }}
+    </navigator>
+</block>

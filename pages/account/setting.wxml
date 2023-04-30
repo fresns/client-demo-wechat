@@ -1,50 +1,49 @@
 <!-- *
-    Fresns 微信小程序 (https://fresns.org)
-    Copyright 2021-Present Jarvis Tang
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
     Licensed under the Apache-2.0 license
 * -->
-<page-meta root-font-size="system" />
-<view class="page" data-weui-theme="{{theme}}">
+<view class="page" data-weui-theme="{{ theme }}">
     <view class="weui-cells__title">个人资料</view>
     <view class="weui-cells weui-cells_after-title">
-        <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="chooseImage">
-            <view class="weui-cell__bd fg-0">头像</view>
+        <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bind:tap="chooseImage">
+            <view class="weui-cell__bd">头像</view>
             <view class="weui-cell__ft weui-cell__ft_in-access">
                 <image src="{{ user.avatar }}" class="avatar-img" mode="scaleToFill"></image>
             </view>
         </view>
         <view bind:tap="showModifyDialog" data-value="{{ user.nickname }}" data-event="modifyNickname" data-title="昵称" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-            <view class="weui-cell__bd fg-0">昵称</view>
+            <view class="weui-cell__bd">昵称</view>
             <view class="weui-cell__ft weui-cell__ft_in-access">{{ user.nickname }}</view>
         </view>
         <view bind:tap="showModifyDialog" data-value="{{ user.username }}" data-event="modifyMName" data-title="用户名" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-            <view class="weui-cell__bd fg-0">用户名</view>
+            <view class="weui-cell__bd">用户名</view>
             <view class="weui-cell__ft weui-cell__ft_in-access">{{ user.username }}</view>
         </view>
         <view bind:tap="showModifyDialog" data-value="{{ user.bio }}" data-event="modifyBio" data-title="Bio" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-            <view class="weui-cell__bd fg-0">Bio</view>
+            <view class="weui-cell__bd">Bio</view>
             <view class="weui-cell__ft weui-cell__ft_in-access">{{ user.bio }}</view>
         </view>
         <picker bindchange="modifyGender" value="{{user.gender}}" range="{{genders}}">
             <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-                <view class="weui-cell__bd fg-0">性别</view>
+                <view class="weui-cell__bd">性别</view>
                 <view class="weui-cell__ft weui-cell__ft_in-access">
                     {{genders[user.gender]}}
                 </view>
             </view>
         </picker>
-        <date-time-picker mode="datetime" value="{{user.birthday}}" bindchange="modifyBirthday">
+        <picker mode="date" value="{{user.birthday}}" start="1950-01-01" end="2023-01-01" bindchange="modifyBirthday">
             <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-                <view class="weui-cell__bd fg-0">生日</view>
+                <view class="weui-cell__bd">生日</view>
                 <view class="weui-cell__ft weui-cell__ft_in-access">{{ user.birthday }}</view>
             </view>
-        </date-time-picker>
+        </picker>
     </view>
     <view class="weui-cells__title">偏好设置</view>
     <view class="weui-cells weui-cells_after-title">
         <picker bindchange="modifyDialogLimit" value="{{user.dialogLimit-1}}" range="{{dialogLimits}}">
             <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-                <view class="weui-cell__bd fg-0">会话设置</view>
+                <view class="weui-cell__bd">会话设置</view>
                 <view class="weui-cell__ft weui-cell__ft_in-access">
                     {{dialogLimits[user.dialogLimit-1]}}
                 </view>
@@ -52,13 +51,13 @@
         </picker>
         <picker bindchange="modifyTimezone" range="{{utc}}" value="{{utcIndex}}" range-key="{{'name'}}">
             <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-                <view class="weui-cell__bd fg-0">偏好时区</view>
+                <view class="weui-cell__bd">偏好时区</view>
                 <view class="weui-cell__ft weui-cell__ft_in-access">{{ utc[utcIndex].name}}</view>
             </view>
         </picker>
         <picker bindchange="modifyLanguage" range="{{languageMenus}}" value="{{languageMenusIndex}}" range-key="{{'langName'}}">
             <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-                <view class="weui-cell__bd fg-0">偏好语言</view>
+                <view class="weui-cell__bd">偏好语言</view>
                 <view class="weui-cell__ft weui-cell__ft_in-access">
                     {{languageMenus[languageMenusIndex].langName}}
                 </view>
@@ -68,26 +67,27 @@
     <view class="weui-cells__title">账号设置</view>
     <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_access" bind:tap="showModifyDialog" data-value="{{ user.phone }}" data-event="modifyUserPhone" data-title="手机号" hover-class="weui-cell_active">
-            <view class="weui-cell__bd fg-0">手机号</view>
+            <view class="weui-cell__bd">手机号</view>
             <view class="weui-cell__ft weui-cell__ft_in-access">{{ user.phone }}</view>
         </view>
         <view class="weui-cell weui-cell_access" bind:tap="showModifyDialog" data-value="{{ user.email }}" data-event="modifyUserEmail" data-title="邮箱" hover-class="weui-cell_active">
-            <view class="weui-cell__bd fg-0">邮箱</view>
+            <view class="weui-cell__bd">邮箱</view>
             <view class="weui-cell__ft weui-cell__ft_in-access">{{ user.email }}</view>
         </view>
         <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bind:tap="showModifyDialog" data-event="modifyUserLoginPassword" data-title="登录密码">
-            <view class="weui-cell__bd fg-0">登录密码</view>
+            <view class="weui-cell__bd">登录密码</view>
             <view class="weui-cell__ft weui-cell__ft_in-access">
                 {{ user.password ? "已设置" : "未设置" }}
             </view>
         </view>
         <view class="weui-cell weui-cell_access" bind:tap="showModifyDialog" data-event="modifyUserWalletPassword" data-title="钱包密码" hover-class="weui-cell_active">
-            <view class="weui-cell__bd fg-0">钱包密码</view>
+            <view class="weui-cell__bd">钱包密码</view>
             <view class="weui-cell__ft weui-cell__ft_in-access">
                 {{ user.wallet.password ? "已设置" : "未设置" }}
             </view>
         </view>
     </view>
+
     <!--half-screen-dialog-->
     <mp-half-screen-dialog show="{{ showModifyDialog }}" maskClosable="{{false}}" closabled="{{true}}" title="编辑{{ modifyDialogTitle }}">
         <view slot="desc">
@@ -347,5 +347,8 @@
             </button>
         </view>
     </mp-half-screen-dialog>
-    <view class="copyright">Powered by Fresns</view>
+
+    <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
+        <text class="weui-loadmore__tips">Powered by Fresns</text>
+    </view>
 </view>

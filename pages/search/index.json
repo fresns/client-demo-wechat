@@ -1,13 +1,11 @@
 {
   "navigationBarTitleText": "搜索",
   "usingComponents": {
-    "tabs": "/components/weui/tabs/index",
-    "user": "/components/user/list",
-    "group": "/components/group/list",
-    "hashtag": "/components/hashtag/list",
-    "post": "/components/post/list",
-    "post-list": "/components/post/content-list",
-    "comment": "/components/comment/list",
-    "comment-list": "/components/comment/content-list"
+    "loading": "/components/loading/loading",
+    "user": "/components/user/user",
+    "group": "/components/group/group",
+    "hashtag": "/components/hashtag/hashtag",
+    "post": "/components/post/post",
+    "comment": "/components/comment/comment"
   }
 }

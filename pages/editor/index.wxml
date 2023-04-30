@@ -1,50 +1,56 @@
 <!-- *
-    Fresns 微信小程序 (https://fresns.org)
-    Copyright 2021-Present Jarvis Tang
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
     Licensed under the Apache-2.0 license
 * -->
-<page-meta root-font-size="system" />
-<view class="page" data-weui-theme="{{theme}}" bind:tap="onClickEditor">
-    <editor-draft-selector wx:if="{{isShowDraftSelector}}" model:drafts="{{drafts}}" />
-    <view class="editor-form">
-        <view class="weui-cells">
-            <!-- 编辑器提示 -->
-            <editor-tips-global-limit wx:if="{{editorConfig.globalLimit.status}}" globalLimit="{{editorConfig.globalLimit}}" />
-            <editor-tips-role-limit wx:if="{{editorConfig.roleLimit.status}}" roleLimit="{{editorConfig.roleLimit}}" />
-            <editor-tips-edit-countdown wx:if="{{false}}" />
+<view class="page" data-weui-theme="{{ theme }}">
+    <!-- 提示条 -->
+    <mp-toptips msg="{{ tipError }}" type="error" show="{{ tipError }}" delay="{{ tipDelay }}"></mp-toptips>
+
+    <!-- 草稿选择器 -->
+    <editor-draft-selector wx:if="{{ draftSelector }}" options="{{ options }}"/>
+
+    <!-- 编辑器 -->
+    <block wx:if="{{ editorStatus }}">
+        <!-- 编辑器提示 -->
+        <editor-tip-publish wx:if="{{ editorConfig.publish.limit.status && editorConfig.publish.limit.isInTime }}" publish="{{ editorConfig.publish }}" />
+        <editor-tip-edit wx:if="{{ draftEdit.isEdit }}" editInfo="{{ draftEdit }}" />
+
+        <!-- 编辑器内容区 -->
+        <view class="editor-form">
             <!-- 编辑器输入项 -->
-            <editor-group wx:if="{{editorConfig.features.postGroup.status}}" value="{{currentDraft.gid}}" bindchange="onSelectGroup" />
-            <editor-title wx:if="{{isShowTitleInput && (editorConfig.toolbar.title.view === 1 || currentDraft.title)}}" defaultTitle="{{currentDraft.title}}" />
-            <view class="weui-cell weui-cell_active">
-                <view class="weui-cell__bd">
-                    <editor id="editor" bindinput="onEditorInput" class="weui-textarea" placeholder-class="weui-input__placeholder" placeholder="请输入内容"></editor>
-                    <view aria-role="option" title="字数统计" class="weui-textarea-counter">
-                        {{editorContentWordCount || 0}}/{{editorConfig.features.contentWordCount}}
+            <view class="weui-cells">
+                <editor-group wx:if="{{ editorConfig.editor.features.group.status }}" value="{{ draftDetail.group }}" config="{{ editorConfig.editor.features.group }}" />
+
+                <editor-title wx:if="{{ showTitleInput }}" value="{{ draftDetail.title }}" config="{{ editorConfig.editor.toolbar.title }}" />
+
+                <editor-content content="{{ draftDetail.content }}" contentLength="{{ editorConfig.editor.features.contentLength }}" mentionConfig="{{ editorConfig.editor.toolbar.mention }}" hashtagConfig="{{ editorConfig.editor.toolbar.hashtag }}"/>
+                <editor-mention wx:if="{{ editorConfig.editor.toolbar.mention.status }}" show="{{ showMentionDialog }}"/>
+                <editor-hashtag wx:if="{{ editorConfig.editor.toolbar.hashtag.status }}" show="{{ showHashtagDialog }}" config="{{ editorConfig.editor.toolbar.hashtag }}"/>
+
+                <view class="editor-features">
+                    <view class="float-left">
+                        <editor-location wx:if="{{ editorConfig.editor.features.location.status }}" location="{{ draftDetail.mapJson }}" config="{{ editorConfig.editor.features.location }}" />
+                    </view>
+                    <view class="float-end">
+                        <editor-anonymous wx:if="{{ editorConfig.editor.features.anonymous }}" isAnonymous="{{ draftDetail.isAnonymous }}" />
                     </view>
                 </view>
+
+                <editor-files files="{{ draftDetail.files }}"/>
             </view>
-            <view class="editor-features">
-                <view class="float-left">
-                    <editor-lbs wx:if="{{editorConfig.features.isLocation.status || currentDraft.location}}" location="{{currentDraft.location}}" />
-                </view>
-                <view class="float-end">
-                    <editor-anonymous wx:if="{{editorConfig.features.isAnonymous || currentDraft.isAnonymous === 1}}" isAnonymous="{{editorConfig.features.isAnonymous}}" />
-                </view>
-            </view>
-            <editor-file wx:if="{{currentDraft.files.length > 0}}" files="{{ currentDraft.files }}" />
-            <!-- <editor-extend-text />
-            <editor-extend-info />
-            <editor-allow />
-            <editor-users />
-            <editor-comment-btn /> -->
-        </view>
-        <!-- 发表按钮 -->
-        <view class="weui-form__opr-area" style="margin-top:60px;">
-            <view class="weui-btn weui-btn_primary" aria-role="button" bind:tap="submitDraft">
-                提交发表
+
+            <!-- 发表按钮 -->
+            <view class="weui-form__opr-area" style="margin-top:30px;">
+                <view class="weui-btn weui-btn_primary" aria-role="button" bind:tap="submitDraft">提交发表</view>
             </view>
         </view>
+
+        <!-- 编辑器工具栏 -->
+        <editor-toolbar type="{{ type }}" draftId="{{ draftDetail.id }}" config="{{ editorConfig.editor.toolbar }}" bottom="{{ toolbarBottom }}" />
+    </block>
+
+    <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
+        <text class="weui-loadmore__tips">Powered by Fresns</text>
     </view>
-    <editor-toolbar id="editor-toolbar" tableId="{{currentDraft.id}}" editorConfig="{{editorConfig}}" />
-    <view class="copyright">Powered by Fresns</view>
 </view>

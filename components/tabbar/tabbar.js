@@ -1,107 +1,148 @@
 /*!
- * Fresns 微信小程序 (https://fresns.org)
- * Copyright 2021-Present Jarvis Tang
+ * Fresns 微信小程序 (https://fresns.cn)
+ * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import Api from '../../api/api';
-import { globalInfo } from '../../configs/fresnsGlobalInfo';
+import { globalInfo } from '../../utils/fresnsGlobalInfo';
+import { fresnsConfig, fresnsUserPanel } from '../../api/tool/function';
 
 Component({
-    properties: {
-        activeLabel: String,
-    },
+  /** 组件的属性列表 **/
+  properties: {
+    activeLabel: String,
+  },
 
-    /**
-     * 组件的初始数据
-     */
-    data: {
-        tabs: [
-            {
-                label: 'portal',
-                text: '门户',
-                route: '/pages/portal/index',
-                iconPath: 'https://cdn.fresns.cn/configs/tabbar/default_home.png',
-                selectedIconPath: 'https://cdn.fresns.cn/configs/tabbar/default_home_active.png',
-            },
-            {
-                label: 'user',
-                text: '用户',
-                route: '/pages/users/index',
-                iconPath: 'https://cdn.fresns.cn/configs/tabbar/default_user.png',
-                selectedIconPath: 'https://cdn.fresns.cn/configs/tabbar/default_user_active.png',
-            },
-            {
-                label: 'group',
-                text: '小组',
-                route: '/pages/groups/index',
-                iconPath: 'https://cdn.fresns.cn/configs/tabbar/default_group.png',
-                selectedIconPath: 'https://cdn.fresns.cn/configs/tabbar/default_group_active.png',
-            },
-            {
-                label: 'hashtags',
-                text: '话题',
-                route: '/pages/hashtags/index',
-                iconPath: 'https://cdn.fresns.cn/configs/tabbar/default_hashtag.png',
-                selectedIconPath: 'https://cdn.fresns.cn/configs/tabbar/default_hashtag_active.png',
-            },
-            {
-                label: 'post',
-                text: '帖子',
-                route: '/pages/posts/index',
-                iconPath: 'https://cdn.fresns.cn/configs/tabbar/default_post.png',
-                selectedIconPath: 'https://cdn.fresns.cn/configs/tabbar/default_post_active.png',
-            },
-            {
-                label: 'comment',
-                text: '评论',
-                route: '/pages/comments/index',
-                iconPath: 'https://cdn.fresns.cn/configs/tabbar/default_comment.png',
-                selectedIconPath: 'https://cdn.fresns.cn/configs/tabbar/default_comment_active.png',
-            },
-            {
-                label: 'message',
-                text: '消息',
-                route: '/pages/messages/index',
-                iconPath: 'https://cdn.fresns.cn/configs/tabbar/default_message.png',
-                selectedIconPath: 'https://cdn.fresns.cn/configs/tabbar/default_message_active.png',
-            },
-            {
-                label: 'account',
-                text: '我',
-                route: '/pages/account/index',
-                iconPath: 'https://cdn.fresns.cn/configs/tabbar/default_account.png',
-                selectedIconPath: 'https://cdn.fresns.cn/configs/tabbar/default_account_active.png',
-            },
-        ],
-    },
-    lifetimes: {
-        attached: async function () {
-            if (!globalInfo.isLogin()) {
-                return;
-            }
+  /** 组件的初始数据 **/
+  data: {
+    tabs: [
+      {
+        label: "portal",
+        text: "门户",
+        textKey: "menu_portal_name",
+        pagePath: "/pages/portal/index",
+        iconPath: "/assets/tabbar/home.png",
+        selectedIconPath: "/assets/tabbar/home-active.png",
+      },
+      {
+        label: "users",
+        text: "用户",
+        textKey: "menu_user_name",
+        pagePath: "/pages/users/index",
+        iconPath: "/assets/tabbar/users.png",
+        selectedIconPath: "/assets/tabbar/users-active.png",
+      },
+      {
+        label: "groups",
+        text: "小组",
+        textKey: "menu_group_name",
+        pagePath: "/pages/groups/index",
+        iconPath: "/assets/tabbar/groups.png",
+        selectedIconPath: "/assets/tabbar/groups-active.png",
+      },
+      {
+        label: "hashtags",
+        text: "话题",
+        textKey: "menu_hashtag_name",
+        pagePath: "/pages/hashtags/index",
+        iconPath: "/assets/tabbar/hashtags.png",
+        selectedIconPath: "/assets/tabbar/hashtags-active.png",
+      },
+      {
+        label: "posts",
+        text: "帖子",
+        textKey: "menu_post_name",
+        pagePath: "/pages/posts/index",
+        iconPath: "/assets/tabbar/posts.png",
+        selectedIconPath: "/assets/tabbar/posts-active.png",
+      },
+      {
+        label: "comments",
+        text: "评论",
+        textKey: "menu_comment_name",
+        pagePath: "/pages/comments/index",
+        iconPath: "/assets/tabbar/comments.png",
+        selectedIconPath: "/assets/tabbar/comments-active.png",
+      },
+      {
+        label: "notifications",
+        text: "消息",
+        textKey: "menu_notifications",
+        pagePath: "/pages/notifications/index",
+        iconPath: "/assets/tabbar/notifications.png",
+        selectedIconPath: "/assets/tabbar/notifications-active.png",
+        badge: 0,
+      },
+      {
+        label: "messages",
+        text: "私信",
+        textKey: "menu_conversations",
+        pagePath: "/pages/messages/index",
+        iconPath: "/assets/tabbar/messages.png",
+        selectedIconPath: "/assets/tabbar/messages-active.png",
+        badge: 0,
+      },
+      {
+        label: "account",
+        text: "我",
+        textKey: "menu_account",
+        pagePath: "/pages/account/index",
+        iconPath: "/assets/tabbar/account.png",
+        selectedIconPath: "/assets/tabbar/account-active.png",
+      },
+    ],
+    current: null,
+  },
 
-            const infoOverviewRes = await Api.info.infoOverview();
-            if (infoOverviewRes.code === 0) {
-                const { tabs } = this.data;
-                tabs.forEach((tab) => {
-                    if (tab.text === '消息') {
-                        const notifyUnread = infoOverviewRes.data.notifyUnread;
-                        let res = 0;
-                        Object.getOwnPropertyNames(notifyUnread).forEach((key) => {
-                            res += notifyUnread[key];
-                        });
-                        tab.badge = res;
-                    }
-                });
+  /** 组件功能 **/
+  methods: {
+    onChange(e) {
+      wx.reLaunch({
+        url: e.detail.item.pagePath,
+      });
 
-                this.setData({
-                    tabs: this.data.tabs,
-                });
-            }
-        },
+      this.setData({
+        current: e.detail.index,
+      });
     },
-    /**
-     * 组件的方法列表
-     */
-    methods: {},
+  },
+
+  /** 组件生命周期声明对象 **/
+  lifetimes: {
+    attached: async function () {
+      const { tabs, activeLabel } = this.data;
+      const index = tabs.findIndex((tab) => tab.label === activeLabel);
+
+      let unreadNotifications = 0;
+      let unreadMessages = 0;
+
+      if (globalInfo.userLogin) {
+        const unreadNotificationsArr = await fresnsUserPanel('unreadNotifications');
+
+        unreadNotifications = Object.values(unreadNotificationsArr).reduce((a, b) => a + b);
+        unreadMessages = await fresnsUserPanel('conversations.unreadMessages');
+      }
+
+      const promises = tabs.map(async (tab) => await fresnsConfig(tab.textKey));
+      const tabTexts = await Promise.all(promises);
+
+      tabs.forEach((tab, index) => {
+        tab.text = tabTexts[index];
+
+        if (tab.label === "notifications") {
+          tab.badge = unreadNotifications;
+        }
+
+        if (tab.label === "messages") {
+          tab.badge = unreadMessages;
+        }
+      });
+
+      this.setData({
+        current: index,
+        tabs: tabs,
+      }, () => {
+        console.log('tabs', this.data.tabs); // 在回调函数中读取最新的 tabs 数据
+      });
+    },
+  },
 });

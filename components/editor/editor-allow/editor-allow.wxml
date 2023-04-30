@@ -1,6 +1,6 @@
 <!-- *
-    Fresns 微信小程序 (https://fresns.org)
-    Copyright 2021-Present Jarvis Tang
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
     Licensed under the Apache-2.0 license
 * -->
 <view class="editor-authority">
@@ -17,7 +17,7 @@
     </mp-cell>
     <mp-cell title="指定用户可访问">
         <view>
-            <text>Jarvis</text>
+            <text>Jevan</text>
             <text>Jie-T</text>
         </view>
     </mp-cell>

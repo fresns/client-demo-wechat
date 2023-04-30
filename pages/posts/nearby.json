@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "附近帖子",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "mp-icon": "weui-miniprogram/icon/icon",
+    "tabbar": "/components/tabbar/tabbar",
+    "loading": "/components/loading/loading",
+    "post": "/components/post/post"
+  }
+}

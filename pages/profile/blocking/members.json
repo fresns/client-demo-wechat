@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "用户昵称",
-  "usingComponents": {
-    "user": "/components/user/list",
-    "profile-user": "/components/user/profile",
-    "profile-switch": "/components/user/switch"
-  }
-}

@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "隐私权和条款",
+  "usingComponents": {
+    "mp-html": "mp-html",
+    "mp-tabs": "@miniprogram-component-plus/tabs"
+  }
+}

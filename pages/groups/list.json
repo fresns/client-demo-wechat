@@ -1,7 +1,9 @@
 {
-  "navigationBarTitleText": "小组分类名",
+  "navigationBarTitleText": "小组列表",
+  "enablePullDownRefresh": true,
   "usingComponents": {
     "tabbar": "/components/tabbar/tabbar",
-    "group": "/components/group/list"
+    "loading": "/components/loading/loading",
+    "group": "/components/group/group"
   }
 }

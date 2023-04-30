@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "用户",
+  "usingComponents": {
+    "profile-user": "/components/user/profile",
+    "profile-switch": "/components/user/switch",
+    "loading": "/components/loading/loading",
+    "user": "/components/user/user"
+  }
+}

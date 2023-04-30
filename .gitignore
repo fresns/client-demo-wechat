@@ -1,10 +1,9 @@
-# IDE Config
-.settings/
+/miniapp
+/node_modules
+.settings
 .idea
 .vscode
-
-# System Files
 .DS_Store
-
-# Fresns Config File
-fresnsConfig.js
+package-lock.json
+project.private.config.json
+fresns.js

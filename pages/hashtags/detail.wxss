@@ -1,18 +1,22 @@
 /*!
- * Fresns 微信小程序 (https://fresns.org)
- * Copyright 2021-Present Jarvis Tang
+ * Fresns 微信小程序 (https://fresns.cn)
+ * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
- .weui-media-box,.interactive-group {
+.weui-media-box,.interactive-hashtag {
   background-color: var(--weui-BG-2);
 }
 
-.interactive-group {
+.interactive-hashtag {
   overflow: hidden;
   padding: 0 20px 15px 20px;
 }
 
-.interactive-group .weui-media-box__info {
+.interactive-hashtag .weui-media-box__info {
   margin-top: 0;
   padding-bottom: 0;
+}
+
+.interactive-btn {
+  margin-top: 15px;
 }

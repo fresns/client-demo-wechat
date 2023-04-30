@@ -1,0 +1,16 @@
+<!-- *
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
+    Licensed under the Apache-2.0 license
+* -->
+<view class="page" data-weui-theme="{{ theme }}">
+    <mp-tabs tabs="{{ tabs }}" active-tab="{{ activeTab }}" bindtabclick="onClickTab" active-class="tab-title-selected"/>
+
+    <view class="tab-content">
+        <mp-html content="{{ content }}" markdown="ture"/>
+    </view>
+
+    <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
+        <text class="weui-loadmore__tips">Powered by Fresns</text>
+    </view>
+</view>

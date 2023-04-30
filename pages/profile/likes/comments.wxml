@@ -1,19 +1,29 @@
 <!-- *
-    Fresns 微信小程序 (https://fresns.org)
-    Copyright 2021-Present Jarvis Tang
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
     Licensed under the Apache-2.0 license
 * -->
-<page-meta root-font-size="system"/>
-<view class="page" data-weui-theme="{{theme}}">
-    <profile-user user="{{curUser}}"/>
+<view class="page" data-weui-theme="{{ theme }}">
+    <profile-user user="{{ profile }}"/>
 
-    <profile-switch user="{{curUser}}"/>
+    <profile-switch user="{{ profile }}"/>
 
-    <view class="content-list">
-        <comment generic:contentType="comment-list" fsui="list-style"></comment>
-        <comment generic:contentType="comment-list" fsui="list-style"></comment>
-        <comment generic:contentType="comment-list" fsui="list-style"></comment>
-        <comment generic:contentType="comment-list" fsui="list-style"></comment>
-        <comment generic:contentType="comment-list" fsui="list-style"></comment>
+    <!-- 标题 -->
+    <view class="page-title">
+        <text>{{ title }}</text>
+    </view>
+
+    <!-- 列表 -->
+    <view class="profile-list">
+        <view class="comment-list" wx:for="{{ comments }}" wx:for-index="idx" wx:for-item="comment" wx:key="cid">
+            <comment comment="{{ comment }}" type="list"></comment>
+        </view>
+    </view>
+
+    <!-- 加载动效 -->
+    <loading status="{{ loadingStatus }}" tipType="{{ loadingTipType }}"></loading>
+
+    <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
+        <text class="weui-loadmore__tips">Powered by Fresns</text>
     </view>
 </view>

@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "附近评论",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "mp-icon": "weui-miniprogram/icon/icon",
+    "tabbar": "/components/tabbar/tabbar",
+    "loading": "/components/loading/loading",
+    "comment": "/components/comment/comment"
+  }
+}

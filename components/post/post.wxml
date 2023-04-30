@@ -1,0 +1,85 @@
+<!-- *
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
+    Licensed under the Apache-2.0 license
+* -->
+<view class="card">
+    <view class="card-header">
+        <!-- 用户信息 -->
+        <creator creator="{{ post.creator }}" isAnonymous="{{ post.isAnonymous }}" createTimeFormat="{{ post.createTimeFormat }}" location="{{ post.location }}"></creator>
+    </view>
+
+    <!-- 角标 -->
+    <view class="card-label" wx:if="{{ post.operations.diversifyImages }}">
+        <block wx:for="{{ post.operations.diversifyImages }}" wx:for-item="iconItem">
+            <image wx:if="{{ iconItem.code == 'label' }}" src="{{ iconItem.imageUrl }}" mode="aspectFit"></image>
+        </block>
+    </view>
+
+    <view class="card-body {{ (type == 'list') ? 'list-style' : '' }}" bind:tap="onClickToDetail">
+        <!-- 内容 -->
+        <view class="fresns-content">
+            <view class="content-title">
+                <block wx:for="{{ post.operations.diversifyImages }}" wx:for-item="iconItem">
+                    <image wx:if="{{ iconItem.code == 'title' }}" src="{{ iconItem.imageUrl }}" mode="heightFix"></image>
+                </block>
+                <text wx:if="{{ post.title }}">{{ post.title }}</text>
+            </view>
+
+            <view class="content-text">
+                <mp-html content="{{ postContent }}" markdown="{{ post.isMarkdown }}" lazy-load="true" />
+            </view>
+
+            <view class="content-brief" wx:if="{{ type == 'list' && post.isBrief }}">
+                <navigator class="navigator-inline" url="/pages/posts/detail?pid={{ post.pid }}">全文</navigator>
+            </view>
+        </view>
+
+        <!-- 权限信息 -->
+        <view class="content-allow" wx:if="{{ !post.isAllow }}">
+            <view class="allow_mask_static"></view>
+            <view class="allow-info">
+                <view class="allow-text">可试读前 {{ post.allowProportion }}% 内容</view>
+                <navigator class="weui-btn weui-btn_primary" url="/pages/webview?url={{ post.allowBtnUrl }}">
+                    {{ post.allowBtnName }}
+                </navigator>
+            </view>
+        </view>
+
+        <!-- 附件文件 -->
+        <files files="{{ post.files }}" fileCount="{{ post.fileCount }}"/>
+
+        <!-- 扩展内容 -->
+        <view class="extend-bottom" wx:if="{{ post.extends.length > 0 }}">
+        </view>
+
+        <!-- 引用帖子 -->
+        <view wx:if="{{ post.quotedPost }}">
+            <quoted-post post="{{ post.quotedPost }}"></quoted-post>
+        </view>
+
+        <!-- 附属信息 -->
+        <view class="content-append clearfix">
+            <!-- 小组信息 -->
+            <navigator class="content-group float-left" url="/pages/groups/detail?gid={{ post.group.gid }}" wx:if="{{ post.group.gid }}">
+                <image wx:if="{{ post.group.cover }}" src="{{ post.group.cover }}" class="group-icon" mode="aspectFit"></image>
+                {{ post.group.gname }}
+            </navigator>
+            <!-- 特殊用户 -->
+            <navigator wx:if="{{ post.isUserList }}" class="content-users float-end" url="/pages/webview?url={{ post.userListUrl }}">
+                {{ post.userListName }}
+                <text wx:if="{{ post.userListCount }}" class="weui-badge">
+                    {{ post.userListCount }}
+                </text>
+            </navigator>
+        </view>
+
+        <!-- 评论预览 -->
+        <previewComments pid="{{ post.pid }}" commentCount="{{ post.commentCount }}" previewComments="{{ post.previewComments }}"></previewComments>
+    </view>
+
+    <!-- 功能按钮 -->
+    <view class="card-footer {{ (type == 'list') ? 'list-style' : '' }}">
+        <interaction type="{{ type }}" post="{{ post }}"></interaction>
+    </view>
+</view>

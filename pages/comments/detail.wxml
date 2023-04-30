@@ -1,84 +1,42 @@
 <!-- *
-    Fresns 微信小程序 (https://fresns.org)
-    Copyright 2021-Present Jarvis Tang
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
     Licensed under the Apache-2.0 license
 * -->
-<page-meta root-font-size="system"/>
-<view class="page" data-weui-theme="{{theme}}">
-  <!--评论详情-->
-  <comment generic:contentType="detail"></comment>
+<view class="page" data-weui-theme="{{ theme }}">
+    <!-- 评论详情 -->
+    <comment comment="{{ comment }}" type="detail"></comment>
 
-  <!--子评论列表-->
-	<view class="weui-panel weui-panel_access">
-		<view class="weui-panel__hd">全部评论</view>
-		<view class="weui-panel__bd">
-      <view class="weui-media-box weui-media-box_text">
-        <comment generic:contentType="comment-list" fsui="list-style">
-          <view slot="replyTo" class="content-replyTo">
-            <text>回复</text>
-            <navigator class="navigator-inline" url="/pages/profile/index">Jarvis Tang</navigator>:
-          </view>
-        </comment>
-      </view>
-      <view class="weui-media-box weui-media-box_text">
-        <comment generic:contentType="comment-list" fsui="list-style">
-          <view slot="files" class="content-files">
-            <view class="file-image-1">
-              <image src="https://fresns.org/prototype/assets/images/temp/image.jpg" mode="widthFix" bindtap="ImageOpen"></image>
+    <!-- 评论互动 -->
+    <view class="weui-panel weui-panel_access">
+        <view class="weui-panel__hd">全部评论</view>
+        <view class="weui-panel__bd">
+            <!-- 评论列表 -->
+            <view class="weui-media-box weui-media-box_text" wx:for="{{ comments }}" wx:for-index="idx" wx:for-item="comment" wx:key="cid">
+                <comment comment="{{ comment }}" type="detail"></comment>
             </view>
-          </view>
-        </comment>
-      </view>
-      <view class="weui-media-box weui-media-box_text">
-        <comment generic:contentType="comment-list" fsui="list-style"></comment>
-      </view>
-      <view class="weui-media-box weui-media-box_text">
-        <comment generic:contentType="comment-list" fsui="list-style"></comment>
-      </view>
-		</view>
-	</view>
-
-  <!--回复框-->
-  <view class="reply_wrp">
-    <view class="reply_tool">
-      <view class="reply_form_wrp">
-        <label for="" class="reply_label">
-          <input class="reply_input fg-0" cursor-spacing="8px" confirm-type="send" confirm-hold focus="{{focus}}" bindinput="onInputChange"/>
-        </label>
-      </view>
-      <view hover-class="active" class="reply_button replay_emotion_button" bindtap="onSelectImage">
-        <image src="/assets/images/reply_tool_sticker.svg" mode='aspectFit' class="reply_tool_pic"></image>
-      </view>
-      <view hover-class="active" class="reply_button replay_media_button" bindtap="quickComment">
-        <image src="/assets/images/reply_tool_add.png" mode='aspectFit' class="reply_tool_pic"></image>
-      </view>
+        </view>
     </view>
-<!--    <view class="reply_panel_wrp" hidden="{{!stickerShow && !functionShow}}">-->
-<!--      <view class="reply_panel {{stickerShow ? 'show': ''}}" hidden="{{!stickerShow}}">-->
-<!--        &lt;!&ndash; 这里放sticker_area &ndash;&gt;-->
-<!--        <sticker bindinsertsticker="insertSticker" binddelsticker="deleteSticker"></sticker>-->
-<!--      </view>-->
-<!--      <view class="reply_panel {{functionShow ? 'show': ''}}" hidden="{{!functionShow}}">-->
-<!--        <swiper indicator-dots="{{true}}" indicator-color="#bbbbbb" indicator-active-color="#8c8c8c">-->
-<!--          <swiper-item>-->
-<!--            <view class="function_list">-->
-<!--              <view class="function_item" bindtap="chooseImage">-->
-<!--                <image src="/assets/images/reply_function_image.svg" class="reply_function_pic"></image>-->
-<!--              </view>-->
-<!--            </view>-->
-<!--          </swiper-item>-->
-<!--        </swiper>-->
-<!--      </view>-->
-<!--    </view>-->
-  </view>
 
-  <!--File image Gallery-->
-  <view wx:if="{{imageGallery}}" class="weui-gallery fadeIn" bindtap="ImageClose">
-    <view class="weui-gallery__info">1/9</view>
-      <view class="weui-gallery__img__wrp">
-        <image mode="aspectFit" class="weui-gallery__img" src="https://fresns.org/prototype/assets/images/temp/image.jpg"></image>
+    <!-- 加载动效 -->
+    <loading status="{{ loadingStatus }}" tipType="{{ loadingTipType }}"></loading>
+
+    <!-- 评论框 -->
+    <view class="weui-tabbar comment-box-btn">
+        <view class="weui-tabbar__item" bind:tap="onClickCreateComment">
+            <view class="weui-tabbar__label">
+                {{ commentBtnName }}
+            </view>
+        </view>
     </view>
-  </view>
 
-  <view class="copyright">Powered by Fresns</view>
+    <mp-half-screen-dialog show="{{ showCommentBox }}" maskClosable="{{ false }}" title="{{ title }}">
+        <view slot="desc">
+            <comment-box pid="{{ comment.replyToPost.pid }}" cid="{{ comment.cid }}" />
+        </view>
+    </mp-half-screen-dialog>
+
+    <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
+        <text class="weui-loadmore__tips">Powered by Fresns</text>
+    </view>
 </view>

@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "我踩的评论",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "tabbar": "/components/tabbar/tabbar",
+    "loading": "/components/loading/loading",
+    "comment": "/components/comment/comment"
+  }
+}

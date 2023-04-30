@@ -1,43 +1,37 @@
 <!-- *
-    Fresns 微信小程序 (https://fresns.org)
-    Copyright 2021-Present Jarvis Tang
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
     Licensed under the Apache-2.0 license
 * -->
 <view class="profile-header">
     <view class="weui-flex">
         <view class="profile-info">
             <view class="profile-avatar">
-                <image wx:if="{{user.decorate}}" src="{{user.decorate}}" class="avatar-decorate" mode="scaleToFill"></image>
-                <image wx:if="{{user.avatar}}" src="{{user.avatar}}" class="avatar-img" mode="scaleToFill"></image>
+                <image wx:if="{{ user.decorate }}" src="{{ user.decorate }}" class="avatar-decorate" mode="scaleToFill"></image>
+                <image wx:if="{{ user.avatar }}" src="{{ user.avatar }}" class="avatar-img" mode="scaleToFill"></image>
             </view>
             <view class="profile-name">
-                <text class="profile-nickname">{{user.nickname}}</text>
-                <text class="profile-username">{{user.username}}</text>
+                <text class="profile-nickname" style="color:{{ user.nicknameColor ? user.nicknameColor : '' }}">{{ user.nickname }}</text>
+                <text class="profile-username">@{{ user.fsid }}</text>
             </view>
         </view>
+
         <view class="weui-flex__item profile-btn">
-            <a class="weui-btn weui-btn_mini weui-btn_default">
-                <image class="weui-btn_cell__icon" src="/assets/images/like.png"></image>
-                点赞
-            </a>
-            <a class="weui-btn weui-btn_mini weui-btn_primary">
-                <image class="weui-btn_cell__icon" src="/assets/images/follow-active.png"></image>
-                已关注
-            </a>
-            <a class="weui-btn weui-btn_mini weui-btn_default">
-                <image class="weui-btn_cell__icon" src="/assets/images/block.png"></image>
-                屏蔽
-            </a>
+            <interaction user="{{ user }}"></interaction>
         </view>
     </view>
-    <view class="profile-bio">{{user.bio}}</view>
-    <view class="weui-media-box__info">
-        <view class="weui-media-box__info__meta">{{user.likeMeCount}} 点赞</view>
-        <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">
-            {{user.followMeCount}} 关注者
+
+    <view class="profile-bio" wx:if="{{ user.bio }}"><mp-html content="{{ user.bioHtml }}"/></view>
+
+    <view class="profile-stats weui-media-box__info">
+        <view class="weui-media-box__info__meta">
+            {{ user.stats.likeMeCount }} 点赞
         </view>
         <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">
-            {{user.followUserCount}} 正在关注
+            {{ user.stats.followMeCount }} 关注者
+        </view>
+        <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">
+            {{ user.stats.followUserCount }} 正在关注
         </view>
     </view>
 </view>

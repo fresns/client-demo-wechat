@@ -1,7 +1,9 @@
 {
   "navigationBarTitleText": "我屏蔽的话题",
+  "enablePullDownRefresh": true,
   "usingComponents": {
     "tabbar": "/components/tabbar/tabbar",
-    "hashtag": "/components/hashtag/list"
+    "loading": "/components/loading/loading",
+    "hashtag": "/components/hashtag/hashtag"
   }
 }

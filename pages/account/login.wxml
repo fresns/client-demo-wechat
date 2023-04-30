@@ -1,40 +1,41 @@
 <!-- *
-    Fresns 微信小程序 (https://fresns.org)
-    Copyright 2021-Present Jarvis Tang
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
     Licensed under the Apache-2.0 license
 * -->
-<page-meta root-font-size="system"/>
-<view class="page" data-weui-theme="{{theme}}">
+<view class="page" data-weui-theme="{{ theme }}">
+    <!-- 登录方式 -->
     <radio-group bind:change="onLoginTypeChange">
         <view class="weui-grids">
             <label class="radio">
                 <navigator class="weui-grid" aria-role="button" url="javascript:">
                     <view class="weui-grid__icon">
-                        <radio value="0" checked="{{loginType === '0'}}"/>
+                        <radio value="0" checked="{{ loginType === '0' }}"/>
                     </view>
-                    <view class="weui-grid__label">微信一键登录</view>
+                    <view class="weui-grid__label">{{ fresnsLang.accountLoginByConnects }}</view>
                 </navigator>
             </label>
             <label class="radio">
                 <navigator class="weui-grid" aria-role="button" url="javascript:">
                     <view class="weui-grid__icon">
-                        <radio value="1" checked="{{loginType === '1'}}"/>
+                        <radio value="1" checked="{{ loginType === '1' }}"/>
                     </view>
-                    <view class="weui-grid__label">账号密码登录</view>
+                    <view class="weui-grid__label">{{ fresnsLang.accountLoginByPassword }}</view>
                 </navigator>
             </label>
-            <label class="radio">
+            <label class="radio" wx:if="{{ codeLogin }}">
                 <navigator class="weui-grid" aria-role="button" url="javascript:">
                     <view class="weui-grid__icon">
-                        <radio value="2" checked="{{loginType === '2'}}"/>
+                        <radio value="2" checked="{{ loginType === '2' }}"/>
                     </view>
-                    <view class="weui-grid__label">账号验证码登录</view>
+                    <view class="weui-grid__label">{{ fresnsLang.accountLoginByCode }}</view>
                 </navigator>
             </label>
         </view>
     </radio-group>
 
-    <block wx:if="{{loginType === '0'}}">
+    <!-- 微信登录 -->
+    <block wx:if="{{ loginType === '0' }}">
         <view class="we-login-agree">
             <button class="weui-btn weui-btn_primary" type="primary">微信登录</button>
             <view class="weui-form__tips-area">
@@ -47,136 +48,142 @@
         </view>
     </block>
 
-    <block wx:if="{{loginType === '1'}}">
+    <!-- 密码登录 -->
+    <block wx:if="{{ loginType === '1' }}">
         <view class="weui-form__control-area">
             <view class="weui-cells__group weui-cells__group_form">
                 <view class="weui-cells weui-cells_form">
-                    <radio-group bind:change="onTypeChange">
+                    <!-- 邮箱和手机号切换 -->
+                    <radio-group bind:change="onTypeChange" wx:if="{{ switchLogin }}">
                         <view class="weui-cell weui-cell_active">
                             <view class="weui-cell__hd">
-                                <label class="weui-label">账号类型</label>
+                                <label class="weui-label">{{ fresnsLang.accountType }}</label>
                             </view>
                             <view class="weui-cell__bd">
                                 <label class="radio">
-                                    <radio value="0" checked="{{type === '0'}}"/>
-                                    手机号
+                                    <radio value="0" checked="{{ type === '0' }}"/>
+                                    {{ fresnsLang.phone }}
                                 </label>
-                                <label class="radio" style="margin-left:10px">
-                                    <radio value="1" checked="{{type === '1'}}"/>
-                                    邮箱
+                                <label class="radio" style="margin-left: 8px;">
+                                    <radio value="1" checked="{{ type === '1' }}"/>
+                                    {{ fresnsLang.email }}
                                 </label>
                             </view>
                         </view>
                     </radio-group>
-                    <block wx:if="{{type === '0'}}">
+
+                    <!-- 登录项输入 -->
+                    <block wx:if="{{ type === '0' }}">
                         <view class="weui-cell weui-cell_active weui-cell_select weui-cell_select-before">
                             <view class="weui-cell__hd">
-                                <picker aria-role="combobox" bindchange="onMobileAreaPickerChange" range="{{mobileAreaRange}}" value="{{mobileAreaIndex}}">
-                                    <view class="weui-select" style="width: 3em">
-                                        {{mobileAreaRange[mobileAreaIndex]}}
-                                    </view>
+                                <picker aria-role="combobox" bindchange="onMobileAreaPickerChange" range="{{ mobileAreaRange }}" value="{{ mobileAreaIndex }}">
+                                    <view class="weui-select" style="width: 3em;">{{ '+' + mobileAreaRange[mobileAreaIndex] }}</view>
                                 </picker>
                             </view>
                             <view class="weui-cell__bd">
-                                <input class="weui-input" type="number" placeholder="请输入号码" value="{{mobileNumber}}" bindinput="onMobileNumberChange"/>
+                                <input class="weui-input" type="number" value="{{ mobileNumber }}" bindinput="onMobileNumberChange" placeholder="{{ fresnsLang.phone }}" placeholder-class="weui-input__placeholder"/>
                             </view>
                         </view>
                     </block>
-                    <block wx:if="{{type === '1'}}">
+                    <block wx:if="{{ type === '1' }}">
                         <view class="weui-cell weui-cell_active">
                             <view class="weui-cell__hd">
-                                <label class="weui-label">邮箱</label>
+                                <label class="weui-label">{{ fresnsLang.email }}</label>
                             </view>
                             <view class="weui-cell__bd">
-                                <input class="weui-input" value="{{emailAddress}}" bindinput="onEmailAddressChange" placeholder="邮箱地址" placeholder-class="weui-input__placeholder"/>
+                                <input class="weui-input" value="{{ emailAddress }}" bindinput="onEmailAddressChange" placeholder="{{ fresnsLang.email }}" placeholder-class="weui-input__placeholder"/>
                             </view>
                         </view>
                     </block>
                     <view class="weui-cell weui-cell_active">
                         <view class="weui-cell__hd">
-                            <label class="weui-label">密码</label>
+                            <label class="weui-label">{{ fresnsLang.password }}</label>
                         </view>
                         <view class="weui-cell__bd">
-                            <input class="weui-input" password="true" value="{{password}}" bindinput="onPasswordChange" placeholder="登录密码" placeholder-class="weui-input__placeholder"/>
+                            <input class="weui-input" password="true" value="{{ password }}" bindinput="onPasswordChange" placeholder="{{ fresnsLang.accountPassword }}" placeholder-class="weui-input__placeholder"/>
                         </view>
                     </view>
                 </view>
             </view>
         </view>
         <view class="weui-form__opr-area">
-            <button class="weui-btn weui-btn_primary" type="primary" bind:tap="onSubmit">提交登录</button>
+            <button class="weui-btn weui-btn_primary" type="primary" bind:tap="onSubmit">{{ fresnsLang.accountLogin }}</button>
         </view>
         <view class="weui-form__opr-area">
-            <navigator class="weui-btn weui-btn_default" aria-role="button" url="/pages/user/register">注册新账号</navigator>
-            <navigator class="weui-btn weui-btn_default" aria-role="button" url="/pages/user/reset">找回密码</navigator>
+            <navigator class="weui-btn weui-btn_default" aria-role="button" url="/pages/account/register">{{ fresnsLang.accountRegister }}</navigator>
+            <navigator class="weui-btn weui-btn_default" aria-role="button" url="/pages/account/reset-password">{{ fresnsLang.passwordForgot }}</navigator>
         </view>
     </block>
 
-    <block wx:if="{{loginType === '2'}}">
+    <!-- 验证码登录 -->
+    <block wx:if="{{ loginType === '2' }}">
         <view class="weui-form__control-area">
             <view class="weui-cells__group weui-cells__group_form">
                 <view class="weui-cells weui-cells_form">
-
-                    <radio-group bind:change="onTypeChange">
+                    <!-- 邮箱和手机号切换 -->
+                    <radio-group bind:change="onTypeChange" wx:if="{{ switchLogin }}">
                         <view class="weui-cell weui-cell_active">
                             <view class="weui-cell__hd">
-                                <label class="weui-label">账号类型</label>
+                                <label class="weui-label">{{ fresnsLang.accountType }}</label>
                             </view>
                             <view class="weui-cell__bd">
                                 <label class="radio">
-                                    <radio value="0" checked="{{type === '0'}}"/>
-                                    手机号
+                                    <radio value="0" checked="{{ type === '0' }}"/>
+                                    {{ fresnsLang.phone }}
                                 </label>
-                                <label class="radio" style="margin-left:10px">
-                                    <radio value="1" checked="{{type === '1'}}"/>
-                                    邮箱
+                                <label class="radio" style="margin-left: 8px;">
+                                    <radio value="1" checked="{{ type === '1' }}"/>
+                                    {{ fresnsLang.email }}
                                 </label>
                             </view>
                         </view>
                     </radio-group>
-                    <block wx:if="{{type === '0'}}">
+
+                    <!-- 登录项输入 -->
+                    <block wx:if="{{ type === '0' }}">
                         <view class="weui-cell weui-cell_active weui-cell_select weui-cell_select-before">
                             <view class="weui-cell__hd">
-                                <picker aria-role="combobox" bindchange="onMobileAreaPickerChange" range="{{mobileAreaRange}}" value="{{mobileAreaIndex}}">
-                                    <view class="weui-select" style="width: 3em">
-                                        {{mobileAreaRange[mobileAreaIndex]}}
-                                    </view>
+                                <picker aria-role="combobox" bindchange="onMobileAreaPickerChange" range="{{ mobileAreaRange }}" value="{{ mobileAreaIndex }}">
+                                    <view class="weui-select" style="width: 3em;">{{ '+' + mobileAreaRange[mobileAreaIndex] }}</view>
                                 </picker>
                             </view>
                             <view class="weui-cell__bd">
-                                <input class="weui-input" type="number" placeholder="请输入号码" value="{{mobileNumber}}" bindinput="onMobileNumberChange"/>
+                                <input class="weui-input" type="number" value="{{ mobileNumber }}" bindinput="onMobileNumberChange" placeholder="{{ fresnsLang.phone }}" placeholder-class="weui-input__placeholder"/>
                             </view>
                         </view>
                     </block>
-                    <block wx:if="{{type === '1'}}">
+                    <block wx:if="{{ type === '1' }}">
                         <view class="weui-cell weui-cell_active">
                             <view class="weui-cell__hd">
-                                <label class="weui-label">邮箱</label>
+                                <label class="weui-label">{{ fresnsLang.email }}</label>
                             </view>
                             <view class="weui-cell__bd">
-                                <input class="weui-input" value="{{emailAddress}}" bindinput="onEmailAddressChange" placeholder="邮箱地址" placeholder-class="weui-input__placeholder"/>
+                                <input class="weui-input" value="{{ emailAddress }}" bindinput="onEmailAddressChange" placeholder="{{ fresnsLang.email }}" placeholder-class="weui-input__placeholder"/>
                             </view>
                         </view>
                     </block>
+
                     <view class="weui-cell weui-cell_active weui-cell_vcode weui-cell_wrap">
                         <view class="weui-cell__hd">
-                            <label class="weui-label">验证码</label>
+                            <label class="weui-label">{{ fresnsLang.verifyCode }}</label>
                         </view>
                         <view class="weui-cell__bd">
-                            <input class="weui-cell__control weui-cell__control_flex weui-input" type="text" placeholder="输入验证码" placeholder-class="weui-input__placeholder" bindinput="onVerifyCodeChange"/>
-                            <view aria-role="button" class="weui-cell__control weui-btn weui-btn_default weui-vcode-btn" bind:tap="sendVerifyCode">获取验证码</view>
+                            <input class="weui-cell__control weui-cell__control_flex weui-input" type="text" bindinput="onVerifyCodeChange" placeholder="{{ fresnsLang.verifyCode }}" placeholder-class="weui-input__placeholder"/>
+                            <view aria-role="button" class="weui-cell__control weui-btn weui-btn_default weui-vcode-btn" bind:tap="sendVerifyCode">{{ fresnsLang.sendVerifyCode }}</view>
                         </view>
                     </view>
                 </view>
             </view>
         </view>
         <view class="weui-form__opr-area">
-            <button class="weui-btn weui-btn_primary" type="primary" bind:tap="onSubmit">提交登录</button>
+            <button class="weui-btn weui-btn_primary" type="primary" bind:tap="onSubmit">{{ fresnsLang.accountLogin }}</button>
         </view>
         <view class="weui-form__opr-area">
-            <navigator class="weui-btn weui-btn_default" aria-role="button" url="/pages/user/register">注册新账号</navigator>
+            <navigator class="weui-btn weui-btn_default" aria-role="button" url="/pages/account/register">{{ fresnsLang.accountRegister }}</navigator>
         </view>
     </block>
 
-    <view class="copyright">Powered by Fresns</view>
+    <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
+        <text class="weui-loadmore__tips">Powered by Fresns</text>
+    </view>
 </view>

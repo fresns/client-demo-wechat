@@ -1,11 +1,9 @@
 <!-- *
-    Fresns 微信小程序 (https://fresns.org)
-    Copyright 2021-Present Jarvis Tang
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
     Licensed under the Apache-2.0 license
 * -->
-<page-meta root-font-size="system"/>
-<view class="page" data-weui-theme="{{theme}}">
-
+<view class="page" data-weui-theme="{{ theme }}">
     <view class="weui-flex tab-navbar weui-navbar">
         <view class="weui-flex__item weui-navbar__item">
             <navigator url="/pages/posts/index" open-type="redirect">主页</navigator>
@@ -14,10 +12,16 @@
             <navigator url="/pages/posts/list" open-type="redirect">列表</navigator>
         </view>
         <view class="weui-flex__item weui-navbar__item">
-            <navigator url="/pages/posts/follows" open-type="redirect">关注</navigator>
+            <navigator url="/pages/posts/nearby" open-type="redirect">附近</navigator>
         </view>
         <view class="weui-flex__item weui-navbar__item">
-            <navigator url="/pages/posts/likes" open-type="redirect">我点赞</navigator>
+            <navigator url="/pages/follows/all-posts" open-type="redirect">关注</navigator>
+        </view>
+        <view class="weui-flex__item weui-navbar__item">
+            <navigator url="/pages/posts/likes" open-type="redirect">我赞</navigator>
+        </view>
+        <view class="weui-flex__item weui-navbar__item">
+            <navigator url="/pages/posts/dislikes" open-type="redirect">我踩</navigator>
         </view>
         <view class="weui-flex__item weui-navbar__item weui-navbar__item_on">
             <navigator url="/pages/posts/following" open-type="redirect">我关注</navigator>
@@ -27,21 +31,18 @@
         </view>
     </view>
 
-    <!--帖子列表-->
-    <view class="post-list" wx:for="{{posts}}" wx:for-item="post" wx:key="pid">
-        <post generic:contentType="post-list" fsui="list-style" post="{{post}}">
-        </post>
+    <!-- 帖子列表 -->
+    <view class="post-list" wx:for="{{ posts }}" wx:for-index="idx" wx:for-item="post" wx:key="pid">
+        <post post="{{ post }}" type="list"></post>
     </view>
 
-    <!--File image Gallery-->
-    <view wx:if="{{imageGallery}}" class="weui-gallery fadeIn" bindtap="ImageClose">
-        <view class="weui-gallery__info">1/9</view>
-        <view class="weui-gallery__img__wrp">
-            <image mode="aspectFit" class="weui-gallery__img" src="https://fresns.org/prototype/assets/images/temp/image.jpg">
-            </image>
-        </view>
+    <!-- 加载动效 -->
+    <loading status="{{ loadingStatus }}" tipType="{{ loadingTipType }}"></loading>
+
+    <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
+        <text class="weui-loadmore__tips">Powered by Fresns</text>
     </view>
 
-    <view class="copyright">Powered by Fresns</view>
-    <tabbar></tabbar>
+    <!-- Tabbar -->
+    <tabbar activeLabel="posts"></tabbar>
 </view>

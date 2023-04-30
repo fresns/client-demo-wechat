@@ -1,119 +1,243 @@
 /*!
- * Fresns 微信小程序 (https://fresns.org)
- * Copyright 2021-Present Jarvis Tang
+ * Fresns 微信小程序 (https://fresns.cn)
+ * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import Api from '../../../api/api';
+import { fresnsApi } from '../../../api/api';
+import { fresnsConfig, fresnsLang } from '../../../api/tool/function';
+import { callPageFunction } from '../../../utils/fresnsCallback';
 
 Component({
-    properties: {
-        // 小组是否必选
-        isRequired: Boolean,
-        value: String,
+  /** 组件的属性列表 **/
+  properties: {
+    value: {
+      type: Object,
+      value: null,
     },
-    data: {
-        currentGroup: null,
-        currentGroupName: '不发到任何小组',
-        groupCategoryList: null,
-        groupList: null,
-        multiArray: [],
-        multiIndex: [0, 0],
-        isObserver: false,
-    },
-    observers: {
-        value: async function (value) {
-            if (!value || this.data.isObserver) {
-                return;
-            }
-            const groupDetailRes = await Api.content.groupDetail({
-                gid: value,
-            });
-            this.setData({
-                currentGroupName: groupDetailRes?.data?.detail?.gname,
-                isObserver: true,
-            });
-        },
-    },
-    lifetimes: {
-        attached: async function () {
-            const that = this;
-            // 获取小组分类
-            const groupCategoryRes = await Api.content.groupLists({
-                type: 1,
-            });
-            const groupCategoryList = groupCategoryRes.data.list.map((item) => ({
-                value: item.gid,
-                name: item.gname,
-            }));
-            groupCategoryList.unshift({
-                value: null,
-                name: '不发到任何小组',
-            });
-            this.setData({
-                groupCategoryList: groupCategoryList,
-                multiArray: [groupCategoryList, []],
-            });
-        },
-    },
-    bindGroupChange: function (e) {
+    config: Object,
+  },
+
+  /** 组件的初始数据 **/
+  data: {
+    groupConfig: null,
+    groupName: '小组',
+
+    currentGroup: null,
+    currentGroupName: '不发到任何小组',
+    currentCategoryGid: null,
+
+    show: false,
+
+    categories: [],
+    groups: [],
+    page: 1,
+    loadingStatus: false,
+    loadingTipType: 'none',
+    isReachBottom: false,
+  },
+
+  /** 组件数据字段监听器 **/
+  observers: {
+    'value': async function (value) {
+      if (!value) {
         this.setData({
-            value1: e.detail.value,
+          currentGroupName: await fresnsLang('editorNoGroup'),
         });
+
+        return
+      }
+
+      this.setData({
+        currentGroup: value,
+        currentGroupName: value.gname,
+      });
     },
-    methods: {
-        bindMultiPickerChange: function (e) {
-            let value = e.detail.value,
-                groupList = this.data.groupList,
-                currentGroup = value[0] !== 0 ? groupList[value[1]].value : null,
-                currentGroupName = value[0] !== 0 ? groupList[value[1]].name : '不发到任何小组';
-            this.setData({
-                currentGroup,
-                currentGroupName,
-            });
-            this.triggerEvent('change', {
-                value: currentGroup,
-            });
-        },
-        bindMultiPickerColumnChange: function (e) {
-            let that = this,
-                value = e.detail.value,
-                groupCategoryList = this.data.groupCategoryList,
-                multiIndex = that.data.multiIndex;
-            switch (e.detail.column) {
-                case 0:
-                    let gid = groupCategoryList[value].value;
-                    if (!gid) {
-                        that.setData({
-                            groupList: [],
-                            multiArray: [groupCategoryList, []],
-                        });
-                    } else {
-                        Api.content
-                            .groupLists({
-                                type: 2,
-                                parentGid: gid,
-                            })
-                            .then(function (groupListRes) {
-                                const groupList = groupListRes.data.list.map((item) => ({
-                                    value: item.gid,
-                                    name: item.gname,
-                                }));
-                                multiIndex[0] = value;
-                                that.setData({
-                                    groupList: groupList,
-                                    multiArray: [groupCategoryList, groupList],
-                                    multiIndex,
-                                });
-                            });
-                    }
-                    break;
-                case 1:
-                    multiIndex[1] = value;
-                    that.setData({
-                        multiIndex,
-                    });
-                    break;
-            }
-        },
+
+    'config': function (config) {
+      this.setData({
+        groupConfig: config,
+      });
     },
+  },
+
+  /** 组件生命周期声明对象 **/
+  lifetimes: {
+    attached: async function () {
+      const categoriesRes = await fresnsApi.group.groupCategories({
+        pageSize: 30,
+      })
+
+      let categories = [];
+      if (categoriesRes.code === 0) {
+        categories = categoriesRes.data.list;
+      }
+
+      const recommendRes = await fresnsApi.group.groupList({
+        recommend: 1,
+        whitelistKeys: 'gid,gname,cover,category.gid',
+        pageSize: 1,
+      })
+
+      let recommendGroups = [];
+      if (recommendRes.code === 0) {
+        recommendGroups = recommendRes.data.list;
+      }
+
+      let items = [];
+      if (! this.data.groupConfig.required) {
+        items.push({
+          gid: '__none',
+          gname: await fresnsLang('editorNoGroup'),
+          fresnsGroup: 'none',
+        });
+      }
+      if (recommendGroups.length > 0) {
+        items.push({
+          gid: '__recommend',
+          gname: await fresnsLang('contentRecommend'),
+          fresnsGroup: 'recommend',
+        });
+      }
+
+      if (items.length > 0) {
+        categories.unshift(...items);
+      }
+
+      this.setData({
+        groupName: await fresnsConfig('group_name'),
+        categories: categories,
+      });
+    }
+  },
+
+  /** 组件功能 **/
+  methods: {
+    // 关闭选择窗口
+    close() {
+      this.setData({
+        show: false,
+      });
+    },
+
+    // 选择小组
+    onClickSelect: async function (e) {
+      const currentGroup = this.data.currentGroup
+      const currentCategoryGid = currentGroup?.category?.gid
+
+      this.setData({
+        currentCategoryGid: currentCategoryGid,
+        show: true,
+      });
+
+      await this.loadGroupList()
+    },
+
+    // 选择小组分类
+    onClickCategory: async function (e) {
+      const gid = e.currentTarget.dataset.gid
+
+      console.log('onClickCategory', gid);
+
+      if (gid == '__none') {
+        this.setData({
+          currentGroup: {},
+          currentGroupName: await fresnsLang('editorNoGroup'),
+          currentCategoryGid: null,
+          show: false,
+        });
+
+        callPageFunction('onGroupChange');
+
+        return
+      }
+
+      this.setData({
+        currentCategoryGid: gid,
+        groups: [],
+        page: 1,
+        loadingStatus: false,
+        loadingTipType: 'none',
+        isReachBottom: false,
+      });
+
+      await this.loadGroupList()
+    },
+
+    // 选择小组
+    onClickGroup: async function (e) {
+      const gid = e.currentTarget.dataset.gid
+      const groups = this.data.groups
+      const currentGroup = groups.find(group => group.gid == gid);
+
+      console.log('onClickGroup', gid);
+
+      this.setData({
+        currentGroup: currentGroup,
+        currentGroupName: currentGroup.gname,
+        show: false,
+      });
+
+      callPageFunction('onGroupChange', currentGroup);
+    },
+
+    // 加载小组列表
+    loadGroupList: async function () {
+      const gid = this.data.currentCategoryGid
+      if (!gid) {
+        return
+      }
+
+      if (this.data.isReachBottom) {
+        return
+      }
+
+      wx.showNavigationBarLoading();
+
+      this.setData({
+        loadingStatus: true,
+      })
+
+      let resultRes = {
+        code: null,
+        message: null,
+        data: null
+      }
+
+      if (gid == '__recommend') {
+        resultRes = await fresnsApi.group.groupList({
+          recommend: 1,
+          whitelistKeys: 'gid,gname,cover,category.gid',
+        })
+      } else {
+        resultRes = await fresnsApi.group.groupList({
+          gid: gid,
+          whitelistKeys: 'gid,gname,cover,category.gid',
+        })
+      }
+
+      if (resultRes.code === 0) {
+        const { paginate, list } = resultRes.data
+        const isReachBottom = paginate.currentPage === paginate.lastPage
+        const newGroups = this.data.groups.concat(list);
+
+        let tipType = 'none'
+        if (isReachBottom) {
+          tipType = newGroups.length > 0 ? 'page' : 'empty'
+        }
+
+        this.setData({
+          groups: newGroups,
+          page: this.data.page + 1,
+          loadingTipType: tipType,
+          isReachBottom: isReachBottom,
+        })
+      }
+
+      this.setData({
+        loadingStatus: false,
+      })
+
+      wx.hideNavigationBarLoading();
+    },
+  },
 });

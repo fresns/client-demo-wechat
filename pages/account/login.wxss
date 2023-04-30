@@ -1,6 +1,6 @@
 /*!
- * Fresns 微信小程序 (https://fresns.org)
- * Copyright 2021-Present Jarvis Tang
+ * Fresns 微信小程序 (https://fresns.cn)
+ * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
 .we-login-agree {
@@ -10,4 +10,53 @@
 
 .weui-form__control-area {
     margin-top: 20px;
+}
+
+.weui-cells__group_form .weui-cell_wrap .weui-cell__bd {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.weui-cells__group_form .weui-cell__control_flex {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    min-width: 30vw;
+}
+
+.weui-cells__group_form .weui-cell_vcode.weui-cell_wrap .weui-input {
+    font-size: 1rem;
+    min-height: 1.88235294em;
+}
+
+.weui-vcode-btn {
+    display: inline-block;
+    padding: 0 .6em 0 .7em;
+    line-height: 56px;
+    font-size: 1rem;
+    color: var(--weui-LINK);
+    position: relative;
+}
+
+.weui-vcode-btn, .weui-vcode-img {
+    margin-left: 5px;
+    height: 56px;
+    vertical-align: middle;
+}
+
+.weui-cells__group_form .weui-vcode-btn {
+    font-size: 0.9411764705882353rem;
+    padding: 0 12px;
+    height: auto;
+    width: auto;
+    line-height: 2;
+    border-radius: 6px;
+    color: var(--weui-BTN-DEFAULT-COLOR);
+    background-color: var(--weui-BTN-DEFAULT-BG);
 }

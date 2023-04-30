@@ -1,0 +1,86 @@
+/*!
+ * Fresns 微信小程序 (https://fresns.cn)
+ * Copyright 2021-Present 唐杰
+ * Licensed under the Apache-2.0 license
+ */
+@import "/assets/styles/weui.wxss";
+
+.list-style {
+  padding-left: 46px;
+}
+
+.card {
+  width: 100%;
+  overflow: hidden;
+  margin: 10px 0;
+  background-color: var(--weui-BG-2);
+  position: relative;
+}
+
+.card-label {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.card-label image {
+  width: 88px;
+  height: 88px;
+  margin: 0;
+  padding: 0;
+}
+
+.card-body {
+  margin: 0 20px;
+  color: var(--weui-FG-0);
+}
+
+.card-footer {
+  margin: 0 20px;
+}
+
+.navigator-inline {
+  display: inline;
+  color: var(--weui-BLUE);
+  z-index: 99;
+}
+
+.fresns_sticker {
+  padding: 0;
+  margin: 0;
+  zoom: 0.5;
+}
+
+.content-text,.content-brief {
+  margin-top: 8px;
+}
+
+.sub-comments {
+  padding: 10px 15px;
+  font-size: 14px;
+  background-color: var(--weui-BG-0);
+  border-radius: 6px;
+  margin-top: 15px;
+}
+
+.sub-comments .preview-list {
+  margin: 6px 0;
+}
+
+.sub-comments .preview-list-nickname {
+  float: left;
+  padding-right: 5px;
+}
+
+.sub-comments .preview-count {
+  display: inline;
+  color: var(--weui-BLUE);
+}
+
+.reply-to-post {
+  margin: 0 20px 20px 20px;
+}
+
+.reply-to-comment {
+  margin: 10px 20px;
+}

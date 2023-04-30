@@ -1,11 +1,9 @@
 <!-- *
-    Fresns 微信小程序 (https://fresns.org)
-    Copyright 2021-Present Jarvis Tang
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
     Licensed under the Apache-2.0 license
 * -->
-<page-meta root-font-size="system"/>
-<view class="page" data-weui-theme="{{theme}}">
-
+<view class="page" data-weui-theme="{{ theme }}">
     <view class="weui-flex tab-navbar weui-navbar">
         <view class="weui-flex__item weui-navbar__item">
             <navigator url="/pages/hashtags/index" open-type="redirect">主页</navigator>
@@ -14,10 +12,13 @@
             <navigator url="/pages/hashtags/list" open-type="redirect">列表</navigator>
         </view>
         <view class="weui-flex__item weui-navbar__item">
-            <navigator url="/pages/hashtags/follow" open-type="redirect">关注</navigator>
+            <navigator url="/pages/follows/hashtag-posts" open-type="redirect">关注</navigator>
         </view>
         <view class="weui-flex__item weui-navbar__item">
-            <navigator url="/pages/hashtags/likes" open-type="redirect">我点赞</navigator>
+            <navigator url="/pages/hashtags/likes" open-type="redirect">我赞</navigator>
+        </view>
+        <view class="weui-flex__item weui-navbar__item">
+            <navigator url="/pages/hashtags/dislikes" open-type="redirect">我踩</navigator>
         </view>
         <view class="weui-flex__item weui-navbar__item">
             <navigator url="/pages/hashtags/following" open-type="redirect">我关注</navigator>
@@ -27,18 +28,20 @@
         </view>
     </view>
 
-    <!--话题列表-->
+    <!-- 话题列表 -->
     <view class="weui-media-box weui-media-box_small-appmsg">
         <view class="weui-cells">
-            <hashtag wx:for="{{hashtags}}" wx:for-item="hashtag" wx:for-index="idx" wx:key="huri"
-                     hashtag="{{hashtag}}">
-                <view class="weui-cell__hd">
-                    <image wx:if="{{hashtag.cover}}" src="{{hashtag.cover}}"></image>
-                </view>
-            </hashtag>
+            <hashtag wx:for="{{ hashtags }}" wx:for-index="idx" wx:for-item="hashtag" wx:key="hid" hashtag="{{ hashtag }}"></hashtag>
         </view>
     </view>
 
-    <view class="copyright">Powered by Fresns</view>
-    <tabbar></tabbar>
+    <!-- 加载动效 -->
+    <loading status="{{ loadingStatus }}" tipType="{{ loadingTipType }}"></loading>
+
+    <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
+        <text class="weui-loadmore__tips">Powered by Fresns</text>
+    </view>
+
+    <!-- Tabbar -->
+    <tabbar activeLabel="hashtags"></tabbar>
 </view>

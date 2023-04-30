@@ -1,6 +1,0 @@
-/*!
- * Fresns 微信小程序 (https://fresns.org)
- * Copyright 2021-Present Jarvis Tang
- * Licensed under the Apache-2.0 license
- */
-.searchbar-result{margin-top:0;font-size:0.8235294117647058rem}.searchbar-result .weui-cell__bd{padding:2px 0 2px 20px;color:var(--weui-FG-1)}.searchbar-result:before{display:none}

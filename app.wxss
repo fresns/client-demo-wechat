@@ -1,13 +1,69 @@
 /*!
- * Fresns 微信小程序 (https://fresns.org)
- * Copyright 2021-Present Jarvis Tang
+ * Fresns 微信小程序 (https://fresns.cn)
+ * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-@import "/assets/styles/weui.wxss";
-@import "/assets/styles/fsui.wxss";
-
 .page {
   background-color: var(--weui-BG-1);
-  padding-bottom: 88px;
-  height: 100%
+}
+
+.weui-loadmore_line .weui-loadmore__tips {
+  background-color: var(--weui-BG-1);
+}
+
+/* Tabbar */
+.tabbar-spacing {
+  margin-top: 5rem;
+}
+
+.weui-tabbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+/* Tab */
+.tab-navbar {
+  background-color: var(--weui-BG-2);
+  box-shadow: 0px 0px 5px var(--weui-BG-0);
+  position: -webkit-sticky;
+  position: sticky;
+  top: -1;
+  z-index: 2048;
+  text-align: center;
+}
+
+.weui-navbar {
+  margin: 0 auto;
+}
+
+.weui-navbar:after {
+  border-bottom: none;
+}
+
+.weui-navbar__item {
+  padding: 0;
+}
+
+.weui-navbar__item navigator {
+  color: var(--weui-FG-0);
+  padding: 8px 0;
+}
+
+.weui-navbar__item:after {
+  border-right: none;
+}
+
+.weui-navbar__item.weui-navbar__item_on {
+  background-color: inherit;
+  border-bottom: 3px solid var(--weui-BRAND);
+}
+
+/* List */
+.user-list {
+  width: 100%;
+  overflow: hidden;
+  margin: 10px 0;
+  background-color: var(--weui-BG-2);
 }

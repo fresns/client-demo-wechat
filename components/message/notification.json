@@ -1,0 +1,10 @@
+{
+  "component": true,
+  "usingComponents": {
+    "mp-html": "mp-html",
+    "creator": "/components/section/creator",
+    "files": "/components/section/files",
+    "previewComments": "/components/post/section/preview-comments",
+    "interaction": "/components/post/section/interaction"
+  }
+}

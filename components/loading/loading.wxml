@@ -1,0 +1,12 @@
+<!-- *
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
+    Licensed under the Apache-2.0 license
+* -->
+<!-- 正在加载 -->
+<mp-loading wx:if="{{ status }}" tips="{{ loading }}" type="circle"></mp-loading>
+
+<!-- 到底了 -->
+<view wx:if="{{ tipStatus }}" class="weui-loadmore weui-loadmore_line">
+    <text class="weui-loadmore__tips">{{ tipText }}</text>
+</view>

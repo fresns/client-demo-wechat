@@ -1,558 +1,434 @@
 /*!
- * Fresns 微信小程序 (https://fresns.org)
- * Copyright 2021-Present Jarvis Tang
+ * Fresns 微信小程序 (https://fresns.cn)
+ * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import Api from '../../api/api';
-import appConfig from '../../configs/fresnsConfig';
-import { globalInfo } from '../../configs/fresnsGlobalInfo';
-import { randomStr } from '../../util/randomStr';
-import { getPluginSign } from '../../api/tool/sign';
-
-const chooseLocation = requirePlugin('chooseLocation');
-/**
- * 帖子、评论
- * @type {{Comment: number, Post: number}}
- */
-const Type = {
-    Post: 1,
-    Comment: 2,
-};
-/**
- * 创建、编辑
- * @type {{Create: number, Modify: number}}
- */
-const Mode = {
-    Create: 0,
-    Modify: 1,
-};
+import { fresnsApi } from '../../api/api';
+import { fresnsConfig } from '../../api/tool/function';
+import { repPluginUrl, generateRandomString } from '../../utils/fresnsUtilities';
 
 Page({
-    mixins: [require('../../mixin/themeChanged'), require('../../mixin/loginInterceptor')],
-    data: {
-        // 是否可以使用编辑器
-        isEnable: true,
-        // 编辑器类型
-        type: Type.Post,
-        // 创建还是编辑
-        mode: Mode.Create,
-        // 编辑帖子或者编辑评论才会携带
-        fsid: null,
-        // 如果是写评论，此处会有话题 id
-        postId: null,
+  /** 外部 mixin 引入 **/
+  mixins: [
+    require('../../mixins/themeChanged'),
+    require('../../mixins/checkSiteMode'),
+    require('../../mixins/loginInterceptor'),
+  ],
 
-        // 编辑器配置
-        editorConfig: null,
-        // 是否显示标题
-        isShowTitleInput: true,
-        // 内容字数长度
-        editorContentWordCount: 0,
-        // 现在的草稿
-        drafts: null,
-        // 是否显示草稿选择器
-        isShowDraftSelector: false,
-        // 当前的草稿
-        currentDraft: null,
-        // 是否主动选择地址
-        manualSelectLocation: false,
-        // 禁用词
-        blockWords: null,
-        // 草稿id
-        draftId: null,
-    },
-    editorContext: null,
-    updateTimer: null,
-    lastPlugin: null,
-    onLoad: async function (options) {
-        this._parseOptions(options);
+  /** 页面的初始数据 **/
+  data: {
+    // 提示条
+    tipError: '',
+    tipDelay: 3000,
 
-        // 拉取编辑器配置数据
-        const editorConfigRes = await Api.editor.editorConfigs({
-            type: Type.Post,
-        });
-        if (editorConfigRes.code === 0) {
-            this.setData({
-                editorConfig: editorConfigRes.data,
-            });
+    // 配置参数
+    options: null,
+    type: null,
+
+    // 草稿选择器
+    draftSelector: false,
+
+    // 编辑器相关
+    editorConfig: {},
+    editorStatus: false,
+    toolbarBottom: 0,
+    contentCursorPosition: 0,
+    showTitleInput: false,
+    showMentionDialog: false,
+    showHashtagDialog: false,
+
+    // 草稿
+    draftEdit: null,
+    draftDetail: null,
+    draftContentWordCount: 0, // 实时计算内容字数
+  },
+
+  /** 监听页面加载 **/
+  onLoad: async function (options) {
+    wx.setNavigationBarTitle({
+      title: await fresnsConfig('menu_editor_functions'),
+    });
+
+    // 编辑器参数
+    const type = options.type || 'post';  // 内容类型，帖子或评论
+    const fsid = options.fsid;  // 有值表示编辑已发表的内容
+    const draftId = options.draftId;  // 有值表示编辑指定草稿
+
+    // 编辑器配置
+    let editorService;
+    let scene;
+    let pid;
+    let plid;
+    let cid;
+    let clid;
+    switch (type) {
+      case 'post':
+        editorService = await fresnsConfig('post_editor_service');
+        scene = 'postEditor';
+        pid = fsid;
+        plid = draftId;
+        break;
+      case 'comment':
+        editorService = await fresnsConfig('comment_editor_service');
+        scene = 'commentEditor';
+        cid = fsid;
+        clid = draftId;
+
+        // 评论必填参数判断
+        const commentPid = options.commentPid;  // 评论哪个帖子
+        if (!commentPid) {
+          this.setData({
+            tipError: '评论缺失 pid 参数',
+            tipDelay: 20000,
+            editorStatus: true, // 显示编辑器
+          });
+
+          return
         }
+        break;
+      default:
+        editorService = null;
+        scene = 'postEditor';
+        pid = fsid;
+        plid = draftId;
+    }
 
-        await this._authorityCheck();
+    this.setData({
+      options: options,
+      type: type,
+    });
 
-        // 如果不允许，则直接不进行下面流程
-        if (!this.data.isEnable) {
-            return;
-        }
-
-        const blockWordsRes = await Api.info.infoBlockWords();
-        if (blockWordsRes.code === 0) {
-            this.setData({
-                blockWords: blockWordsRes.data.list,
-            });
-        }
-
-        wx.createSelectorQuery()
-            .select('#editor')
-            .context((res) => {
-                this.editorContext = res.context;
-            })
-            .exec();
-
-        if (this.data.type === Type.Post && this.data.draftId) {
-            await this.getDraft();
-        } else {
-            await this._createDraft();
-        }
-
-        // 定时更新
-        if (!this.updateTimer) {
-            this.updateTimer = setInterval(() => {
-                this.updateTitleAndContent();
-            }, 10000);
-        }
-    },
-    onShow: async function () {
-        const location = chooseLocation.getLocation();
-        if (location && this.data.manualSelectLocation === true) {
-            this.data.manualSelectLocation = false;
-            const { name, latitude, longitude, province, city, district, address } = location;
-            this.data.currentDraft.location = {
-                isLocation: 1,
-                mapId: 5,
-                latitude: latitude,
-                longitude: longitude,
-                scale: null,
-                poi: name,
-                poiId: null,
-                nation: null,
-                province: province,
-                city: city,
-                district: district,
-                adcode: null,
-                address: address,
-            };
-            await this.updateDraft();
-        }
-    },
-    onUnload: async function () {
-        if (this.updateTimer) {
-            clearInterval(this.updateTimer);
-            this.updateTimer = null;
-        }
-    },
-    _parseOptions: function (options) {
-        console.log('post editor options:', options);
-        const { type, mode, fsid, pid, draftId } = options;
-        if (type === 'post') {
-            this.setData({ type: Type.Post });
-        }
-        if (type === 'comment') {
-            this.setData({ type: Type.Comment });
-        }
-
-        if (mode === 'create') {
-            this.setData({ mode: Mode.Create });
-        }
-        if (mode === 'modify') {
-            this.setData({ mode: Mode.Modify });
-        }
-        if (draftId) {
-            this.setData({ draftId });
-        }
-        this.setData({ fsid: fsid, postId: pid });
-    },
-    _authorityCheck: async function () {
-        const { editorConfig } = this.data;
-        // 允许编辑
-        if (editorConfig.publishPerm.status) {
-            this.setData({ isEnable: true });
-        } else {
-            const tips = editorConfig.publishPerm.tips;
-            wx.showToast({
-                title:
-                    tips?.expired_at ||
-                    tips?.post_publish ||
-                    tips?.post_email_verify ||
-                    tips?.post_phone_verify ||
-                    tips?.post_prove_verify,
-                icon: 'none',
-            });
-            this.setData({
-                isEnable: false,
-            });
-        }
-    },
-    _pluginCallback: async function () {
-        let { key, uuid } = this.lastPlugin;
-        this.lastPlugin = null;
-
-        const callbackRes = await Api.info.infoCallbacks({
-            unikey: key,
-            uuid: uuid,
-        });
-        const contents = callbackRes.data;
-        contents.forEach((content) => {
-            const { callbackType, dataValue } = content;
-            // 6 编辑器-评论附带按钮配置
-            if (callbackType === 6) {
-                this.data.currentDraft.commentSetting = dataValue;
-            }
-
-            // 7 编辑器-阅读权限配置
-            if (callbackType === 7) {
-                this.data.currentDraft.allow = dataValue;
-            }
-
-            // 8 编辑器-特定用户列表配置
-            if (callbackType === 8) {
-                this.data.currentDraft.userList = dataValue;
-            }
-
-            // 9 编辑器-扩展内容
-            if (callbackType === 9) {
-                this.data.currentDraft.extends.push(...dataValue);
-            }
-        });
-        await this.updateDraft();
-    },
-    _createDraft: async function () {
-        const { type, fsid, postId } = this.data;
-        const editorDetailRes = await Api.editor.editorCreate({
-            type: type,
-            fsid: fsid,
-            pid: postId,
-        });
-        if (editorDetailRes.code === 0) {
-            const draftDetail = editorDetailRes.data.detail;
-            console.log(draftDetail);
-            if (editorDetailRes.code === 0) {
-                this.setData({
-                    isShowDraftSelector: false,
-                    currentDraft: draftDetail,
-                });
-
-                this.editorContext.setContents({
-                    html: draftDetail.content,
-                });
-            }
-        }
-    },
-    getDraft: async function (draftId) {
-        const editorDetailRes = await Api.editor.editorDetail({
-            type: this.data.type,
-            logId: this.data.draftId,
-        });
-        const draftDetail = editorDetailRes.data.detail;
-
-        if (editorDetailRes.code === 0) {
-            this.setData({
-                isShowDraftSelector: false,
-                currentDraft: draftDetail,
-            });
-
-            this.editorContext.setContents({
-                html: draftDetail.content,
-            });
-        }
-    },
     /**
-     * 创建新的草稿
-     * @returns {Promise<void>}
+     * 如果配置了编辑器插件，则跳转到插件页面
      */
-    createDraft: async function () {
-        const createRes = await Api.editor.editorCreate({
-            type: this.data.type,
-        });
-    },
+    if (editorService) {
+      const newUrl = repPluginUrl(editorService, {
+        type: type,
+        scene: scene,
+        pid: pid,
+        plid: plid,
+        cid: cid,
+        clid: clid,
+      });
+
+      // 过滤 options 里指定参数
+      const filteredOptions = Object.entries(options).filter(([key]) => key !== 'type');
+
+      // 将过滤后的 options 对象转换为 URL 参数字符串
+      const urlParams = filteredOptions.map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`).join('&');
+
+      wx.redirectTo({
+        url: '/pages/webview?url=' + newUrl + '&' + urlParams
+      })
+
+      return
+    }
+
     /**
-     * 当 editor 内容变更时触发
-     * @returns {Promise<void>}
+     * 没有插件编辑器，进入原生编辑器
      */
-    onEditorInput: async function (e) {
-        const { text } = e.detail;
-        this.data.currentDraft.content = text;
+    const configRes = await fresnsApi.editor.editorConfig({
+      type: type,
+    })
+
+    if (configRes.code === 0) {
+      this.setData({
+        editorConfig: configRes.data, // 编辑器配置
+        draftSelector: true, // 草稿选择器
+      });
+
+      return
+    }
+
+    this.setData({
+      tipError: '[' + configRes.code + '] 编辑器配置加载失败',
+      tipDelay: 20000,
+    });
+  },
+
+  /** 监听页面显示 **/
+  onShow: async function() {
+    // 处理插件回调消息
+    const postMessage = wx.getStorageSync('fresnsPluginMessage');
+    console.log('fresnsPluginMessage', postMessage);
+
+    if (postMessage?.postMessageKey == 'fresnsEditor') {
+      const type = this.data.type
+      const draftDetail = this.data.draftDetail
+
+      const detailRes = await fresnsApi.editor.editorDetail({
+        type: type,
+        draftId: draftDetail.id,
+      })
+
+      if (detailRes.code === 0) {
         this.setData({
-            currentDraft: this.data.currentDraft,
-            editorContentWordCount: text.replaceAll('\n', '').length,
+          draftDetail: detailRes.data,
         });
-    },
-    /**
-     * 更新草稿内容
-     * @returns {Promise<void>}
-     */
-    updateDraft: async function () {
-        const { currentDraft } = this.data;
-        await Api.editor.editorUpdate({
-            logType: this.data.type,
-            logId: currentDraft.id,
-            gid: currentDraft.gid,
-            title: currentDraft.title,
-            content: currentDraft.content,
-            isMarkdown: 0,
-            isAnonymous: currentDraft.isAnonymous,
-            filesJson: JSON.stringify(currentDraft.files),
-        });
+      }
+    }
+  },
 
-        this.setData({
-            currentDraft: this.data.currentDraft,
-        });
-    },
-    /**
-     * 定时更新 title 和 content
-     * @returns {Promise<void>}
-     */
-    updateTitleAndContent: async function () {
-        const { currentDraft } = this.data;
-        const updateRes = await Api.editor.editorUpdate({
-            logType: this.data.type,
-            logId: currentDraft.id,
-            gid: currentDraft.gid,
-            title: currentDraft.title,
-            content: currentDraft.content,
-            filesJson: JSON.stringify(currentDraft.files),
-        });
-    },
-    /**
-     * 提交草稿内容
-     * @returns {Promise<void>}
-     */
-    submitDraft: async function () {
-        await this.updateDraft();
-        // TODO Add stop words check
-        const submitRes = await Api.editor.editorSubmit({
-            type: this.data.type,
-            logId: this.data.currentDraft.id,
-        });
-        if (submitRes.code === 0) {
-            wx.showToast({
-                title: '提交成功',
-                icon: 'success',
-            });
-            wx.redirectTo({
-                url: '/pages/posts/index',
-            });
-        }
-    },
-    /**
-     * 删除草稿
-     */
-    deleteDraft: async function () {
-        const deleteRes = await Api.editor.editorDelete({
-            type: 1,
-            logId: this.data.currentDraft.id,
-            deleteType: 1,
-        });
-        if (deleteRes.code === 0) {
-            this.setData({
-                isShowDraftSelector: true,
-                currentDraft: null,
-            });
-        }
-    },
-    /**
-     * 删除草稿附属文件
-     */
-    deleteDraftAttachedFile: async function () {
-        Api.editor.editorDelete({
-            type: 1,
-            logId: this.data.currentDraft.id,
-            deleteType: 2,
-            deleteFsid: '',
-        });
-    },
-    /**
-     * 删除扩展内容
-     */
-    deleteDraftExtension: async function () {
-        Api.editor.editorDelete({
-            type: 1,
-            logId: this.data.currentDraft.id,
-            deleteType: 3,
-            deleteFsid: '',
-        });
-    },
-    /**
-     * 草稿选择
-     * @param draft
-     */
-    onSelectDraft: async function (draft) {
-        const editorDetailRes = await Api.editor.editorDetail({
-            type: this.data.type,
-            logId: draft.id,
-        });
-        const draftDetail = editorDetailRes.data.detail;
+  // 选择草稿
+  onLoadDraft: async function (draftData) {
+    wx.showNavigationBarLoading();
 
-        if (editorDetailRes.code === 0) {
-            this.setData({
-                isShowDraftSelector: false,
-                currentDraft: draftDetail,
-            });
+    const titleConfig = this.data.editorConfig.editor.toolbar.title;
 
-            this.editorContext.setContents({
-                html: draftDetail.content,
-            });
-        }
-    },
-    /**
-     * 切换显示标题输入框
-     */
-    switchTitleInputShow: function () {
-        this.setData({
-            isShowTitleInput: !this.data.isShowTitleInput,
-        });
-    },
-    /**
-     * 标题变更
-     * @param title
-     */
-    onTitleChange: function (title) {
-        this.data.currentDraft.title = title;
-        this.setData({
-            currentDraft: this.data.currentDraft,
-        });
-    },
-    // 小组变更
-    onSelectGroup: function (e) {
-        this.data.currentDraft.gid = e.detail.value;
-        this.setData({
-            currentDraft: this.data.currentDraft,
-        });
-    },
-    /**
-     * 选择 sticker 表情
-     * @param sticker
-     */
-    onSelectSticker: function (sticker) {
-        this.editorContext.insertText({
-            text: `[${sticker.code}]`,
-        });
-    },
-    /**
-     * 上传完毕文件的回调
-     */
-    onAddedFile: async function (file) {
-        this.data.currentDraft.files.push(file);
-        this.setData({
-            currentDraft: this.data.currentDraft,
-        });
-        await this.updateDraft();
-    },
-    /**
-     * 移除文件
-     */
-    onRemovedFile: async function (fileId) {
-        this.data.currentDraft.files = this.data.currentDraft.files.filter((file) => file.fid !== fileId);
-        this.setData({
-            currentDraft: this.data.currentDraft,
-        });
-        const updateDraftRes = await this.updateDraft();
-        wx.showToast({
-            title: '删除成功',
-            icon: 'success',
-        });
-    },
-    /**
-     * 选择用户
-     * @param user
-     */
-    onSelectUser: function (user) {
-        this.editorContext.insertText({
-            text: `@${user.nickname} `,
-        });
-    },
-    /**
-     * 选择话题
-     * @param hashtags
-     */
-    onSelectHashtags: function (hashtags) {
-        let text = `#${hashtags.name} `;
-        const hashtagShowType = this.data.editorConfig.toolbar.hashtag.showMode;
-        if (hashtagShowType === 1) {
-            text = `#${hashtags.name} `;
-        }
-        if (hashtagShowType === 2) {
-            text = `#${hashtags.name}#`;
-        }
-        this.editorContext.insertText({
-            text: text,
-        });
-    },
-    /**
-     * 点击选择扩展
-     */
-    onSelectExpand: async function (expand) {
-        const uuid = randomStr();
+    // 标题配置
+    let showTitleInput = false;
+    if (titleConfig.status && titleConfig.view) {
+      showTitleInput = true;
+    }
+    if (draftData.detail.title) {
+      showTitleInput = true;
+    }
 
-        this.lastPlugin = {
-            key: expand.plugin,
-            uuid: uuid,
-        };
+    this.setData({
+      draftEdit: draftData.edit || null, // 录入草稿编辑配置
+      draftDetail: draftData.detail, // 录入草稿数据
+      draftSelector: false, // 关闭草稿选择器
+      editorStatus: true, // 显示编辑器
+      showTitleInput: showTitleInput, // 标题输入框是否显示
+      contentCursorPosition: draftData.detail.content.length // 获取内容光标位置
+    });
 
-        // TODO 替换参数
-        let url = expand.url;
-        url.replace('{uuid}', uuid)
-            .replace('{sign}', await getPluginSign())
-            .replace('{langTag}', globalInfo.langTag)
-            .replace('{aid}', globalInfo.aid)
-            .replace('{uid}', globalInfo.uid)
-            .replace('{rid}', '')
-            .replace('{gid}', '')
-            .replace('{pid}', '')
-            .replace('{cid}', '')
-            .replace('{eid}', '')
-            .replace('{fid}', '')
-            .replace('{plid}', '')
-            .replace('{clid}', '')
-            .replace('{uploadToken}', '')
-            .replace('{uploadInfo}', '');
+    wx.hideNavigationBarLoading();
+  },
 
-        wx.navigateTo({
-            url: `/pages/webview?url=${url}`,
-        });
-    },
-    /**
-     * 选择地址
-     */
-    onSelectLocation: function () {
-        wx.getLocation({
-            type: 'gcj02',
-            success: (res) => {
-                this.setData({ manualSelectLocation: true });
+  /** 以下为编辑器功能 **/
 
-                const { longitude, latitude } = res;
-                const location = JSON.stringify({
-                    latitude: latitude,
-                    longitude: longitude,
-                });
-                const { tencentMapKey, tencentMapReferer } = appConfig;
-                wx.navigateTo({
-                    url: `plugin://chooseLocation/index?key=${tencentMapKey}&referer=${tencentMapReferer}&location=${location}`,
-                });
-            },
-        });
-    },
-    /**
-     * 删除地址
-     */
-    onDeleteLocation: async function () {
-        this.data.currentDraft.location = null;
-        await this.updateDraft();
-    },
-    /**
-     * 切换是否匿名
-     * @param isSelected
-     */
-    onSwitchAnonymous: function (isSelected) {
-        this.data.currentDraft.isAnonymous = isSelected ? 1 : 0;
-        this.updateDraft();
-    },
-    /**
-     * 页面事件捕捉
-     * @param e
-     */
-    onClickEditor: function (e) {
-        const editorToolbar = this.selectComponent('#editor-toolbar');
-        editorToolbar.setData({
-            showType: null,
-        });
-    },
-});
+  // API 更新草稿
+  apiUpdateDraft: async function (parameters) {
+    const draftDetail = this.data.draftDetail;
+
+    console.log('apiUpdateDraft', parameters);
+
+    await fresnsApi.editor.editorUpdate({
+      type: this.data.type,
+      draftId: draftDetail.id,
+      ...parameters,
+    });
+  },
+
+  // 编辑器工具栏
+  onToolbarBottom: function (toolbarBottom = 0) {
+    this.setData({
+      toolbarBottom: toolbarBottom,
+    });
+  },
+  switchShowTitleInput() {
+    this.setData({
+      showTitleInput: !this.data.showTitleInput,
+    });
+  },
+  switchShowMentionDialog() {
+    this.setData({
+      showMentionDialog: !this.data.showMentionDialog,
+    });
+  },
+  switchShowHashtagDialog() {
+    this.setData({
+      showHashtagDialog: !this.data.showHashtagDialog,
+    });
+  },
+
+  // 小组
+  onGroupChange(group = {}) {
+    const draftDetail = this.data.draftDetail;
+    draftDetail.group = group;
+
+    this.setData({
+      draftDetail: draftDetail,
+    });
+
+    this.apiUpdateDraft({
+      postGid: group?.gid ? group?.gid : '',
+    })
+  },
+
+  // 标题
+  onTitleChange(title) {
+    const draftDetail = this.data.draftDetail;
+    draftDetail.title = title;
+
+    this.setData({
+      draftDetail: draftDetail,
+    });
+  },
+  onTitleSubmit(title) {
+    const draftDetail = this.data.draftDetail;
+    draftDetail.title = title;
+
+    this.setData({
+      draftDetail: draftDetail,
+    });
+
+    this.apiUpdateDraft({
+      postTitle: title,
+    })
+  },
+
+  // 内容
+  onContentChange(content) {
+    const draftDetail = this.data.draftDetail;
+    draftDetail.content = content;
+
+    this.setData({
+      draftDetail: draftDetail,
+    });
+  },
+  onContentCursor(cursorPosition) {
+    this.setData({
+      contentCursorPosition: cursorPosition,
+    });
+  },
+  onContentInsert(text) {
+    const draftDetail = this.data.draftDetail;
+    const cursorPosition = this.data.contentCursorPosition;
+
+    const prevCharacter = draftDetail.content.charAt(cursorPosition - 1); // 光标前一个字符
+    const firstCharacterOfText = text.charAt(0); // 插入文本的第一个字符
+
+    let newText = text;
+    if (prevCharacter === firstCharacterOfText) {
+      // 如果两个字符一样，避免重复，去除一个
+      newText = text.slice(1);
+    }
+
+    const newContent = draftDetail.content.slice(0, cursorPosition) + newText + draftDetail.content.slice(cursorPosition);
+
+    draftDetail.content = newContent;
+
+    this.setData({
+      draftDetail: draftDetail,
+      contentCursorPosition: cursorPosition + text.length,
+    });
+  },
+  onContentSubmit(content) {
+    const draftDetail = this.data.draftDetail;
+    draftDetail.content = content;
+
+    this.setData({
+      draftDetail: draftDetail,
+    });
+
+    this.apiUpdateDraft({
+      content: content,
+    })
+  },
+
+  // 位置
+  onLocationChange(mapJson) {
+    if (!mapJson) {
+      return
+    }
+
+    const draftDetail = this.data.draftDetail;
+    draftDetail.mapJson = mapJson;
+
+    this.setData({
+      draftDetail: draftDetail,
+    });
+
+    this.apiUpdateDraft({
+      map: mapJson,
+    })
+  },
+  onLocationDelete() {
+    const draftDetail = this.data.draftDetail;
+    draftDetail.mapJson = {};
+
+    this.setData({
+      draftDetail: draftDetail,
+    });
+
+    this.apiUpdateDraft({
+      deleteMap: true,
+    })
+  },
+
+  // 是否匿名
+  onAnonymousChange(isSelected) {
+    const draftDetail = this.data.draftDetail;
+    const isAnonymous = isSelected ? 1 : 0;
+    draftDetail.isAnonymous = isAnonymous;
+
+    this.setData({
+      draftDetail: draftDetail,
+    });
+
+    this.apiUpdateDraft({
+      isAnonymous: isAnonymous,
+    })
+  },
+
+  // 文件
+  onAddFiles(type = 'images', files) {
+    const draftDetail = this.data.draftDetail;
+
+    const fileArr = files.map((file) => {
+      return {
+        newChoice: true,
+        waiting: true,
+        fid: generateRandomString(16),
+        size: file.size,
+        imageConfigUrl: file.tempFilePath,
+        imageRatioUrl: file.tempFilePath,
+        imageSquareUrl: file.tempFilePath,
+        imageBigUrl: file.tempFilePath,
+        videoTime: file.duration,
+        videoPosterUrl: file.thumbTempFilePath,
+        videoUrl: file.tempFilePath,
+      };
+    });
+
+    Array.prototype.push.apply(draftDetail.files[type], fileArr);
+
+    this.setData({
+      draftDetail: draftDetail,
+    });
+  },
+  onDeleteFile: async function (type, fid) {
+    const draftDetail = this.data.draftDetail;
+    const typeKey = type + 's';
+
+    const newFiles = draftDetail.files[typeKey].filter((file) => file.fid !== fid); // 仅保留与给定 fid 不同的文件
+
+    draftDetail.files[typeKey] = newFiles;
+
+    this.setData({
+      draftDetail: draftDetail,
+    });
+
+    await this.apiUpdateDraft({
+      deleteFile: fid,
+    })
+  },
+
+  // 提交发表
+  submitDraft: async function () {
+    const draftDetail = this.data.draftDetail;
+
+    await this.apiUpdateDraft({
+      postTitle: draftDetail.title,
+      content: draftDetail.content,
+    })
+
+    const submitRes = await fresnsApi.editor.editorPublish({
+      type: this.data.type,
+      draftId: draftDetail.id,
+    });
+
+    if (submitRes.code === 0) {
+      wx.showToast({
+        title: "提交成功",
+        icon: "success",
+      });
+
+      wx.redirectTo({
+        url: "/pages/posts/index",
+      });
+    }
+  },
+})

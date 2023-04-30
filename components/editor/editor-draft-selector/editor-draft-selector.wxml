@@ -1,17 +1,24 @@
 <!-- *
-    Fresns 微信小程序 (https://fresns.org)
-    Copyright 2021-Present Jarvis Tang
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
     Licensed under the Apache-2.0 license
 * -->
-<view class="editor-draft-selector">
-    <modal>
-        <view class="choose-draft-content">
-            <button wx:for="{{drafts}}"
-                    wx:for-item="draft"
-                    wx:key="id"
-                    data-draft="{{draft}}"
-                    bind:tap="handleClickDraft">{{draft.id}}
-            </button>
+<scroll-view class="editor-draft-selector" scroll-y="true" bindscrolltolower="loadDraftList">
+    <view class="weui-cells__title">{{ fsLang.selectDraft }}</view>
+
+    <!-- 帖子草稿列表 -->
+    <view class="weui-cells weui-cells_after-title" wx:if="{{ type == 'post' }}">
+        <view wx:for="{{ posts }}" wx:for-item="post" wx:key="id" class="weui-cell weui-cell_example" data-id="{{ post.id }}" bind:tap="onClickChooseDraft">
+            <view class="weui-cell__hd">{{ post.id }}</view>
+            <view class="weui-cell__bd" wx:if="{{ post.title }}">{{ post.title }}</view>
+            <view class="weui-cell__bd" wx:else>{{ post.contentLength > 40 ? post.content.slice(0, 40) + '...' : post.content }}</view>
+            <view class="weui-cell__ft">{{ post.contentLength }}</view>
         </view>
-    </modal>
-</view>
+    </view>
+
+    <!-- 加载动效 -->
+    <loading status="{{ loadingStatus }}" tipType="{{ loadingTipType }}"></loading>
+
+    <!-- 创建新草稿 -->
+    <view wx:if="{{ createBtn }}" class="weui-btn weui-btn_primary" style="width:220px;" bind:tap="onClickCreateDraft">{{ fsLang.createDraft }}</view>
+</scroll-view>

@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "我踩的帖子",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "tabbar": "/components/tabbar/tabbar",
+    "loading": "/components/loading/loading",
+    "post": "/components/post/post"
+  }
+}

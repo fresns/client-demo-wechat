@@ -1,92 +1,93 @@
 <!-- *
-    Fresns 微信小程序 (https://fresns.org)
-    Copyright 2021-Present Jarvis Tang
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
     Licensed under the Apache-2.0 license
 * -->
-<view class="editor-toolbar" catch:tap="nothing">
-    <!--Toolbar-->
-    <view class="weui-flex toolbar">
-        <view class="weui-flex__item" data-type="sticker" wx:if="{{editorConfig.toolbar.sticker}}" bind:tap="onClickToolBar">
+<view class="editor-toolbar" style="bottom:{{ toolbarBottom }}rpx">
+    <!-- Toolbar -->
+    <view class="weui-flex">
+        <view class="weui-flex__item" wx:if="{{ config.sticker }}" data-tool="sticker" bind:tap="onClickToolBar">
             <view class="tabbar_icon">
-                <image src="https://cdn.fresns.cn/configs/toolbar/default_sticker.png" class="weui-tabbar__icon"></image>
+                <image src="../../../assets/toolbar/sticker.png" class="weui-tabbar__icon"></image>
             </view>
-            <view class="weui-tabbar__label">表情</view>
+            <view class="weui-tabbar__label">{{ fresnsLang.editorStickers }}</view>
         </view>
-        <view class="weui-flex__item" data-type="image" wx:if="{{editorConfig.toolbar.image.status}}" bind:tap="onClickToolBar">
+
+        <view class="weui-flex__item" wx:if="{{ config.image.status }}" data-tool="image" bind:tap="onClickToolBar">
             <view class="tabbar_icon">
-                <image src="https://cdn.fresns.cn/configs/toolbar/default_image.png" class="weui-tabbar__icon"></image>
+                <image src="../../../assets/toolbar/image.png" class="weui-tabbar__icon"></image>
             </view>
-            <view class="weui-tabbar__label">图片</view>
+            <view class="weui-tabbar__label">{{ fresnsLang.editorImages }}</view>
         </view>
-        <view class="weui-flex__item" data-type="video" wx:if="{{editorConfig.toolbar.video.status}}" bind:tap="onClickToolBar">
+
+        <view class="weui-flex__item" wx:if="{{ config.video.status }}" data-tool="video" bind:tap="onClickToolBar">
             <view class="tabbar_icon">
-                <image src="https://cdn.fresns.cn/configs/toolbar/default_video.png" class="weui-tabbar__icon"></image>
+                <image src="../../../assets/toolbar/video.png" class="weui-tabbar__icon"></image>
             </view>
-            <view class="weui-tabbar__label">视频</view>
+            <view class="weui-tabbar__label">{{ fresnsLang.editorVideos }}</view>
         </view>
-        <view class="weui-flex__item" data-type="audio" wx:if="{{editorConfig.toolbar.audio.status}}" bind:tap="onClickToolBar">
+
+        <view class="weui-flex__item" wx:if="{{ config.audio.status }}" data-tool="audio" bind:tap="onClickToolBar">
             <view class="tabbar_icon">
-                <image src="https://cdn.fresns.cn/configs/toolbar/default_audio.png" class="weui-tabbar__icon"></image>
+                <image src="../../../assets/toolbar/audio.png" class="weui-tabbar__icon"></image>
             </view>
-            <view class="weui-tabbar__label">音频</view>
+            <view class="weui-tabbar__label">{{ fresnsLang.editorAudios }}</view>
         </view>
-        <view class="weui-flex__item" data-type="doc" wx:if="{{editorConfig.toolbar.doc.status}}" bind:tap="onClickToolBar">
+
+        <view class="weui-flex__item" wx:if="{{ config.document.status }}" data-tool="document" bind:tap="onClickToolBar">
             <view class="tabbar_icon">
-                <image src="https://cdn.fresns.cn/configs/toolbar/default_doc.png" class="weui-tabbar__icon"></image>
+                <image src="../../../assets/toolbar/document.png" class="weui-tabbar__icon"></image>
             </view>
-            <view class="weui-tabbar__label">文档</view>
+            <view class="weui-tabbar__label">{{ fresnsLang.editorDocuments }}</view>
         </view>
-        <view class="weui-flex__item" data-type="title" wx:if="{{editorConfig.toolbar.title}}" bind:tap="onClickToolBar">
+
+        <view class="weui-flex__item" wx:if="{{ config.title.status }}" data-tool="title" bind:tap="onClickToolBar">
             <view class="tabbar_icon">
-                <image src="https://cdn.fresns.cn/configs/toolbar/default_title.png" class="weui-tabbar__icon"></image>
+                <image src="../../../assets/toolbar/title.png" class="weui-tabbar__icon"></image>
             </view>
-            <view class="weui-tabbar__label">标题</view>
+            <view class="weui-tabbar__label">{{ fresnsLang.editorTitle }}</view>
         </view>
-        <view class="weui-flex__item" data-type="user" wx:if="{{editorConfig.toolbar.mention}}" bind:tap="onClickToolBar">
+
+        <view class="weui-flex__item" wx:if="{{ config.mention.status && config.mention.display }}" data-tool="mention" bind:tap="onClickToolBar">
             <view class="tabbar_icon">
-                <image src="https://cdn.fresns.cn/configs/toolbar/default_mention.png" class="weui-tabbar__icon"></image>
+                <image src="../../../assets/toolbar/mention.png" class="weui-tabbar__icon"></image>
             </view>
-            <view class="weui-tabbar__label">艾特</view>
+            <view class="weui-tabbar__label">{{ fresnsLang.editorMention }}</view>
         </view>
-        <view class="weui-flex__item" data-type="hashtags" wx:if="{{editorConfig.toolbar.hashtag.status}}" bind:tap="onClickToolBar">
+
+        <view class="weui-flex__item" wx:if="{{ config.hashtag.status && config.hashtag.display }}" data-tool="hashtag" bind:tap="onClickToolBar">
             <view class="tabbar_icon">
-                <image src="https://cdn.fresns.cn/configs/toolbar/default_hashtag.png" class="weui-tabbar__icon"></image>
+                <image src="../../../assets/toolbar/hashtag.png" class="weui-tabbar__icon"></image>
             </view>
-            <view class="weui-tabbar__label">话题</view>
+            <view class="weui-tabbar__label">{{ fresnsLang.editorHashtag }}</view>
         </view>
-        <view class="weui-flex__item" data-type="extension" wx:if="{{editorConfig.toolbar.expand.status}}" bind:tap="onClickToolBar">
+
+        <view class="weui-flex__item" wx:if="{{ config.extend.status && config.extend.list }}" data-tool="extend" bind:tap="onClickToolBar">
             <view class="tabbar_icon">
-                <image src="https://cdn.fresns.cn/configs/toolbar/default_expand.png" class="weui-tabbar__icon"></image>
+                <image src="../../../assets/toolbar/expand.png" class="weui-tabbar__icon"></image>
             </view>
-            <view class="weui-tabbar__label">扩展</view>
+            <view class="weui-tabbar__label">{{ fresnsLang.editorExtends }}</view>
         </view>
     </view>
-    <!-- 表情 -->
-    <tabs wx:if="{{showType === 'sticker'}}" class="sticker-box" tabs="{{tabs}}" activeTab="{{activeTab}}">
-        <block wx:for="{{tabs}}" wx:for-item="tab" wx:for-index="index" wx:key="title">
-            <view class="tab-content" slot="tab-content-{{index}}">
-                <block wx:for="{{tab.sticker}}" wx:for-item="sticker" wx:key="code">
-                    <image class="sticker-image" src="{{sticker.image}}" mode="aspectFill" data-sticker="{{sticker}}" bind:tap="onSelectSticker"></image>
-                </block>
-            </view>
-        </block>
-    </tabs>
-    <!-- search user -->
-    <mp-searchbar wx:if="{{showType === 'user'}}" class="editor-fixed" search="{{onUserTextChange}}" bindselectresult="onSearchUsers"/>
-    <!-- search hashtags -->
-    <mp-searchbar wx:if="{{showType === 'hashtags'}}" class="editor-fixed" search="{{onHashtagsTextChange}}" bindselectresult="onSearchHashtags"/>
 
-    <view wx:if="{{showType==='extension'}}" aria-role="dialog" aria-modal="true" aria-labelledby="js_dialog_title" class="fadeIn" bindtap="close">
-        <view class="weui-mask" aria-role="button" aria-label="关闭" bindtap="onClickToolBar"></view>
-        <view class="weui-actionsheet weui-actionsheet_toggle">
-            <view class="weui-actionsheet__menu">
-                <block wx:for="{{editorConfig.toolbar.expand.list}}" wx:for-item="expand" wx:for-index="index" wx:key="index">
-                    <view aria-role="button" class="weui-actionsheet__cell" data-expand="{{expand}}" bind:tap="onClickExpand">{{expand.name}}</view>
+    <!-- 表情 -->
+    <view class="sticker-box" wx:if="{{ showStickerBox }}">
+        <mp-tabs tabs="{{ stickerTabs }}" active-tab="0" active-class="tab-title-selected" bindtabclick="onClickTab"/>
+
+        <scroll-view scroll-y="true" style="height:399rpx;">
+            <view class="stickers">
+                <block wx:for="{{ stickers }}" wx:for-item="sticker" wx:key="code">
+                    <image src="{{ sticker.image }}"
+                        mode="aspectFit"
+                        style="width:{{ imageWidth }}px;height:{{ imageHeight }}px;"
+                        data-code="{{ sticker.codeFormat }}"
+                        bind:tap="onSelectSticker"
+                        bind:load="loadImageSize"/>
                 </block>
             </view>
-            <view class="weui-actionsheet__action">
-                <view aria-role="button" class="weui-actionsheet__cell" bind:tap="onClickToolBar">取消</view>
-            </view>
-        </view>
+        </scroll-view>
     </view>
 </view>
+
+<!-- 扩展菜单 -->
+<mp-actionSheet show="{{ showActionSheet }}" actions="{{ extends }}" bindactiontap="onClickExpand"/>

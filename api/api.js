@@ -1,15 +1,18 @@
 /*!
- * Fresns 微信小程序 (https://fresns.org)
- * Copyright 2021-Present Jarvis Tang
+ * Fresns 微信小程序 (https://fresns.cn)
+ * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-const Api = {
-    account: require('./detail/account'),
-    content: require('./detail/content'),
-    editor: require('./detail/editor'),
-    info: require('./detail/info'),
-    message: require('./detail/message'),
-    user: require('./detail/user'),
-};
-
-module.exports = Api;
+export const fresnsApi = {
+  global: require('./detail/global'),
+  common: require('./detail/common'),
+  account: require('./detail/account'),
+  user: require('./detail/user'),
+  message: require('./detail/message'),
+  group: require('./detail/group'),
+  hashtag: require('./detail/hashtag'),
+  post: require('./detail/post'),
+  comment: require('./detail/comment'),
+  editor: require('./detail/editor'),
+  search: require('./detail/search'),
+}

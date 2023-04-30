@@ -1,7 +1,9 @@
 {
   "navigationBarTitleText": "我关注的话题",
+  "enablePullDownRefresh": true,
   "usingComponents": {
     "tabbar": "/components/tabbar/tabbar",
-    "hashtag": "/components/hashtag/list"
+    "loading": "/components/loading/loading",
+    "hashtag": "/components/hashtag/hashtag"
   }
 }

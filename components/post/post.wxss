@@ -1,0 +1,124 @@
+/*!
+ * Fresns 微信小程序 (https://fresns.cn)
+ * Copyright 2021-Present 唐杰
+ * Licensed under the Apache-2.0 license
+ */
+@import "/assets/styles/weui.wxss";
+
+.list-style {
+  padding-left: 46px;
+}
+
+.clearfix {
+  display: block;
+  overflow: hidden;
+}
+
+.float-left {
+  float: left;
+}
+
+.float-end {
+  float: right;
+}
+
+.card {
+  width: 100%;
+  overflow: hidden;
+  margin: 10px 0;
+  padding-bottom: 5px;
+  background-color: var(--weui-BG-2);
+  position: relative;
+}
+
+.card-header {
+  margin-top: 5px;
+}
+
+.card-label {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.card-label image {
+  width: 88px;
+  height: 88px;
+  margin: 0;
+  padding: 0;
+}
+
+.card-body {
+  margin: 0 20px;
+  color: var(--weui-FG-0);
+}
+
+.card-footer {
+  margin: 0 20px;
+}
+
+.navigator-inline {
+  display: inline;
+  color: var(--weui-BLUE);
+  z-index: 99;
+}
+
+.content-title image {
+  height: 24px;
+  vertical-align: middle;
+}
+
+.content-text,.content-brief {
+  margin-top: 8px;
+}
+
+.fresns-content image {
+  height: 22px;
+  margin: 0;
+  vertical-align: middle;
+}
+
+.fresns-content .fresns_sticker {
+  padding: 0;
+  margin: 0;
+  zoom: 0.5;
+}
+
+.content-append navigator {
+  font-size: 13px;
+  color: var(--weui-FG-1);
+  margin-top: 10px;
+  padding: 5px 10px;
+  border-radius: 20px;
+  background-color: var(--weui-BG-1);
+}
+
+.content-append navigator image {
+  margin-bottom: -7px;
+  margin-top: -10px;
+  margin-right: 3px;
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+}
+
+.content-append navigator .weui-badge {
+  background-color: var(--weui-LINK-ACTIVE);
+}
+
+/* Allow */
+.allow_mask_static {
+  margin-top: -120px;
+  height: 120px;
+  position: relative;
+  background: -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0)),to(#fff));
+  background: linear-gradient(to bottom,rgba(255,255,255,0),#fff);
+  pointer-events: none;
+}
+.allow-info {
+  text-align: center;
+  margin-bottom: 15px;
+}
+.allow-info .allow-text {
+  margin-bottom: 10px;
+}

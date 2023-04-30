@@ -2,6 +2,8 @@
   "navigationBarTitleText": "我",
   "enablePullDownRefresh": true,
   "usingComponents": {
+    "mp-actionSheet": "weui-miniprogram/actionsheet/actionsheet",
+    "mp-dialog": "weui-miniprogram/dialog/dialog",
     "tabbar": "/components/tabbar/tabbar"
   }
 }

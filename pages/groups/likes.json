@@ -1,7 +1,9 @@
 {
-  "navigationBarTitleText": "我点赞的小组",
+  "navigationBarTitleText": "我赞的小组",
+  "enablePullDownRefresh": true,
   "usingComponents": {
     "tabbar": "/components/tabbar/tabbar",
-    "group": "/components/group/list"
+    "loading": "/components/loading/loading",
+    "group": "/components/group/group"
   }
 }

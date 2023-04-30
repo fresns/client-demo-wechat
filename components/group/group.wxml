@@ -1,0 +1,22 @@
+<!-- *
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
+    Licensed under the Apache-2.0 license
+* -->
+<view class="group-box">
+    <navigator url="/pages/groups/detail?gid={{ group.gid }}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__hd" wx:if="{{ group.cover }}">
+            <image src="{{ group.cover }}"/>
+        </view>
+        <view class="weui-cell__bd" aria-hidden="true">
+            <view>{{ group.gname }}</view>
+            <view class="weui-cell__desc" wx:if="{{ group.description }}">{{ group.description }}</view>
+        </view>
+        <view class="weui-cell__ft weui-cell__ft_in-access" aria-hidden="true"></view>
+    </navigator>
+
+    <!-- 互动操作 -->
+    <view class="interactive-btn">
+        <interaction group="{{ group }}"></interaction>
+    </view>
+</view>

@@ -1,8 +1,9 @@
 {
-  "navigationBarTitleText": "我点赞的评论",
+  "navigationBarTitleText": "我赞的评论",
+  "enablePullDownRefresh": true,
   "usingComponents": {
     "tabbar": "/components/tabbar/tabbar",
-    "comment": "/components/comment/list",
-    "comment-list": "/components/comment/content-list"
+    "loading": "/components/loading/loading",
+    "comment": "/components/comment/comment"
   }
 }

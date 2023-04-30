@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "关注话题的帖子",
-  "usingComponents": {
-    "tabbar": "/components/tabbar/tabbar",
-    "post": "/components/post/list",
-    "list": "/components/post/content-list"
-  }
-}

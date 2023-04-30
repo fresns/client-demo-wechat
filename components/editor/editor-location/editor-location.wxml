@@ -1,0 +1,14 @@
+<!-- *
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
+    Licensed under the Apache-2.0 license
+* -->
+<view class="weui-btn weui-btn_mini weui-btn_default weui-wa-hotarea" bind:tap="onClickReselect" wx:if="{{ poi }}">
+    {{ poi }}
+</view>
+<view class="weui-btn weui-btn_mini weui-btn_default weui-wa-hotarea" bind:tap="onClickAddLocation" wx:else>
+    {{ addLocation }}
+</view>
+
+<!-- 位置菜单 -->
+<mp-actionSheet show="{{ showActionSheet }}" actions="{{ actionGroups }}" bindactiontap="onReselectLocation"/>

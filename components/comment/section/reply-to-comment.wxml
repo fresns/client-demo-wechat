@@ -1,0 +1,21 @@
+<!-- *
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
+    Licensed under the Apache-2.0 license
+* -->
+<navigator url="/pages/comments/detail?cid={{ comment.cid }}" class="fs-reply-to-comment">
+    <view>
+        <text>{{ publishCommentName }}:</text>
+
+        <text wx:if="{{ ! comment.creator.status }}">{{ creatorDeactivate }}</text>
+        <text wx:elif="{{ comment.isAnonymous }}">{{ creatorAnonymous }}</text>
+        <text wx:else>{{ comment.creator.nickname }}</text>
+
+        <text style="margin:0 10px">|</text>
+
+        <text>{{ comment.createTime }}</text>
+    </view>
+    <view>
+        <rich-text nodes="{{ comment.content }}" />
+    </view>
+</navigator>

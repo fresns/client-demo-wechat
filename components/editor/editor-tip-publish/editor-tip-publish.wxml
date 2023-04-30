@@ -1,0 +1,35 @@
+<!-- *
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
+    Licensed under the Apache-2.0 license
+* -->
+<view class="weui-form-preview">
+    <view class="weui-form-preview__hd tip-title">
+        {{ fresnsLang.editorLimitTitle }}:
+    </view>
+
+    <view class="weui-form-preview__bd">
+        <view class="weui-form-preview__item">
+            <label class="weui-form-preview__label">{{ fresnsLang.editorLimitTypeName }}</label>
+            <text class="weui-form-preview__value" wx:if="{{ publish.limit.type == 1 }}">{{ fresnsLang.editorLimitType1Desc }}</text>
+            <text class="weui-form-preview__value" wx:if="{{ publish.limit.type == 2 }}">{{ fresnsLang.editorLimitType2Desc }}</text>
+        </view>
+        <view class="weui-form-preview__item" wx:if="{{ publish.limit.type == 1 }}">
+            <label class="weui-form-preview__label">{{ fresnsLang.editorLimitDateName }}</label>
+            <text class="weui-form-preview__value">{{ publish.limit.periodStart }} - {{ publish.limit.periodEnd }}</text>
+        </view>
+        <view class="weui-form-preview__item" wx:if="{{ publish.limit.type == 2 }}">
+            <label class="weui-form-preview__label">{{ fresnsLang.editorLimitCycleName }}</label>
+            <text class="weui-form-preview__value">{{ publish.limit.cycleStart }} - {{ publish.limit.cycleEnd }}</text>
+        </view>
+        <view class="weui-form-preview__item">
+            <label class="weui-form-preview__label">{{ fresnsLang.editorLimitRuleName }}</label>
+            <text class="weui-form-preview__value" wx:if="{{ publish.limit.rule == 1 }}">{{ fresnsLang.editorLimitRule1Desc }}</text>
+            <text class="weui-form-preview__value" wx:if="{{ publish.limit.rule == 2 }}">{{ fresnsLang.editorLimitRule2Desc }}</text>
+        </view>
+        <view class="weui-form-preview__item">
+            <label class="weui-form-preview__label">{{ fresnsLang.editorLimitPromptName }}</label>
+            <text class="weui-form-preview__value">{{ publish.limit.tip }}</text>
+        </view>
+    </view>
+</view>

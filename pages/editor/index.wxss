@@ -1,18 +1,37 @@
 /*!
- * Fresns 微信小程序 (https://fresns.org)
- * Copyright 2021-Present Jarvis Tang
+ * Fresns 微信小程序 (https://fresns.cn)
+ * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-
-.weui-form {
-    padding-top: 0;
-}
-
-.weui-cells:after  {
-    border-bottom: 0px solid var(--weui-FG-3);
-}
-
 .editor-features {
+    width: 90%;
+    margin: 0 auto;
     overflow: hidden;
-    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.float-left {
+    float: left;
+}
+
+.float-end {
+    float: right;
+}
+
+/* sticker tabs */
+.weui-tabs-bar__wrp {
+    border-bottom: 1px solid #eee;
+    margin-top: 10px;
+}
+
+.weui-tabs-bar__title {
+    margin: 0px 10px;
+}
+
+.tab-title-selected {
+    font-weight: bold;
+}
+
+swiper {
+    display: none;
 }

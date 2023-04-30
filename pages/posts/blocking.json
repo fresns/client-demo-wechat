@@ -1,8 +1,9 @@
 {
   "navigationBarTitleText": "我屏蔽的帖子",
+  "enablePullDownRefresh": true,
   "usingComponents": {
     "tabbar": "/components/tabbar/tabbar",
-    "post": "/components/post/list",
-    "post-list": "/components/post/content-list"
+    "loading": "/components/loading/loading",
+    "post": "/components/post/post"
   }
 }

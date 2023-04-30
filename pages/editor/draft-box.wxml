@@ -1,48 +1,43 @@
 <!-- *
-    Fresns 微信小程序 (https://fresns.org)
-    Copyright 2021-Present Jarvis Tang
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
     Licensed under the Apache-2.0 license
 * -->
-<page-meta root-font-size="system" />
-<view class="page" data-weui-theme="{{theme}}">
+<view class="page" data-weui-theme="{{ theme }}">
     <view class="tab-navbar">
         <view class="weui-tab">
             <view class="weui-navbar">
-                <block wx:for="{{tabs}}" wx:key="*this">
-                    <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-navbar__item_on' : ''}}" bindtap="tabClick">
-                        {{item}}
+                <block wx:for="{{ tabs }}" wx:key="*this">
+                    <view id="{{ index }}" class="weui-navbar__item {{ activeIndex == index ? 'weui-navbar__item_on' : '' }}" bind:tap="tabClick">
+                        {{ item }}
                     </view>
                 </block>
             </view>
         </view>
     </view>
-    <view class="weui-tab__panel">
-        <!-- 帖子草稿 -->
-        <view class="weui-tab__content {{activeIndex == 0 ? 'weui-tab__content_on' : ''}}">
-            <view class="weui-cells weui-cells_after-title">
-                <navigator aria-labelledby="js_cell_l1_bd" url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-                    <view class="weui-cell__bd" id="js_cell_l1_bd" aria-hidden="true">cell standard</view>
-                    <view class="weui-cell__ft weui-cell__ft_in-access" aria-hidden="true"></view>
-                </navigator>
-                <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-                    <view class="weui-cell__bd">cell standard</view>
-                    <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-                </navigator>
-            </view>
-        </view>
-        <!-- 评论草稿 -->
-        <view class="weui-tab__content {{activeIndex == 1 ? 'weui-tab__content_on' : ''}}">
-            <view class="weui-cells weui-cells_after-title">
-                <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-                    <view class="weui-cell__bd">cell standard</view>
-                    <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-                </navigator>
-                <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-                    <view class="weui-cell__bd">cell standard</view>
-                    <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-                </navigator>
-            </view>
-        </view>
+
+    <!-- 帖子草稿 -->
+    <view class="weui-cells weui-cells_after-title" wx:if="{{ type == 'post' }}">
+        <navigator wx:for="{{ posts }}" wx:for-item="post" url="" class="weui-cell weui-cell_example">
+            <view class="weui-cell__hd">{{ post.id }}</view>
+            <view class="weui-cell__bd">{{ post.title || post.contentLength > 40 ? post.content.slice(0, 40) + '...' : post.content }}</view>
+            <view class="weui-cell__ft">{{ post.contentLength }}</view>
+        </navigator>
     </view>
-    <view class="copyright">Powered by Fresns</view>
+
+    <!-- 评论草稿 -->
+    <view class="weui-cells weui-cells_after-title" wx:if="{{ type == 'comment' }}">
+        <navigator wx:for="{{ comments }}" wx:for-item="comment" url="" class="weui-cell weui-cell_example">
+            <view class="weui-cell__hd">{{ comment.id }}</view>
+            <view class="weui-cell__bd">{{ comment.contentLength > 40 ? comment.content.slice(0, 40) + '...' : comment.content }}</view>
+            <view class="weui-cell__ft">{{ comment.contentLength }}</view>
+        </navigator>
+    </view>
+
+    <!-- 加载动效 -->
+    <loading status="{{ loadingStatus }}" tipType="{{ loadingTipType }}"></loading>
+
+    <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
+        <text class="weui-loadmore__tips">Powered by Fresns</text>
+    </view>
 </view>

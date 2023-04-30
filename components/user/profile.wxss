@@ -1,7 +1,72 @@
 /*!
- * Fresns 微信小程序 (https://fresns.org)
- * Copyright 2021-Present Jarvis Tang
+ * Fresns 微信小程序 (https://fresns.cn)
+ * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
 @import "/assets/styles/weui.wxss";
-@import "/assets/styles/fsui.wxss";
+
+.weui-flex {
+    position: relative;
+}
+
+.profile-header {
+    background-color: var(--weui-BG-2);
+    padding-bottom: 15px;
+}
+
+.profile-avatar {
+    width: 100px;
+    height: 100px;
+}
+
+.profile-avatar .avatar-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin: 20px;
+    margin-bottom: -7px;
+}
+
+.profile-avatar .avatar-decorate {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    margin-bottom: -7px;
+}
+
+.profile-name {
+    margin-left: 20px;
+    margin-top: -10px;
+}
+
+.profile-nickname {
+    font-size: 20px;
+    color: var(--weui-FG-0);
+}
+
+.profile-username {
+    font-size: 16px;
+    color: var(--weui-FG-1);
+    margin-left: 10px;
+}
+
+.profile-btn {
+    position: absolute;
+    top: 36px;
+    right: 10px;
+}
+
+.profile-bio {
+    padding: 10px 20px;
+    font-weight: 300;
+}
+
+.profile-tab-text {
+    font-size: 14px;
+    padding-top: 10px;
+    color: var(--weui-FG-1);
+}
+
+.profile-stats {
+    margin: 0 20px;
+}

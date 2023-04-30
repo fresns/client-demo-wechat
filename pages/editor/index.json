@@ -1,24 +1,28 @@
 {
-  "navigationBarTitleText": "编辑器",
+  "navigationBarTitleText": "选择草稿",
   "usingComponents": {
-    "editor-tips-global-limit": "/components/editor/editor-tips-global-limit/editor-tips-global-limit",
-    "editor-tips-role-limit": "/components/editor/editor-tips-role-limit/editor-tips-role-limit",
-    "editor-tips-edit-countdown": "/components/editor/editor-tips-edit-countdown/editor-tips-edit-countdown",
+    "mp-toptips": "weui-miniprogram/toptips/toptips",
 
     "editor-draft-selector": "/components/editor/editor-draft-selector/editor-draft-selector",
+
+    "editor-tip-publish": "/components/editor/editor-tip-publish/editor-tip-publish",
+    "editor-tip-edit": "/components/editor/editor-tip-edit/editor-tip-edit",
 
     "editor-toolbar": "/components/editor/editor-toolbar/editor-toolbar",
 
     "editor-group": "/components/editor/editor-group/editor-group",
     "editor-title": "/components/editor/editor-title/editor-title",
-    "editor-lbs": "/components/editor/editor-lbs/editor-lbs",
+    "editor-content": "/components/editor/editor-content/editor-content",
+    "editor-mention": "/components/editor/editor-mention/editor-mention",
+    "editor-hashtag": "/components/editor/editor-hashtag/editor-hashtag",
+
+    "editor-location": "/components/editor/editor-location/editor-location",
     "editor-anonymous": "/components/editor/editor-anonymous/editor-anonymous",
 
-    "editor-file": "/components/editor/editor-file/editor-file",
+    "editor-files": "/components/editor/editor-files/editor-files",
     "editor-allow": "/components/editor/editor-allow/editor-allow",
     "editor-comment-btn": "/components/editor/editor-comment-btn/editor-comment-btn",
     "editor-users": "/components/editor/editor-users/editor-users",
-    "editor-extend-text": "/components/editor/editor-extend-text/editor-extend-text",
-    "editor-extend-info": "/components/editor/editor-extend-info/editor-extend-info"
+    "editor-extends": "/components/editor/editor-extends/editor-extends"
   }
 }

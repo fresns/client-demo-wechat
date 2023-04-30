@@ -1,10 +1,9 @@
 <!-- *
-    Fresns 微信小程序 (https://fresns.org)
-    Copyright 2021-Present Jarvis Tang
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
     Licensed under the Apache-2.0 license
 * -->
-<page-meta root-font-size="system" />
-<view class="page" data-weui-theme="{{theme}}">
+<view class="page" data-weui-theme="{{ theme }}">
     <view class="weui-flex tab-navbar weui-navbar">
         <view class="weui-flex__item weui-navbar__item weui-navbar__item_on">
             <navigator url="/pages/comments/index" open-type="redirect">主页</navigator>
@@ -13,7 +12,16 @@
             <navigator url="/pages/comments/list" open-type="redirect">列表</navigator>
         </view>
         <view class="weui-flex__item weui-navbar__item">
-            <navigator url="/pages/comments/likes" open-type="redirect">我点赞</navigator>
+            <navigator url="/pages/comments/nearby" open-type="redirect">附近</navigator>
+        </view>
+        <view class="weui-flex__item weui-navbar__item">
+            <navigator url="/pages/follows/all-comments" open-type="redirect">关注</navigator>
+        </view>
+        <view class="weui-flex__item weui-navbar__item">
+            <navigator url="/pages/comments/likes" open-type="redirect">我赞</navigator>
+        </view>
+        <view class="weui-flex__item weui-navbar__item">
+            <navigator url="/pages/comments/dislikes" open-type="redirect">我踩</navigator>
         </view>
         <view class="weui-flex__item weui-navbar__item">
             <navigator url="/pages/comments/following" open-type="redirect">我关注</navigator>
@@ -23,37 +31,18 @@
         </view>
     </view>
 
-    <view class="comment-list">
-        <comment generic:contentType="comment-list" wx:for="{{comments}}" wx:for-item="comment" wx:key="cid" fsui="list-style" comment="{{comment}}"></comment>
+    <!-- 评论列表 -->
+    <view class="comment-list" wx:for="{{ comments }}" wx:for-index="idx" wx:for-item="comment" wx:key="cid">
+        <comment comment="{{ comment }}" type="list"></comment>
     </view>
 
-    <!-- File image Gallery -->
-    <view wx:if="{{imageGallery}}" class="weui-gallery fadeIn" bindtap="ImageClose">
-        <view class="weui-gallery__info">1/9</view>
-        <view class="weui-gallery__img__wrp">
-            <image mode="aspectFit" class="weui-gallery__img" src="https://fresns.org/prototype/assets/images/temp/image.jpg"></image>
-        </view>
+    <!-- 加载动效 -->
+    <loading status="{{ loadingStatus }}" tipType="{{ loadingTipType }}"></loading>
+
+    <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
+        <text class="weui-loadmore__tips">Powered by Fresns</text>
     </view>
 
-    <!-- 分享菜单 -->
-    <view wx:if="{{isShowShareChoose}}" class="fadeIn">
-        <view class="weui-mask"></view>
-        <view class="weui-actionsheet weui-actionsheet_toggle">
-            <view class="weui-actionsheet__title">
-                <view class="weui-actionsheet__title-text">分享选择</view>
-            </view>
-            <view class="weui-actionsheet__menu">
-                <button class="weui-actionsheet__cell" style="background: transparent;" open-type="share">
-                    分享给好友
-                </button>
-                <view class="weui-actionsheet__cell" bind:tap="onClickCopyPath">复制网址</view>
-            </view>
-            <view class="weui-actionsheet__action" bindtap="onClickCancelShareChoose">
-                <view class="weui-actionsheet__cell">取消</view>
-            </view>
-        </view>
-    </view>
-
-    <view class="copyright">Powered by Fresns</view>
-    <tabbar activeLabel="comment"></tabbar>
+    <!-- Tabbar -->
+    <tabbar activeLabel="comments"></tabbar>
 </view>

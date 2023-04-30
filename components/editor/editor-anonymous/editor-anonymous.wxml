@@ -1,11 +1,11 @@
 <!-- *
-    Fresns 微信小程序 (https://fresns.org)
-    Copyright 2021-Present Jarvis Tang
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
     Licensed under the Apache-2.0 license
 * -->
 <label class="checkbox">
     <checkbox-group bindchange="bindSwitchAnonymous">
-        <checkbox value="anonymous"/>
-        是否匿名
+        <checkbox value="anonymous" checked="{{ isEnableAnonymous }}" />
+        {{ anonymousText }}
     </checkbox-group>
 </label>

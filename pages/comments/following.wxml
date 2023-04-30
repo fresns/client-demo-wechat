@@ -1,11 +1,9 @@
 <!-- *
-    Fresns 微信小程序 (https://fresns.org)
-    Copyright 2021-Present Jarvis Tang
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
     Licensed under the Apache-2.0 license
 * -->
-<page-meta root-font-size="system"/>
-<view class="page" data-weui-theme="{{theme}}">
-
+<view class="page" data-weui-theme="{{ theme }}">
     <view class="weui-flex tab-navbar weui-navbar">
         <view class="weui-flex__item weui-navbar__item">
             <navigator url="/pages/comments/index" open-type="redirect">主页</navigator>
@@ -14,7 +12,16 @@
             <navigator url="/pages/comments/list" open-type="redirect">列表</navigator>
         </view>
         <view class="weui-flex__item weui-navbar__item">
-            <navigator url="/pages/comments/likes" open-type="redirect">我点赞</navigator>
+            <navigator url="/pages/comments/nearby" open-type="redirect">附近</navigator>
+        </view>
+        <view class="weui-flex__item weui-navbar__item">
+            <navigator url="/pages/follows/all-comments" open-type="redirect">关注</navigator>
+        </view>
+        <view class="weui-flex__item weui-navbar__item">
+            <navigator url="/pages/comments/likes" open-type="redirect">我赞</navigator>
+        </view>
+        <view class="weui-flex__item weui-navbar__item">
+            <navigator url="/pages/comments/dislikes" open-type="redirect">我踩</navigator>
         </view>
         <view class="weui-flex__item weui-navbar__item weui-navbar__item_on">
             <navigator url="/pages/comments/following" open-type="redirect">我关注</navigator>
@@ -24,64 +31,18 @@
         </view>
     </view>
 
-    <!--评论列表-->
-    <view class="comment-list">
-        <comment generic:contentType="comment-list"
-                 wx:for="{{comments}}"
-                 wx:for-item="comment"
-                 wx:key="cid"
-                 fsui="list-style"
-                 comment="{{comment}}">
-            <view wx:if="{{comment.commentSetting.list}}"
-                  slot="parentPost" class="list-style">
-                <navigator class="parent-post" url="/pages/posts/detail">
-                    <view class="preview-list"
-                          wx:for="{{comment.commentSetting.list || []}}"
-                          wx:for-item="childComment"
-                          wx:key="cid">
-                        <navigator class="navigator-inline" url="/pages/profile/index">{{childComment.nickname}}</navigator>:
-                        {{childComment.content}}
-                    </view>
-                    <!--                    <view class="weui-flex">-->
-                    <!--                        <view class="parent-post-avatar">-->
-                    <!--                            <image src="https://tangjie.me/media/avatar.jpg" mode="scaleToFill"></image>-->
-                    <!--                        </view>-->
-                    <!--                        <view class="weui-flex__item">-->
-                    <!--                            <text class="view-text">用户昵称</text>: Fresns-->
-                    <!--                            是一款免费开源的社交网络服务软件，专为跨平台而打造的通用型社区产品，支持灵活多样的内容形态，可以满足多种运营场景，符合时代潮流，更开放且更易于二次开发。-->
-                    <!--                        </view>-->
-                    <!--                    </view>-->
-                    <!--                    <view class="parent-post-group">小组名称</view>-->
-                </navigator>
-            </view>
-        </comment>
-        <!--        <comment generic:contentType="comment-list" fsui="list-style">-->
-        <!--            <view slot="parentPost" class="list-style">-->
-        <!--                <navigator class="parent-post" url="/pages/posts/detail">-->
-        <!--                    <view class="weui-flex">-->
-        <!--                        <view class="parent-post-avatar">-->
-        <!--                            <image src="https://tangjie.me/media/avatar.jpg" mode="scaleToFill"></image>-->
-        <!--                        </view>-->
-        <!--                        <view class="weui-flex__item">-->
-        <!--                            <text class="view-text">用户昵称</text>: Fresns-->
-        <!--                            是一款免费开源的社交网络服务软件，专为跨平台而打造的通用型社区产品，支持灵活多样的内容形态，可以满足多种运营场景，符合时代潮流，更开放且更易于二次开发。-->
-        <!--                        </view>-->
-        <!--                    </view>-->
-        <!--                    <view class="parent-post-group">小组名称</view>-->
-        <!--                </navigator>-->
-        <!--            </view>-->
-        <!--        </comment>-->
+    <!-- 评论列表 -->
+    <view class="comment-list" wx:for="{{ comments }}" wx:for-index="idx" wx:for-item="comment" wx:key="cid">
+        <comment comment="{{ comment }}" type="list"></comment>
     </view>
 
-    <!--File image Gallery-->
-    <view wx:if="{{imageGallery}}" class="weui-gallery fadeIn" bindtap="ImageClose">
-        <view class="weui-gallery__info">1/9</view>
-        <view class="weui-gallery__img__wrp">
-            <image mode="aspectFit" class="weui-gallery__img" src="https://fresns.org/prototype/assets/images/temp/image.jpg">
-            </image>
-        </view>
+    <!-- 加载动效 -->
+    <loading status="{{ loadingStatus }}" tipType="{{ loadingTipType }}"></loading>
+
+    <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
+        <text class="weui-loadmore__tips">Powered by Fresns</text>
     </view>
 
-    <view class="copyright">Powered by Fresns</view>
-    <tabbar></tabbar>
+    <!-- Tabbar -->
+    <tabbar activeLabel="comments"></tabbar>
 </view>

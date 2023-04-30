@@ -1,0 +1,18 @@
+<!-- *
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
+    Licensed under the Apache-2.0 license
+* -->
+<navigator url="{{boxValue}}" class="frame-box-info weui-flex frame-{{boxType}}">
+    <view class="box-image">
+        <image src="https://fresns.cn/prototype/assets/images/temp/frame-info.jpg" mode="scaleToFill"></image>
+    </view>
+    <view class="box-content">
+        <view class="box-title" style="color:{{titleColor}};">{{title}}</view>
+        <view style="color:{{descPrimaryColor}};">{{descPrimary}}</view>
+        <view style="color:{{descSecondaryColor}};">{{descSecondary}}</view>
+    </view>
+    <view class="box-btn">
+        <navigator class="weui-btn weui-btn_mini weui-btn_default" style="background-color:{{btnColor}};">{{btnName}}</navigator>
+    </view>
+</navigator>

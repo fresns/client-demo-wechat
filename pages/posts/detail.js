@@ -1,148 +1,159 @@
 /*!
- * Fresns 微信小程序 (https://fresns.org)
- * Copyright 2021-Present Jarvis Tang
+ * Fresns 微信小程序 (https://fresns.cn)
+ * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-
-import Api from '../../api/api';
-import { getConfigItemValue } from '../../api/tool/replace-key';
+import { fresnsApi } from '../../api/api';
+import { fresnsConfig, fresnsLang } from '../../api/tool/function';
+import { truncateText } from '../../utils/fresnsUtilities';
 
 Page({
-    mixins: [
-        require('../../mixin/themeChanged'),
-        require('../../mixin/imageGallery'),
-        require('../../mixin/handler/postHandler'),
-    ],
-    data: {
-        pid: null,
-        // 详情
-        posts: [],
-        // 评论列表
-        commentList: [],
+  /** 外部 mixin 引入 **/
+  mixins: [
+    require('../../mixins/themeChanged'),
+    require('../../mixins/checkSiteMode'),
+  ],
 
-        stickerShow: false,
-        functionShow: false,
+  /** 页面的初始数据 **/
+  data: {
+    // 详情
+    title: null,
+    post: null,
 
-        quickCommentValue: '',
-        quickCommentImage: null,
+    // 评论框
+    showCommentBox: false,
+    commentBtnName: null,
 
-        isShowShareChoose: false,
-    },
-    sharePost: null,
-    onLoad: async function (options) {
-        const { pid } = options;
-        this.setData({ pid: pid });
-        const postDetailRes = await Api.content.postDetail({
-            pid: pid,
-        });
-        if (postDetailRes.code === 0) {
-            this.setData({
-                posts: [postDetailRes.data.detail],
-            });
-        }
-        await this.loadCommentList();
-    },
-    loadCommentList: async function () {
-        const { pid } = this.data;
-        const commentsRes = await Api.content.commentLists({
-            searchPid: pid,
-        });
-        if (commentsRes.code === 0) {
-            this.setData({
-                commentList: commentsRes.data.list,
-            });
-        }
-    },
-    onInputChange: function (e) {
-        const value = e.detail.value;
-        this.setData({
-            quickCommentValue: value,
-        });
-        return value;
-    },
-    onSelectImage: function (e) {
-        wx.chooseImage({
-            count: 1,
-            sizeType: ['original', 'compressed'],
-            sourceType: ['album', 'camera'],
-            success: async (res) => {
-                const { tempFilePaths, tempFiles } = res;
-                const uploadRes = await Api.editor.editorUpload(tempFilePaths[0], {
-                    type: 1,
-                    tableType: 8,
-                    tableName: 'post_logs',
-                    tableColumn: 'files_json',
-                    mode: 1,
-                    file: tempFilePaths[0],
-                });
+    // 评论列表
+    query: {},
+    comments: [],
+    page: 1,
+    loadingStatus: false,
+    loadingTipType: 'none',
+    isReachBottom: false,
+  },
 
-                const resultFile = uploadRes.data.files[0];
-                this.setData({
-                    quickCommentImage: resultFile,
-                });
-            },
-        });
-    },
-    quickComment: async function () {
-        const publishRes = await Api.editor.editorPublish({
-            type: 2,
-            commentPid: this.data.pid,
-            content: this.data.quickCommentValue,
-            isMarkdown: 0,
-            isAnonymous: 0,
-            file: this.data.quickCommentImage,
-        });
-        if (publishRes.code === 0) {
-            wx.showToast({
-                title: '发布成功',
-                icon: 'none',
-            });
-            this.setData({ quickCommentValue: '', quickCommentImage: null });
-            await this.loadCommentList();
-        }
-    },
-    /**
-     * post 列表点击分享按钮
-     */
-    onClickShare: async function (post) {
-        this.sharePost = post;
-        this.setData({
-            isShowShareChoose: true,
-        });
-    },
-    /**
-     * 点击复制网址
-     */
-    onClickCopyPath: async function () {
-        const domain = await getConfigItemValue('site_domain');
-        const res = `${domain}/post/${this.sharePost.pid}`;
-        wx.setClipboardData({ data: res });
-    },
-    onClickCancelShareChoose: function () {
-        this.setData({
-            isShowShareChoose: false,
-        });
-    },
-    /** 右上角菜单-分享给好友 **/
-    onShareAppMessage: function (options) {
-        const { from, target, webViewUrl } = options;
+  /** 监听页面加载 **/
+  onLoad: async function (options) {
+    wx.setNavigationBarTitle({
+      title: await fresnsConfig('post_name'),
+    });
 
-        if (from === 'button') {
-            const { title, pid } = this.sharePost;
-            return {
-                title: title,
-                path: `/pages/posts/detail?pid=${pid}`,
-            };
-        }
+    this.setData({
+      query: options,
+    })
 
-        return {
-            title: 'Fresns',
-        };
-    },
-    /** 右上角菜单-分享到朋友圈 **/
-    onShareTimeline: function () {
-        return {
-            title: 'Fresns',
-        };
-    },
-});
+    const postDetailRes = await fresnsApi.post.postDetail({
+      pid: options.pid,
+    })
+
+    if (postDetailRes.code === 0) {
+      const creatorDeactivate = await fresnsLang('contentCreatorDeactivate');
+      const creatorAnonymous = await fresnsLang('contentCreatorAnonymous');
+      const post = postDetailRes.data.detail;
+
+      let postTitle = post.title || truncateText(post.content, 20);
+      let nickname = post.creator.nickname;
+
+      if (! post.creator.status) {
+        nickname = creatorDeactivate;
+      } else if (post.isAnonymous) {
+        nickname = creatorAnonymous;
+      };
+
+      this.setData({
+        post: post,
+        title: nickname + ': ' + postTitle,
+        commentBtnName: await fresnsConfig('publish_comment_name'),
+      })
+    }
+
+    await this.loadFresnsPageData()
+  },
+
+  /** 加载列表数据 **/
+  loadFresnsPageData: async function () {
+    if (this.data.isReachBottom) {
+      return
+    }
+
+    wx.showNavigationBarLoading();
+
+    this.setData({
+      loadingStatus: true,
+    })
+
+    const commentsRes = await fresnsApi.comment.commentList(Object.assign(this.data.query, {
+      orderDirection: 'asc',
+      page: this.data.page,
+    }))
+
+    if (commentsRes.code === 0) {
+      const { paginate, list } = commentsRes.data
+      const isReachBottom = paginate.currentPage === paginate.lastPage
+      let tipType = 'none'
+      if (isReachBottom) {
+        tipType = this.data.posts.length > 0 ? 'page' : 'empty'
+      }
+
+      this.setData({
+        comments: this.data.comments.concat(list),
+        page: this.data.page + 1,
+        loadingTipType: tipType,
+        isReachBottom: isReachBottom,
+      })
+    }
+
+    this.setData({
+      loadingStatus: false,
+    })
+
+    wx.hideNavigationBarLoading();
+  },
+
+  /** 监听用户下拉动作 **/
+  onPullDownRefresh: async function () {
+    this.setData({
+      comments: [],
+      page: 1,
+      loadingTipType: 'none',
+      isReachBottom: false,
+    })
+
+    await this.loadFresnsPageData()
+    wx.stopPullDownRefresh()
+  },
+
+  /** 监听用户上拉触底 **/
+  onReachBottom: async function () {
+    await this.loadFresnsPageData()
+  },
+
+  // 评论
+  onClickCreateComment() {
+    this.setData({
+      showCommentBox: true
+    })
+  },
+
+  /** 右上角菜单-分享给好友 **/
+  onShareAppMessage: function () {
+    return {
+      title: this.data.title,
+    }
+  },
+
+  /** 右上角菜单-分享到朋友圈 **/
+  onShareTimeline: function () {
+    return {
+      title: this.data.title,
+    }
+  },
+
+  /** 右上角菜单-收藏 **/
+  onAddToFavorites: function () {
+    return {
+      title: this.data.title,
+    }
+  },
+})

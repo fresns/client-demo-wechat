@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "草稿箱",
-  "usingComponents": {}
+  "usingComponents": {
+    "loading": "/components/loading/loading"
+  }
 }

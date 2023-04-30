@@ -1,0 +1,11 @@
+{
+  "component": true,
+  "usingComponents": {
+    "mp-html": "mp-html",
+    "creator": "/components/section/creator",
+    "files": "/components/section/files",
+    "quoted-post": "/components/section/post",
+    "previewComments": "/components/post/section/preview-comments",
+    "interaction": "/components/post/section/interaction"
+  }
+}

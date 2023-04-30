@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "附件帖子",
-  "usingComponents": {
-    "tabbar": "/components/tabbar/tabbar",
-    "post": "/components/post/list",
-    "post-list": "/components/post/content-list"
-  }
-}

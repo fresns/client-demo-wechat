@@ -1,0 +1,58 @@
+<!-- *
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
+    Licensed under the Apache-2.0 license
+* -->
+<view wx:if="{{ showDialog }}" aria-role="dialog" aria-modal="true">
+    <view class="weui-mask weui-animate_fade-in" bind:tap="close" aria-role="button" aria-label="关闭"></view>
+    <view class="weui-half-screen-dialog weui-half-screen-dialog_bottom-fixed weui-animate_slide-up">
+        <view class="weui-half-screen-dialog__hd">
+            <view class="weui-half-screen-dialog__hd__side" bind:tap="close">
+                <view aria-role="button" class="weui-btn_icon weui-wa-hotarea">
+                    <mp-icon icon="close" size="{{ 20 }}"/>
+                </view>
+            </view>
+            <view class="weui-half-screen-dialog__hd__main">
+                <strong class="weui-half-screen-dialog__title">{{ title }}</strong>
+            </view>
+        </view>
+        <view class="weui-half-screen-dialog__bd">
+
+            <!-- 搜索 -->
+            <view class="weui-search-bar {{ inputShowed ? 'weui-search-bar_focusing' : '' }}" id="searchBar">
+                <form class="weui-search-bar__form" aria-role="combobox" aria-haspopup="true" aria-expanded="{{ inputVal.length > 0 ? 'true' : 'false' }}" aria-owns="searchResult">
+                    <view class="weui-search-bar__box">
+                        <i class="weui-icon-search"></i>
+                        <input aria-controls="searchResult" type="text" class="weui-search-bar__input" placeholder="{{ inputPlaceholder }}" value="{{ inputVal }}" focus="{{ inputShowed }}" bind:input="inputTyping"/>
+                        <view aria-role="button" aria-label="清除" class="weui-icon-clear" wx:if="{{ inputVal.length > 0 }}" bind:tap="clearInput"></view>
+                    </view>
+                    <label class="weui-search-bar__label" bind:tap="showInput">
+                        <i class="weui-icon-search"></i>
+                        <span class="weui-search-bar__text">{{ inputPlaceholder }}</span>
+                    </label>
+                </form>
+
+                <view aria-role="button" class="weui-search-bar__cancel-btn" bind:tap="hideInput">{{ inputCancel }}</view>
+            </view>
+
+            <!-- 搜索结果 -->
+            <view aria-role="listbox" id="searchResult" class="weui-cells searchbar-result" wx:if="{{ users.length > 0 }}">
+                <!-- 加载动效 -->
+                <loading status="{{ loadingStatus }}" tipType="{{ loadingTipType }}"></loading>
+
+                <!-- 结果列表 -->
+                <scroll-view scroll-y="true" style="height:500px;">
+                    <view role="option" class="weui-cell weui-cell_active weui-cell_access">
+                        <view class="weui-cell__hd">
+                            <image src="/assets/images/icon.png"></image>
+                        </view>
+                        <view class="weui-cell__bd weui-cell_primary">
+                            <view>实时搜索文本</view>
+                        </view>
+                    </view>
+                </scroll-view>
+            </view>
+
+        </view>
+    </view>
+</view>
