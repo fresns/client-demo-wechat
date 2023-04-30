@@ -4,20 +4,17 @@
  * Licensed under the Apache-2.0 license
  */
 Component({
-  /** 外部 mixin 引入 **/
-  mixins: [
-    require('../../mixins/handler/groupHandler'),
-  ],
+    /** 外部 mixin 引入 **/
+    mixins: [require('../../mixins/handler/groupHandler')],
 
-  /** 组件的属性列表 **/
-  properties: {
-    group: Object,
-  },
+    /** 组件的属性列表 **/
+    properties: {
+        group: Object,
+    },
 
-  /** 组件的初始数据 **/
-  data: {},
+    /** 组件的初始数据 **/
+    data: {},
 
-  /** 组件功能 **/
-  methods: {
-  },
-})
+    /** 组件功能 **/
+    methods: {},
+});

@@ -8,152 +8,151 @@ import { fresnsConfig, fresnsLang } from '../../api/tool/function';
 import { truncateText } from '../../utils/fresnsUtilities';
 
 Page({
-  /** 外部 mixin 引入 **/
-  mixins: [
-    require('../../mixins/themeChanged'),
-    require('../../mixins/checkSiteMode'),
-  ],
+    /** 外部 mixin 引入 **/
+    mixins: [require('../../mixins/themeChanged'), require('../../mixins/checkSiteMode')],
 
-  /** 页面的初始数据 **/
-  data: {
-    // 详情
-    title: null,
-    post: null,
+    /** 页面的初始数据 **/
+    data: {
+        // 详情
+        title: null,
+        post: null,
 
-    // 评论框
-    showCommentBox: false,
-    commentBtnName: null,
+        // 评论框
+        showCommentBox: false,
+        commentBtnName: null,
 
-    // 评论列表
-    query: {},
-    comments: [],
-    page: 1,
-    loadingStatus: false,
-    loadingTipType: 'none',
-    isReachBottom: false,
-  },
+        // 评论列表
+        query: {},
+        comments: [],
+        page: 1,
+        loadingStatus: false,
+        loadingTipType: 'none',
+        isReachBottom: false,
+    },
 
-  /** 监听页面加载 **/
-  onLoad: async function (options) {
-    wx.setNavigationBarTitle({
-      title: await fresnsConfig('post_name'),
-    });
+    /** 监听页面加载 **/
+    onLoad: async function (options) {
+        wx.setNavigationBarTitle({
+            title: await fresnsConfig('post_name'),
+        });
 
-    this.setData({
-      query: options,
-    })
+        this.setData({
+            query: options,
+        });
 
-    const postDetailRes = await fresnsApi.post.postDetail({
-      pid: options.pid,
-    })
+        const postDetailRes = await fresnsApi.post.postDetail({
+            pid: options.pid,
+        });
 
-    if (postDetailRes.code === 0) {
-      const creatorDeactivate = await fresnsLang('contentCreatorDeactivate');
-      const creatorAnonymous = await fresnsLang('contentCreatorAnonymous');
-      const post = postDetailRes.data.detail;
+        if (postDetailRes.code === 0) {
+            const creatorDeactivate = await fresnsLang('contentCreatorDeactivate');
+            const creatorAnonymous = await fresnsLang('contentCreatorAnonymous');
+            const post = postDetailRes.data.detail;
 
-      let postTitle = post.title || truncateText(post.content, 20);
-      let nickname = post.creator.nickname;
+            let postTitle = post.title || truncateText(post.content, 20);
+            let nickname = post.creator.nickname;
 
-      if (! post.creator.status) {
-        nickname = creatorDeactivate;
-      } else if (post.isAnonymous) {
-        nickname = creatorAnonymous;
-      };
+            if (!post.creator.status) {
+                nickname = creatorDeactivate;
+            } else if (post.isAnonymous) {
+                nickname = creatorAnonymous;
+            }
 
-      this.setData({
-        post: post,
-        title: nickname + ': ' + postTitle,
-        commentBtnName: await fresnsConfig('publish_comment_name'),
-      })
-    }
+            this.setData({
+                post: post,
+                title: nickname + ': ' + postTitle,
+                commentBtnName: await fresnsConfig('publish_comment_name'),
+            });
+        }
 
-    await this.loadFresnsPageData()
-  },
+        await this.loadFresnsPageData();
+    },
 
-  /** 加载列表数据 **/
-  loadFresnsPageData: async function () {
-    if (this.data.isReachBottom) {
-      return
-    }
+    /** 加载列表数据 **/
+    loadFresnsPageData: async function () {
+        if (this.data.isReachBottom) {
+            return;
+        }
 
-    wx.showNavigationBarLoading();
+        wx.showNavigationBarLoading();
 
-    this.setData({
-      loadingStatus: true,
-    })
+        this.setData({
+            loadingStatus: true,
+        });
 
-    const commentsRes = await fresnsApi.comment.commentList(Object.assign(this.data.query, {
-      orderDirection: 'asc',
-      page: this.data.page,
-    }))
+        const commentsRes = await fresnsApi.comment.commentList(
+            Object.assign(this.data.query, {
+                orderDirection: 'asc',
+                page: this.data.page,
+            })
+        );
 
-    if (commentsRes.code === 0) {
-      const { paginate, list } = commentsRes.data
-      const isReachBottom = paginate.currentPage === paginate.lastPage
-      let tipType = 'none'
-      if (isReachBottom) {
-        tipType = this.data.posts.length > 0 ? 'page' : 'empty'
-      }
+        if (commentsRes.code === 0) {
+            const { paginate, list } = commentsRes.data;
+            const isReachBottom = paginate.currentPage === paginate.lastPage;
+            let tipType = 'none';
+            if (isReachBottom) {
+                tipType = this.data.posts.length > 0 ? 'page' : 'empty';
+            }
 
-      this.setData({
-        comments: this.data.comments.concat(list),
-        page: this.data.page + 1,
-        loadingTipType: tipType,
-        isReachBottom: isReachBottom,
-      })
-    }
+            this.setData({
+                comments: this.data.comments.concat(list),
+                page: this.data.page + 1,
+                loadingTipType: tipType,
+                isReachBottom: isReachBottom,
+            });
+        }
 
-    this.setData({
-      loadingStatus: false,
-    })
+        this.setData({
+            loadingStatus: false,
+        });
 
-    wx.hideNavigationBarLoading();
-  },
+        wx.hideNavigationBarLoading();
+    },
 
-  /** 监听用户下拉动作 **/
-  onPullDownRefresh: async function () {
-    this.setData({
-      comments: [],
-      page: 1,
-      loadingTipType: 'none',
-      isReachBottom: false,
-    })
+    /** 监听用户下拉动作 **/
+    onPullDownRefresh: async function () {
+        this.setData({
+            comments: [],
+            page: 1,
+            loadingTipType: 'none',
+            isReachBottom: false,
+        });
 
-    await this.loadFresnsPageData()
-    wx.stopPullDownRefresh()
-  },
+        await this.loadFresnsPageData();
+        wx.stopPullDownRefresh();
+    },
 
-  /** 监听用户上拉触底 **/
-  onReachBottom: async function () {
-    await this.loadFresnsPageData()
-  },
+    /** 监听用户上拉触底 **/
+    onReachBottom: async function () {
+        await this.loadFresnsPageData();
+    },
 
-  // 评论
-  onClickCreateComment() {
-    this.setData({
-      showCommentBox: true
-    })
-  },
+    // 评论
+    onClickCreateComment() {
+        this.setData({
+            showCommentBox: true,
+        });
+    },
 
-  /** 右上角菜单-分享给好友 **/
-  onShareAppMessage: function () {
-    return {
-      title: this.data.title,
-    }
-  },
+    /** 右上角菜单-分享给好友 **/
+    onShareAppMessage: function () {
+        return {
+            title: this.data.title,
+        };
+    },
 
-  /** 右上角菜单-分享到朋友圈 **/
-  onShareTimeline: function () {
-    return {
-      title: this.data.title,
-    }
-  },
+    /** 右上角菜单-分享到朋友圈 **/
+    onShareTimeline: function () {
+        return {
+            title: this.data.title,
+        };
+    },
 
-  /** 右上角菜单-收藏 **/
-  onAddToFavorites: function () {
-    return {
-      title: this.data.title,
-    }
-  },
-})
+    /** 右上角菜单-收藏 **/
+    onAddToFavorites: function () {
+        return {
+            title: this.data.title,
+        };
+    },
+});

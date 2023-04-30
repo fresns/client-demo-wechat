@@ -7,13 +7,13 @@ import { globalInfo } from '../utils/fresnsGlobalInfo';
 import { navigateToAccountLogin, navigateToUserLogin } from '../utils/fresnsUtilities';
 
 module.exports = {
-  onLoad: function () {
-    if (!globalInfo.accountLogin) {
-      navigateToAccountLogin()
-    }
+    onLoad: function () {
+        if (!globalInfo.accountLogin) {
+            navigateToAccountLogin();
+        }
 
-    if (!globalInfo.userLogin) {
-      navigateToUserLogin()
-    }
-  },
-}
+        if (!globalInfo.userLogin) {
+            navigateToUserLogin();
+        }
+    },
+};

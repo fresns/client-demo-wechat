@@ -6,22 +6,22 @@
 import { fresnsConfig } from '../../../api/tool/function';
 
 Component({
-  /** 组件的属性列表 **/
-  properties: {
-    publish: Object,
-  },
+    /** 组件的属性列表 **/
+    properties: {
+        publish: Object,
+    },
 
-  /** 组件的初始数据 **/
-  data: {
-    fresnsLang: null,
-  },
+    /** 组件的初始数据 **/
+    data: {
+        fresnsLang: null,
+    },
 
-  /** 组件生命周期声明对象 **/
-  lifetimes: {
-    attached: async function () {
-      this.setData({
-        fresnsLang: await fresnsConfig('language_pack_contents'),
-      })
-    }
-  }
+    /** 组件生命周期声明对象 **/
+    lifetimes: {
+        attached: async function () {
+            this.setData({
+                fresnsLang: await fresnsConfig('language_pack_contents'),
+            });
+        },
+    },
 });

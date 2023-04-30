@@ -4,13 +4,11 @@
  * Licensed under the Apache-2.0 license
  */
 Component({
-  properties: {
-    notification: Object,
-  },
+    properties: {
+        notification: Object,
+    },
 
-  data: {
-  },
+    data: {},
 
-  methods: {
-  },
-})
+    methods: {},
+});

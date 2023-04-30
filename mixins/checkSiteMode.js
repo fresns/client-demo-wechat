@@ -7,20 +7,20 @@ import { fresnsConfig } from '../api/tool/function';
 import { globalInfo } from '../utils/fresnsGlobalInfo';
 
 module.exports = {
-  onLoad: async function () {
-    try {
-      const siteMode = await fresnsConfig('site_mode');
-      if (siteMode === 'private' && !globalInfo.userLogin) {
-        const pages = getCurrentPages()
-        const curPage = pages[pages.length - 1]
-        if (curPage.route !== 'pages/portal/private') {
-          wx.redirectTo({
-            url: '/pages/portal/private',
-          })
+    onLoad: async function () {
+        try {
+            const siteMode = await fresnsConfig('site_mode');
+            if (siteMode === 'private' && !globalInfo.userLogin) {
+                const pages = getCurrentPages();
+                const curPage = pages[pages.length - 1];
+                if (curPage.route !== 'pages/portal/private') {
+                    wx.redirectTo({
+                        url: '/pages/portal/private',
+                    });
+                }
+            }
+        } catch (e) {
+            console.log('site mode', e);
         }
-      }
-    } catch (e) {
-      console.log('site mode', e);
-    }
-  },
-}
+    },
+};
