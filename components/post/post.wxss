@@ -3,7 +3,7 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-@import "/assets/styles/weui.wxss";
+@import '/assets/styles/weui.wxss';
 
 .list-style {
   padding-left: 46px;
@@ -68,7 +68,8 @@
   vertical-align: middle;
 }
 
-.content-text,.content-brief {
+.content-text,
+.content-brief {
   margin-top: 8px;
 }
 
@@ -111,8 +112,8 @@
   margin-top: -120px;
   height: 120px;
   position: relative;
-  background: -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0)),to(#fff));
-  background: linear-gradient(to bottom,rgba(255,255,255,0),#fff);
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0)), to(#fff));
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #fff);
   pointer-events: none;
 }
 .allow-info {

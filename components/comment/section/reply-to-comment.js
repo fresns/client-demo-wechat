@@ -25,7 +25,7 @@ Component({
         publishCommentName: await fresnsConfig('publish_comment_name'),
         userDeactivate: await fresnsLang('userDeactivate'),
         authorAnonymous: await fresnsLang('contentAuthorAnonymous'),
-      })
-    }
-  }
-})
+      });
+    },
+  },
+});

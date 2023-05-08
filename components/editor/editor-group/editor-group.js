@@ -38,13 +38,13 @@ Component({
 
   /** 组件数据字段监听器 **/
   observers: {
-    'value': async function (value) {
+    value: async function (value) {
       if (!value) {
         this.setData({
           currentGroupName: await fresnsLang('editorNoGroup'),
         });
 
-        return
+        return;
       }
 
       this.setData({
@@ -53,7 +53,7 @@ Component({
       });
     },
 
-    'config': function (config) {
+    config: function (config) {
       this.setData({
         groupConfig: config,
       });
@@ -65,7 +65,7 @@ Component({
     attached: async function () {
       const categoriesRes = await fresnsApi.group.groupCategories({
         pageSize: 30,
-      })
+      });
 
       let categories = [];
       if (categoriesRes.code === 0) {
@@ -76,7 +76,7 @@ Component({
         recommend: 1,
         whitelistKeys: 'gid,gname,cover,category.gid',
         pageSize: 1,
-      })
+      });
 
       let recommendGroups = [];
       if (recommendRes.code === 0) {
@@ -84,7 +84,7 @@ Component({
       }
 
       let items = [];
-      if (! this.data.groupConfig.required) {
+      if (!this.data.groupConfig.required) {
         items.push({
           gid: '__none',
           gname: await fresnsLang('editorNoGroup'),
@@ -107,7 +107,7 @@ Component({
         groupName: await fresnsConfig('group_name'),
         categories: categories,
       });
-    }
+    },
   },
 
   /** 组件功能 **/
@@ -121,20 +121,20 @@ Component({
 
     // 选择小组
     onClickSelect: async function (e) {
-      const currentGroup = this.data.currentGroup
-      const currentCategoryGid = currentGroup?.category?.gid
+      const currentGroup = this.data.currentGroup;
+      const currentCategoryGid = currentGroup?.category?.gid;
 
       this.setData({
         currentCategoryGid: currentCategoryGid,
         show: true,
       });
 
-      await this.loadGroupList()
+      await this.loadGroupList();
     },
 
     // 选择小组分类
     onClickCategory: async function (e) {
-      const gid = e.currentTarget.dataset.gid
+      const gid = e.currentTarget.dataset.gid;
 
       console.log('onClickCategory', gid);
 
@@ -148,7 +148,7 @@ Component({
 
         callPageFunction('onGroupChange');
 
-        return
+        return;
       }
 
       this.setData({
@@ -160,14 +160,14 @@ Component({
         isReachBottom: false,
       });
 
-      await this.loadGroupList()
+      await this.loadGroupList();
     },
 
     // 选择小组
     onClickGroup: async function (e) {
-      const gid = e.currentTarget.dataset.gid
-      const groups = this.data.groups
-      const currentGroup = groups.find(group => group.gid == gid);
+      const gid = e.currentTarget.dataset.gid;
+      const groups = this.data.groups;
+      const currentGroup = groups.find((group) => group.gid == gid);
 
       console.log('onClickGroup', gid);
 
@@ -182,47 +182,47 @@ Component({
 
     // 加载小组列表
     loadGroupList: async function () {
-      const gid = this.data.currentCategoryGid
+      const gid = this.data.currentCategoryGid;
       if (!gid) {
-        return
+        return;
       }
 
       if (this.data.isReachBottom) {
-        return
+        return;
       }
 
       wx.showNavigationBarLoading();
 
       this.setData({
         loadingStatus: true,
-      })
+      });
 
       let resultRes = {
         code: null,
         message: null,
-        data: null
-      }
+        data: null,
+      };
 
       if (gid == '__recommend') {
         resultRes = await fresnsApi.group.groupList({
           recommend: 1,
           whitelistKeys: 'gid,gname,cover,category.gid',
-        })
+        });
       } else {
         resultRes = await fresnsApi.group.groupList({
           gid: gid,
           whitelistKeys: 'gid,gname,cover,category.gid',
-        })
+        });
       }
 
       if (resultRes.code === 0) {
-        const { paginate, list } = resultRes.data
-        const isReachBottom = paginate.currentPage === paginate.lastPage
+        const { paginate, list } = resultRes.data;
+        const isReachBottom = paginate.currentPage === paginate.lastPage;
         const newGroups = this.data.groups.concat(list);
 
-        let tipType = 'none'
+        let tipType = 'none';
         if (isReachBottom) {
-          tipType = newGroups.length > 0 ? 'page' : 'empty'
+          tipType = newGroups.length > 0 ? 'page' : 'empty';
         }
 
         this.setData({
@@ -230,12 +230,12 @@ Component({
           page: this.data.page + 1,
           loadingTipType: tipType,
           isReachBottom: isReachBottom,
-        })
+        });
       }
 
       this.setData({
         loadingStatus: false,
-      })
+      });
 
       wx.hideNavigationBarLoading();
     },

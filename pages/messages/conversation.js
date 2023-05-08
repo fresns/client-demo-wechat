@@ -30,13 +30,13 @@ Page({
     const userDeactivate = await fresnsLang('userDeactivate');
 
     this.setData({
-      conversationId: conversationId
-    })
+      conversationId: conversationId,
+    });
 
     const resultRes = await fresnsApi.message.conversationDetail({
       conversationId: conversationId,
       whitelistKeys: 'avatar,nickname,status',
-    })
+    });
 
     let title = resultRes.message;
     if (resultRes.code === 0) {
@@ -50,15 +50,15 @@ Page({
     await fresnsApi.message.conversationMarkAsRead({
       type: 'conversation',
       conversationId: conversationId,
-    })
+    });
 
-    await this.loadFresnsPageData()
+    await this.loadFresnsPageData();
   },
 
   /** 加载列表数据 **/
   loadFresnsPageData: async function () {
     if (this.data.isReachBottom) {
-      return
+      return;
     }
 
     wx.showNavigationBarLoading();
@@ -67,14 +67,14 @@ Page({
       conversationId: this.data.conversationId,
       whitelistKeys: 'avatar,nickname,status',
       page: this.data.page,
-    })
+    });
 
     if (resultRes.code === 0) {
-      const { paginate, list } = resultRes.data
-      const isReachBottom = paginate.currentPage === paginate.lastPage
-      let tipType = 'none'
+      const { paginate, list } = resultRes.data;
+      const isReachBottom = paginate.currentPage === paginate.lastPage;
+      let tipType = 'none';
       if (isReachBottom) {
-        tipType = this.data.messages.length > 0 ? 'page' : 'empty'
+        tipType = this.data.messages.length > 0 ? 'page' : 'empty';
       }
 
       this.setData({
@@ -82,7 +82,7 @@ Page({
         page: this.data.page + 1,
         loadingTipType: tipType,
         isReachBottom: isReachBottom,
-      })
+      });
     }
 
     wx.hideNavigationBarLoading();
@@ -90,6 +90,6 @@ Page({
 
   /** 监听用户下拉动作 **/
   onPullDownRefresh: async function () {
-    await this.loadFresnsPageData()
+    await this.loadFresnsPageData();
   },
 });

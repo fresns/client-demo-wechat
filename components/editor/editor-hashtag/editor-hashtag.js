@@ -38,7 +38,7 @@ Component({
       this.setData({
         showDialog: show,
         hashtagConfig: config,
-      })
+      });
     },
   },
 
@@ -50,7 +50,7 @@ Component({
         inputPlaceholder: await fresnsLang('search'),
         inputCancel: await fresnsLang('cancel'),
       });
-    }
+    },
   },
 
   /** 组件功能 **/
@@ -61,7 +61,7 @@ Component({
         showDialog: false,
       });
 
-      callPageFunction('switchShowHashtagDialog')
+      callPageFunction('switchShowHashtagDialog');
     },
 
     // 显示输入
@@ -99,46 +99,46 @@ Component({
 
     // 选中
     onSelectHashtag: async function (e) {
-      const config = this.data.hashtagConfig
-      const name = e.currentTarget.dataset.name
+      const config = this.data.hashtagConfig;
+      const name = e.currentTarget.dataset.name;
 
-      let text = '#' + name + ' '
+      let text = '#' + name + ' ';
       if (config.format == 2) {
-        text = '#' + name + '#'
+        text = '#' + name + '#';
       }
 
-      callPageFunction('onContentInsert', text)
+      callPageFunction('onContentInsert', text);
 
-      this.close
+      this.close;
     },
 
     // 加载话题列表
     loadHashtagList: async function () {
-      const searchKey = this.data.searchKey
+      const searchKey = this.data.searchKey;
       if (!searchKey) {
-        return
+        return;
       }
 
       wx.showNavigationBarLoading();
 
       this.setData({
         loadingStatus: true,
-      })
+      });
 
       const resultRes = await fresnsApi.common.commonInputTips({
         type: 'hashtag',
         key: searchKey,
-      })
+      });
 
       if (resultRes.code === 0) {
         this.setData({
           hashtags: resultRes.data,
-        })
+        });
       }
 
       this.setData({
         loadingStatus: false,
-      })
+      });
 
       wx.hideNavigationBarLoading();
     },

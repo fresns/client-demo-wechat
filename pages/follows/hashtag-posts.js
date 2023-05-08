@@ -32,32 +32,32 @@ Page({
       title: await fresnsConfig('menu_follow_hashtag_posts'),
     });
 
-    await this.loadFresnsPageData()
+    await this.loadFresnsPageData();
   },
 
   /** 加载列表数据 **/
   loadFresnsPageData: async function () {
     if (this.data.isReachBottom) {
-      return
+      return;
     }
 
     wx.showNavigationBarLoading();
 
     this.setData({
       loadingStatus: true,
-    })
+    });
 
     const resultRes = await fresnsApi.post.postFollow({
       type: 'hashtag',
       page: this.data.page,
-    })
+    });
 
     if (resultRes.code === 0) {
-      const { paginate, list } = resultRes.data
-      const isReachBottom = paginate.currentPage === paginate.lastPage
-      let tipType = 'none'
+      const { paginate, list } = resultRes.data;
+      const isReachBottom = paginate.currentPage === paginate.lastPage;
+      let tipType = 'none';
       if (isReachBottom) {
-        tipType = this.data.posts.length > 0 ? 'page' : 'empty'
+        tipType = this.data.posts.length > 0 ? 'page' : 'empty';
       }
 
       this.setData({
@@ -65,12 +65,12 @@ Page({
         page: this.data.page + 1,
         loadingTipType: tipType,
         isReachBottom: isReachBottom,
-      })
+      });
     }
 
     this.setData({
       loadingStatus: false,
-    })
+    });
 
     wx.hideNavigationBarLoading();
   },
@@ -82,14 +82,14 @@ Page({
       page: 1,
       loadingTipType: 'none',
       isReachBottom: false,
-    })
+    });
 
-    await this.loadFresnsPageData()
-    wx.stopPullDownRefresh()
+    await this.loadFresnsPageData();
+    wx.stopPullDownRefresh();
   },
 
   /** 监听用户上拉触底 **/
   onReachBottom: async function () {
-    await this.loadFresnsPageData()
+    await this.loadFresnsPageData();
   },
-})
+});

@@ -21,7 +21,7 @@ Component({
 
   /** 组件数据字段监听器 **/
   observers: {
-    'tipType': async function (tipType) {
+    tipType: async function (tipType) {
       if (tipType == 'none') {
         this.setData({
           tipStatus: false,
@@ -53,7 +53,7 @@ Component({
 
       this.setData({
         loading: loading || '正在加载',
-      })
-    }
-  }
+      });
+    },
+  },
 });

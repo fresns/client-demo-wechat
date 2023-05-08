@@ -3,23 +3,23 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-@import "/assets/styles/weui.wxss";
+@import '/assets/styles/weui.wxss';
 
 .weui-cell {
-    padding: 16px 0;
+  padding: 16px 0;
 }
 
 .fresns-toolbar {
-    margin-top: 16px;
-    overflow: hidden;
+  margin-top: 16px;
+  overflow: hidden;
 }
 
 .fresns-toolbar .tool {
-    float: left;
-    margin-right: 16px;
+  float: left;
+  margin-right: 16px;
 }
 
 .fresns-toolbar .submit {
-    float: right;
-    text-align: right;
+  float: right;
+  text-align: right;
 }

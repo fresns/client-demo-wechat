@@ -5,9 +5,7 @@
  */
 Component({
   /** 外部 mixin 引入 **/
-  mixins: [
-    require('../../mixins/handler/groupHandler'),
-  ],
+  mixins: [require('../../mixins/handler/groupHandler')],
 
   /** 组件的属性列表 **/
   properties: {
@@ -18,6 +16,5 @@ Component({
   data: {},
 
   /** 组件功能 **/
-  methods: {
-  },
-})
+  methods: {},
+});

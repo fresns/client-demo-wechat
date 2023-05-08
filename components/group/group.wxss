@@ -3,24 +3,24 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-@import "/assets/styles/weui.wxss";
+@import '/assets/styles/weui.wxss';
 
-.weui-cell:first-child:before{
-    display:block
+.weui-cell:first-child:before {
+  display: block;
 }
 
 .weui-cell__hd image {
-    width: 60px;
-    height: 60px;
-    margin-right: 10px;
+  width: 60px;
+  height: 60px;
+  margin-right: 10px;
 }
 
 .weui-cell_access {
-    padding-bottom: 56px;
+  padding-bottom: 56px;
 }
 
 .interactive-btn {
-    margin-top: -44px;
-    margin-left: 16px;
-    margin-bottom: 16px;
+  margin-top: -44px;
+  margin-left: 16px;
+  margin-bottom: 16px;
 }

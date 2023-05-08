@@ -9,11 +9,11 @@ import { globalInfo } from './fresnsGlobalInfo';
 // cache put
 export async function cachePut(key, data = '', minutes = null) {
   if (!data) {
-    return
+    return;
   }
 
   if (!minutes) {
-    minutes = await fresnsConfig('cache_minutes') || 3;
+    minutes = (await fresnsConfig('cache_minutes')) || 3;
   }
 
   const now = new Date();
@@ -47,23 +47,23 @@ export function cacheGet(key) {
 
 // navigateToAccountLogin
 export function navigateToAccountLogin() {
-  const pages = getCurrentPages()
-  const curPage = pages[pages.length - 1]
+  const pages = getCurrentPages();
+  const curPage = pages[pages.length - 1];
   if (curPage.route !== 'pages/account/login') {
     wx.redirectTo({
       url: '/pages/account/login',
-    })
+    });
   }
 }
 
 // navigateToUserLogin
 export function navigateToUserLogin() {
-  const pages = getCurrentPages()
-  const curPage = pages[pages.length - 1]
+  const pages = getCurrentPages();
+  const curPage = pages[pages.length - 1];
   if (curPage.route !== 'pages/account/users') {
     wx.redirectTo({
       url: '/pages/account/users',
-    })
+    });
   }
 }
 
@@ -106,28 +106,28 @@ export function strUploadInfo(usageType = '', tableName = '', tableColumn = '', 
     type: 'image',
   };
   const video = {
-      usageType: usageType,
-      tableName: tableName,
-      tableColumn: tableColumn,
-      tableId: tableId,
-      tableKey: tableKey,
-      type: 'video',
+    usageType: usageType,
+    tableName: tableName,
+    tableColumn: tableColumn,
+    tableId: tableId,
+    tableKey: tableKey,
+    type: 'video',
   };
   const audio = {
-      usageType: usageType,
-      tableName: tableName,
-      tableColumn: tableColumn,
-      tableId: tableId,
-      tableKey: tableKey,
-      type: 'audio',
+    usageType: usageType,
+    tableName: tableName,
+    tableColumn: tableColumn,
+    tableId: tableId,
+    tableKey: tableKey,
+    type: 'audio',
   };
   const document = {
-      usageType: usageType,
-      tableName: tableName,
-      tableColumn: tableColumn,
-      tableId: tableId,
-      tableKey: tableKey,
-      type: 'document',
+    usageType: usageType,
+    tableName: tableName,
+    tableColumn: tableColumn,
+    tableId: tableId,
+    tableKey: tableKey,
+    type: 'document',
   };
 
   const imageStr = JSON.stringify(image).replace(/\n|\r/g, '');
@@ -158,26 +158,26 @@ export function strUploadInfo(usageType = '', tableName = '', tableColumn = '', 
 
 // enJson
 export function enJson(encoded) {
-    // Step 1: URL 解码
-    const decodedURLData = decodeURIComponent(encoded);
+  // Step 1: URL 解码
+  const decodedURLData = decodeURIComponent(encoded);
 
-    // Step 2: Base64 解码为 ArrayBuffer
-    const arrayBuffer = wx.base64ToArrayBuffer(decodedURLData);
+  // Step 2: Base64 解码为 ArrayBuffer
+  const arrayBuffer = wx.base64ToArrayBuffer(decodedURLData);
 
-    // Step 3: 将 ArrayBuffer 转换为字符串
-    const decoder = new TextDecoder('utf-8');
-    const jsonString = decoder.decode(arrayBuffer);
+  // Step 3: 将 ArrayBuffer 转换为字符串
+  const decoder = new TextDecoder('utf-8');
+  const jsonString = decoder.decode(arrayBuffer);
 
-    // Step 4: 将字符串转换为 JSON
-    const json = JSON.parse(jsonString);
+  // Step 4: 将字符串转换为 JSON
+  const json = JSON.parse(jsonString);
 
-    return json;
+  return json;
 }
 
 // truncateText
 export function truncateText(text, length) {
   // 过滤掉 HTML 标签和换行符
-  const strippedText = text.replace(/(<([^>]+)>)/ig, '').replace(/(\r\n|\n|\r)/gm, '');
+  const strippedText = text.replace(/(<([^>]+)>)/gi, '').replace(/(\r\n|\n|\r)/gm, '');
 
   // 截取指定长度的字符串
   const truncatedText = strippedText.substring(0, length);
@@ -192,18 +192,18 @@ export function truncateText(text, length) {
 
 // debounce
 export function debounce(fn, delay, ctx) {
-  let movement = null
+  let movement = null;
   return function () {
-    let args = arguments
+    let args = arguments;
 
     // 清空上一次操作
-    clearTimeout(movement)
+    clearTimeout(movement);
 
     // delay时间之后，任务执行
     movement = setTimeout(function () {
-      fn.apply(ctx, args)
-    }, delay)
-  }
+      fn.apply(ctx, args);
+    }, delay);
+  };
 }
 
 // generateRandomString

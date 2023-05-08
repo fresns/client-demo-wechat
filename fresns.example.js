@@ -13,7 +13,7 @@ module.exports = {
   // 如果编辑器未开启定位功能，可以不配置以下腾讯地图信息
   tencentMapKey: '使用在腾讯位置服务申请的 key',
   tencentMapReferer: '调用腾讯位置插件的 app 的名称',
-}
+};
 
 /**
  * 腾讯地图信息 https://mp.weixin.qq.com/wxopen/plugindevdoc?appid=wx76a9a06e5b4e693e&token=&lang=zh_CN

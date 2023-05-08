@@ -40,14 +40,11 @@ Page({
 
     this.setData({
       type: type,
-      activeIndex: (type == 'post') ? 0 : 1,
-      tabs: [
-        await fresnsConfig('post_name'),
-        await fresnsConfig('comment_name'),
-      ],
+      activeIndex: type == 'post' ? 0 : 1,
+      tabs: [await fresnsConfig('post_name'), await fresnsConfig('comment_name')],
     });
 
-    await this.loadFresnsPageData()
+    await this.loadFresnsPageData();
   },
 
   // Tab 切换
@@ -61,33 +58,33 @@ Page({
       page: 1,
       loadingTipType: 'none',
       isReachBottom: false,
-    })
+    });
 
-    await this.loadFresnsPageData()
+    await this.loadFresnsPageData();
   },
 
   /** 加载列表数据 **/
   loadFresnsPageData: async function () {
     if (this.data.isReachBottom) {
-      return
+      return;
     }
 
     wx.showNavigationBarLoading();
 
     this.setData({
       loadingStatus: true,
-    })
+    });
 
-    const type = this.data.type
+    const type = this.data.type;
 
     const resultRes = await fresnsApi.editor.editorDrafts({
       type: type,
       page: this.data.page,
-    })
+    });
 
     if (resultRes.code === 0) {
-      const { paginate, list } = resultRes.data
-      const isReachBottom = paginate.currentPage === paginate.lastPage
+      const { paginate, list } = resultRes.data;
+      const isReachBottom = paginate.currentPage === paginate.lastPage;
 
       let newPosts = [];
       let newComments = [];
@@ -96,12 +93,12 @@ Page({
       if (type === 'post') {
         newPosts = this.data.posts.concat(list);
         if (isReachBottom) {
-          tipType = newPosts.length > 0 ? 'page' : 'empty'
+          tipType = newPosts.length > 0 ? 'page' : 'empty';
         }
       } else {
         newComments = this.data.comments.concat(list);
         if (isReachBottom) {
-          tipType = newComments.length > 0 ? 'page' : 'empty'
+          tipType = newComments.length > 0 ? 'page' : 'empty';
         }
       }
 
@@ -110,12 +107,12 @@ Page({
         comments: newComments,
         loadingTipType: tipType,
         isReachBottom: isReachBottom,
-      })
+      });
     }
 
     this.setData({
       loadingStatus: false,
-    })
+    });
 
     wx.hideNavigationBarLoading();
   },
@@ -128,14 +125,14 @@ Page({
       page: 1,
       loadingTipType: 'none',
       isReachBottom: false,
-    })
+    });
 
-    await this.loadFresnsPageData()
-    wx.stopPullDownRefresh()
+    await this.loadFresnsPageData();
+    wx.stopPullDownRefresh();
   },
 
   /** 监听用户上拉触底 **/
   onReachBottom: async function () {
-    await this.loadFresnsPageData()
+    await this.loadFresnsPageData();
   },
-})
+});

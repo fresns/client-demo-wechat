@@ -10,19 +10,19 @@ module.exports = {
     theme: '',
   },
 
-  themeChanged (theme) {
+  themeChanged(theme) {
     this.setData({
       theme,
-    })
+    });
   },
 
-  onLoad () {
-    const app = getApp()
-    this.themeChanged(globalInfo.theme)
-    app.watchThemeChange(this.themeChanged)
+  onLoad() {
+    const app = getApp();
+    this.themeChanged(globalInfo.theme);
+    app.watchThemeChange(this.themeChanged);
   },
-  
-  onUnload () {
-    getApp().unWatchThemeChange(this.themeChanged)
+
+  onUnload() {
+    getApp().unWatchThemeChange(this.themeChanged);
   },
-}
+};

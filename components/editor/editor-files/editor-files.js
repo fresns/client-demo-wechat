@@ -27,10 +27,10 @@ Component({
 
   /** 组件数据字段监听器 **/
   observers: {
-    'files': function (files) {
+    files: function (files) {
       let urls = [];
       if (files.images) {
-        urls = files.images.map(image => image.imageBigUrl);
+        urls = files.images.map((image) => image.imageBigUrl);
       }
 
       this.setData({
@@ -49,7 +49,7 @@ Component({
       this.setData({
         cancel: await fresnsLang('cancel'),
       });
-    }
+    },
   },
 
   /** 组件功能 **/
@@ -63,7 +63,7 @@ Component({
 
     // 文件菜单
     handleFiles: async function (e) {
-      const { type, fid, url } = e.currentTarget.dataset
+      const { type, fid, url } = e.currentTarget.dataset;
 
       let menus = [];
 
@@ -97,18 +97,18 @@ Component({
 
     // 菜单操作
     onClickFile(e) {
-      const { type, fid, url, action } = e.currentTarget.dataset
+      const { type, fid, url, action } = e.currentTarget.dataset;
 
       if (action == 'delete') {
         callPageFunction('onDeleteFile', type, fid);
 
-        return
+        return;
       }
 
       wx.previewImage({
         current: url,
         urls: this.data.imageUrls,
-      })
+      });
     },
   },
 });

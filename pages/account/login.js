@@ -12,18 +12,16 @@ const LoginType = {
   WeChat: '0',
   Password: '1',
   VerifyCode: '2',
-}
+};
 
 const Type = {
   Mobile: '0',
   Email: '1',
-}
+};
 
 Page({
   /** 外部 mixin 引入 **/
-  mixins: [
-    require('../../mixins/themeChanged'),
-  ],
+  mixins: [require('../../mixins/themeChanged')],
 
   /** 页面的初始数据 **/
   data: {
@@ -60,13 +58,11 @@ Page({
       title: await fresnsConfig('menu_account_login'),
     });
 
-    const [defaultCode, codeArray] = await Promise.all(
-      [
-        fresnsConfig('send_sms_default_code'),
-        fresnsConfig('send_sms_supported_codes'),
-      ],
-    )
-    const mobileAreaRange = codeArray.length === 1 ? [defaultCode] :codeArray;
+    const [defaultCode, codeArray] = await Promise.all([
+      fresnsConfig('send_sms_default_code'),
+      fresnsConfig('send_sms_supported_codes'),
+    ]);
+    const mobileAreaRange = codeArray.length === 1 ? [defaultCode] : codeArray;
 
     const emailLogin = Boolean(await fresnsConfig('site_email_login'));
     const phoneLogin = Boolean(await fresnsConfig('site_phone_login'));
@@ -77,134 +73,142 @@ Page({
     }
 
     this.setData({
-      codeLogin: Boolean(await fresnsConfig('send_email_service') || await fresnsConfig('send_sms_service')),
+      codeLogin: Boolean((await fresnsConfig('send_email_service')) || (await fresnsConfig('send_sms_service'))),
       switchLogin: Boolean(emailLogin && phoneLogin),
       type: loginType,
       fresnsLang: await fresnsConfig('language_pack_contents'),
       mobileAreaRange,
       mobileAreaIndex: mobileAreaRange.indexOf(defaultCode),
-    })
+    });
   },
 
   onLoginTypeChange: function (e) {
     this.setData({
       loginType: e.detail.value,
-    })
+    });
   },
   onTypeChange: function (e) {
     this.setData({
       type: e.detail.value,
       password: '',
-    })
+    });
   },
   onEmailAddressChange: function (e) {
-    const value = e.detail.value
+    const value = e.detail.value;
     this.setData({
       emailAddress: value,
-    })
-    return value
+    });
+    return value;
   },
   onMobileAreaPickerChange: function (e) {
-    const idxStr = e.detail.value
+    const idxStr = e.detail.value;
     this.setData({
       mobileAreaIndex: +idxStr,
-    })
+    });
   },
   onMobileNumberChange: function (e) {
-    const value = e.detail.value
+    const value = e.detail.value;
     this.setData({
       mobileNumber: value,
-    })
-    return value
+    });
+    return value;
   },
   onPasswordChange: function (e) {
-    const value = e.detail.value
+    const value = e.detail.value;
     this.setData({
       password: value,
-    })
-    return value
+    });
+    return value;
   },
   onVerifyCodeChange: function (e) {
-    const value = e.detail.value
+    const value = e.detail.value;
     this.setData({
       verifyCode: value,
-    })
-    return value
+    });
+    return value;
   },
   sendVerifyCode: async function (e) {
-    const { type, emailAddress, mobileAreaRange, mobileAreaIndex, mobileNumber, isVerifyCodeWaiting, waitingRemainSeconds } = this.data
+    const {
+      type,
+      emailAddress,
+      mobileAreaRange,
+      mobileAreaIndex,
+      mobileNumber,
+      isVerifyCodeWaiting,
+      waitingRemainSeconds,
+    } = this.data;
 
     // 倒计时重新发送
     if (isVerifyCodeWaiting) {
       wx.showToast({
-        title: await fresnsLang('errorUnavailable') + `: ${waitingRemainSeconds}s`,
+        title: (await fresnsLang('errorUnavailable')) + `: ${waitingRemainSeconds}s`,
         icon: 'none',
-      })
-      return
+      });
+      return;
     }
 
-    let params = null
+    let params = null;
     if (type === Type.Email) {
       if (!emailAddress) {
         wx.showToast({
-          title: await fresnsLang('email') + ': ' + await fresnsLang('errorEmpty'),
+          title: (await fresnsLang('email')) + ': ' + (await fresnsLang('errorEmpty')),
           icon: 'none',
-        })
-        return
+        });
+        return;
       }
 
       params = {
-        type: "email",
+        type: 'email',
         useType: 2,
         templateId: 7,
         account: emailAddress,
-      }
+      };
     }
     if (type === Type.Mobile) {
       if (!mobileNumber) {
         wx.showToast({
-          title: await fresnsLang('phone') + ': ' + await fresnsLang('errorEmpty'),
+          title: (await fresnsLang('phone')) + ': ' + (await fresnsLang('errorEmpty')),
           icon: 'none',
-        })
-        return
+        });
+        return;
       }
 
       if (!mobileAreaRange[mobileAreaIndex]) {
         wx.showToast({
-          title: await fresnsLang('countryCode') + ': ' + await fresnsLang('errorEmpty'),
+          title: (await fresnsLang('countryCode')) + ': ' + (await fresnsLang('errorEmpty')),
           icon: 'none',
-        })
-        return
+        });
+        return;
       }
 
       params = {
-        type: "sms",
+        type: 'sms',
         useType: 2,
         templateId: 7,
         account: mobileNumber,
         countryCode: mobileAreaRange[mobileAreaIndex],
-      }
+      };
     }
 
-    const sendVerifyRes = await fresnsApi.common.commonSendVerifyCode(params)
+    const sendVerifyRes = await fresnsApi.common.commonSendVerifyCode(params);
     if (sendVerifyRes.code === 0) {
-      this.setData({ isVerifyCodeWaiting: true, waitingRemainSeconds: 60 })
+      this.setData({ isVerifyCodeWaiting: true, waitingRemainSeconds: 60 });
 
       const interval = setInterval(() => {
-        const now = this.data.waitingRemainSeconds - 1
+        const now = this.data.waitingRemainSeconds - 1;
         this.setData({
           waitingRemainSeconds: now,
           isVerifyCodeWaiting: now > 0,
-        })
+        });
         if (now <= 0) {
-          clearInterval(interval)
+          clearInterval(interval);
         }
-      }, 1000)
+      }, 1000);
 
       wx.showToast({
-        title: await fresnsLang('send') + ': ' + await fresnsLang('success'),
+        title: (await fresnsLang('send')) + ': ' + (await fresnsLang('success')),
         icon: 'none',
-      })
+      });
     }
   },
 
@@ -212,48 +216,49 @@ Page({
   onSubmit: async function () {
     wx.showNavigationBarLoading();
 
-    const { loginType, type, emailAddress, mobileAreaRange, mobileAreaIndex, mobileNumber, password, verifyCode } = this.data
-    let params = null
+    const { loginType, type, emailAddress, mobileAreaRange, mobileAreaIndex, mobileNumber, password, verifyCode } =
+      this.data;
+    let params = null;
 
     if (loginType === LoginType.Password) {
       if (type === Type.Email) {
         params = {
-          type: "email",
+          type: 'email',
           account: emailAddress,
           password: base64_encode(password),
-        }
+        };
       }
       if (type === Type.Mobile) {
         params = {
-          type: "phone",
+          type: 'phone',
           account: mobileNumber,
           countryCode: +mobileAreaRange[mobileAreaIndex],
           password: base64_encode(password),
-        }
+        };
       }
     }
     if (loginType === LoginType.VerifyCode) {
       if (type === Type.Email) {
         params = {
-          type: "email",
+          type: 'email',
           account: emailAddress,
           verifyCode: verifyCode,
-        }
+        };
       }
       if (type === Type.Mobile) {
         params = {
-          type: "phone",
+          type: 'phone',
           account: mobileNumber,
           countryCode: +mobileAreaRange[mobileAreaIndex],
           verifyCode: verifyCode,
-        }
+        };
       }
     }
 
-    const loginAccount = await fresnsLogin.loginAccount(params)
+    const loginAccount = await fresnsLogin.loginAccount(params);
 
     if (loginAccount.code != 0) {
       wx.hideNavigationBarLoading();
     }
   },
-})
+});

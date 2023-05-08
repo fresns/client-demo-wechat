@@ -34,16 +34,16 @@ Component({
         contentLengthConfig: contentLength,
         toolMentionConfig: mentionConfig,
         toolHashtagConfig: hashtagConfig,
-      })
+      });
     },
 
-    'content': function (content) {
+    content: function (content) {
       if (!content) {
-        return
+        return;
       }
 
       this.setData({
-        draftContentLength: content.replaceAll("\n", "").length,
+        draftContentLength: content.replaceAll('\n', '').length,
       });
     },
   },
@@ -53,8 +53,8 @@ Component({
     attached: async function () {
       this.setData({
         placeholder: await fresnsLang('editorContent'),
-      })
-    }
+      });
+    },
   },
 
   /** 组件功能 **/
@@ -71,18 +71,18 @@ Component({
       const { toolMentionConfig, toolHashtagConfig } = this.data;
 
       this.setData({
-        draftContentLength: value.replaceAll("\n", "").length,
+        draftContentLength: value.replaceAll('\n', '').length,
       });
 
-      callPageFunction('onContentChange', value)
-      callPageFunction('onContentCursor', cursorPosition)
+      callPageFunction('onContentChange', value);
+      callPageFunction('onContentCursor', cursorPosition);
 
       const prevCharacter = value.charAt(cursorPosition - 1);
       if (toolMentionConfig.status && prevCharacter === '@') {
-        callPageFunction('switchShowMentionDialog')
+        callPageFunction('switchShowMentionDialog');
       }
       if (toolHashtagConfig.status && prevCharacter === '#') {
-        callPageFunction('switchShowHashtagDialog')
+        callPageFunction('switchShowHashtagDialog');
       }
     },
 
@@ -91,10 +91,10 @@ Component({
       const value = e.detail.value;
 
       this.setData({
-        draftContentLength: value.replaceAll("\n", "").length,
+        draftContentLength: value.replaceAll('\n', '').length,
       });
 
-      callPageFunction('onContentSubmit', value)
+      callPageFunction('onContentSubmit', value);
     },
 
     // 键盘高度发生变化的时候触发
@@ -109,4 +109,4 @@ Component({
       callPageFunction('onContentCursor', cursorPosition);
     },
   },
-})
+});

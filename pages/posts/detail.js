@@ -9,10 +9,7 @@ import { truncateText } from '../../utils/fresnsUtilities';
 
 Page({
   /** 外部 mixin 引入 **/
-  mixins: [
-    require('../../mixins/themeChanged'),
-    require('../../mixins/checkSiteMode'),
-  ],
+  mixins: [require('../../mixins/themeChanged'), require('../../mixins/checkSiteMode')],
 
   /** 页面的初始数据 **/
   data: {
@@ -41,11 +38,11 @@ Page({
 
     this.setData({
       query: options,
-    })
+    });
 
     const postDetailRes = await fresnsApi.post.postDetail({
       pid: options.pid,
-    })
+    });
 
     if (postDetailRes.code === 0) {
       const userDeactivate = await fresnsLang('userDeactivate');
@@ -55,45 +52,47 @@ Page({
       let postTitle = post.title || truncateText(post.content, 20);
       let nickname = post.author.nickname;
 
-      if (! post.author.status) {
+      if (!post.author.status) {
         nickname = userDeactivate;
       } else if (post.isAnonymous) {
         nickname = authorAnonymous;
-      };
+      }
 
       this.setData({
         post: post,
         title: nickname + ': ' + postTitle,
         commentBtnName: await fresnsConfig('publish_comment_name'),
-      })
+      });
     }
 
-    await this.loadFresnsPageData()
+    await this.loadFresnsPageData();
   },
 
   /** 加载列表数据 **/
   loadFresnsPageData: async function () {
     if (this.data.isReachBottom) {
-      return
+      return;
     }
 
     wx.showNavigationBarLoading();
 
     this.setData({
       loadingStatus: true,
-    })
+    });
 
-    const commentsRes = await fresnsApi.comment.commentList(Object.assign(this.data.query, {
-      orderDirection: 'asc',
-      page: this.data.page,
-    }))
+    const commentsRes = await fresnsApi.comment.commentList(
+      Object.assign(this.data.query, {
+        orderDirection: 'asc',
+        page: this.data.page,
+      })
+    );
 
     if (commentsRes.code === 0) {
-      const { paginate, list } = commentsRes.data
-      const isReachBottom = paginate.currentPage === paginate.lastPage
-      let tipType = 'none'
+      const { paginate, list } = commentsRes.data;
+      const isReachBottom = paginate.currentPage === paginate.lastPage;
+      let tipType = 'none';
       if (isReachBottom) {
-        tipType = this.data.posts.length > 0 ? 'page' : 'empty'
+        tipType = this.data.posts.length > 0 ? 'page' : 'empty';
       }
 
       this.setData({
@@ -101,12 +100,12 @@ Page({
         page: this.data.page + 1,
         loadingTipType: tipType,
         isReachBottom: isReachBottom,
-      })
+      });
     }
 
     this.setData({
       loadingStatus: false,
-    })
+    });
 
     wx.hideNavigationBarLoading();
   },
@@ -118,42 +117,42 @@ Page({
       page: 1,
       loadingTipType: 'none',
       isReachBottom: false,
-    })
+    });
 
-    await this.loadFresnsPageData()
-    wx.stopPullDownRefresh()
+    await this.loadFresnsPageData();
+    wx.stopPullDownRefresh();
   },
 
   /** 监听用户上拉触底 **/
   onReachBottom: async function () {
-    await this.loadFresnsPageData()
+    await this.loadFresnsPageData();
   },
 
   // 评论
   onClickCreateComment() {
     this.setData({
-      showCommentBox: true
-    })
+      showCommentBox: true,
+    });
   },
 
   /** 右上角菜单-分享给好友 **/
   onShareAppMessage: function () {
     return {
       title: this.data.title,
-    }
+    };
   },
 
   /** 右上角菜单-分享到朋友圈 **/
   onShareTimeline: function () {
     return {
       title: this.data.title,
-    }
+    };
   },
 
   /** 右上角菜单-收藏 **/
   onAddToFavorites: function () {
     return {
       title: this.data.title,
-    }
+    };
   },
-})
+});

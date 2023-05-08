@@ -70,6 +70,6 @@ const group = {
       },
     });
   },
-}
+};
 
-module.exports = group
+module.exports = group;

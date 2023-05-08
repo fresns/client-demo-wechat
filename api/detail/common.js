@@ -81,7 +81,7 @@ const common = {
     return uploadFile(filePath, {
       url: '/api/v2/common/upload-file',
       data: {
-        ...formData
+        ...formData,
       },
       method: 'POST',
     });

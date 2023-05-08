@@ -11,7 +11,7 @@ Component({
   properties: {
     isAnonymous: {
       type: Boolean,
-      value: false
+      value: false,
     },
   },
 
@@ -23,7 +23,7 @@ Component({
 
   /** 组件数据字段监听器 **/
   observers: {
-    'isAnonymous': async function (isAnonymous) {
+    isAnonymous: async function (isAnonymous) {
       this.setData({
         isEnableAnonymous: !!isAnonymous,
         anonymousText: await fresnsLang('editorAnonymous'),

@@ -31,7 +31,7 @@ Component({
       this.setData({
         title: value,
         titleConfig: config,
-      })
+      });
     },
   },
 
@@ -42,32 +42,32 @@ Component({
         langEditorTitle: await fresnsLang('editorTitle'),
         langEditorRequired: await fresnsLang('editorRequired'),
         langEditorOptional: await fresnsLang('editorOptional'),
-      })
-    }
+      });
+    },
   },
 
   /** 组件功能 **/
   methods: {
     // 键盘输入时触发
     onInput: function (e) {
-      const { value } = e.detail
+      const { value } = e.detail;
 
       this.setData({
         title: value,
-      })
+      });
 
-      callPageFunction('onTitleChange', value)
+      callPageFunction('onTitleChange', value);
     },
 
     // 点击完成按钮时触发
     onConfirm: async function (e) {
-      const { value } = e.detail
+      const { value } = e.detail;
 
       this.setData({
         title: value,
-      })
+      });
 
-      const config = this.data.config
+      const config = this.data.config;
       if (value.length > config.length) {
         wx.showToast({
           title: await fresnsCodeMessage(38203),
@@ -75,10 +75,10 @@ Component({
           duration: 3000,
         });
 
-        return
+        return;
       }
 
-      callPageFunction('onTitleSubmit', value)
+      callPageFunction('onTitleSubmit', value);
     },
   },
-})
+});

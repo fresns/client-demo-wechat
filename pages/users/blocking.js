@@ -33,35 +33,36 @@ Page({
       title: await fresnsConfig('menu_block_users'),
     });
 
-    await this.loadFresnsPageData()
+    await this.loadFresnsPageData();
   },
 
   /** 加载列表数据 **/
   loadFresnsPageData: async function () {
     if (this.data.isReachBottom) {
-      return
+      return;
     }
 
     wx.showNavigationBarLoading();
 
     this.setData({
       loadingStatus: true,
-    })
+    });
 
     const resultRes = await fresnsApi.user.userMarkList({
       uidOrUsername: globalInfo.uid,
       markType: 'block',
       listType: 'users',
-      whitelistKeys: 'fsid,uid,username,url,nickname,avatar,decorate,gender,bioHtml,verifiedStatus,verifiedIcon,verifiedDesc,nicknameColor,roleName,roleNameDisplay,roleIcon,roleIconDisplay,stats.likeMeCount,stats.dislikeMeCount,stats.followMeCount,stats.blockMeCount,interaction',
+      whitelistKeys:
+        'fsid,uid,username,url,nickname,avatar,decorate,gender,bioHtml,verifiedStatus,verifiedIcon,verifiedDesc,nicknameColor,roleName,roleNameDisplay,roleIcon,roleIconDisplay,stats.likeMeCount,stats.dislikeMeCount,stats.followMeCount,stats.blockMeCount,interaction',
       page: this.data.page,
-    })
+    });
 
     if (resultRes.code === 0) {
-      const { paginate, list } = resultRes.data
-      const isReachBottom = paginate.currentPage === paginate.lastPage
-      let tipType = 'none'
+      const { paginate, list } = resultRes.data;
+      const isReachBottom = paginate.currentPage === paginate.lastPage;
+      let tipType = 'none';
       if (isReachBottom) {
-        tipType = this.data.users.length > 0 ? 'page' : 'empty'
+        tipType = this.data.users.length > 0 ? 'page' : 'empty';
       }
 
       this.setData({
@@ -69,12 +70,12 @@ Page({
         page: this.data.page + 1,
         loadingTipType: tipType,
         isReachBottom: isReachBottom,
-      })
+      });
     }
 
     this.setData({
       loadingStatus: false,
-    })
+    });
 
     wx.hideNavigationBarLoading();
   },
@@ -86,14 +87,14 @@ Page({
       page: 1,
       loadingTipType: 'none',
       isReachBottom: false,
-    })
+    });
 
-    await this.loadFresnsPageData()
-    wx.stopPullDownRefresh()
+    await this.loadFresnsPageData();
+    wx.stopPullDownRefresh();
   },
 
   /** 监听用户上拉触底 **/
   onReachBottom: async function () {
-    await this.loadFresnsPageData()
+    await this.loadFresnsPageData();
   },
-})
+});

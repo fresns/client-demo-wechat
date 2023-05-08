@@ -7,10 +7,7 @@ import { fresnsApi } from '../../api/api';
 
 Page({
   /** 外部 mixin 引入 **/
-  mixins: [
-    require('../../mixins/themeChanged'),
-    require('../../mixins/checkSiteMode'),
-  ],
+  mixins: [require('../../mixins/themeChanged'), require('../../mixins/checkSiteMode')],
 
   /** 页面的初始数据 **/
   data: {
@@ -37,7 +34,7 @@ Page({
 
     const groupDetailRes = await fresnsApi.group.groupDetail({
       gid: options.gid,
-    })
+    });
 
     if (groupDetailRes.code === 0) {
       this.setData({
@@ -50,32 +47,34 @@ Page({
       });
     }
 
-    await this.loadFresnsPageData()
+    await this.loadFresnsPageData();
   },
 
   /** 加载列表数据 **/
   loadFresnsPageData: async function () {
     if (this.data.isReachBottom) {
-      return
+      return;
     }
 
     wx.showNavigationBarLoading();
 
     this.setData({
       loadingStatus: true,
-    })
+    });
 
-    const postsRes = await fresnsApi.post.postList(Object.assign(this.data.query, {
-      gid: this.data.gid,
-      page: this.data.page,
-    }))
+    const postsRes = await fresnsApi.post.postList(
+      Object.assign(this.data.query, {
+        gid: this.data.gid,
+        page: this.data.page,
+      })
+    );
 
     if (postsRes.code === 0) {
-      const { paginate, list } = postsRes.data
-      const isReachBottom = paginate.currentPage === paginate.lastPage
-      let tipType = 'none'
+      const { paginate, list } = postsRes.data;
+      const isReachBottom = paginate.currentPage === paginate.lastPage;
+      let tipType = 'none';
       if (isReachBottom) {
-        tipType = this.data.posts.length > 0 ? 'page' : 'empty'
+        tipType = this.data.posts.length > 0 ? 'page' : 'empty';
       }
 
       this.setData({
@@ -83,12 +82,12 @@ Page({
         page: this.data.page + 1,
         loadingTipType: tipType,
         isReachBottom: isReachBottom,
-      })
+      });
     }
 
     this.setData({
       loadingStatus: false,
-    })
+    });
 
     wx.hideNavigationBarLoading();
   },
@@ -100,15 +99,15 @@ Page({
       page: 1,
       loadingTipType: 'none',
       isReachBottom: false,
-    })
+    });
 
-    await this.loadFresnsPageData()
-    wx.stopPullDownRefresh()
+    await this.loadFresnsPageData();
+    wx.stopPullDownRefresh();
   },
 
   /** 监听用户上拉触底 **/
   onReachBottom: async function () {
-    await this.loadFresnsPageData()
+    await this.loadFresnsPageData();
   },
 
   /** 右上角菜单-分享给好友 **/
@@ -116,7 +115,7 @@ Page({
     return {
       title: this.data.group.gname,
       imageUrl: this.data.group.cover,
-    }
+    };
   },
 
   /** 右上角菜单-分享到朋友圈 **/
@@ -124,7 +123,7 @@ Page({
     return {
       title: this.data.group.gname,
       imageUrl: this.data.group.cover,
-    }
+    };
   },
 
   /** 右上角菜单-收藏 **/
@@ -132,6 +131,6 @@ Page({
     return {
       title: this.data.group.gname,
       imageUrl: this.data.group.cover,
-    }
+    };
   },
-})
+});

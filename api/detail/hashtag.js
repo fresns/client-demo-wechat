@@ -25,7 +25,7 @@ const hashtag = {
    */
   hashtagDetail: (options = {}) => {
     return request({
-      url: '/api/v2/hashtag/' + options.hid +  '/detail',
+      url: '/api/v2/hashtag/' + options.hid + '/detail',
       data: {
         ...options,
       },
@@ -44,6 +44,6 @@ const hashtag = {
       },
     });
   },
-}
+};
 
-module.exports = hashtag
+module.exports = hashtag;

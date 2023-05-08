@@ -3,34 +3,34 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-@import "/assets/styles/weui.wxss";
+@import '/assets/styles/weui.wxss';
 
 .editor-toolbar {
-    position: fixed;
-    width: 100%;
-    z-index: 999;
-    background-color: var(--weui-BG-2);
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+  background-color: var(--weui-BG-2);
 }
 
 .weui-flex__item {
-    text-align: center;
-    padding: 10px 0;
+  text-align: center;
+  padding: 10px 0;
 }
 
 .weui-tabbar__icon {
-    margin-bottom: -2px;
+  margin-bottom: -2px;
 }
 
 /* tabs */
 .sticker-box {
-    width: 100%;
-    border-top: 1px solid var(--weui-FG-3);
+  width: 100%;
+  border-top: 1px solid var(--weui-FG-3);
 }
 
 .stickers {
-    padding: 10px 0;
+  padding: 10px 0;
 }
 
 .stickers image {
-    padding: 10px;
+  padding: 10px;
 }

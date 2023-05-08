@@ -44,10 +44,7 @@ Component({
 
       // 替换用户默认首页
       const userHomePath = await globalInfo.userHomePath();
-      newContent = newContent.replace(
-        "/pages/profile/posts?fsid=",
-        userHomePath
-      );
+      newContent = newContent.replace('/pages/profile/posts?fsid=', userHomePath);
 
       // 增加表情图样式
       newContent = newContent.replace(
@@ -65,12 +62,12 @@ Component({
   methods: {
     onClickToDetail(e) {
       if (this.data.type != 'list') {
-        return
+        return;
       }
 
       wx.navigateTo({
         url: '/pages/comments/detail?cid=' + this.data.comment.cid,
-      })
+      });
     },
   },
 
@@ -81,7 +78,7 @@ Component({
         userHomePath: await globalInfo.userHomePath(),
         userDeactivate: await fresnsLang('userDeactivate'),
         authorAnonymous: await fresnsLang('contentAuthorAnonymous'),
-      })
-    }
-  }
-})
+      });
+    },
+  },
+});

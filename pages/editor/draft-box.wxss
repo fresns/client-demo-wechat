@@ -4,12 +4,12 @@
  * Licensed under the Apache-2.0 license
  */
 .weui-navbar__item {
-    color: var(--weui-FG-0);
-    padding: 8px 0;
-    margin: 0 20px;
+  color: var(--weui-FG-0);
+  padding: 8px 0;
+  margin: 0 20px;
 }
 
 .weui-cell__hd {
-    color: var(--weui-FG-1);
-    padding-right: 15px;
+  color: var(--weui-FG-1);
+  padding-right: 15px;
 }

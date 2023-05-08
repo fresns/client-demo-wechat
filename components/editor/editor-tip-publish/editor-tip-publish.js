@@ -21,7 +21,7 @@ Component({
     attached: async function () {
       this.setData({
         fresnsLang: await fresnsConfig('language_pack_contents'),
-      })
-    }
-  }
+      });
+    },
+  },
 });

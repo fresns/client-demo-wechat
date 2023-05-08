@@ -15,4 +15,4 @@ export const fresnsApi = {
   comment: require('./detail/comment'),
   editor: require('./detail/editor'),
   search: require('./detail/search'),
-}
+};

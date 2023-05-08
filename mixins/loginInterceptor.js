@@ -9,11 +9,11 @@ import { navigateToAccountLogin, navigateToUserLogin } from '../utils/fresnsUtil
 module.exports = {
   onLoad: function () {
     if (!globalInfo.accountLogin) {
-      navigateToAccountLogin()
+      navigateToAccountLogin();
     }
 
     if (!globalInfo.userLogin) {
-      navigateToUserLogin()
+      navigateToUserLogin();
     }
   },
-}
+};

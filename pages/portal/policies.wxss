@@ -4,23 +4,23 @@
  * Licensed under the Apache-2.0 license
  */
 .weui-tabs-bar__wrp {
-    border-bottom: 1px solid #eee;
-    margin-top: 10px;
+  border-bottom: 1px solid #eee;
+  margin-top: 10px;
 }
 
 .weui-tabs-bar__title {
-    margin: 0px 10px;
+  margin: 0px 10px;
 }
 
 .tab-title-selected {
-    font-size: 20px;
-    font-weight: bold;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 swiper {
-    display: none;
+  display: none;
 }
 
 .tab-content {
-    padding: 30px;
+  padding: 30px;
 }

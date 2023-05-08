@@ -7,8 +7,8 @@ import { fresnsApi } from '../api/api';
 import { fresnsConfig } from '../api/tool/function';
 
 export class GlobalInfo {
-  clientVersion = '2.0.0'
-  theme = null
+  clientVersion = '2.0.0';
+  theme = null;
 
   // user home path
   async userHomePath() {
@@ -47,99 +47,101 @@ export class GlobalInfo {
   }
 
   get langTag() {
-    return wx.getStorageSync('langTag') || 'zh-Hans'
+    return wx.getStorageSync('langTag') || 'zh-Hans';
   }
 
   get deviceInfo() {
-    return wx.getStorageSync('deviceInfo') ? JSON.stringify(wx.getStorageSync('deviceInfo')) : '{"agent":"WeChat","networkIpv4":"127.0.0.1"}'
+    return wx.getStorageSync('deviceInfo')
+      ? JSON.stringify(wx.getStorageSync('deviceInfo'))
+      : '{"agent":"WeChat","networkIpv4":"127.0.0.1"}';
   }
 
   get aid() {
-    return wx.getStorageSync('aid') || null
+    return wx.getStorageSync('aid') || null;
   }
 
   get aidToken() {
-    return wx.getStorageSync('aidToken') || null
+    return wx.getStorageSync('aidToken') || null;
   }
 
   get uid() {
-    return wx.getStorageSync('uid') || null
+    return wx.getStorageSync('uid') || null;
   }
 
   get uidToken() {
-    return wx.getStorageSync('uidToken') || null
+    return wx.getStorageSync('uidToken') || null;
   }
 
   get accountLogin() {
-    return Boolean(this.aid && this.aidToken)
+    return Boolean(this.aid && this.aidToken);
   }
 
   get userLogin() {
-    return Boolean(this.aid && this.aidToken && this.uid && this.uidToken)
+    return Boolean(this.aid && this.aidToken && this.uid && this.uidToken);
   }
 
   // 初始化配置
   async init() {
-    const systemInfo = wx.getSystemInfoSync()
-    const networkInfo = wx.getNetworkType()
-    const systemLang = systemInfo.language || 'zh_CN'
-    const getIpInfo = await fresnsApi.common.commonIpInfo()
+    const systemInfo = wx.getSystemInfoSync();
+    const networkInfo = wx.getNetworkType();
+    const systemLang = systemInfo.language || 'zh_CN';
+    const getIpInfo = await fresnsApi.common.commonIpInfo();
 
     if (getIpInfo.code === 0) {
-      const ipInfo = getIpInfo.data
+      const ipInfo = getIpInfo.data;
 
       const deviceInfo = {
-        'agent': 'WeChat',
-        'type': 'Mobile', // Desktop, Mobile, Tablet, Bot
-        'mac': null,
-        'brand': systemInfo.brand,
-        'model': systemInfo.model,
-        'platformName': systemInfo.system,
-        'platformVersion': null,
-        'browserName': systemInfo.platform,
-        'browserVersion': systemInfo.version,
-        'browserEngine': systemInfo.host.env,
-        'appImei': null,
-        'appAndroidId': null,
-        'appOaid': null,
-        'appIdfa': null,
-        'simImsi': null,
-        'networkType': networkInfo.networkType,
-        'networkIpv4': ipInfo.networkIpv4,
-        'networkIpv6': ipInfo.networkIpv6,
-        'networkPort': ipInfo.networkPort,
-        'networkTimezone': ipInfo.networkTimezone,
-        'networkOffset': ipInfo.networkOffset,
-        'networkIsp': ipInfo.networkIsp,
-        'networkOrg': ipInfo.networkOrg,
-        'networkAs': ipInfo.networkAs,
-        'networkAsName': ipInfo.networkAsName,
-        'networkMobile': ipInfo.networkMobile,
-        'networkProxy': ipInfo.networkProxy,
-        'networkHosting': ipInfo.networkHosting,
-        'mapId': ipInfo.mapId,
-        'latitude': ipInfo.latitude,
-        'longitude': ipInfo.longitude,
-        'scale': ipInfo.scale,
-        'continent': ipInfo.continent,
-        'continentCode': ipInfo.continentCode,
-        'country': ipInfo.country,
-        'countryCode': ipInfo.countryCode,
-        'region': ipInfo.region,
-        'regionCode': ipInfo.regionCode,
-        'city': ipInfo.city,
-        'cityCode': ipInfo.cityCode,
-        'district': ipInfo.district,
-        'address': ipInfo.address,
-        'zip': ipInfo.zip,
-      }
+        agent: 'WeChat',
+        type: 'Mobile', // Desktop, Mobile, Tablet, Bot
+        mac: null,
+        brand: systemInfo.brand,
+        model: systemInfo.model,
+        platformName: systemInfo.system,
+        platformVersion: null,
+        browserName: systemInfo.platform,
+        browserVersion: systemInfo.version,
+        browserEngine: systemInfo.host.env,
+        appImei: null,
+        appAndroidId: null,
+        appOaid: null,
+        appIdfa: null,
+        simImsi: null,
+        networkType: networkInfo.networkType,
+        networkIpv4: ipInfo.networkIpv4,
+        networkIpv6: ipInfo.networkIpv6,
+        networkPort: ipInfo.networkPort,
+        networkTimezone: ipInfo.networkTimezone,
+        networkOffset: ipInfo.networkOffset,
+        networkIsp: ipInfo.networkIsp,
+        networkOrg: ipInfo.networkOrg,
+        networkAs: ipInfo.networkAs,
+        networkAsName: ipInfo.networkAsName,
+        networkMobile: ipInfo.networkMobile,
+        networkProxy: ipInfo.networkProxy,
+        networkHosting: ipInfo.networkHosting,
+        mapId: ipInfo.mapId,
+        latitude: ipInfo.latitude,
+        longitude: ipInfo.longitude,
+        scale: ipInfo.scale,
+        continent: ipInfo.continent,
+        continentCode: ipInfo.continentCode,
+        country: ipInfo.country,
+        countryCode: ipInfo.countryCode,
+        region: ipInfo.region,
+        regionCode: ipInfo.regionCode,
+        city: ipInfo.city,
+        cityCode: ipInfo.cityCode,
+        district: ipInfo.district,
+        address: ipInfo.address,
+        zip: ipInfo.zip,
+      };
 
       // device info
       wx.setStorageSync('deviceInfo', deviceInfo);
     }
 
     // theme
-    this.theme = systemInfo.theme
+    this.theme = systemInfo.theme;
 
     // lang tag
     var storageLangTag = wx.getStorageSync('langTag');
@@ -156,4 +158,4 @@ export class GlobalInfo {
   }
 }
 
-export const globalInfo = new GlobalInfo()
+export const globalInfo = new GlobalInfo();

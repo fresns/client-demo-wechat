@@ -34,11 +34,11 @@ Component({
 
   /** 组件数据字段监听器 **/
   observers: {
-    'options': async function (options) {
+    options: async function (options) {
       this.setData({
         type: options.type || 'post',
         internalOptions: options,
-      })
+      });
     },
   },
 
@@ -49,8 +49,8 @@ Component({
         fsLang: {
           selectDraft: await fresnsLang('editorDraftSelect'),
           createDraft: await fresnsLang('editorDraftCreate'),
-        }
-      })
+        },
+      });
 
       const type = this.data.type; // 内容类型，帖子或评论
       const fsid = this.data.internalOptions.fsid; // 有值表示编辑已发表的内容
@@ -62,18 +62,18 @@ Component({
         if (type == 'comment') {
           await this.createDraft();
 
-          return
+          return;
         }
 
         // 帖子加载草稿
-        await this.loadDraftList()
+        await this.loadDraftList();
 
         // 没有草稿，自动创建新草稿
         console.log('draft', this.data.posts.length);
         if (this.data.posts.length == 0) {
-          await this.createDraft()
+          await this.createDraft();
 
-          return
+          return;
         }
       }
 
@@ -83,14 +83,14 @@ Component({
         const generateRes = await fresnsApi.editor.editorGenerate({
           type: type,
           fsid: fsid,
-        })
+        });
 
         // 生成成功
         if (generateRes.code === 0) {
-          await this.enterEditor(generateRes.data)
+          await this.enterEditor(generateRes.data);
         }
 
-        return
+        return;
       }
 
       // 有指定草稿
@@ -104,34 +104,34 @@ Component({
   methods: {
     /** 加载草稿列表数据 **/
     loadDraftList: async function () {
-      const type = this.data.type
+      const type = this.data.type;
 
       if (this.data.isReachBottom || type != 'post') {
-        return
+        return;
       }
 
       wx.showNavigationBarLoading();
 
       this.setData({
         loadingStatus: true,
-      })
+      });
 
       const resultRes = await fresnsApi.editor.editorDrafts({
         type: type,
         status: 1,
         page: this.data.page,
-      })
+      });
 
       if (resultRes.code === 0) {
-        const { paginate, list } = resultRes.data
-        const isReachBottom = paginate.currentPage === paginate.lastPage
+        const { paginate, list } = resultRes.data;
+        const isReachBottom = paginate.currentPage === paginate.lastPage;
         const newPosts = this.data.posts.concat(list);
 
         console.log('posts', newPosts.length);
 
-        let tipType = 'none'
+        let tipType = 'none';
         if (isReachBottom) {
-          tipType = newPosts.length > 0 ? 'page' : 'empty'
+          tipType = newPosts.length > 0 ? 'page' : 'empty';
         }
 
         this.setData({
@@ -139,13 +139,13 @@ Component({
           page: this.data.page + 1,
           loadingTipType: tipType,
           isReachBottom: isReachBottom,
-        })
+        });
       }
 
       this.setData({
         loadingStatus: false,
         createBtn: true,
-      })
+      });
 
       wx.hideNavigationBarLoading();
     },
@@ -154,8 +154,8 @@ Component({
     createDraft: async function () {
       wx.showNavigationBarLoading();
 
-      const options = this.data.internalOptions
-      const type = this.data.type
+      const options = this.data.internalOptions;
+      const type = this.data.type;
 
       // 评论必填参数判断
       if (type == 'comment' && !options.commentPid) {
@@ -164,7 +164,7 @@ Component({
           tipDelay: 20000,
         });
 
-        return
+        return;
       }
 
       const draftRes = await fresnsApi.editor.editorCreate({
@@ -183,11 +183,11 @@ Component({
         map: options.map ? enJson(options.map) : '',
         extends: options.extends ? enJson(options.extends) : '',
         archives: options.archives ? enJson(options.archives) : '',
-      })
+      });
 
       // 创建草稿成功
       if (draftRes.code === 0) {
-        await this.enterEditor(draftRes.data)
+        await this.enterEditor(draftRes.data);
       }
 
       wx.hideNavigationBarLoading();
@@ -197,16 +197,16 @@ Component({
     loadDraftDetail: async function (draftId) {
       wx.showNavigationBarLoading();
 
-      const type = this.data.type
+      const type = this.data.type;
 
       const detailRes = await fresnsApi.editor.editorDetail({
         type: type,
         draftId: draftId,
-      })
+      });
 
       // 获取成功
       if (detailRes.code === 0) {
-        await this.enterEditor(detailRes.data)
+        await this.enterEditor(detailRes.data);
       }
 
       wx.hideNavigationBarLoading();
@@ -226,7 +226,7 @@ Component({
 
     /** 进入编辑器 **/
     enterEditor: async function (draftData) {
-      callPageFunction('onLoadDraft', draftData)
+      callPageFunction('onLoadDraft', draftData);
     },
   },
-})
+});

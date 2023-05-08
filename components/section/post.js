@@ -23,7 +23,7 @@ Component({
       this.setData({
         userDeactivate: await fresnsLang('userDeactivate'),
         authorAnonymous: await fresnsLang('contentAuthorAnonymous'),
-      })
-    }
-  }
-})
+      });
+    },
+  },
+});

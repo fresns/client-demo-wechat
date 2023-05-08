@@ -40,10 +40,7 @@ Component({
 
       // 替换用户默认首页
       const userHomePath = await globalInfo.userHomePath();
-      newContent = newContent.replace(
-        "/pages/profile/posts?fsid=",
-        userHomePath
-      );
+      newContent = newContent.replace('/pages/profile/posts?fsid=', userHomePath);
 
       // 增加表情图样式
       newContent = newContent.replace(

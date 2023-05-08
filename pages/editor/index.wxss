@@ -4,34 +4,34 @@
  * Licensed under the Apache-2.0 license
  */
 .editor-features {
-    width: 90%;
-    margin: 0 auto;
-    overflow: hidden;
-    margin-bottom: 16px;
+  width: 90%;
+  margin: 0 auto;
+  overflow: hidden;
+  margin-bottom: 16px;
 }
 
 .float-left {
-    float: left;
+  float: left;
 }
 
 .float-end {
-    float: right;
+  float: right;
 }
 
 /* sticker tabs */
 .weui-tabs-bar__wrp {
-    border-bottom: 1px solid #eee;
-    margin-top: 10px;
+  border-bottom: 1px solid #eee;
+  margin-top: 10px;
 }
 
 .weui-tabs-bar__title {
-    margin: 0px 10px;
+  margin: 0px 10px;
 }
 
 .tab-title-selected {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 swiper {
-    display: none;
+  display: none;
 }

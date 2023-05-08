@@ -4,15 +4,12 @@
  * Licensed under the Apache-2.0 license
  */
 import { fresnsApi } from '../../api/api';
-import appConfig from "../../fresns";
+import appConfig from '../../fresns';
 import { fresnsConfig, fresnsLang } from '../../api/tool/function';
 
 Page({
   /** 外部 mixin 引入 **/
-  mixins: [
-    require('../../mixins/themeChanged'),
-    require('../../mixins/checkSiteMode'),
-  ],
+  mixins: [require('../../mixins/themeChanged'), require('../../mixins/checkSiteMode')],
 
   /** 页面的初始数据 **/
   data: {
@@ -53,7 +50,7 @@ Page({
       mapUrl: mapUrl,
       poi: await fresnsLang('location'),
       select: await fresnsLang('select'),
-    })
+    });
   },
 
   /** 监听页面显示 **/
@@ -64,7 +61,7 @@ Page({
     const location = chooseLocation.getLocation();
 
     if (!location) {
-      return
+      return;
     }
 
     const locationInfo = JSON.stringify({
@@ -81,36 +78,36 @@ Page({
       longitude: location.longitude,
       poi: location.name,
       select: await fresnsLang('reselect'),
-    })
+    });
 
-    await this.loadFresnsPageData()
+    await this.loadFresnsPageData();
   },
 
   /** 加载列表数据 **/
   loadFresnsPageData: async function () {
     if (this.data.isReachBottom) {
-      return
+      return;
     }
 
     wx.showNavigationBarLoading();
 
     this.setData({
       loadingStatus: true,
-    })
+    });
 
     const resultRes = await fresnsApi.post.postNearby({
       mapId: this.data.mapId,
       mapLng: this.data.longitude,
       mapLat: this.data.latitude,
       page: this.data.page,
-    })
+    });
 
     if (resultRes.code === 0) {
-      const { paginate, list } = resultRes.data
-      const isReachBottom = paginate.currentPage === paginate.lastPage
-      let tipType = 'none'
+      const { paginate, list } = resultRes.data;
+      const isReachBottom = paginate.currentPage === paginate.lastPage;
+      let tipType = 'none';
       if (isReachBottom) {
-        tipType = this.data.posts.length > 0 ? 'page' : 'empty'
+        tipType = this.data.posts.length > 0 ? 'page' : 'empty';
       }
 
       this.setData({
@@ -118,12 +115,12 @@ Page({
         page: this.data.page + 1,
         loadingTipType: tipType,
         isReachBottom: isReachBottom,
-      })
+      });
     }
 
     this.setData({
       loadingStatus: false,
-    })
+    });
 
     wx.hideNavigationBarLoading();
   },
@@ -135,14 +132,14 @@ Page({
       page: 1,
       loadingTipType: 'none',
       isReachBottom: false,
-    })
+    });
 
-    await this.loadFresnsPageData()
-    wx.stopPullDownRefresh()
+    await this.loadFresnsPageData();
+    wx.stopPullDownRefresh();
   },
 
   /** 监听用户上拉触底 **/
   onReachBottom: async function () {
-    await this.loadFresnsPageData()
+    await this.loadFresnsPageData();
   },
-})
+});

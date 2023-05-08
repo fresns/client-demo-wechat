@@ -12,7 +12,7 @@ Component({
     pid: String,
     cid: {
       type: String,
-      value: ''
+      value: '',
     },
   },
 
@@ -35,10 +35,10 @@ Component({
           anonymous: await fresnsLang('editorAnonymous'),
         },
         userLogin: globalInfo.userLogin,
-      })
-    }
+      });
+    },
   },
 
   /** 组件功能 **/
   methods: {},
-})
+});

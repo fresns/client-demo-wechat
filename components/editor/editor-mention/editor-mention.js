@@ -31,10 +31,10 @@ Component({
 
   /** 组件数据字段监听器 **/
   observers: {
-    'show': function (show) {
+    show: function (show) {
       this.setData({
         showDialog: show,
-      })
+      });
     },
   },
 
@@ -46,7 +46,7 @@ Component({
         inputPlaceholder: await fresnsLang('search'),
         inputCancel: await fresnsLang('cancel'),
       });
-    }
+    },
   },
 
   /** 组件功能 **/
@@ -57,7 +57,7 @@ Component({
         showDialog: false,
       });
 
-      callPageFunction('switchShowMentionDialog')
+      callPageFunction('switchShowMentionDialog');
     },
 
     // 显示输入
@@ -95,42 +95,42 @@ Component({
 
     // 选中
     onSelectUser: async function (e) {
-      const fsid = e.currentTarget.dataset.fsid
+      const fsid = e.currentTarget.dataset.fsid;
 
-      const text = '@' + fsid + ' '
+      const text = '@' + fsid + ' ';
 
-      callPageFunction('onContentInsert', text)
+      callPageFunction('onContentInsert', text);
 
-      this.close
+      this.close;
     },
 
     // 加载用户列表
     loadUserList: async function () {
-      const searchKey = this.data.searchKey
+      const searchKey = this.data.searchKey;
       if (!searchKey) {
-        return
+        return;
       }
 
       wx.showNavigationBarLoading();
 
       this.setData({
         loadingStatus: true,
-      })
+      });
 
       const resultRes = await fresnsApi.common.commonInputTips({
         type: 'user',
         key: searchKey,
-      })
+      });
 
       if (resultRes.code === 0) {
         this.setData({
           users: resultRes.data,
-        })
+        });
       }
 
       this.setData({
         loadingStatus: false,
-      })
+      });
 
       wx.hideNavigationBarLoading();
     },

@@ -9,9 +9,7 @@ import { globalInfo } from '../../utils/fresnsGlobalInfo';
 
 Page({
   /** 外部 mixin 引入 **/
-  mixins: [
-    require('../../mixins/themeChanged'),
-  ],
+  mixins: [require('../../mixins/themeChanged')],
 
   /** 页面的初始数据 **/
   data: {
@@ -39,23 +37,25 @@ Page({
 
     const langArr = await fresnsConfig('language_menus');
 
-    const langGroups = langArr.filter(item => item.isEnabled).map(item => {
-      let text = item.langName
-      if (item.areaName) {
-        text = item.langName + ' (' + item.areaName + ')'
-      }
+    const langGroups = langArr
+      .filter((item) => item.isEnabled)
+      .map((item) => {
+        let text = item.langName;
+        if (item.areaName) {
+          text = item.langName + ' (' + item.areaName + ')';
+        }
 
-      const newItem = {
-        text: text,
-        value: item.langTag
-      };
+        const newItem = {
+          text: text,
+          value: item.langTag,
+        };
 
-      if (item.langTag === globalInfo.langTag) {
-        newItem.type = 'warn';
-      }
+        if (item.langTag === globalInfo.langTag) {
+          newItem.type = 'warn';
+        }
 
-      return newItem;
-    });
+        return newItem;
+      });
 
     this.setData({
       accountLogin: globalInfo.accountLogin,
@@ -73,16 +73,16 @@ Page({
         {
           text: await fresnsLang('confirm'),
           extClass: 'warn',
-        }
+        },
       ],
-    })
+    });
   },
 
   /** 切换语言菜单 **/
-  showLanguageSheet: function(e) {
+  showLanguageSheet: function (e) {
     this.setData({
       showLangActionSheet: true,
-    })
+    });
   },
 
   /** 切换语言操作 **/

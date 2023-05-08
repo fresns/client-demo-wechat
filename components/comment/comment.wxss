@@ -3,7 +3,7 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-@import "/assets/styles/weui.wxss";
+@import '/assets/styles/weui.wxss';
 
 .list-style {
   padding-left: 46px;
@@ -51,7 +51,8 @@
   zoom: 0.5;
 }
 
-.content-text,.content-brief {
+.content-text,
+.content-brief {
   margin-top: 8px;
 }
 

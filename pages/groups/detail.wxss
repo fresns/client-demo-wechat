@@ -3,7 +3,8 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-.weui-media-box,.interactive-group {
+.weui-media-box,
+.interactive-group {
   background-color: var(--weui-BG-2);
 }
 
@@ -40,5 +41,5 @@
 }
 
 .extensions-label {
-  color:var(--weui-FG-0);
+  color: var(--weui-FG-0);
 }

@@ -17,28 +17,28 @@ module.exports = {
     const group = e.currentTarget.dataset.group;
     // 当前未喜欢，点击喜欢
     if (group.likeStatus === 0) {
-      const res = await this.actionLike(group.gid)
+      const res = await this.actionLike(group.gid);
       if (res.code === 0) {
-        const idx = this.data.groups.findIndex(value => value.gid === group.gid)
+        const idx = this.data.groups.findIndex((value) => value.gid === group.gid);
         this.setData({
           [`${groupsKey}[${idx}].likeStatus`]: 1,
           [`${groupsKey}[${idx}].likeCount`]: this.data.groups[idx].likeCount + 1,
-        })
+        });
       }
-      return
+      return;
     }
 
     // 当前已喜欢，点击取消喜欢
     if (group.likeStatus === 1) {
-      const res = await this.actionUnLike(group.gid)
+      const res = await this.actionUnLike(group.gid);
       if (res.code === 0) {
-        const idx = this.data.groups.findIndex(value => value.gid === group.gid)
+        const idx = this.data.groups.findIndex((value) => value.gid === group.gid);
         this.setData({
           [`${groupsKey}[${idx}].likeStatus`]: 0,
           [`${groupsKey}[${idx}].likeCount`]: this.data.groups[idx].likeCount - 1,
-        })
+        });
       }
-      return
+      return;
     }
   },
   onClickGroupFollow: async function (e) {
@@ -46,28 +46,28 @@ module.exports = {
     const group = e.currentTarget.dataset.group;
     // 当前未关注，点击关注
     if (group.followStatus === 0) {
-      const res = await this.actionFollow(group.gid)
+      const res = await this.actionFollow(group.gid);
       if (res.code === 0) {
-        const idx = this.data.groups.findIndex(value => value.gid === group.gid)
+        const idx = this.data.groups.findIndex((value) => value.gid === group.gid);
         this.setData({
           [`${groupsKey}[${idx}].followStatus`]: 1,
           [`${groupsKey}[${idx}].followCount`]: this.data.groups[idx].followCount + 1,
-        })
+        });
       }
-      return
+      return;
     }
 
     // 当前已关注，点击取消关注
     if (group.followStatus === 1) {
-      const res = await this.actionUnFollow(group.gid)
+      const res = await this.actionUnFollow(group.gid);
       if (res.code === 0) {
-        const idx = this.data.groups.findIndex(value => value.gid === group.gid)
+        const idx = this.data.groups.findIndex((value) => value.gid === group.gid);
         this.setData({
           [`${groupsKey}[${idx}].followStatus`]: 0,
           [`${groupsKey}[${idx}].followCount`]: this.data.groups[idx].followCount - 1,
-        })
+        });
       }
-      return
+      return;
     }
   },
   onClickGroupBlock: async function (e) {
@@ -75,28 +75,28 @@ module.exports = {
     const group = e.currentTarget.dataset.group;
     // 当前未关注，点击关注
     if (group.blockStatus === 0) {
-      const res = await this.actionBlock(group.gid)
+      const res = await this.actionBlock(group.gid);
       if (res.code === 0) {
-        const idx = this.data.groups.findIndex(value => value.gid === group.gid)
+        const idx = this.data.groups.findIndex((value) => value.gid === group.gid);
         this.setData({
           [`${groupsKey}[${idx}].blockStatus`]: 1,
           [`${groupsKey}[${idx}].blockCount`]: this.data.groups[idx].blockCount + 1,
-        })
+        });
       }
-      return
+      return;
     }
 
     // 当前已关注，点击取消关注
     if (group.blockStatus === 1) {
-      const res = await this.actionUnBlock(group.gid)
+      const res = await this.actionUnBlock(group.gid);
       if (res.code === 0) {
-        const idx = this.data.groups.findIndex(value => value.gid === group.gid)
+        const idx = this.data.groups.findIndex((value) => value.gid === group.gid);
         this.setData({
           [`${groupsKey}[${idx}].blockStatus`]: 0,
           [`${groupsKey}[${idx}].blockCount`]: this.data.groups[idx].blockCount - 1,
-        })
+        });
       }
-      return
+      return;
     }
   },
   actionLike: async function (id) {
@@ -105,7 +105,7 @@ module.exports = {
       markType: 1,
       markTarget: 2,
       markId: id,
-    })
+    });
   },
   actionUnLike: async function (id) {
     return fresnsApi.user.userMark({
@@ -113,7 +113,7 @@ module.exports = {
       markType: 1,
       markTarget: 2,
       markId: id,
-    })
+    });
   },
   actionFollow: async function (id) {
     return fresnsApi.user.userMark({
@@ -121,7 +121,7 @@ module.exports = {
       markType: 2,
       markTarget: 2,
       markId: id,
-    })
+    });
   },
   actionUnFollow: async function (id) {
     return fresnsApi.user.userMark({
@@ -129,7 +129,7 @@ module.exports = {
       markType: 2,
       markTarget: 2,
       markId: id,
-    })
+    });
   },
   actionBlock: async function (id) {
     return fresnsApi.user.userMark({
@@ -137,7 +137,7 @@ module.exports = {
       markType: 3,
       markTarget: 2,
       markId: id,
-    })
+    });
   },
   actionUnBlock: async function (id) {
     return fresnsApi.user.userMark({
@@ -145,6 +145,6 @@ module.exports = {
       markType: 3,
       markTarget: 2,
       markId: id,
-    })
+    });
   },
-}
+};

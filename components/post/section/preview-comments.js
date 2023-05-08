@@ -28,7 +28,7 @@ Component({
         userHomePath: await globalInfo.userHomePath(),
         userDeactivate: await fresnsLang('userDeactivate'),
         authorAnonymous: await fresnsLang('contentAuthorAnonymous'),
-      })
-    }
-  }
-})
+      });
+    },
+  },
+});

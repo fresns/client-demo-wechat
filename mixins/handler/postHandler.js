@@ -15,82 +15,82 @@ module.exports = {
   onClickPostLike: async function (post, postsKey = 'posts') {
     // 当前未喜欢，点击喜欢
     if (post.likeStatus === 0) {
-      const res = await this.actionLike(post.pid)
+      const res = await this.actionLike(post.pid);
       if (res.code === 0) {
-        const idx = this.data.posts.findIndex(value => value.pid === post.pid)
+        const idx = this.data.posts.findIndex((value) => value.pid === post.pid);
         this.setData({
           [`${postsKey}[${idx}].likeStatus`]: 1,
           [`${postsKey}[${idx}].likeCount`]: this.data.posts[idx].likeCount + 1,
-        })
+        });
       }
-      return
+      return;
     }
 
     // 当前已喜欢，点击取消喜欢
     if (post.likeStatus === 1) {
-      const res = await this.actionUnLike(post.pid)
+      const res = await this.actionUnLike(post.pid);
       if (res.code === 0) {
-        const idx = this.data.posts.findIndex(value => value.pid === post.pid)
+        const idx = this.data.posts.findIndex((value) => value.pid === post.pid);
         this.setData({
           [`${postsKey}[${idx}].likeStatus`]: 0,
           [`${postsKey}[${idx}].likeCount`]: this.data.posts[idx].likeCount - 1,
-        })
+        });
       }
-      return
+      return;
     }
   },
   onClickPostFollow: async function (post, postsKey = 'posts') {
     // 当前未关注，点击关注
     if (post.followStatus === 0) {
-      const res = await this.actionFollow(post.pid)
+      const res = await this.actionFollow(post.pid);
       if (res.code === 0) {
-        const idx = this.data.posts.findIndex(value => value.pid === post.pid)
+        const idx = this.data.posts.findIndex((value) => value.pid === post.pid);
         this.setData({
           [`${postsKey}[${idx}].followStatus`]: 1,
           [`${postsKey}[${idx}].followCount`]: this.data.posts[idx].followCount + 1,
-        })
+        });
       }
-      return
+      return;
     }
 
     // 当前已关注，点击取消关注
     if (post.followStatus === 1) {
-      const res = await this.actionUnFollow(post.pid)
+      const res = await this.actionUnFollow(post.pid);
       if (res.code === 0) {
-        const idx = this.data.posts.findIndex(value => value.pid === post.pid)
+        const idx = this.data.posts.findIndex((value) => value.pid === post.pid);
         this.setData({
           [`${postsKey}[${idx}].followStatus`]: 0,
           [`${postsKey}[${idx}].followCount`]: this.data.posts[idx].followCount - 1,
-        })
+        });
       }
-      return
+      return;
     }
   },
   onClickPostBlock: async function (post, postsKey = 'posts') {
     // 当前未关注，点击关注
     if (post.blockStatus === 0) {
-      const res = await this.actionBlock(post.pid)
+      const res = await this.actionBlock(post.pid);
       if (res.code === 0) {
-        const idx = this.data.posts.findIndex(value => value.pid === post.pid)
+        const idx = this.data.posts.findIndex((value) => value.pid === post.pid);
         this.setData({
           [`${postsKey}[${idx}].blockStatus`]: 1,
           [`${postsKey}[${idx}].blockCount`]: this.data.posts[idx].blockCount + 1,
-        })
+        });
       }
-      return
+      return;
     }
 
     // 当前已关注，点击取消关注
     if (post.blockStatus === 1) {
-      const res = await this.actionUnBlock(post.pid)
+      const res = await this.actionUnBlock(post.pid);
       if (res.code === 0) {
-        const idx = this.data.posts.findIndex(value => value.pid === post.pid)
+        const idx = this.data.posts.findIndex((value) => value.pid === post.pid);
         this.setData({
           [`${postsKey}[${idx}].blockStatus`]: 0,
           [`${postsKey}[${idx}].blockCount`]: this.data.posts[idx].blockCount - 1,
-        })
+        });
       }
-      return
+      return;
     }
   },
   actionLike: async function (id) {
@@ -99,7 +99,7 @@ module.exports = {
       markType: 1,
       markTarget: 4,
       markId: id,
-    })
+    });
   },
   actionUnLike: async function (id) {
     return fresnsApi.user.userMark({
@@ -107,7 +107,7 @@ module.exports = {
       markType: 1,
       markTarget: 4,
       markId: id,
-    })
+    });
   },
   actionFollow: async function (id) {
     return fresnsApi.user.userMark({
@@ -115,7 +115,7 @@ module.exports = {
       markType: 2,
       markTarget: 4,
       markId: id,
-    })
+    });
   },
   actionUnFollow: async function (id) {
     return fresnsApi.user.userMark({
@@ -123,7 +123,7 @@ module.exports = {
       markType: 2,
       markTarget: 4,
       markId: id,
-    })
+    });
   },
   actionBlock: async function (id) {
     return fresnsApi.user.userMark({
@@ -131,7 +131,7 @@ module.exports = {
       markType: 3,
       markTarget: 4,
       markId: id,
-    })
+    });
   },
   actionUnBlock: async function (id) {
     return fresnsApi.user.userMark({
@@ -139,6 +139,6 @@ module.exports = {
       markType: 3,
       markTarget: 4,
       markId: id,
-    })
+    });
   },
-}
+};

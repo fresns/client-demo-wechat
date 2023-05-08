@@ -3,7 +3,8 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-.weui-media-box,.interactive-hashtag {
+.weui-media-box,
+.interactive-hashtag {
   background-color: var(--weui-BG-2);
 }
 

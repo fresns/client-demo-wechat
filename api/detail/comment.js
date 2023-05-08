@@ -40,8 +40,8 @@ const comment = {
     return request({
       url: '/api/v2/comment/nearby',
       data: {
-        ...options
-      }
+        ...options,
+      },
     });
   },
 
@@ -110,6 +110,6 @@ const comment = {
       method: 'DELETE',
     });
   },
-}
+};
 
-module.exports = comment
+module.exports = comment;

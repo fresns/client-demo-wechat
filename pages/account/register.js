@@ -10,14 +10,11 @@ import { base64_encode } from '../../libs/base64/base64';
 const Type = {
   Mobile: '0',
   Email: '1',
-}
+};
 
 Page({
   /** 外部 mixin 引入 **/
-  mixins: [
-    require('../../mixins/themeChanged'),
-    require('../../mixins/checkSiteMode'),
-  ],
+  mixins: [require('../../mixins/themeChanged'), require('../../mixins/checkSiteMode')],
 
   /** 页面的初始数据 **/
   data: {
@@ -54,19 +51,17 @@ Page({
       title: await fresnsConfig('menu_account_register'),
     });
 
-    const [defaultCode, codeArray] = await Promise.all(
-      [
-        fresnsConfig('send_sms_default_code'),
-        fresnsConfig('send_sms_supported_codes'),
-      ],
-    )
-    const mobileAreaRange = codeArray.length === 1 ? [defaultCode] :codeArray;
-    
+    const [defaultCode, codeArray] = await Promise.all([
+      fresnsConfig('send_sms_default_code'),
+      fresnsConfig('send_sms_supported_codes'),
+    ]);
+    const mobileAreaRange = codeArray.length === 1 ? [defaultCode] : codeArray;
+
     this.setData({
       fresnsLang: await fresnsConfig('language_pack_contents'),
       mobileAreaRange,
       mobileAreaIndex: mobileAreaRange.indexOf(defaultCode),
-    })
+    });
   },
 
   onTypeChange: function (e) {
@@ -75,56 +70,64 @@ Page({
       password: '',
       confirmPassword: '',
       verifyCode: '',
-    })
+    });
   },
   onEmailAddressChange: function (e) {
-    const value = e.detail.value
+    const value = e.detail.value;
     this.setData({
       emailAddress: value,
-    })
-    return value
+    });
+    return value;
   },
   onMobileAreaPickerChange: function (e) {
-    const idxStr = e.detail.value
+    const idxStr = e.detail.value;
     this.setData({
       mobileAreaIndex: +idxStr,
-    })
+    });
   },
   onMobileNumberChange: function (e) {
-    const value = e.detail.value
+    const value = e.detail.value;
     this.setData({
       mobileNumber: value,
-    })
-    return value
+    });
+    return value;
   },
   onVerifyCodeChange: function (e) {
-    const value = e.detail.value
+    const value = e.detail.value;
     this.setData({
       verifyCode: value,
-    })
-    return value
+    });
+    return value;
   },
 
   // 发送验证码
   sendVerifyCode: async function (e) {
-    const { type, emailAddress, mobileAreaRange, mobileAreaIndex, mobileNumber, isVerifyCodeWaiting, waitingRemainSeconds } = this.data
+    const {
+      type,
+      emailAddress,
+      mobileAreaRange,
+      mobileAreaIndex,
+      mobileNumber,
+      isVerifyCodeWaiting,
+      waitingRemainSeconds,
+    } = this.data;
 
     if (isVerifyCodeWaiting) {
       wx.showToast({
         title: `发送冷却中 ${waitingRemainSeconds}s`,
         icon: 'none',
-      })
-      return
+      });
+      return;
     }
 
-    let params = null
+    let params = null;
     if (type === Type.Email) {
       if (!emailAddress) {
         wx.showToast({
-          title: await fresnsLang('email') + ': ' + await fresnsLang('errorEmpty'),
+          title: (await fresnsLang('email')) + ': ' + (await fresnsLang('errorEmpty')),
           icon: 'none',
-        })
-        return
+        });
+        return;
       }
 
       params = {
@@ -132,15 +135,15 @@ Page({
         useType: 1,
         templateId: 2,
         account: emailAddress,
-      }
+      };
     }
     if (type === Type.Mobile) {
       if (!mobileNumber) {
         wx.showToast({
-          title: await fresnsLang('phone') + ': ' + await fresnsLang('errorEmpty'),
+          title: (await fresnsLang('phone')) + ': ' + (await fresnsLang('errorEmpty')),
           icon: 'none',
-        })
-        return
+        });
+        return;
       }
 
       params = {
@@ -149,51 +152,51 @@ Page({
         templateId: 2,
         account: mobileNumber,
         countryCode: mobileAreaRange[mobileAreaIndex],
-      }
+      };
     }
 
-    const sendVerifyRes = await fresnsApi.common.commonSendVerifyCode(params)
+    const sendVerifyRes = await fresnsApi.common.commonSendVerifyCode(params);
     if (sendVerifyRes.code === 0) {
-      this.setData({ isVerifyCodeWaiting: true, waitingRemainSeconds: 60 })
+      this.setData({ isVerifyCodeWaiting: true, waitingRemainSeconds: 60 });
 
       const interval = setInterval(() => {
-        const now = this.data.waitingRemainSeconds - 1
+        const now = this.data.waitingRemainSeconds - 1;
         this.setData({
           waitingRemainSeconds: now,
           isVerifyCodeWaiting: now > 0,
-        })
+        });
         if (now <= 0) {
-          clearInterval(interval)
+          clearInterval(interval);
         }
-      }, 1000)
+      }, 1000);
 
       wx.showToast({
         title: '验证码发送成功',
         icon: 'none',
-      })
+      });
     }
   },
 
   onPasswordChange: function (e) {
-    const value = e.detail.value
+    const value = e.detail.value;
     this.setData({
       password: value,
-    })
-    return value
+    });
+    return value;
   },
   onConfirmPasswordChange: function (e) {
-    const value = e.detail.value
+    const value = e.detail.value;
     this.setData({
       confirmPassword: value,
-    })
-    return value
+    });
+    return value;
   },
   onNicknameChange: function (e) {
-    const value = e.detail.value
+    const value = e.detail.value;
     this.setData({
       nickname: value,
-    })
-    return value
+    });
+    return value;
   },
 
   // 提交注册
@@ -209,16 +212,16 @@ Page({
       password,
       confirmPassword,
       nickname,
-    } = this.data
+    } = this.data;
     if (password !== confirmPassword) {
       wx.hideNavigationBarLoading();
       wx.showToast({
         title: '两次密码填写不一致',
-      })
-      return
+      });
+      return;
     }
 
-    let params = null
+    let params = null;
     if (type === Type.Mobile) {
       params = {
         type: 'phone',
@@ -227,7 +230,7 @@ Page({
         verifyCode: verifyCode,
         password: base64_encode(password),
         nickname: nickname,
-      }
+      };
     }
     if (type === Type.Email) {
       params = {
@@ -236,31 +239,31 @@ Page({
         verifyCode: verifyCode,
         password: base64_encode(password),
         nickname: nickname,
-      }
+      };
     }
 
-    const registerRes = await fresnsApi.account.accountRegister(params)
+    const registerRes = await fresnsApi.account.accountRegister(params);
 
     if (registerRes.code != 0) {
       wx.hideNavigationBarLoading();
-      return
+      return;
     }
 
-    wx.setStorageSync('aid', registerRes.data.detail.aid)
-    wx.setStorageSync('aidToken', registerRes.data.sessionToken.token)
+    wx.setStorageSync('aid', registerRes.data.detail.aid);
+    wx.setStorageSync('aidToken', registerRes.data.sessionToken.token);
 
-    cachePut('fresnsAccount', registerRes.data, 5)
+    cachePut('fresnsAccount', registerRes.data, 5);
 
     const user = registerRes.data.detail.users[0];
 
     if (registerRes.data.detail.users.length > 1 || user.hasPassword) {
       wx.redirectTo({
         url: '/pages/account/users',
-      })
+      });
     }
 
     return await this.loginUser({
       uidOrUsername: user.uid.toString(),
-    })
+    });
   },
-})
+});

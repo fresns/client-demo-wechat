@@ -14,7 +14,7 @@ const editor = {
     return request(filePath, {
       url: '/api/v2/editor/' + options.type + '/quick-publish',
       data: {
-        ...formData
+        ...formData,
       },
       method: 'POST',
     });
@@ -82,8 +82,8 @@ const editor = {
     return request({
       url: '/api/v2/editor/' + options.type + '/' + options.draftId,
       data: {
-        ...options
-      }
+        ...options,
+      },
     });
   },
 
@@ -143,6 +143,6 @@ const editor = {
       method: 'DELETE',
     });
   },
-}
+};
 
-module.exports = editor
+module.exports = editor;

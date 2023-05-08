@@ -3,29 +3,29 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-@import "/assets/styles/weui.wxss";
+@import '/assets/styles/weui.wxss';
 
 .editor-comment-btn {
-    width: 90%;
-    margin: 0 auto;
+  width: 90%;
+  margin: 0 auto;
 }
 
 .editor-comment-btn .weui-cell {
-    border: 1px solid lightgray;
-    padding: 10px 16px;
-    border-bottom: none;
+  border: 1px solid lightgray;
+  padding: 10px 16px;
+  border-bottom: none;
 }
 
 .editor-comment-btn mp-cell:last-of-type .weui-cell {
-    border-bottom: 1px solid silver;
+  border-bottom: 1px solid silver;
 }
 
 .editor-comment-btn .authority-head .weui-cell {
-    background: #fff3cd;
+  background: #fff3cd;
 }
 
 .editor-comment-btn mp-cell view {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }

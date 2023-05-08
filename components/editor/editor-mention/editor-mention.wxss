@@ -3,28 +3,29 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-@import "/assets/styles/weui.wxss";
+@import '/assets/styles/weui.wxss';
 
-[weui-modal-show=false] .weui-half-screen-dialog{
-    -webkit-transition:-webkit-transform .3s;
-    transition:-webkit-transform .3s;
-    transition:transform .3s;
-    transition:transform .3s,-webkit-transform .3s;
-    -webkit-transform:translateY(100%);
-    transform:translateY(100%)}
-    
-[weui-modal-show=true] .weui-half-screen-dialog{
-    -webkit-transform:translateY(0);
-    transform:translateY(0)
+[weui-modal-show='false'] .weui-half-screen-dialog {
+  -webkit-transition: -webkit-transform 0.3s;
+  transition: -webkit-transform 0.3s;
+  transition: transform 0.3s;
+  transition: transform 0.3s, -webkit-transform 0.3s;
+  -webkit-transform: translateY(100%);
+  transform: translateY(100%);
+}
+
+[weui-modal-show='true'] .weui-half-screen-dialog {
+  -webkit-transform: translateY(0);
+  transform: translateY(0);
 }
 
 .weui-cell__hd image {
-    margin-right: 10px;
-    vertical-align: middle;
-    width: 26px;
-    height: 26px;
+  margin-right: 10px;
+  vertical-align: middle;
+  width: 26px;
+  height: 26px;
 }
 
 .weui-search-bar__input {
-    padding-left: 40px;
+  padding-left: 40px;
 }

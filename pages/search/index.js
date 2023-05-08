@@ -8,14 +8,10 @@ import { fresnsConfig } from '../../api/tool/function';
 
 Page({
   /** 外部 mixin 引入 **/
-  mixins: [
-    require('../../mixins/themeChanged'),
-    require('../../mixins/checkSiteMode'),
-  ],
+  mixins: [require('../../mixins/themeChanged'), require('../../mixins/checkSiteMode')],
 
   /** 页面的初始数据 **/
-  data: {
-  },
+  data: {},
 
   /** 监听页面加载 **/
   onLoad: async function () {
@@ -23,4 +19,4 @@ Page({
       title: await fresnsConfig('menu_search'),
     });
   },
-})
+});

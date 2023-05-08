@@ -8,9 +8,7 @@ import { truncateText } from '../../../utils/fresnsUtilities';
 
 Component({
   /** 外部 mixin 引入 **/
-  mixins: [
-    require('../../../mixins/handler/postHandler'),
-  ],
+  mixins: [require('../../../mixins/handler/postHandler')],
 
   /** 组件的属性列表 **/
   properties: {
@@ -52,11 +50,11 @@ Component({
       let postTitle = post.title || truncateText(post.content, 20);
       let nickname = post.author.nickname;
 
-      if (! post.author.status) {
+      if (!post.author.status) {
         nickname = userDeactivate;
       } else if (post.isAnonymous) {
         nickname = authorAnonymous;
-      };
+      }
 
       let items = [];
 
@@ -113,7 +111,7 @@ Component({
         actionGroups: items,
         postUrl: post.url,
         postPage: 'pages/posts/detail?pid=' + post.pid,
-      })
+      });
     },
   },
 
@@ -122,18 +120,18 @@ Component({
     // 评论
     onClickCreateComment() {
       this.setData({
-        showCommentBox: true
-      })
+        showCommentBox: true,
+      });
     },
 
     // 分享
     onClickShare() {
       this.setData({
-        showShareActionSheet: true
-      })
+        showShareActionSheet: true,
+      });
     },
     actionClickShare(e) {
-      console.log(e)
+      console.log(e);
 
       // 复制链接
       if (e.detail.value === 'onShareCopyLink') {
@@ -141,10 +139,10 @@ Component({
           data: this.data.postUrl,
           success: function (res) {
             wx.showToast({
-              title: '复制成功'
+              title: '复制成功',
             });
-          }
-        })
+          },
+        });
       }
 
       // 分享给好友
@@ -158,22 +156,22 @@ Component({
       }
 
       this.setData({
-        showShareActionSheet: false
-      })
+        showShareActionSheet: false,
+      });
     },
 
     // 更多菜单
     onClickContentMore() {
       this.setData({
-        showActionSheet: true
-      })
+        showActionSheet: true,
+      });
     },
     actionClickMore(e) {
-      console.log(e)
+      console.log(e);
 
       this.setData({
-        showActionSheet: false
-      })
-    }
+        showActionSheet: false,
+      });
+    },
   },
-})
+});

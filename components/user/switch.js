@@ -164,12 +164,12 @@ Component({
     onClickToPosts() {
       wx.redirectTo({
         url: '/pages/profile/posts?fsid=' + this.data.fsid,
-      })
+      });
     },
     onClickToComments() {
       wx.redirectTo({
         url: '/pages/profile/comments?fsid=' + this.data.fsid,
-      })
+      });
     },
 
     // 菜单
@@ -177,36 +177,36 @@ Component({
       this.setData({
         title: '互动',
         groups: this.data.interactions,
-        showActionSheet: true
-      })
+        showActionSheet: true,
+      });
     },
     onClickLikes() {
       this.setData({
         title: '赞',
         groups: this.data.likes,
-        showActionSheet: true
-      })
+        showActionSheet: true,
+      });
     },
     onClickDislikes() {
       this.setData({
         title: '踩',
         groups: this.data.dislikes,
-        showActionSheet: true
-      })
+        showActionSheet: true,
+      });
     },
     onClickFollowing() {
       this.setData({
         title: '关注',
         groups: this.data.following,
-        showActionSheet: true
-      })
+        showActionSheet: true,
+      });
     },
     onClickBlocking() {
       this.setData({
         title: '屏蔽',
         groups: this.data.blocking,
-        showActionSheet: true
-      })
+        showActionSheet: true,
+      });
     },
 
     // 选项
@@ -215,11 +215,11 @@ Component({
 
       wx.redirectTo({
         url: e.detail.value,
-      })
+      });
 
       this.setData({
-        showActionSheet: false
-      })
+        showActionSheet: false,
+      });
     },
   },
-})
+});

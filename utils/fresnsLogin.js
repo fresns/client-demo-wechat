@@ -13,25 +13,25 @@ export class FresnsLogin {
     const loginRes = await fresnsApi.account.accountLogin(params);
 
     if (loginRes.code != 0) {
-      return loginRes
+      return loginRes;
     }
 
-    wx.setStorageSync('aid', loginRes.data.detail.aid)
-    wx.setStorageSync('aidToken', loginRes.data.sessionToken.token)
+    wx.setStorageSync('aid', loginRes.data.detail.aid);
+    wx.setStorageSync('aidToken', loginRes.data.sessionToken.token);
 
-    cachePut('fresnsAccount', loginRes.data, 5)
+    cachePut('fresnsAccount', loginRes.data, 5);
 
     const user = loginRes.data.detail.users[0];
 
     if (loginRes.data.detail.users.length > 1 || user.hasPassword) {
       wx.redirectTo({
         url: '/pages/account/users',
-      })
+      });
     }
 
     return await this.loginUser({
       uidOrUsername: user.uid.toString(),
-    })
+    });
   }
 
   // 登录用户
@@ -39,25 +39,25 @@ export class FresnsLogin {
     const loginRes = await fresnsApi.user.userAuth(params);
 
     if (loginRes.code != 0) {
-      return loginRes
+      return loginRes;
     }
 
-    wx.setStorageSync('uid', loginRes.data.detail.uid)
-    wx.setStorageSync('uidToken', loginRes.data.sessionToken.token)
+    wx.setStorageSync('uid', loginRes.data.detail.uid);
+    wx.setStorageSync('uidToken', loginRes.data.sessionToken.token);
 
-    cachePut('fresnsUser', loginRes.data, 5)
+    cachePut('fresnsUser', loginRes.data, 5);
 
-    return loginRes
+    return loginRes;
   }
 
   // 退出登录
   async logout() {
     await fresnsApi.account.accountLogout();
 
-    wx.removeStorageSync('aid')
-    wx.removeStorageSync('aidToken')
-    wx.removeStorageSync('uid')
-    wx.removeStorageSync('uidToken')
+    wx.removeStorageSync('aid');
+    wx.removeStorageSync('aidToken');
+    wx.removeStorageSync('uid');
+    wx.removeStorageSync('uidToken');
 
     wx.setStorageSync('fresnsAccount', {
       langTag: globalInfo.langTag,
@@ -72,9 +72,9 @@ export class FresnsLogin {
     });
 
     wx.redirectTo({
-        url: 'pages/account/index',
-    })
+      url: 'pages/account/index',
+    });
   }
 }
 
-export const fresnsLogin = new FresnsLogin()
+export const fresnsLogin = new FresnsLogin();

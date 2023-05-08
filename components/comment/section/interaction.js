@@ -8,9 +8,7 @@ import { truncateText } from '../../../utils/fresnsUtilities';
 
 Component({
   /** 外部 mixin 引入 **/
-  mixins: [
-    require('../../../mixins/handler/commentHandler'),
-  ],
+  mixins: [require('../../../mixins/handler/commentHandler')],
 
   /** 组件的属性列表 **/
   properties: {
@@ -45,11 +43,11 @@ Component({
 
       let nickname = comment.author.nickname;
 
-      if (! comment.author.status) {
+      if (!comment.author.status) {
         nickname = userDeactivate;
       } else if (comment.isAnonymous) {
         nickname = authorAnonymous;
-      };
+      }
 
       let items = [];
 
@@ -74,7 +72,9 @@ Component({
       // 关注
       if (comment.interaction.followSetting) {
         items.push({
-          text: comment.interaction.followStatus ? '✔ ' + comment.interaction.followName : comment.interaction.followName,
+          text: comment.interaction.followStatus
+            ? '✔ ' + comment.interaction.followName
+            : comment.interaction.followName,
           type: 'default',
           value: comment.interaction.followStatus ? 'unfollow' : 'follow',
         });
@@ -104,7 +104,7 @@ Component({
       this.setData({
         title: nickname + ': ' + truncateText(comment.content, 20),
         actionGroups: items,
-      })
+      });
     },
   },
 
@@ -113,36 +113,36 @@ Component({
     // 评论
     onClickCreateComment() {
       this.setData({
-        showCommentBox: true
-      })
+        showCommentBox: true,
+      });
     },
 
     // 分享
     onClickShare() {
       this.setData({
-        showShareActionSheet: true
-      })
+        showShareActionSheet: true,
+      });
     },
     actionClickShare(e) {
-      console.log(e)
+      console.log(e);
 
       this.setData({
-        showShareActionSheet: false
-      })
+        showShareActionSheet: false,
+      });
     },
 
     // 更多菜单
     onClickContentMore() {
       this.setData({
-        showActionSheet: true
-      })
+        showActionSheet: true,
+      });
     },
     actionClickMore(e) {
-      console.log(e)
+      console.log(e);
 
       this.setData({
-        showActionSheet: false
-      })
-    }
+        showActionSheet: false,
+      });
+    },
   },
-})
+});

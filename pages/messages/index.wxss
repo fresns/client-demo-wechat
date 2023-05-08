@@ -4,28 +4,28 @@
  * Licensed under the Apache-2.0 license
  */
 .weui-cells .weui-cell__hd {
-    position: relative;
-    margin-right: 10px;
+  position: relative;
+  margin-right: 10px;
 }
 
 .weui-cells .weui-cell__hd image {
-    width: 50px;
-    height: 50px;
-    display: block;
+  width: 50px;
+  height: 50px;
+  display: block;
 }
 
 .weui-cells .weui-cell__hd .weui-badge {
-    position: absolute;
-    top: -.4em;
-    right: -.4em;
+  position: absolute;
+  top: -0.4em;
+  right: -0.4em;
 }
 
-.weui-cells .weui-cell__bd .badge_desc{
-    font-size: 0.7rem;
-    color: #888;
-    margin-top: 5px;
+.weui-cells .weui-cell__bd .badge_desc {
+  font-size: 0.7rem;
+  color: #888;
+  margin-top: 5px;
 }
 
 .weui-cells .weui-cell__ft {
-    font-size: 0.7rem;
+  font-size: 0.7rem;
 }

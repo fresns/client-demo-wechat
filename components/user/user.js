@@ -21,7 +21,7 @@ Component({
     attached: async function () {
       this.setData({
         userHomePath: await globalInfo.userHomePath(),
-      })
-    }
-  }
-})
+      });
+    },
+  },
+});

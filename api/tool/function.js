@@ -161,7 +161,7 @@ export const fresnsViewProfile = async (uidOrUsername = null) => {
     console.log('uidOrUsername', uidOrUsername);
 
     const result = await fresnsApi.user.userDetail({
-      uidOrUsername: uidOrUsername
+      uidOrUsername: uidOrUsername,
     });
 
     if (result.code === 0 && result.data) {
@@ -176,7 +176,7 @@ export const fresnsViewProfile = async (uidOrUsername = null) => {
 
 // data_get
 export function data_get(data, key, defaultValue = null) {
-  let keys = key.split(".");
+  let keys = key.split('.');
   for (let i = 0, n = keys.length; i < n; i++) {
     let k = keys[i];
 

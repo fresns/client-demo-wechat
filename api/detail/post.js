@@ -40,8 +40,8 @@ const post = {
     return request({
       url: '/api/v2/post/nearby',
       data: {
-        ...options
-      }
+        ...options,
+      },
     });
   },
 
@@ -123,6 +123,6 @@ const post = {
       method: 'DELETE',
     });
   },
-}
+};
 
-module.exports = post
+module.exports = post;

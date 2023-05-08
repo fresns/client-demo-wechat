@@ -8,9 +8,7 @@ Component({
     notification: Object,
   },
 
-  data: {
-  },
+  data: {},
 
-  methods: {
-  },
-})
+  methods: {},
+});

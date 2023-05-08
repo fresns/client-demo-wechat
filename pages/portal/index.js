@@ -7,10 +7,7 @@ import { fresnsConfig } from '../../api/tool/function';
 
 Page({
   /** 外部 mixin 引入 **/
-  mixins: [
-    require('../../mixins/themeChanged'),
-    require('../../mixins/checkSiteMode'),
-  ],
+  mixins: [require('../../mixins/themeChanged'), require('../../mixins/checkSiteMode')],
 
   /** 页面的初始数据 **/
   data: {
@@ -27,27 +24,27 @@ Page({
 
     this.setData({
       content: value,
-    })
+    });
   },
 
   /** 右上角菜单-分享给好友 **/
   onShareAppMessage: async function () {
     return {
       title: await fresnsConfig('menu_portal_title'),
-    }
+    };
   },
 
   /** 右上角菜单-分享到朋友圈 **/
   onShareTimeline: async function () {
     return {
       title: await fresnsConfig('menu_portal_title'),
-    }
+    };
   },
 
   /** 右上角菜单-收藏 **/
   onAddToFavorites: async function () {
     return {
       title: await fresnsConfig('menu_portal_title'),
-    }
+    };
   },
 });

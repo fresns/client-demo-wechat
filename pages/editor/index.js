@@ -50,9 +50,9 @@ Page({
     });
 
     // 编辑器参数
-    const type = options.type || 'post';  // 内容类型，帖子或评论
-    const fsid = options.fsid;  // 有值表示编辑已发表的内容
-    const draftId = options.draftId;  // 有值表示编辑指定草稿
+    const type = options.type || 'post'; // 内容类型，帖子或评论
+    const fsid = options.fsid; // 有值表示编辑已发表的内容
+    const draftId = options.draftId; // 有值表示编辑指定草稿
 
     // 编辑器配置
     let editorService;
@@ -75,7 +75,7 @@ Page({
         clid = draftId;
 
         // 评论必填参数判断
-        const commentPid = options.commentPid;  // 评论哪个帖子
+        const commentPid = options.commentPid; // 评论哪个帖子
         if (!commentPid) {
           this.setData({
             tipError: '评论缺失 pid 参数',
@@ -83,7 +83,7 @@ Page({
             editorStatus: true, // 显示编辑器
           });
 
-          return
+          return;
         }
         break;
       default:
@@ -115,13 +115,15 @@ Page({
       const filteredOptions = Object.entries(options).filter(([key]) => key !== 'type');
 
       // 将过滤后的 options 对象转换为 URL 参数字符串
-      const urlParams = filteredOptions.map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`).join('&');
+      const urlParams = filteredOptions
+        .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+        .join('&');
 
       wx.redirectTo({
-        url: '/pages/webview?url=' + newUrl + '&' + urlParams
-      })
+        url: '/pages/webview?url=' + newUrl + '&' + urlParams,
+      });
 
-      return
+      return;
     }
 
     /**
@@ -129,7 +131,7 @@ Page({
      */
     const configRes = await fresnsApi.editor.editorConfig({
       type: type,
-    })
+    });
 
     if (configRes.code === 0) {
       this.setData({
@@ -137,7 +139,7 @@ Page({
         draftSelector: true, // 草稿选择器
       });
 
-      return
+      return;
     }
 
     this.setData({
@@ -147,19 +149,19 @@ Page({
   },
 
   /** 监听页面显示 **/
-  onShow: async function() {
+  onShow: async function () {
     // 处理插件回调消息
     const postMessage = wx.getStorageSync('fresnsPluginMessage');
     console.log('fresnsPluginMessage', postMessage);
 
     if (postMessage?.postMessageKey == 'fresnsEditor') {
-      const type = this.data.type
-      const draftDetail = this.data.draftDetail
+      const type = this.data.type;
+      const draftDetail = this.data.draftDetail;
 
       const detailRes = await fresnsApi.editor.editorDetail({
         type: type,
         draftId: draftDetail.id,
-      })
+      });
 
       if (detailRes.code === 0) {
         this.setData({
@@ -190,7 +192,7 @@ Page({
       draftSelector: false, // 关闭草稿选择器
       editorStatus: true, // 显示编辑器
       showTitleInput: showTitleInput, // 标题输入框是否显示
-      contentCursorPosition: draftData.detail.content.length // 获取内容光标位置
+      contentCursorPosition: draftData.detail.content.length, // 获取内容光标位置
     });
 
     wx.hideNavigationBarLoading();
@@ -244,7 +246,7 @@ Page({
 
     this.apiUpdateDraft({
       postGid: group?.gid ? group?.gid : '',
-    })
+    });
   },
 
   // 标题
@@ -266,7 +268,7 @@ Page({
 
     this.apiUpdateDraft({
       postTitle: title,
-    })
+    });
   },
 
   // 内容
@@ -296,7 +298,8 @@ Page({
       newText = text.slice(1);
     }
 
-    const newContent = draftDetail.content.slice(0, cursorPosition) + newText + draftDetail.content.slice(cursorPosition);
+    const newContent =
+      draftDetail.content.slice(0, cursorPosition) + newText + draftDetail.content.slice(cursorPosition);
 
     draftDetail.content = newContent;
 
@@ -315,13 +318,13 @@ Page({
 
     this.apiUpdateDraft({
       content: content,
-    })
+    });
   },
 
   // 位置
   onLocationChange(mapJson) {
     if (!mapJson) {
-      return
+      return;
     }
 
     const draftDetail = this.data.draftDetail;
@@ -333,7 +336,7 @@ Page({
 
     this.apiUpdateDraft({
       map: mapJson,
-    })
+    });
   },
   onLocationDelete() {
     const draftDetail = this.data.draftDetail;
@@ -345,7 +348,7 @@ Page({
 
     this.apiUpdateDraft({
       deleteMap: true,
-    })
+    });
   },
 
   // 是否匿名
@@ -360,7 +363,7 @@ Page({
 
     this.apiUpdateDraft({
       isAnonymous: isAnonymous,
-    })
+    });
   },
 
   // 文件
@@ -403,7 +406,7 @@ Page({
 
     await this.apiUpdateDraft({
       deleteFile: fid,
-    })
+    });
   },
 
   // 提交发表
@@ -413,7 +416,7 @@ Page({
     await this.apiUpdateDraft({
       postTitle: draftDetail.title,
       content: draftDetail.content,
-    })
+    });
 
     const submitRes = await fresnsApi.editor.editorPublish({
       type: this.data.type,
@@ -422,13 +425,13 @@ Page({
 
     if (submitRes.code === 0) {
       wx.showToast({
-        title: "提交成功",
-        icon: "success",
+        title: '提交成功',
+        icon: 'success',
       });
 
       wx.redirectTo({
-        url: "/pages/posts/index",
+        url: '/pages/posts/index',
       });
     }
   },
-})
+});

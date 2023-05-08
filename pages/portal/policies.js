@@ -7,9 +7,7 @@ import { fresnsConfig, fresnsLang } from '../../api/tool/function';
 
 Page({
   /** 外部 mixin 引入 **/
-  mixins: [
-    require('../../mixins/themeChanged'),
-  ],
+  mixins: [require('../../mixins/themeChanged')],
 
   /** 页面的初始数据 **/
   data: {
@@ -54,18 +52,18 @@ Page({
       });
     }
 
-    const index = tabs.findIndex(tab => tab.active === options.active);
+    const index = tabs.findIndex((tab) => tab.active === options.active);
 
     this.setData({
       tabs: tabs,
       activeTab: index,
-      content: tabs[index].content
-    })
+      content: tabs[index].content,
+    });
   },
 
   onClickTab: async function (e) {
     this.setData({
-      content: this.data.tabs[e.detail.index].content
-    })
-  }
+      content: this.data.tabs[e.detail.index].content,
+    });
+  },
 });

@@ -9,10 +9,7 @@ import { parseUrlParams } from '../../utils/fresnsUtilities';
 
 Page({
   /** 外部 mixin 引入 **/
-  mixins: [
-    require('../../mixins/themeChanged'),
-    require('../../mixins/checkSiteMode'),
-  ],
+  mixins: [require('../../mixins/themeChanged'), require('../../mixins/checkSiteMode')],
 
   /** 页面的初始数据 **/
   data: {
@@ -47,32 +44,35 @@ Page({
       title: await fresnsConfig('menu_user_list_title'),
     });
 
-    await this.loadFresnsPageData()
+    await this.loadFresnsPageData();
   },
 
   /** 加载列表数据 **/
   loadFresnsPageData: async function () {
     if (this.data.isReachBottom) {
-      return
+      return;
     }
 
     wx.showNavigationBarLoading();
 
     this.setData({
       loadingStatus: true,
-    })
+    });
 
-    const resultRes = await fresnsApi.user.userList(Object.assign(this.data.requestQuery, {
-      whitelistKeys: 'fsid,uid,username,url,nickname,avatar,decorate,gender,bioHtml,verifiedStatus,verifiedIcon,verifiedDesc,nicknameColor,roleName,roleNameDisplay,roleIcon,roleIconDisplay,stats.likeMeCount,stats.dislikeMeCount,stats.followMeCount,stats.blockMeCount,interaction',
-      page: this.data.page,
-    }))
+    const resultRes = await fresnsApi.user.userList(
+      Object.assign(this.data.requestQuery, {
+        whitelistKeys:
+          'fsid,uid,username,url,nickname,avatar,decorate,gender,bioHtml,verifiedStatus,verifiedIcon,verifiedDesc,nicknameColor,roleName,roleNameDisplay,roleIcon,roleIconDisplay,stats.likeMeCount,stats.dislikeMeCount,stats.followMeCount,stats.blockMeCount,interaction',
+        page: this.data.page,
+      })
+    );
 
     if (resultRes.code === 0) {
-      const { paginate, list } = resultRes.data
-      const isReachBottom = paginate.currentPage === paginate.lastPage
-      let tipType = 'none'
+      const { paginate, list } = resultRes.data;
+      const isReachBottom = paginate.currentPage === paginate.lastPage;
+      let tipType = 'none';
       if (isReachBottom) {
-        tipType = this.data.users.length > 0 ? 'page' : 'empty'
+        tipType = this.data.users.length > 0 ? 'page' : 'empty';
       }
 
       this.setData({
@@ -80,12 +80,12 @@ Page({
         page: this.data.page + 1,
         loadingTipType: tipType,
         isReachBottom: isReachBottom,
-      })
+      });
     }
 
     this.setData({
       loadingStatus: false,
-    })
+    });
 
     wx.hideNavigationBarLoading();
   },
@@ -97,10 +97,10 @@ Page({
       page: 1,
       loadingTipType: 'none',
       isReachBottom: false,
-    })
+    });
 
-    await this.loadFresnsPageData()
-    wx.stopPullDownRefresh()
+    await this.loadFresnsPageData();
+    wx.stopPullDownRefresh();
   },
 
   /** 监听用户上拉触底 **/
@@ -110,31 +110,31 @@ Page({
       this.setData({
         loadingTipType: this.data.users.length > 0 ? 'page' : 'empty',
         isReachBottom: true,
-      })
-      return
+      });
+      return;
     }
 
-    await this.loadFresnsPageData()
+    await this.loadFresnsPageData();
   },
 
   /** 右上角菜单-分享给好友 **/
   onShareAppMessage: async function () {
     return {
       title: await fresnsConfig('menu_user_list_title'),
-    }
+    };
   },
 
   /** 右上角菜单-分享到朋友圈 **/
   onShareTimeline: async function () {
     return {
       title: await fresnsConfig('menu_user_list_title'),
-    }
+    };
   },
 
   /** 右上角菜单-收藏 **/
   onAddToFavorites: async function () {
     return {
       title: await fresnsConfig('menu_user_list_title'),
-    }
+    };
   },
-})
+});

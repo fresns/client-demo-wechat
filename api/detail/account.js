@@ -109,7 +109,7 @@ const account = {
       method: 'DELETE',
     });
   },
-  
+
   /**
    * 申请删除账号
    * @return {wx.RequestTask}

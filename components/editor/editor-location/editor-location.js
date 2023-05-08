@@ -28,7 +28,7 @@ Component({
 
   /** 组件数据字段监听器 **/
   observers: {
-    'location': function (location) {
+    location: function (location) {
       const { tencentMapKey, tencentMapReferer } = appConfig;
       const locationInfo = JSON.stringify({
         latitude: location?.latitude,
@@ -51,27 +51,27 @@ Component({
         actionGroups: [
           {
             text: await fresnsLang('reselect'),
-            value: 'reselect'
+            value: 'reselect',
           },
           {
             text: await fresnsLang('delete'),
             type: 'warn',
-            value: 'delete'
+            value: 'delete',
           },
         ],
         addLocation: await fresnsLang('editorLocation'),
       });
-    }
+    },
   },
 
   /** 组件所在页面的生命周期 **/
   pageLifetimes: {
-    show: function() {
+    show: function () {
       const chooseLocation = requirePlugin('chooseLocation');
       const location = chooseLocation.getLocation();
 
       if (!location) {
-        return
+        return;
       }
 
       const mapJson = {
@@ -94,8 +94,8 @@ Component({
         poiId: null,
       };
 
-      callPageFunction('onLocationChange', mapJson)
-    }
+      callPageFunction('onLocationChange', mapJson);
+    },
   },
 
   /** 组件功能 **/
@@ -123,7 +123,7 @@ Component({
       // 重选
       if (action == 'reselect') {
         const mapUrl = this.data.mapUrl;
-  
+
         wx.navigateTo({
           url: mapUrl,
         });
@@ -131,7 +131,7 @@ Component({
 
       // 删除
       if (action == 'delete') {
-        callPageFunction('onLocationDelete')
+        callPageFunction('onLocationDelete');
         this.setData({
           poi: '',
         });

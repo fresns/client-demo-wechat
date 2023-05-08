@@ -38,7 +38,7 @@ const user = {
    */
   userFollowersYouKnow: (options = {}) => {
     if (!options.uidOrUsername) {
-      return
+      return;
     }
 
     return request({
@@ -55,7 +55,7 @@ const user = {
    */
   userInteraction: (options = {}) => {
     if (!options.uidOrUsername) {
-      return
+      return;
     }
 
     return request({
@@ -72,7 +72,7 @@ const user = {
    */
   userMarkList: (options = {}) => {
     if (!options.uidOrUsername) {
-      return
+      return;
     }
 
     return request({
@@ -103,7 +103,7 @@ const user = {
    */
   userPanel: () => {
     return request({
-      url: "/api/v2/user/panel",
+      url: '/api/v2/user/panel',
     });
   },
 
@@ -115,7 +115,7 @@ const user = {
     return request({
       url: '/api/v2/user/edit',
       data: {
-        ...options
+        ...options,
       },
       method: 'PUT',
     });
@@ -148,6 +148,6 @@ const user = {
       method: 'PUT',
     });
   },
-}
+};
 
-module.exports = user
+module.exports = user;

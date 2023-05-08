@@ -9,10 +9,7 @@ import { parseUrlParams } from '../../utils/fresnsUtilities';
 
 Page({
   /** 外部 mixin 引入 **/
-  mixins: [
-    require('../../mixins/themeChanged'),
-    require('../../mixins/checkSiteMode'),
-  ],
+  mixins: [require('../../mixins/themeChanged'), require('../../mixins/checkSiteMode')],
 
   /** 页面的初始数据 **/
   data: {
@@ -57,13 +54,13 @@ Page({
 
   /** vtabs 交互 **/
   onTabClick(e) {
-    const index = e.detail.index
-    console.log('tabClick', index)
+    const index = e.detail.index;
+    console.log('tabClick', index);
   },
 
   onChange(e) {
-    const index = e.detail.index
-    console.log('change', index)
+    const index = e.detail.index;
+    console.log('change', index);
   },
 
   /** 加载列表数据 **/
@@ -72,11 +69,12 @@ Page({
 
     this.setData({
       loadingStatus: true,
-    })
+    });
 
     if (this.data.menuGroupType === 'tree') {
       const resultRes = await fresnsApi.group.groupTree({
-        whitelistKeys: 'gid,url,type,gname,description,cover,followType,followUrl,likeCount,dislikeCount,followCount,blockCount,postCount,postDigestCount,interaction',
+        whitelistKeys:
+          'gid,url,type,gname,description,cover,followType,followUrl,likeCount,dislikeCount,followCount,blockCount,postCount,postDigestCount,interaction',
       });
 
       if (resultRes.code === 0) {
@@ -85,7 +83,7 @@ Page({
         this.setData({
           groupTree: data,
           vtabs: data.map((category) => ({
-            title: category.gname || "默认分类",
+            title: category.gname || '默认分类',
           })),
           loadingStatus: false,
           loadingTipType: 'none',
@@ -97,17 +95,20 @@ Page({
         return;
       }
 
-      const resultRes = await fresnsApi.group.groupList(Object.assign(this.data.requestQuery, {
-        whitelistKeys: 'gid,url,type,gname,description,cover,followType,followUrl,likeCount,dislikeCount,followCount,blockCount,postCount,postDigestCount,interaction',
-        page: this.data.page,
-      }))
+      const resultRes = await fresnsApi.group.groupList(
+        Object.assign(this.data.requestQuery, {
+          whitelistKeys:
+            'gid,url,type,gname,description,cover,followType,followUrl,likeCount,dislikeCount,followCount,blockCount,postCount,postDigestCount,interaction',
+          page: this.data.page,
+        })
+      );
 
       if (resultRes.code === 0) {
-        const { paginate, list } = resultRes.data
-        const isReachBottom = paginate.currentPage === paginate.lastPage
-        let tipType = 'none'
+        const { paginate, list } = resultRes.data;
+        const isReachBottom = paginate.currentPage === paginate.lastPage;
+        let tipType = 'none';
         if (isReachBottom) {
-          tipType = this.data.groups.length > 0 ? 'page' : 'empty'
+          tipType = this.data.groups.length > 0 ? 'page' : 'empty';
         }
 
         this.setData({
@@ -115,12 +116,12 @@ Page({
           page: this.data.page + 1,
           loadingTipType: tipType,
           isReachBottom: isReachBottom,
-        })
+        });
       }
-  
+
       this.setData({
         loadingStatus: false,
-      })
+      });
     }
 
     wx.hideNavigationBarLoading();
@@ -134,16 +135,16 @@ Page({
       page: 1,
       loadingTipType: 'none',
       isReachBottom: false,
-    })
+    });
 
-    await this.loadFresnsPageData()
-    wx.stopPullDownRefresh()
+    await this.loadFresnsPageData();
+    wx.stopPullDownRefresh();
   },
 
   /** 监听用户上拉触底 **/
   onReachBottom: async function () {
     if (this.data.menuGroupType === 'tree') {
-      return
+      return;
     }
 
     // 不接受客户端传参，包括分页
@@ -151,31 +152,31 @@ Page({
       this.setData({
         loadingTipType: this.data.groups.length > 0 ? 'page' : 'empty',
         isReachBottom: true,
-      })
-      return
+      });
+      return;
     }
 
-    await this.loadFresnsPageData()
+    await this.loadFresnsPageData();
   },
 
   /** 右上角菜单-分享给好友 **/
   onShareAppMessage: async function () {
     return {
       title: await fresnsConfig('menu_group_title'),
-    }
+    };
   },
 
   /** 右上角菜单-分享到朋友圈 **/
   onShareTimeline: async function () {
     return {
       title: await fresnsConfig('menu_group_title'),
-    }
+    };
   },
 
   /** 右上角菜单-收藏 **/
   onAddToFavorites: async function () {
     return {
       title: await fresnsConfig('menu_group_title'),
-    }
+    };
   },
 });

@@ -8,10 +8,7 @@ import { fresnsLogin } from '../../utils/fresnsLogin';
 
 Page({
   /** 外部 mixin 引入 **/
-  mixins: [
-    require('../../mixins/themeChanged'),
-    require('../../mixins/loginInterceptor'),
-  ],
+  mixins: [require('../../mixins/themeChanged'), require('../../mixins/loginInterceptor')],
 
   /** 页面的初始数据 **/
   data: {
@@ -35,7 +32,7 @@ Page({
 
     this.setData({
       users: users,
-    })
+    });
   },
 
   /**
@@ -43,20 +40,20 @@ Page({
    * @param e
    * @return {Promise<void>}
    */
-  selectUserUser: async function (e) {  
-    const { user } = e.currentTarget.dataset
+  selectUserUser: async function (e) {
+    const { user } = e.currentTarget.dataset;
     if (user.hasPassword) {
       this.setData({
         isPasswordDialogVisible: true,
-        currentUser: user
-      })
+        currentUser: user,
+      });
     } else {
       await fresnsLogin.loginUser({
         uidOrUsername: user.uid.toString(),
-      })
+      });
       wx.redirectTo({
         url: '/pages/account/index',
-      })
+      });
     }
   },
   /**
@@ -65,11 +62,11 @@ Page({
    * @return {*}
    */
   onInputPassword: function (e) {
-    const { value } = e.detail
+    const { value } = e.detail;
     this.setData({
       password: value,
-    })
-    return value
+    });
+    return value;
   },
   /**
    * 提交密码
@@ -77,24 +74,24 @@ Page({
    * @return {Promise<void>}
    */
   onSubmitPassword: async function (e) {
-    const { currentUser } = this.data
+    const { currentUser } = this.data;
     try {
       const selectUserRes = await fresnsLogin.loginUser({
         uidOrUsername: currentUser.uid.toString(),
         password: this.data.password,
-      })
-      const { message, code } = selectUserRes
+      });
+      const { message, code } = selectUserRes;
       if (code === 0) {
         this.setData({
           isPasswordDialogVisible: false,
           password: '',
-        })
+        });
         wx.redirectTo({
           url: '/pages/user/index',
-        })
+        });
       }
     } catch (e) {
-      console.error(e.message)
+      console.error(e.message);
     }
   },
-})
+});

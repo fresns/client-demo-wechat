@@ -70,6 +70,6 @@ const search = {
       },
     });
   },
-}
+};
 
-module.exports = search
+module.exports = search;

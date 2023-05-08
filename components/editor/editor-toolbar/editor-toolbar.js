@@ -58,11 +58,11 @@ Component({
         usageType: usageType,
         tableName: tableName,
         uploadInfo: uploadInfo,
-      })
+      });
     },
 
     // 扩展菜单配置
-    'config': async function (config) {
+    config: async function (config) {
       const extendList = config.extend.list;
 
       let items = [];
@@ -79,16 +79,16 @@ Component({
 
       this.setData({
         extends: items,
-      })
+      });
     },
 
     // 工具栏位置
-    'bottom': async function (bottom) {
+    bottom: async function (bottom) {
       console.log('Toolbar Bottom', bottom);
 
       this.setData({
         toolbarBottom: bottom,
-      })
+      });
     },
   },
 
@@ -100,7 +100,7 @@ Component({
       let stickers = fresnsStickers?.data;
       if (!stickers) {
         const stickersRes = await fresnsApi.global.globalStickers();
-  
+
         if (stickersRes.code === 0) {
           cachePut('fresnsStickers', stickersRes.data);
 
@@ -108,13 +108,15 @@ Component({
         }
       }
 
-      const stickerTabs = stickers ? stickers.map((item) => ({
-        title: item.name,
-        image: item.image,
-        active: item.code,
-        count: item.stickers.length,
-        stickers: item.stickers,
-      })) : [];
+      const stickerTabs = stickers
+        ? stickers.map((item) => ({
+            title: item.name,
+            image: item.image,
+            active: item.code,
+            count: item.stickers.length,
+            stickers: item.stickers,
+          }))
+        : [];
 
       this.setData({
         fresnsLang: await fresnsConfig('language_pack_contents'),
@@ -151,10 +153,10 @@ Component({
           });
 
           wx.navigateTo({
-            url: '/pages/webview?url=' + uploadUrl
-          })
+            url: '/pages/webview?url=' + uploadUrl,
+          });
 
-          return
+          return;
         }
 
         return setTimeout(() => {
@@ -171,10 +173,10 @@ Component({
           });
 
           wx.navigateTo({
-            url: '/pages/webview?url=' + uploadUrl
-          })
+            url: '/pages/webview?url=' + uploadUrl,
+          });
 
-          return
+          return;
         }
 
         return setTimeout(() => {
@@ -185,8 +187,8 @@ Component({
       // 音频和文档
       if (tool == 'audio' || tool == 'document') {
         return wx.showToast({
-          title: "小程序里不支持上传，请到网站或 App 操作上传",
-          icon: "none",
+          title: '小程序里不支持上传，请到网站或 App 操作上传',
+          icon: 'none',
         });
       }
 
@@ -245,8 +247,8 @@ Component({
       callPageFunction('onContentInsert', code);
 
       this.setData({
-        showStickerBox: false
-      })
+        showStickerBox: false,
+      });
     },
 
     // 上传图片或视频
