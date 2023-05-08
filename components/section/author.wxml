@@ -13,7 +13,7 @@
             <view class="user-nickname">{{ userDeactivate }}</view>
         </view>
         <view class="weui-flex">
-            <view class="content-time">{{ createTimeFormat }}</view>
+            <view class="content-time">{{ createdTimeAgo }}</view>
             <view class="content-location" wx:if="{{ location.isLbs }}">
                 <navigator url="/pages/posts/location?encode={{ location.encode }}">
                     <mp-icon icon="location" color="black" size="{{ 16 }}"/>
@@ -34,7 +34,7 @@
             <view class="user-nickname">{{ authorAnonymous }}</view>
         </view>
         <view class="weui-flex">
-            <view class="content-time">{{ createTimeFormat }}</view>
+            <view class="content-time">{{ createdTimeAgo }}</view>
             <view class="content-location" wx:if="{{ location.isLbs }}">
                 <navigator url="/pages/posts/location?encode={{ location.encode }}">
                     <mp-icon icon="location" color="black" size="{{ 16 }}"/>
@@ -78,7 +78,7 @@
         </view>
 
         <view class="weui-flex">
-            <view class="content-time">{{ createTimeFormat }}</view>
+            <view class="content-time">{{ createdTimeAgo }}</view>
             <view class="content-location" wx:if="{{ location.isLbs }}">
                 <navigator url="/pages/posts/location?encode={{ location.encode }}">
                     <mp-icon icon="location" color="black" size="{{ 16 }}"/>

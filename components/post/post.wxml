@@ -6,7 +6,7 @@
 <view class="card">
     <view class="card-header">
         <!-- 用户信息 -->
-        <author author="{{ post.author }}" isAnonymous="{{ post.isAnonymous }}" createTimeFormat="{{ post.createTimeFormat }}" location="{{ post.location }}"></author>
+        <author author="{{ post.author }}" isAnonymous="{{ post.isAnonymous }}" createdTimeAgo="{{ post.createdTimeAgo }}" location="{{ post.location }}"></author>
     </view>
 
     <!-- 角标 -->

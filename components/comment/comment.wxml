@@ -6,7 +6,7 @@
 <view class="card">
     <view class="card-header">
         <!-- 用户信息 -->
-        <author author="{{ comment.author }}" isAnonymous="{{ comment.isAnonymous }}" createTimeFormat="{{ comment.createTimeFormat }}" location="{{ comment.location }}"></author>
+        <author author="{{ comment.author }}" isAnonymous="{{ comment.isAnonymous }}" createdTimeAgo="{{ comment.createdTimeAgo }}" location="{{ comment.location }}"></author>
     </view>
 
     <!-- 评论回复: 对方的文本 -->

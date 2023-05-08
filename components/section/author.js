@@ -11,7 +11,7 @@ Component({
   properties: {
     author: Object,
     isAnonymous: Boolean,
-    createTimeFormat: String,
+    createdTimeAgo: String,
     location: Object,
   },
 

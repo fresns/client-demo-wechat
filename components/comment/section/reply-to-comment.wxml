@@ -13,7 +13,7 @@
 
         <text style="margin:0 10px">|</text>
 
-        <text>{{ comment.createTime }}</text>
+        <text>{{ comment.createdDatetime }}</text>
     </view>
     <view>
         <rich-text nodes="{{ comment.content }}" />
