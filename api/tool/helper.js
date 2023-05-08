@@ -10,9 +10,7 @@ const md5 = require('../../libs/md5/md5');
 const { base64_encode } = require('../../libs/base64/base64');
 
 /** 获取签名 **/
-export async function getSignature() {
-  const now = new Date();
-
+export async function getSignature(timestamp) {
   const headers = {
     'X-Fresns-App-Id': appConfig.appId,
     'X-Fresns-Client-Platform-Id': 8,
@@ -21,7 +19,7 @@ export async function getSignature() {
     'X-Fresns-Aid-Token': globalInfo.aidToken,
     'X-Fresns-Uid': globalInfo.uid,
     'X-Fresns-Uid-Token': globalInfo.uidToken,
-    'X-Fresns-Signature-Timestamp': now.getTime(),
+    'X-Fresns-Signature-Timestamp': timestamp,
   };
 
   const strA = [
@@ -45,6 +43,7 @@ export async function getSignature() {
 /** 获取请求标头 **/
 export async function getHeaders() {
   const now = new Date();
+  const timestamp = now.getTime();
 
   const headers = {
     'X-Fresns-App-Id': appConfig.appId,
@@ -58,8 +57,8 @@ export async function getHeaders() {
     'X-Fresns-Aid-Token': globalInfo.aidToken,
     'X-Fresns-Uid': globalInfo.uid,
     'X-Fresns-Uid-Token': globalInfo.uidToken,
-    'X-Fresns-Signature': await getSignature(),
-    'X-Fresns-Signature-Timestamp': now.getTime(),
+    'X-Fresns-Signature': await getSignature(timestamp),
+    'X-Fresns-Signature-Timestamp': timestamp,
   };
 
   for (const key in headers) {
@@ -74,6 +73,7 @@ export async function getHeaders() {
 /** 获取插件鉴权信息 **/
 export async function getPluginAuthorization() {
   const now = new Date();
+  const timestamp = now.getTime();
 
   const headers = {
     'X-Fresns-App-Id': appConfig.appId,
@@ -87,7 +87,7 @@ export async function getPluginAuthorization() {
     'X-Fresns-Aid-Token': globalInfo.aidToken,
     'X-Fresns-Uid': globalInfo.uid,
     'X-Fresns-Uid-Token': globalInfo.uidToken,
-    'X-Fresns-Signature': await getSignature(),
+    'X-Fresns-Signature': await getSignature(timestamp),
     'X-Fresns-Signature-Timestamp': now.getTime(),
   };
 
