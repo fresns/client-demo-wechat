@@ -27,28 +27,28 @@ Page({
       tabs.push({
         title: await fresnsLang('accountPoliciesTerms'),
         active: 'terms',
-        content: await fresnsConfig('account_terms'),
+        content: await fresnsConfig('account_terms') || '',
       });
     }
     if (await fresnsConfig('account_privacy_status')) {
       tabs.push({
         title: await fresnsLang('accountPoliciesPrivacy'),
         active: 'privacy',
-        content: await fresnsConfig('account_privacy'),
+        content: await fresnsConfig('account_privacy') || '',
       });
     }
     if (await fresnsConfig('account_cookies_status')) {
       tabs.push({
         title: await fresnsLang('accountPoliciesCookies'),
         active: 'cookies',
-        content: await fresnsConfig('account_cookies'),
+        content: await fresnsConfig('account_cookies') || '',
       });
     }
     if (await fresnsConfig('account_delete_status')) {
       tabs.push({
         title: await fresnsLang('accountPoliciesDelete'),
         active: 'accountDelete',
-        content: await fresnsConfig('account_delete'),
+        content: await fresnsConfig('account_delete') || '',
       });
     }
 

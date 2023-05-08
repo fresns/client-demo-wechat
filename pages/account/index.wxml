@@ -97,10 +97,10 @@
 
     <view class="weui-footer">
         <view class="weui-footer__links">
-            <navigator class="weui-footer__link weui-wa-hotarea" url="/pages/portal/policies?active=terms">{{ fresnsLang.accountPoliciesTerms }}</navigator>
-            <navigator class="weui-footer__link weui-wa-hotarea" url="/pages/portal/policies?active=privacy">{{ fresnsLang.accountPoliciesPrivacy }}</navigator>
-            <navigator class="weui-footer__link weui-wa-hotarea" url="/pages/portal/policies?active=cookies">{{ fresnsLang.accountPoliciesCookies }}</navigator>
-            <navigator class="weui-footer__link weui-wa-hotarea" url="/pages/portal/policies?active=accountDelete">{{ fresnsLang.accountPoliciesDelete }}</navigator>
+            <navigator class="weui-footer__link weui-wa-hotarea" url="/pages/portal/policies?active=terms" wx:if="{{ fresnsConfig.account_terms_status }}">{{ fresnsLang.accountPoliciesTerms }}</navigator>
+            <navigator class="weui-footer__link weui-wa-hotarea" url="/pages/portal/policies?active=privacy" wx:if="{{ fresnsConfig.account_privacy_status }}">{{ fresnsLang.accountPoliciesPrivacy }}</navigator>
+            <navigator class="weui-footer__link weui-wa-hotarea" url="/pages/portal/policies?active=cookies" wx:if="{{ fresnsConfig.account_cookies_status }}">{{ fresnsLang.accountPoliciesCookies }}</navigator>
+            <navigator class="weui-footer__link weui-wa-hotarea" url="/pages/portal/policies?active=accountDelete" wx:if="{{ fresnsConfig.account_delete_status }}">{{ fresnsLang.accountPoliciesDelete }}</navigator>
         </view>
     </view>
 
