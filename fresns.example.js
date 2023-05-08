@@ -4,16 +4,16 @@
  * Licensed under the Apache-2.0 license
  */
 module.exports = {
-    // 应用密钥创建位置: Fresns 后台 -> 应用中心 -> 应用密钥
-    // 密钥平台选「WeChat MiniProgram」，类型选「主程 API」
-    apiHost: 'https://discuss.fresns.cn',
-    appId: 'App ID',
-    appSecret: 'App Secret',
+  // 应用密钥创建位置: Fresns 后台 -> 应用中心 -> 应用密钥
+  // 密钥平台选「WeChat MiniProgram」，类型选「主程 API」
+  apiHost: 'https://discuss.fresns.cn',
+  appId: 'App ID',
+  appSecret: 'App Secret',
 
-    // 如果编辑器未开启定位功能，可以不配置以下腾讯地图信息
-    tencentMapKey: '使用在腾讯位置服务申请的 key',
-    tencentMapReferer: '调用腾讯位置插件的 app 的名称',
-};
+  // 如果编辑器未开启定位功能，可以不配置以下腾讯地图信息
+  tencentMapKey: '使用在腾讯位置服务申请的 key',
+  tencentMapReferer: '调用腾讯位置插件的 app 的名称',
+}
 
 /**
  * 腾讯地图信息 https://mp.weixin.qq.com/wxopen/plugindevdoc?appid=wx76a9a06e5b4e693e&token=&lang=zh_CN

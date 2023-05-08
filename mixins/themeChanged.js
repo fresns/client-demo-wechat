@@ -6,23 +6,23 @@
 import { globalInfo } from '../utils/fresnsGlobalInfo';
 
 module.exports = {
-    data: {
-        theme: '',
-    },
+  data: {
+    theme: '',
+  },
 
-    themeChanged(theme) {
-        this.setData({
-            theme,
-        });
-    },
+  themeChanged (theme) {
+    this.setData({
+      theme,
+    })
+  },
 
-    onLoad() {
-        const app = getApp();
-        this.themeChanged(globalInfo.theme);
-        app.watchThemeChange(this.themeChanged);
-    },
-
-    onUnload() {
-        getApp().unWatchThemeChange(this.themeChanged);
-    },
-};
+  onLoad () {
+    const app = getApp()
+    this.themeChanged(globalInfo.theme)
+    app.watchThemeChange(this.themeChanged)
+  },
+  
+  onUnload () {
+    getApp().unWatchThemeChange(this.themeChanged)
+  },
+}

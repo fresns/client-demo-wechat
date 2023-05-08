@@ -2,7 +2,7 @@
   "component": true,
   "usingComponents": {
     "mp-html": "mp-html",
-    "creator": "/components/section/creator",
+    "author": "/components/section/author",
     "files": "/components/section/files",
     "previewComments": "/components/post/section/preview-comments",
     "interaction": "/components/post/section/interaction"

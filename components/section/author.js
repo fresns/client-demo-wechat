@@ -4,15 +4,20 @@
  * Licensed under the Apache-2.0 license
  */
 import { fresnsLang } from '../../api/tool/function';
+import { globalInfo } from '../../utils/fresnsGlobalInfo';
 
 Component({
   /** 组件的属性列表 **/
   properties: {
-    post: Object,
+    author: Object,
+    isAnonymous: Boolean,
+    createTimeFormat: String,
+    location: Object,
   },
 
   /** 组件的初始数据 **/
   data: {
+    userHomePath: '',
     userDeactivate: null,
     authorAnonymous: null,
   },
@@ -21,6 +26,7 @@ Component({
   lifetimes: {
     attached: async function () {
       this.setData({
+        userHomePath: await globalInfo.userHomePath(),
         userDeactivate: await fresnsLang('userDeactivate'),
         authorAnonymous: await fresnsLang('contentAuthorAnonymous'),
       })

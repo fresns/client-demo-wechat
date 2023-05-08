@@ -12,7 +12,7 @@
                 <text class="weui-badge" wx:if="{{ conversation.unreadCount }}">{{ conversation.unreadCount }}</text>
             </view>
             <view class="weui-cell__bd">
-                <text>{{ conversation.user.status ? conversation.user.nickname : creatorDeactivate }}</text>
+                <text>{{ conversation.user.status ? conversation.user.nickname : userDeactivate }}</text>
                 <view class="badge_desc">{{ conversation.latestMessage.message }}</view>
             </view>
             <text class="weui-cell__ft">{{ conversation.latestMessage.datetimeFormat }}</text>

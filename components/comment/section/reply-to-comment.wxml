@@ -7,9 +7,9 @@
     <view>
         <text>{{ publishCommentName }}:</text>
 
-        <text wx:if="{{ ! comment.creator.status }}">{{ creatorDeactivate }}</text>
-        <text wx:elif="{{ comment.isAnonymous }}">{{ creatorAnonymous }}</text>
-        <text wx:else>{{ comment.creator.nickname }}</text>
+        <text wx:if="{{ ! comment.author.status }}">{{ userDeactivate }}</text>
+        <text wx:elif="{{ comment.isAnonymous }}">{{ authorAnonymous }}</text>
+        <text wx:else>{{ comment.author.nickname }}</text>
 
         <text style="margin:0 10px">|</text>
 

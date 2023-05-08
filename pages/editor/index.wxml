@@ -14,7 +14,7 @@
     <block wx:if="{{ editorStatus }}">
         <!-- 编辑器提示 -->
         <editor-tip-publish wx:if="{{ editorConfig.publish.limit.status && editorConfig.publish.limit.isInTime }}" publish="{{ editorConfig.publish }}" />
-        <editor-tip-edit wx:if="{{ draftEdit.isEdit }}" editInfo="{{ draftEdit }}" />
+        <editor-tip-edit wx:if="{{ draftEdit.isEditDraft }}" editInfo="{{ draftEdit }}" />
 
         <!-- 编辑器内容区 -->
         <view class="editor-form">

@@ -8,131 +8,132 @@ import { fresnsConfig } from '../../api/tool/function';
 import { parseUrlParams } from '../../utils/fresnsUtilities';
 
 Page({
-    /** 外部 mixin 引入 **/
-    mixins: [require('../../mixins/themeChanged'), require('../../mixins/checkSiteMode')],
+  /** 外部 mixin 引入 **/
+  mixins: [
+    require('../../mixins/themeChanged'),
+    require('../../mixins/checkSiteMode'),
+  ],
 
-    /** 页面的初始数据 **/
-    data: {
-        // 默认查询条件
-        requestState: null,
-        requestQuery: null,
-        // 当前页面数据
-        comments: [],
-        // 下次请求时候的页码，初始值为 1
-        page: 1,
-        // 加载状态
-        loadingStatus: false,
-        loadingTipType: 'none',
-        isReachBottom: false,
-    },
+  /** 页面的初始数据 **/
+  data: {
+    // 默认查询条件
+    requestState: null,
+    requestQuery: null,
+    // 当前页面数据
+    comments: [],
+    // 下次请求时候的页码，初始值为 1
+    page: 1,
+    // 加载状态
+    loadingStatus: false,
+    loadingTipType: 'none',
+    isReachBottom: false,
+  },
 
-    /** 监听页面加载 **/
-    onLoad: async function (options) {
-        let requestState = await fresnsConfig('menu_comment_list_query_state');
-        let requestQuery = parseUrlParams(await fresnsConfig('menu_comment_list_query_config'));
+  /** 监听页面加载 **/
+  onLoad: async function (options) {
+    let requestState = await fresnsConfig('menu_comment_list_query_state');
+    let requestQuery = parseUrlParams(await fresnsConfig('menu_comment_list_query_config'));
 
-        if (requestState === 3) {
-            requestQuery = Object.assign(requestQuery, options);
-        }
+    if (requestState === 3) {
+      requestQuery = Object.assign(requestQuery, options);
+    }
 
-        this.setData({
-            requestState: requestState,
-            requestQuery: requestQuery,
-        });
+    this.setData({
+      requestState: requestState,
+      requestQuery: requestQuery,
+    });
 
-        wx.setNavigationBarTitle({
-            title: await fresnsConfig('menu_comment_list_title'),
-        });
+    wx.setNavigationBarTitle({
+      title: await fresnsConfig('menu_comment_list_title'),
+    });
 
-        await this.loadFresnsPageData();
-    },
+    await this.loadFresnsPageData()
+  },
 
-    /** 加载列表数据 **/
-    loadFresnsPageData: async function () {
-        if (this.data.isReachBottom) {
-            return;
-        }
+  /** 加载列表数据 **/
+  loadFresnsPageData: async function () {
+    if (this.data.isReachBottom) {
+      return
+    }
 
-        wx.showNavigationBarLoading();
+    wx.showNavigationBarLoading();
 
-        this.setData({
-            loadingStatus: true,
-        });
+    this.setData({
+      loadingStatus: true,
+    })
 
-        const resultRes = await fresnsApi.comment.commentList(
-            Object.assign(this.data.requestQuery, {
-                page: this.data.page,
-            })
-        );
+    const resultRes = await fresnsApi.comment.commentList(Object.assign(this.data.requestQuery, {
+      page: this.data.page,
+    }))
 
-        if (resultRes.code === 0) {
-            const { paginate, list } = resultRes.data;
-            const isReachBottom = paginate.currentPage === paginate.lastPage;
-            let tipType = 'none';
-            if (isReachBottom) {
-                tipType = this.data.comments.length > 0 ? 'page' : 'empty';
-            }
+    if (resultRes.code === 0) {
+      const { paginate, list } = resultRes.data
+      const isReachBottom = paginate.currentPage === paginate.lastPage
+      let tipType = 'none'
+      if (isReachBottom) {
+        tipType = this.data.comments.length > 0 ? 'page' : 'empty'
+      }
 
-            this.setData({
-                comments: this.data.comments.concat(list),
-                page: this.data.page + 1,
-                loadingTipType: tipType,
-                isReachBottom: isReachBottom,
-            });
-        }
+      this.setData({
+        comments: this.data.comments.concat(list),
+        page: this.data.page + 1,
+        loadingTipType: tipType,
+        isReachBottom: isReachBottom,
+      })
+    }
 
-        this.setData({
-            loadingStatus: false,
-        });
+    this.setData({
+      loadingStatus: false,
+    })
 
-        wx.hideNavigationBarLoading();
-    },
+    wx.hideNavigationBarLoading();
+  },
 
-    /** 监听用户下拉动作 **/
-    onPullDownRefresh: async function () {
-        this.setData({
-            comments: [],
-            page: 1,
-            loadingTipType: 'none',
-            isReachBottom: false,
-        });
+  /** 监听用户下拉动作 **/
+  onPullDownRefresh: async function () {
+    this.setData({
+      comments: [],
+      page: 1,
+      loadingTipType: 'none',
+      isReachBottom: false,
+    })
 
-        await this.loadFresnsPageData();
-        wx.stopPullDownRefresh();
-    },
+    await this.loadFresnsPageData()
+    wx.stopPullDownRefresh()
+  },
 
-    /** 监听用户上拉触底 **/
-    onReachBottom: async function () {
-        // 不接受客户端传参，包括分页
-        if (this.data.requestState == 1) {
-            this.setData({
-                loadingTipType: this.data.comments.length > 0 ? 'page' : 'empty',
-                isReachBottom: true,
-            });
-            return;
-        }
+  /** 监听用户上拉触底 **/
+  onReachBottom: async function () {
+    // 不接受客户端传参，包括分页
+    if (this.data.requestState == 1) {
+      this.setData({
+        loadingTipType: this.data.comments.length > 0 ? 'page' : 'empty',
+        isReachBottom: true,
+      })
+      return
+    }
 
-        await this.loadFresnsPageData();
-    },
+    await this.loadFresnsPageData()
+  },
 
-    /** 右上角菜单-分享给好友 **/
-    onShareAppMessage: async function () {
-        return {
-            title: await fresnsConfig('menu_comment_list_title'),
-        };
-    },
+  /** 右上角菜单-分享给好友 **/
+  onShareAppMessage: async function () {
+    return {
+      title: await fresnsConfig('menu_comment_list_title'),
+    }
+  },
 
-    /** 右上角菜单-分享到朋友圈 **/
-    onShareTimeline: async function () {
-        return {
-            title: await fresnsConfig('menu_comment_list_title'),
-        };
-    },
+  /** 右上角菜单-分享到朋友圈 **/
+  onShareTimeline: async function () {
+    return {
+      title: await fresnsConfig('menu_comment_list_title'),
+    }
+  },
 
-    /** 右上角菜单-收藏 **/
-    onAddToFavorites: async function () {
-        return {
-            title: await fresnsConfig('menu_comment_list_title'),
-        };
-    },
-});
+  /** 右上角菜单-收藏 **/
+  onAddToFavorites: async function () {
+    return {
+      title: await fresnsConfig('menu_comment_list_title'),
+    }
+  },
+})

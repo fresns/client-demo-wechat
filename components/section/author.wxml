@@ -4,13 +4,13 @@
     Licensed under the Apache-2.0 license
 * -->
 <!-- 注销的用户信息 -->
-<view class="weui-flex" wx:if="{{ ! creator.status }}">
+<view class="weui-flex" wx:if="{{ ! author.status }}">
     <view class="user-avatar">
-        <image src="{{ creator.avatar }}" class="avatar-img" mode="scaleToFill"></image>
+        <image src="{{ author.avatar }}" class="avatar-img" mode="scaleToFill"></image>
     </view>
     <view class="weui-flex__item">
         <view class="user-info weui-flex">
-            <view class="user-nickname">{{ creatorDeactivate }}</view>
+            <view class="user-nickname">{{ userDeactivate }}</view>
         </view>
         <view class="weui-flex">
             <view class="content-time">{{ createTimeFormat }}</view>
@@ -27,11 +27,11 @@
 <!-- 匿名用户信息 -->
 <view class="weui-flex" wx:elif="{{ isAnonymous }}">
     <view class="user-avatar">
-        <image src="{{ creator.avatar }}" class="avatar-img" mode="scaleToFill"></image>
+        <image src="{{ author.avatar }}" class="avatar-img" mode="scaleToFill"></image>
     </view>
     <view class="weui-flex__item">
         <view class="user-info weui-flex">
-            <view class="user-nickname">{{ creatorAnonymous }}</view>
+            <view class="user-nickname">{{ authorAnonymous }}</view>
         </view>
         <view class="weui-flex">
             <view class="content-time">{{ createTimeFormat }}</view>
@@ -47,34 +47,34 @@
 
 <!-- 正常用户 -->
 <view class="weui-flex" wx:else>
-    <navigator class="user-avatar" url="{{ userHomePath + creator.fsid }}">
-        <image wx:if="{{ creator.decorate }}" src="{{ creator.decorate }}" class="avatar-decorate" mode="scaleToFill"></image>
-        <image src="{{ creator.avatar }}" class="avatar-img" mode="scaleToFill"></image>
+    <navigator class="user-avatar" url="{{ userHomePath + author.fsid }}">
+        <image wx:if="{{ author.decorate }}" src="{{ author.decorate }}" class="avatar-decorate" mode="scaleToFill"></image>
+        <image src="{{ author.avatar }}" class="avatar-img" mode="scaleToFill"></image>
     </navigator>
 
     <view class="weui-flex__item">
         <!--头部信息-->
-        <navigator class="user-info weui-flex" url="{{ userHomePath + creator.fsid }}">
-            <view class="user-nickname" style="color:{{ creator.nicknameColor ? creator.nicknameColor : '' }}">{{ creator.nickname }}</view>
+        <navigator class="user-info weui-flex" url="{{ userHomePath + author.fsid }}">
+            <view class="user-nickname" style="color:{{ author.nicknameColor ? author.nicknameColor : '' }}">{{ author.nickname }}</view>
 
-            <view wx:if="{{ creator.verifiedStatus }}" class="user-verified">
-                <image src="{{ creator.verifiedIcon ? creator.verifiedIcon : '/assets/images/icon-verified.png' }}" mode="heightFix"></image>
+            <view wx:if="{{ author.verifiedStatus }}" class="user-verified">
+                <image src="{{ author.verifiedIcon ? author.verifiedIcon : '/assets/images/icon-verified.png' }}" mode="heightFix"></image>
             </view>
 
-            <view class="user-name">@{{ creator.username }}</view>
+            <view class="user-name">@{{ author.username }}</view>
 
-            <view wx:if="{{ creator.roleIconDisplay }}" class="user-role-icon">
-                <image src="{{ creator.roleIcon }}" mode="heightFix"></image>
+            <view wx:if="{{ author.roleIconDisplay }}" class="user-role-icon">
+                <image src="{{ author.roleIcon }}" mode="heightFix"></image>
             </view>
 
-            <view wx:if="{{ creator.roleNameDisplay }}" class="user-role-name">
-                <text class="weui-badge">{{ creator.roleName }}</text>
+            <view wx:if="{{ author.roleNameDisplay }}" class="user-role-name">
+                <text class="weui-badge">{{ author.roleName }}</text>
             </view>
         </navigator>
 
         <!-- 扩展图标 -->
-        <view wx:if="{{ creator.operations.diversifyImages }}" class="user-icons weui-flex">
-            <image wx:for="{{ creator.operations.diversifyImages }}" wx:for-item="iconItem" wx:key="code" src="{{ iconItem.imageUrl }}" mode="heightFix"></image>
+        <view wx:if="{{ author.operations.diversifyImages }}" class="user-icons weui-flex">
+            <image wx:for="{{ author.operations.diversifyImages }}" wx:for-item="iconItem" wx:key="code" src="{{ iconItem.imageUrl }}" mode="heightFix"></image>
         </view>
 
         <view class="weui-flex">

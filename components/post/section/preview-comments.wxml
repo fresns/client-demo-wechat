@@ -18,9 +18,9 @@
     <!-- 热评-正文 -->
     <navigator class="content-comment-content" url="/pages/posts/detail?pid={{ pid }}">
         <view class="float-left nickname">
-            <text wx:if="{{ ! previewComments[0].creator.status }}">{{ creatorDeactivate }}</text>
-            <text wx:elif="{{ previewComments[0].isAnonymous }}">{{ creatorAnonymous }}</text>
-            <navigator wx:else class="navigator-inline" url="/pages/profile/index?fsid={{ previewComments[0].creator.fsid }}">{{ previewComments[0].creator.nickname }}</navigator>:
+            <text wx:if="{{ ! previewComments[0].author.status }}">{{ userDeactivate }}</text>
+            <text wx:elif="{{ previewComments[0].isAnonymous }}">{{ authorAnonymous }}</text>
+            <navigator wx:else class="navigator-inline" url="/pages/profile/index?fsid={{ previewComments[0].author.fsid }}">{{ previewComments[0].author.nickname }}</navigator>:
         </view>
         <rich-text class="weui-flex__item" nodes="{{ previewComments[0].content }}" />
     </navigator>
@@ -35,9 +35,9 @@
 <navigator class="comments" url="/pages/posts/detail?pid={{ pid }}" wx:if="{{ previewComments.length > 1 }}">
     <view class="preview-list" wx:for="{{ previewComments }}" wx:for-item="comment">
         <view class="preview-list-nickname">
-            <text wx:if="{{ ! comment.creator.status }}">{{ creatorDeactivate }}</text>
-            <text wx:elif="{{ comment.isAnonymous }}">{{ creatorAnonymous }}</text>
-            <navigator wx:else class="navigator-inline" url="{{ userHomePath + comment.creator.fsid }}">{{ comment.creator.nickname }}</navigator>:
+            <text wx:if="{{ ! comment.author.status }}">{{ userDeactivate }}</text>
+            <text wx:elif="{{ comment.isAnonymous }}">{{ authorAnonymous }}</text>
+            <navigator wx:else class="navigator-inline" url="{{ userHomePath + comment.author.fsid }}">{{ comment.author.nickname }}</navigator>:
         </view>
         <rich-text nodes="{{ comment.content }}" class="weui-flex__item" />
     </view>
