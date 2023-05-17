@@ -82,7 +82,6 @@ export class FresnsLogin {
     //     let wechatCode = res.code
     //     if (wechatCode) {
     //       console.log('WeChat Auto Code', wechatCode);
-
     //       await this.wechatLoginHandle(wechatCode, false, false);
     //     }
     //   }
@@ -91,7 +90,6 @@ export class FresnsLogin {
 
   // 微信登录
   async wechatLogin(autoRegister = false) {
-
     wx.login({
       success: async (res) => {
         let wechatCode = res.code;
@@ -106,8 +104,8 @@ export class FresnsLogin {
             duration: 3000,
           });
         }
-      }
-    })
+      },
+    });
   }
 
   // 微信登录处理功能
@@ -150,9 +148,12 @@ export class FresnsLogin {
       return;
     }
 
-    return await this.loginUser({
-      uidOrUsername: user.uid.toString(),
-    }, isRedirect);
+    return await this.loginUser(
+      {
+        uidOrUsername: user.uid.toString(),
+      },
+      isRedirect
+    );
   }
 }
 

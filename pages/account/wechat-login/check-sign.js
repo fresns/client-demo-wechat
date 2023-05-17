@@ -15,9 +15,7 @@ Page({
   },
 
   /** 监听页面加载 **/
-  onLoad: async function () {
-
-  },
+  onLoad: async function () {},
 
   /** 交互操作 **/
   onConnectTip() {

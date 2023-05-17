@@ -85,8 +85,8 @@ Page({
             showConnectTip: false,
           });
         }
-      }
-    })
+      },
+    });
   },
 
   /** 交互操作 **/
@@ -107,7 +107,7 @@ Page({
 
     wx.login({
       success: async (res) => {
-        let wechatCode = res.code
+        let wechatCode = res.code;
         console.log('[Website Auth] WeChat Code', wechatCode);
 
         if (wechatCode) {
@@ -156,7 +156,7 @@ Page({
             showConnectTip: false,
           });
         }
-      }
-    })
+      },
+    });
   },
 });
