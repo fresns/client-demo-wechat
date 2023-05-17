@@ -69,6 +69,8 @@
     "pages/account/index",
     "pages/account/register",
     "pages/account/login",
+    "pages/account/wechat-login/check-sign",
+    "pages/account/wechat-login/website-oauth",
     "pages/account/reset-password",
     "pages/account/wallet",
     "pages/account/users",

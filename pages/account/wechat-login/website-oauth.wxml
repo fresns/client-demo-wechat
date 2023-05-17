@@ -1,0 +1,55 @@
+<!-- *
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
+    Licensed under the Apache-2.0 license
+* -->
+<view class="page" data-weui-theme="{{ theme }}">
+    <!-- 加载动效 -->
+    <view wx:if="{{ loading }}" style="padding-top: 50px;">
+        <mp-loading tips="登录中..." type="circle"></mp-loading>
+    </view>
+
+    <view class="weui-msg" wx:if="{{ showSuccessTip }}">
+		<view class="weui-msg__icon-area"><text class="weui-icon-success weui-icon_msg"></text></view>
+		<view class="weui-msg__text-area">
+			<view class="weui-msg__title">登录成功</view>
+		</view>
+	</view>
+
+    <view class="weui-msg" wx:if="{{ showFailTip }}">
+		<view class="weui-msg__icon-area"><text class="weui-icon-warn weui-icon_msg"></text></view>
+		<view class="weui-msg__text-area">
+			<view class="weui-msg__title">登录失败</view>
+			<view class="weui-msg__desc">{{ failTip }}</view>
+		</view>
+	</view>
+
+    <view class="weui-msg" wx:if="{{ showOptionsTip }}">
+		<view class="weui-msg__icon-area"><text class="weui-icon-info weui-icon_msg"></text></view>
+		<view class="weui-msg__text-area">
+			<view class="weui-msg__title">账号选择</view>
+			<view class="weui-msg__desc">您的微信号没有查询到关联的账号。</view>
+		</view>
+		<view class="weui-msg__opr-area">
+			<view class="weui-btn-area">
+				<button class="weui-btn weui-btn_primary" style="width:280px;" bind:tap="onConnectTip">我有账号，我要关联绑定</button>
+
+				<button class="weui-btn weui-btn_primary" style="width:280px;" bindtap="goToRegister">我没有账号，帮我生成新账号</button>
+			</view>
+		</view>
+	</view>
+
+    <view aria-role="dialog" aria-modal="true" class="fadeIn" wx:if="{{ showConnectTip }}">
+        <view class="weui-mask"></view>
+        <view class="weui-dialog">
+            <view class="weui-dialog__bd">请先使用「密码」或者「验证码」登录账号，登录后在用户中心的账号设置中绑定关联。</view>
+            <view class="weui-dialog__ft">
+                <view aria-role="button" class="weui-dialog__btn weui-dialog__btn_primary" bindtap="tipClose">知道了</view>
+            </view>
+        </view>
+    </view>
+
+    <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
+        <text class="weui-loadmore__tips">Powered by Fresns</text>
+    </view>
+</view>

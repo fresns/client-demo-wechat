@@ -26,6 +26,7 @@ Page({
   /** 页面的初始数据 **/
   data: {
     fresnsLang: null,
+    wechatLoginBtnName: null,
 
     codeLogin: false,
     switchLogin: false,
@@ -72,16 +73,26 @@ Page({
       loginType = phoneLogin ? Type.Mobile : Type.Email;
     }
 
+    const storageLangTag = wx.getStorageSync('langTag');
+    const btnNameMap = {
+      'en': 'Continue with WeChat',
+      'zh-Hans': '使用微信登录',
+      'zh-Hant': '使用 WeChat 登錄',
+    };
+    const wechatLoginBtnName = btnNameMap[storageLangTag] || 'Continue with WeChat';
+
     this.setData({
       codeLogin: Boolean((await fresnsConfig('send_email_service')) || (await fresnsConfig('send_sms_service'))),
       switchLogin: Boolean(emailLogin && phoneLogin),
       type: loginType,
       fresnsLang: await fresnsConfig('language_pack_contents'),
+      wechatLoginBtnName: wechatLoginBtnName,
       mobileAreaRange,
       mobileAreaIndex: mobileAreaRange.indexOf(defaultCode),
     });
   },
 
+  // 交互操作
   onLoginTypeChange: function (e) {
     this.setData({
       loginType: e.detail.value,
@@ -127,6 +138,17 @@ Page({
     });
     return value;
   },
+
+  // 微信登录
+  onWeChatLogin: async function () {
+    wx.showNavigationBarLoading();
+
+    await fresnsLogin.wechatLogin();
+
+    wx.hideNavigationBarLoading();
+  },
+
+  // 发送验证码
   sendVerifyCode: async function (e) {
     const {
       type,

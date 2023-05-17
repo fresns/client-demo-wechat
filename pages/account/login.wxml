@@ -37,14 +37,7 @@
     <!-- 微信登录 -->
     <block wx:if="{{ loginType === '0' }}">
         <view class="we-login-agree">
-            <button class="weui-btn weui-btn_primary" type="primary">微信登录</button>
-            <view class="weui-form__tips-area">
-                <label class="weui-agree">
-                    <span class="weui-agree__text">
-                        <text aria-hidden="true" id="js_agree_txt">微信登录暂未开发，请使用账号登录</text>
-                    </span>
-                </label>
-            </view>
+            <button class="weui-btn weui-btn_primary" type="primary" bind:tap="onWeChatLogin">{{ wechatLoginBtnName }}</button>
         </view>
     </block>
 
