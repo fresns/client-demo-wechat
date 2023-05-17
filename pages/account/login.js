@@ -75,7 +75,7 @@ Page({
 
     const storageLangTag = wx.getStorageSync('langTag');
     const btnNameMap = {
-      'en': 'Continue with WeChat',
+      en: 'Continue with WeChat',
       'zh-Hans': '使用微信登录',
       'zh-Hant': '使用 WeChat 登錄',
     };
