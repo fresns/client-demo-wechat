@@ -115,6 +115,13 @@ Page({
 
     this.setData({
       showLogoutDialog: false,
+
+      accountLogin: false,
+      userLogin: false,
+
+      fresnsAccount: null,
+      fresnsUser: null,
+      fresnsUserPanel: null,
     });
   },
 });

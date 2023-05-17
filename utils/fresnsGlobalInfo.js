@@ -5,6 +5,7 @@
  */
 import { fresnsApi } from '../api/api';
 import { fresnsConfig } from '../api/tool/function';
+import { fresnsLogin } from './fresnsLogin';
 
 export class GlobalInfo {
   clientVersion = '2.0.0';
@@ -154,6 +155,11 @@ export class GlobalInfo {
         langTag = 'zh-Hant';
       }
       wx.setStorageSync('langTag', langTag);
+    }
+
+    // wechat auto login
+    if (!globalInfo.accountLogin) {
+      await fresnsLogin.wechatAutoLogin();
     }
   }
 }

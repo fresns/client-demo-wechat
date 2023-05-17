@@ -249,7 +249,7 @@ Page({
       return;
     }
 
-    wx.setStorageSync('aid', registerRes.data.detail.aid);
+    wx.setStorageSync('aid', registerRes.data.sessionToken.aid);
     wx.setStorageSync('aidToken', registerRes.data.sessionToken.token);
 
     cachePut('fresnsAccount', registerRes.data, 5);
@@ -262,6 +262,7 @@ Page({
       });
     }
 
+    console.log('onSubmit register');
     return await this.loginUser({
       uidOrUsername: user.uid.toString(),
     });

@@ -48,6 +48,8 @@ Page({
         currentUser: user,
       });
     } else {
+      console.log('selectUserUser');
+
       await fresnsLogin.loginUser({
         uidOrUsername: user.uid.toString(),
       });
@@ -76,6 +78,8 @@ Page({
   onSubmitPassword: async function (e) {
     const { currentUser } = this.data;
     try {
+      console.log('onSubmitPassword');
+
       const selectUserRes = await fresnsLogin.loginUser({
         uidOrUsername: currentUser.uid.toString(),
         password: this.data.password,
