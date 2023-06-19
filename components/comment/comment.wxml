@@ -27,7 +27,7 @@
         </view>
 
         <!-- 附件文件 -->
-        <files files="{{ comment.files }}" fileCount="{{ comment.fileCount }}"/>
+        <files files="{{ comment.files }}"/>
 
         <!-- 评论预览 -->
         <view wx:if="{{ comment.subComments.length > 0 }}">

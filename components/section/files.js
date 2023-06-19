@@ -7,7 +7,6 @@ Component({
   /** 组件的属性列表 **/
   properties: {
     files: Object,
-    fileCount: Object,
   },
 
   /** 组件的初始数据 **/

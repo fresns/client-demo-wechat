@@ -65,12 +65,14 @@
     </view>
 
     <view class="user-extensions" wx:if="{{ fresnsUserPanel.features.length > 0 }}">
-        <navigator wx:for="{{ fresnsUserPanel.features }}" wx:for-item="item" wx:key="plugin" url="/pages/webview?url={{ item.url }}">
-            <view class="extensions-icon">
-                <image src="{{ item.icon }}"></image>
-            </view>
-            <view class="extensions-label">{{ item.name }}</view>
-        </navigator>
+        <view class="extension-box">
+            <navigator wx:for="{{ fresnsUserPanel.features }}" wx:for-item="item" wx:key="plugin" url="/pages/webview?url={{ item.url }}">
+                <view class="extension-icon">
+                    <image src="{{ item.icon }}"></image>
+                </view>
+                <view class="extension-label">{{ item.name }}</view>
+            </navigator>
+        </view>
     </view>
 
     <view class="weui-cells weui-cells_after-title">

@@ -75,19 +75,23 @@
   margin-bottom: 15px;
 }
 
-.user-extensions navigator {
+.extension-box {
   float: left;
+  width: 20%;
+}
+
+.extension-box navigator {
   padding: 15px 20px;
   text-align: center;
   font-size: 14px;
 }
 
-.user-extensions .extensions-icon image {
+.extension-box .extension-icon image {
   width: 30px;
   height: 30px;
 }
 
-.extensions-label {
+.extension-box .extension-label {
   color: var(--weui-FG-0);
 }
 

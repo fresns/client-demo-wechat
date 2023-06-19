@@ -26,7 +26,7 @@
     </navigator>
 
     <!-- 热评-附带图片 -->
-    <view class="comment-image-{{ previewComments[0].fileCount.images }}" wx:if="{{ previewComments[0].fileCount.images > 0 }}">
+    <view class="comment-image-{{ previewComments[0].files.images.length }}" wx:if="{{ previewComments[0].files.images.length > 0 }}">
         <image wx:for="{{ previewComments[0].files.images }}" wx:for-item="imageItem" src="{{ imageItem.imageSquareUrl }}" mode="widthFix"></image>
     </view>
 </view>

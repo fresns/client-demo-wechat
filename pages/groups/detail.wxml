@@ -27,15 +27,15 @@
         </view>
     </view>
 
-    <view wx:if="{{ extensions }}" class="group-extensions">
-        <block wx:for="{{ extensions }}" wx:for-item="extension">
+    <view class="group-extensions" wx:if="{{ extensions }}" wx:for="{{ extensions }}" wx:for-item="extension">
+        <view class="extension-box">
             <navigator url="/pages/webview?url={{ extension.url }}" data-type="group" data-scene="groupExtension" data-gid="{{ gid }}">
-                <view class="extensions-icon">
+                <view class="extension-icon">
                     <image src="{{ extension.icon }}"></image>
                 </view>
-                <view class="extensions-label">{{ extension.name }}</view>
+                <view class="extension-label">{{ extension.name }}</view>
             </navigator>
-        </block>
+        </view>
     </view>
 
 	<view class="weui-msg" wx:if="{{ group.mode == 2 && !group.interaction.followStatus }}">

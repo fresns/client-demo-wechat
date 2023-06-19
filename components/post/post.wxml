@@ -36,18 +36,18 @@
         </view>
 
         <!-- 权限信息 -->
-        <view class="content-allow" wx:if="{{ !post.isAllow }}">
+        <view class="content-allow" wx:if="{{ post.readConfig.isReadLocked }}">
             <view class="allow_mask_static"></view>
             <view class="allow-info">
-                <view class="allow-text">可试读前 {{ post.allowProportion }}% 内容</view>
-                <navigator class="weui-btn weui-btn_primary" url="/pages/webview?url={{ post.allowBtnUrl }}">
-                    {{ post.allowBtnName }}
+                <view class="allow-text">可试读前 {{ post.readConfig.previewPercentage }}% 内容</view>
+                <navigator class="weui-btn weui-btn_primary" url="/pages/webview?url={{ post.readConfig.buttonUrl }}">
+                    {{ post.readConfig.buttonName }}
                 </navigator>
             </view>
         </view>
 
         <!-- 附件文件 -->
-        <files files="{{ post.files }}" fileCount="{{ post.fileCount }}"/>
+        <files files="{{ post.files }}"/>
 
         <!-- 扩展内容 -->
         <view class="extend-bottom" wx:if="{{ post.extends.length > 0 }}">
