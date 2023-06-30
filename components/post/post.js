@@ -4,6 +4,7 @@
  * Licensed under the Apache-2.0 license
  */
 import { globalInfo } from '../../utils/fresnsGlobalInfo';
+import { fresnsLang } from '../../api/tool/function';
 
 Component({
   /** 组件的属性列表 **/
@@ -15,6 +16,7 @@ Component({
   /** 组件的初始数据 **/
   data: {
     postContent: null,
+    contentPreReadInfo: null,
   },
 
   /** 组件数据字段监听器 **/
@@ -50,6 +52,15 @@ Component({
 
       this.setData({
         postContent: newContent,
+      });
+    },
+  },
+
+  /** 组件生命周期声明对象 **/
+  lifetimes: {
+    attached: async function () {
+      this.setData({
+        contentPreReadInfo: await fresnsLang('contentPreReadInfo'),
       });
     },
   },

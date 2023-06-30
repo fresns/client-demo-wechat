@@ -14,23 +14,22 @@
                 </view>
                 <view class="profile-name">
                     <text class="profile-nickname">{{ fresnsUser.nickname }}</text>
-                    <text class="profile-username">{{ fresnsUser.username }}</text>
+                    <text class="profile-username">{{ '@' + fresnsUser.username }}</text>
                 </view>
             </view>
             <view class="weui-flex__item interactive-btn">
-                <navigator url="/pages/account/setting" class="weui-btn weui-btn_mini weui-btn_default">
+                <navigator url="/pages/account/settings" class="weui-btn weui-btn_mini weui-btn_default">
                     {{ fresnsConfig.menu_account_settings }}
                 </navigator>
             </view>
         </view>
         <view class="user-bio" wx-if="{{ fresnsUser.bio }}">{{ fresnsUser.bio }}</view>
         <view class="weui-media-box__info">
-            <view class="weui-media-box__info__meta">{{ fresnsUser.stats.likeMeCount }} 点赞</view>
-            <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">
-                {{ fresnsUser.stats.followMeCount }} 关注者
+            <view class="weui-media-box__info__meta">
+                {{ fresnsUser.stats.followUserCount }} {{ fresnsLang.userFollowing }}
             </view>
             <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">
-                {{ fresnsUser.stats.followUserCount }} 正在关注
+                {{ fresnsUser.stats.followMeCount }} {{ fresnsConfig.user_follower_name }}
             </view>
         </view>
     </view>

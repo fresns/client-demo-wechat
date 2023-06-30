@@ -39,7 +39,7 @@
         <view class="content-allow" wx:if="{{ post.readConfig.isReadLocked }}">
             <view class="allow_mask_static"></view>
             <view class="allow-info">
-                <view class="allow-text">可试读前 {{ post.readConfig.previewPercentage }}% 内容</view>
+                <view class="allow-text">{{ contentPreReadInfo }} {{ post.readConfig.previewPercentage }}%</view>
                 <navigator class="weui-btn weui-btn_primary" url="/pages/webview?url={{ post.readConfig.buttonUrl }}">
                     {{ post.readConfig.buttonName }}
                 </navigator>

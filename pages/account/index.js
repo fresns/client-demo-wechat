@@ -61,7 +61,7 @@ Page({
       accountLogin: globalInfo.accountLogin,
       userLogin: globalInfo.userLogin,
       fresnsConfig: await fresnsConfig(),
-      fresnsLang: await fresnsConfig('language_pack_contents'),
+      fresnsLang: await fresnsLang(),
       fresnsAccount: await fresnsAccount('detail'),
       fresnsUser: await fresnsUser('detail'),
       fresnsUserPanel: await fresnsUserPanel(),
@@ -76,6 +76,27 @@ Page({
         },
       ],
     });
+  },
+
+  /** 监听用户下拉动作 **/
+  onPullDownRefresh: async function () {
+    wx.showNavigationBarLoading();
+    console.log('reload data start');
+
+    wx.removeStorageSync('fresnsAccount');
+    wx.removeStorageSync('fresnsUser');
+    wx.removeStorageSync('fresnsUserPanel');
+
+    this.setData({
+      fresnsAccount: await fresnsAccount('detail'),
+      fresnsUser: await fresnsUser('detail'),
+      fresnsUserPanel: await fresnsUserPanel(),
+    });
+
+    wx.stopPullDownRefresh();
+
+    wx.hideNavigationBarLoading();
+    console.log('reload data end');
   },
 
   /** 切换语言菜单 **/

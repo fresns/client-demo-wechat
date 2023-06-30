@@ -3,7 +3,7 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import { fresnsConfig } from '../../../api/tool/function';
+import { fresnsLang } from '../../../api/tool/function';
 
 Component({
   /** 组件的属性列表 **/
@@ -20,7 +20,7 @@ Component({
   lifetimes: {
     attached: async function () {
       this.setData({
-        fresnsLang: await fresnsConfig('language_pack_contents'),
+        fresnsLang: await fresnsLang(),
       });
     },
   },

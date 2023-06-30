@@ -33,7 +33,7 @@ Page({
     });
 
     this.setData({
-      fresnsLang: await fresnsConfig('language_pack_contents'),
+      fresnsLang: await fresnsLang(),
       fresnsAccount: await fresnsAccount('detail'),
       recharges: await fresnsAccount('items.walletRecharges'),
       withdraws: await fresnsAccount('items.walletWithdraws'),

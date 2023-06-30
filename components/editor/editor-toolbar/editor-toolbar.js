@@ -4,7 +4,7 @@
  * Licensed under the Apache-2.0 license
  */
 import { fresnsApi } from '../../../api/api';
-import { fresnsConfig } from '../../../api/tool/function';
+import { fresnsLang } from '../../../api/tool/function';
 import { cachePut, cacheGet, repPluginUrl, strUploadInfo } from '../../../utils/fresnsUtilities';
 import { callPageFunction } from '../../../utils/fresnsCallback';
 
@@ -119,7 +119,7 @@ Component({
         : [];
 
       this.setData({
-        fresnsLang: await fresnsConfig('language_pack_contents'),
+        fresnsLang: await fresnsLang(),
         stickerTabs: stickerTabs,
         stickers: stickerTabs[0].stickers,
       });
@@ -267,14 +267,14 @@ Component({
 
           // const uploadPromises = tempFiles.map(tempFile => {
           //   return fresnsApi.common.commonUploadFile(
-          //     tempFile.path,
+          //     tempFile.tempFilePath,
           //     {
           //       tableName: tableName,
           //       tableColumn: 'id',
           //       tableId: draftId,
           //       type: fileType,
           //       uploadMode: 'file',
-          //       file: tempFile.path,
+          //       file: tempFile.tempFilePath,
           //   });
           // });
         },
