@@ -101,16 +101,16 @@ export function uploadFile(filePath, options) {
 
         let responseData;
         try {
-            responseData = JSON.parse(res.data);
+          responseData = JSON.parse(res.data);
         } catch (error) {
-            wx.showToast({
-                title: '服务器返回的数据无法解析为 JSON',
-                icon: 'none',
-                duration: 3000,
-            });
-            reject(error);
+          wx.showToast({
+            title: '服务器返回的数据无法解析为 JSON',
+            icon: 'none',
+            duration: 3000,
+          });
+          reject(error);
 
-            return;
+          return;
         }
 
         const { code, message } = responseData;
