@@ -225,9 +225,9 @@ export function getTimezoneIndex(utcList, timezone = null) {
   }
 
   for (let i = 0; i < utcList.length; i++) {
-      if (utcList[i].value === timezone) {
-          return i;
-      }
+    if (utcList[i].value === timezone) {
+      return i;
+    }
   }
   return 0; // 返回 0 或者其他默认索引，当找不到匹配项时
 }
