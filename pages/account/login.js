@@ -147,13 +147,7 @@ Page({
 
   // 发送验证码
   sendVerifyCode: async function (e) {
-    const {
-      type,
-      emailAddress,
-      countryCodeRange,
-      countryCodeIndex,
-      phoneNumber,
-    } = this.data;
+    const { type, emailAddress, countryCodeRange, countryCodeIndex, phoneNumber } = this.data;
 
     let params = null;
     if (type === Type.Email) {

@@ -14,7 +14,11 @@ const Type = {
 
 Page({
   /** 外部 mixin 引入 **/
-  mixins: [require('../../mixins/themeChanged'), require('../../mixins/checkSiteMode'), require('../../mixins/sendVerifyCode')],
+  mixins: [
+    require('../../mixins/themeChanged'),
+    require('../../mixins/checkSiteMode'),
+    require('../../mixins/sendVerifyCode'),
+  ],
 
   /** 页面的初始数据 **/
   data: {
@@ -98,13 +102,7 @@ Page({
 
   // 发送验证码
   sendVerifyCode: async function (e) {
-    const {
-      type,
-      emailAddress,
-      countryCodeRange,
-      countryCodeIndex,
-      phoneNumber,
-    } = this.data;
+    const { type, emailAddress, countryCodeRange, countryCodeIndex, phoneNumber } = this.data;
 
     let params = null;
     if (type === Type.Email) {
