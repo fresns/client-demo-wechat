@@ -99,7 +99,21 @@ export function uploadFile(filePath, options) {
           return;
         }
 
-        const { code, message } = res.data;
+        let responseData;
+        try {
+            responseData = JSON.parse(res.data);
+        } catch (error) {
+            wx.showToast({
+                title: '服务器返回的数据无法解析为 JSON',
+                icon: 'none',
+                duration: 3000,
+            });
+            reject(error);
+
+            return;
+        }
+
+        const { code, message } = responseData;
 
         if (code !== 0) {
           wx.showToast({
@@ -109,7 +123,7 @@ export function uploadFile(filePath, options) {
           });
         }
 
-        resolve(res.data);
+        resolve(responseData);
       },
 
       // 请求失败

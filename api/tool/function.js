@@ -15,7 +15,7 @@ export const fresnsConfig = async (itemKey = null, defaultValue = null) => {
   if (!data) {
     const result = await fresnsApi.global.globalConfigs();
     if (result.code === 0 && result.data) {
-      const cacheMinutes = result.data.cache_minutes || 30;
+      const cacheMinutes = result.data.cache_minutes || 10;
 
       cachePut('fresnsConfigs', result.data, cacheMinutes);
     }
@@ -31,8 +31,12 @@ export const fresnsConfig = async (itemKey = null, defaultValue = null) => {
 };
 
 // fresnsLang
-export const fresnsLang = async (langKey, defaultValue = null) => {
+export const fresnsLang = async (langKey = null, defaultValue = null) => {
   const langArr = await fresnsConfig('language_pack_contents');
+
+  if (!langKey) {
+    return langArr;
+  }
 
   return data_get(langArr, langKey, defaultValue);
 };
@@ -68,7 +72,7 @@ export const fresnsCodeMessage = async (code, defaultValue = null) => {
     });
 
     if (result.code === 0 && result.data) {
-      cachePut('fresnsCodeMessage', result.data, 60);
+      cachePut('fresnsCodeMessage', result.data, 30);
     }
 
     codeMessages = result.data;
