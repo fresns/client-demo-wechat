@@ -8,37 +8,33 @@ import { fresnsConfig, fresnsLang } from '../../api/tool/function';
 import { base64_encode } from '../../libs/base64/base64';
 
 const Type = {
-  Mobile: '0',
+  Phone: '0',
   Email: '1',
 };
 
 Page({
   /** 外部 mixin 引入 **/
-  mixins: [require('../../mixins/themeChanged')],
+  mixins: [require('../../mixins/themeChanged'), require('../../mixins/sendVerifyCode')],
 
   /** 页面的初始数据 **/
   data: {
     fresnsLang: null,
 
-    type: Type.Mobile,
+    type: Type.Phone,
 
     // 邮箱地址
     emailAddress: '',
 
     // 手机相关信息
-    mobileAreaRange: [],
-    mobileAreaIndex: null,
-    mobileNumber: '',
+    countryCodeRange: [],
+    countryCodeIndex: null,
+    phoneNumber: '',
 
     // 验证码
     verifyCode: '',
-    // 验证码等待中
-    isVerifyCodeWaiting: false,
-    waitingRemainSeconds: 60,
 
     // 密码
     password: '',
-    // 二次确认密码
     confirmPassword: '',
   },
 
@@ -52,12 +48,12 @@ Page({
       fresnsConfig('send_sms_default_code'),
       fresnsConfig('send_sms_supported_codes'),
     ]);
-    const mobileAreaRange = codeArray.length === 1 ? [defaultCode] : codeArray;
+    const countryCodeRange = codeArray.length === 1 ? [defaultCode] : codeArray;
 
     this.setData({
-      fresnsLang: await fresnsConfig('language_pack_contents'),
-      mobileAreaRange,
-      mobileAreaIndex: mobileAreaRange.indexOf(defaultCode),
+      fresnsLang: await fresnsLang(),
+      countryCodeRange,
+      countryCodeIndex: countryCodeRange.indexOf(defaultCode),
     });
   },
 
@@ -76,16 +72,16 @@ Page({
     });
     return value;
   },
-  onMobileAreaPickerChange: function (e) {
+  onCountryCodePickerChange: function (e) {
     const idxStr = e.detail.value;
     this.setData({
-      mobileAreaIndex: +idxStr,
+      countryCodeIndex: +idxStr,
     });
   },
-  onMobileNumberChange: function (e) {
+  onPhoneNumberChange: function (e) {
     const value = e.detail.value;
     this.setData({
-      mobileNumber: value,
+      phoneNumber: value,
     });
     return value;
   },
@@ -102,75 +98,33 @@ Page({
     const {
       type,
       emailAddress,
-      mobileAreaRange,
-      mobileAreaIndex,
-      mobileNumber,
-      isVerifyCodeWaiting,
-      waitingRemainSeconds,
+      countryCodeRange,
+      countryCodeIndex,
+      phoneNumber,
     } = this.data;
-    if (isVerifyCodeWaiting) {
-      wx.showToast({
-        title: `发送冷却中 ${waitingRemainSeconds}s`,
-        icon: 'none',
-      });
-      return;
-    }
+
     let params = null;
     if (type === Type.Email) {
-      if (!emailAddress) {
-        wx.showToast({
-          title: (await fresnsLang('email')) + ': ' + (await fresnsLang('errorEmpty')),
-          icon: 'none',
-        });
-        return;
-      }
-
       params = {
         type: 'email',
-        useType: 2,
-        templateId: 5,
+        useType: 2, // 2.已存账号验证
+        templateId: 5, // 5.重置登录密码
         account: emailAddress,
+        countryCode: null,
       };
-    }
-    if (type === Type.Mobile) {
-      if (!mobileNumber) {
-        wx.showToast({
-          title: (await fresnsLang('phone')) + ': ' + (await fresnsLang('errorEmpty')),
-          icon: 'none',
-        });
-        return;
-      }
-
+    } else {
       params = {
         type: 'sms',
-        useType: 2,
-        templateId: 5,
-        account: mobileNumber,
-        countryCode: mobileAreaRange[mobileAreaIndex],
+        useType: 2, // 2.已存账号验证
+        templateId: 5, // 5.重置登录密码
+        account: phoneNumber,
+        countryCode: countryCodeRange[countryCodeIndex],
       };
     }
 
-    const sendVerifyRes = await fresnsApi.common.commonSendVerifyCode(params);
-    if (sendVerifyRes.code === 0) {
-      this.setData({ isVerifyCodeWaiting: true, waitingRemainSeconds: 60 });
-
-      const interval = setInterval(() => {
-        const now = this.data.waitingRemainSeconds - 1;
-        this.setData({
-          waitingRemainSeconds: now,
-          isVerifyCodeWaiting: now > 0,
-        });
-        if (now <= 0) {
-          clearInterval(interval);
-        }
-      }, 1000);
-
-      wx.showToast({
-        title: '验证码发送成功',
-        icon: 'none',
-      });
-    }
+    this.fresnsSend(params.type, params.useType, params.templateId, params.account, params.countryCode);
   },
+
   onPasswordChange: function (e) {
     const value = e.detail.value;
     this.setData({
@@ -191,9 +145,9 @@ Page({
     const {
       type,
       emailAddress,
-      mobileAreaRange,
-      mobileAreaIndex,
-      mobileNumber,
+      countryCodeRange,
+      countryCodeIndex,
+      phoneNumber,
       verifyCode,
       password,
       confirmPassword,
@@ -206,11 +160,11 @@ Page({
     }
 
     let params = null;
-    if (type === Type.Mobile) {
+    if (type === Type.Phone) {
       params = {
         type: 'phone',
-        account: mobileNumber,
-        countryCode: mobileAreaRange[mobileAreaIndex],
+        account: phoneNumber,
+        countryCode: countryCodeRange[countryCodeIndex],
         verifyCode: verifyCode,
         newPassword: base64_encode(password),
       };

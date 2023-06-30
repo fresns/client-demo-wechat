@@ -6,7 +6,7 @@
 import { fresnsConfig } from '../api/tool/function';
 import { globalInfo } from './fresnsGlobalInfo';
 
-// cache put
+// 在缓存中存储项目
 export async function cachePut(key, data = '', minutes = null) {
   if (!data) {
     return;
@@ -26,7 +26,7 @@ export async function cachePut(key, data = '', minutes = null) {
   });
 }
 
-// cache get
+// 从缓存中检索项目
 export function cacheGet(key) {
   const cacheData = wx.getStorageSync(key);
 
@@ -45,7 +45,7 @@ export function cacheGet(key) {
   return null;
 }
 
-// navigateToAccountLogin
+// 未登录，跳转到登录页
 export function navigateToAccountLogin() {
   const pages = getCurrentPages();
   const curPage = pages[pages.length - 1];
@@ -56,7 +56,7 @@ export function navigateToAccountLogin() {
   }
 }
 
-// navigateToUserLogin
+// 账号登录，未登录用户，跳转到用户选择页
 export function navigateToUserLogin() {
   const pages = getCurrentPages();
   const curPage = pages[pages.length - 1];
@@ -95,7 +95,7 @@ export function repPluginUrl(url = '', params = {}) {
   return updatedUrl;
 }
 
-// strUploadInfo
+// 处理上传参数
 export function strUploadInfo(usageType = '', tableName = '', tableColumn = '', tableId = '', tableKey = '') {
   const image = {
     usageType: usageType,
@@ -156,7 +156,7 @@ export function strUploadInfo(usageType = '', tableName = '', tableColumn = '', 
   return uploadInfo;
 }
 
-// enJson
+// 解码参数
 export function enJson(encoded) {
   // Step 1: URL 解码
   const decodedURLData = decodeURIComponent(encoded);
@@ -174,7 +174,7 @@ export function enJson(encoded) {
   return json;
 }
 
-// truncateText
+// 处理 HTML 标签
 export function truncateText(text, length) {
   // 过滤掉 HTML 标签和换行符
   const strippedText = text.replace(/(<([^>]+)>)/gi, '').replace(/(\r\n|\n|\r)/gm, '');
@@ -206,7 +206,7 @@ export function debounce(fn, delay, ctx) {
   };
 }
 
-// generateRandomString
+// 随机生成字符串
 export function generateRandomString(length = 8) {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   let result = '';
@@ -216,4 +216,36 @@ export function generateRandomString(length = 8) {
   }
 
   return result;
+}
+
+// 获取时区 index
+export function getTimezoneIndex(utcList, timezone = null) {
+  if (!timezone) {
+    return 0;
+  }
+
+  for (let i = 0; i < utcList.length; i++) {
+      if (utcList[i].value === timezone) {
+          return i;
+      }
+  }
+  return 0; // 返回 0 或者其他默认索引，当找不到匹配项时
+}
+
+// 处理年月日
+export function formattedDate(datetime = null) {
+  if (datetime) {
+    const date = new Date(datetime);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // padStart 用于补全位数
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = (today.getMonth() + 1).toString().padStart(2, '0'); // padStart 用于补全位数
+  const day = today.getDate().toString().padStart(2, '0');
+
+  return `${year}-${month}-${day}`;
 }

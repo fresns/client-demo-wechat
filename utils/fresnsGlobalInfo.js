@@ -11,7 +11,7 @@ export class GlobalInfo {
   clientVersion = '2.0.0';
   theme = null;
 
-  // user home path
+  // 处理用户主页路径
   async userHomePath() {
     const itHomeList = await fresnsConfig('it_home_list');
 

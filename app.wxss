@@ -11,6 +11,11 @@
   background-color: var(--weui-BG-1);
 }
 
+.weui-cells__group_form .weui-vcode-btn {
+  color: var(--weui-LINK);
+  font-weight: 400;
+}
+
 /* Tabbar */
 .tabbar-spacing {
   margin-top: 5rem;

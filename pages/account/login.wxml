@@ -37,7 +37,10 @@
     <!-- 微信登录 -->
     <block wx:if="{{ loginType === '0' }}">
         <view class="we-login-agree">
-            <button class="weui-btn weui-btn_primary" type="primary" bind:tap="onWeChatLogin">{{ wechatLoginBtnName }}</button>
+            <button class="weui-btn weui-btn_primary weui-btn_loading" type="primary" bind:tap="onWeChatLogin" style="width: 200px;">
+                <mp-loading type="dot-gray" show="{{ btnLoading }}" extClass="btnLoading" />
+                {{ wechatLoginBtnName }}
+            </button>
         </view>
     </block>
 
@@ -69,12 +72,12 @@
                     <block wx:if="{{ type === '0' }}">
                         <view class="weui-cell weui-cell_active weui-cell_select weui-cell_select-before">
                             <view class="weui-cell__hd">
-                                <picker aria-role="combobox" bindchange="onMobileAreaPickerChange" range="{{ mobileAreaRange }}" value="{{ mobileAreaIndex }}">
-                                    <view class="weui-select" style="width: 3em;">{{ '+' + mobileAreaRange[mobileAreaIndex] }}</view>
+                                <picker aria-role="combobox" bindchange="onCountryCodePickerChange" range="{{ countryCodeRange }}" value="{{ countryCodeIndex }}">
+                                    <view class="weui-select" style="width: 3em;">{{ '+' + countryCodeRange[countryCodeIndex] }}</view>
                                 </picker>
                             </view>
                             <view class="weui-cell__bd">
-                                <input class="weui-input" type="number" value="{{ mobileNumber }}" bindinput="onMobileNumberChange" placeholder="{{ fresnsLang.phone }}" placeholder-class="weui-input__placeholder"/>
+                                <input class="weui-input" type="number" value="{{ phoneNumber }}" bindinput="onPhoneNumberChange" placeholder="{{ fresnsLang.phone }}" placeholder-class="weui-input__placeholder"/>
                             </view>
                         </view>
                     </block>
@@ -136,12 +139,12 @@
                     <block wx:if="{{ type === '0' }}">
                         <view class="weui-cell weui-cell_active weui-cell_select weui-cell_select-before">
                             <view class="weui-cell__hd">
-                                <picker aria-role="combobox" bindchange="onMobileAreaPickerChange" range="{{ mobileAreaRange }}" value="{{ mobileAreaIndex }}">
-                                    <view class="weui-select" style="width: 3em;">{{ '+' + mobileAreaRange[mobileAreaIndex] }}</view>
+                                <picker aria-role="combobox" bindchange="onCountryCodePickerChange" range="{{ countryCodeRange }}" value="{{ countryCodeIndex }}">
+                                    <view class="weui-select" style="width: 3em;">{{ '+' + countryCodeRange[countryCodeIndex] }}</view>
                                 </picker>
                             </view>
                             <view class="weui-cell__bd">
-                                <input class="weui-input" type="number" value="{{ mobileNumber }}" bindinput="onMobileNumberChange" placeholder="{{ fresnsLang.phone }}" placeholder-class="weui-input__placeholder"/>
+                                <input class="weui-input" type="number" value="{{ phoneNumber }}" bindinput="onPhoneNumberChange" placeholder="{{ fresnsLang.phone }}" placeholder-class="weui-input__placeholder"/>
                             </view>
                         </view>
                     </block>
@@ -162,7 +165,7 @@
                         </view>
                         <view class="weui-cell__bd">
                             <input class="weui-cell__control weui-cell__control_flex weui-input" type="text" bindinput="onVerifyCodeChange" placeholder="{{ fresnsLang.verifyCode }}" placeholder-class="weui-input__placeholder"/>
-                            <view aria-role="button" class="weui-cell__control weui-btn weui-btn_default weui-vcode-btn" bind:tap="sendVerifyCode">{{ fresnsLang.sendVerifyCode }}</view>
+                            <view aria-role="button" class="weui-cell__control weui-btn weui-btn_default weui-vcode-btn" bind:tap="sendVerifyCode">{{ isSendWaiting ? waitingRemainSeconds + ' ' + fresnsLang.unitSecond : fresnsLang.sendVerifyCode }}</view>
                         </view>
                     </view>
                 </view>
