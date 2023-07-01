@@ -74,7 +74,7 @@
     "pages/account/reset-password",
     "pages/account/wallet",
     "pages/account/users",
-    "pages/account/setting",
+    "pages/account/settings",
 
     "pages/profile/posts",
     "pages/profile/comments",
