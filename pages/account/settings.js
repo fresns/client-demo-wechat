@@ -10,7 +10,11 @@ import { base64_encode } from '../../libs/base64/base64';
 
 Page({
   /** 外部 mixin 引入 **/
-  mixins: [require('../../mixins/themeChanged'), require('../../mixins/loginInterceptor'), require('../../mixins/sendVerifyCode')],
+  mixins: [
+    require('../../mixins/themeChanged'),
+    require('../../mixins/loginInterceptor'),
+    require('../../mixins/sendVerifyCode'),
+  ],
   data: {
     fresnsConfig: null,
     fresnsLang: null,
@@ -73,11 +77,7 @@ Page({
 
     const fsLang = await fresnsLang();
 
-    const genderOptions = [
-      fsLang.settingGenderNull,
-      fsLang.settingGenderMale,
-      fsLang.settingGenderFemale,
-    ];
+    const genderOptions = [fsLang.settingGenderNull, fsLang.settingGenderMale, fsLang.settingGenderFemale];
     const limitOptions = [
       fsLang.settingAllowAll,
       fsLang.settingAllowMyFollow,
@@ -104,7 +104,7 @@ Page({
     this.setData({
       fresnsConfig: await fresnsConfig(),
       fresnsLang: fsLang,
-      fresnsAccount:  await fresnsAccount('detail'),
+      fresnsAccount: await fresnsAccount('detail'),
       fresnsUser: await fresnsUser('detail'),
       fresnsUserPanel: await fresnsUserPanel(),
       genderOptions: genderOptions,
@@ -157,15 +157,13 @@ Page({
         const tempFile = res.tempFiles[0];
         console.log('modifyAvatar', tempFile);
 
-        const resultRes = await fresnsApi.common.commonUploadFile(
-          tempFile.tempFilePath,
-          {
-            tableName: 'users',
-            tableColumn: 'avatar_file_id',
-            tableKey: uid,
-            type: 'image',
-            uploadMode: 'file',
-            file: tempFile.tempFilePath,
+        const resultRes = await fresnsApi.common.commonUploadFile(tempFile.tempFilePath, {
+          tableName: 'users',
+          tableColumn: 'avatar_file_id',
+          tableKey: uid,
+          type: 'image',
+          uploadMode: 'file',
+          file: tempFile.tempFilePath,
         });
 
         console.log('modifyAvatar', resultRes.code, resultRes.message, resultRes.data);
@@ -358,7 +356,7 @@ Page({
         break;
 
       default:
-        modifyDialogNewValue =  e.currentTarget.dataset.value;
+        modifyDialogNewValue = e.currentTarget.dataset.value;
     }
 
     this.setData({
@@ -523,7 +521,7 @@ Page({
     const useType = e.currentTarget.dataset.useType;
     const templateId = e.currentTarget.dataset.templateId;
     const account = e.currentTarget.dataset.account;
-    const countryCode = e.currentTarget.dataset.countryCode || await fresnsConfig('send_sms_default_code');
+    const countryCode = e.currentTarget.dataset.countryCode || (await fresnsConfig('send_sms_default_code'));
     console.log('type', type);
     console.log('useType', useType);
     console.log('templateId', templateId);
@@ -543,7 +541,12 @@ Page({
 
     console.log('submitChange', editKey, editValue);
 
-    if (editKey == 'editPhone' || editKey == 'editEmail' || editKey == 'editPassword' || editKey == 'editWalletPassword') {
+    if (
+      editKey == 'editPhone' ||
+      editKey == 'editEmail' ||
+      editKey == 'editPassword' ||
+      editKey == 'editWalletPassword'
+    ) {
       const {
         codeType,
         verifyCode,
@@ -563,9 +566,9 @@ Page({
           // 设置手机号码（当前账号无手机号码）
           params = {
             newPhone: newPhone,
-            newCountryCode: newCountryCode || await fresnsConfig('send_sms_default_code'),
+            newCountryCode: newCountryCode || (await fresnsConfig('send_sms_default_code')),
             newVerifyCode: newVerifyCode,
-          }
+          };
           break;
 
         case 'modifyAccountPhone':
@@ -574,9 +577,9 @@ Page({
             codeType: 'sms',
             verifyCode: verifyCode,
             newPhone: newPhone,
-            newCountryCode: newCountryCode || await fresnsConfig('send_sms_default_code'),
+            newCountryCode: newCountryCode || (await fresnsConfig('send_sms_default_code')),
             newVerifyCode: newVerifyCode,
-          }
+          };
           break;
 
         case 'setAccountEmail':
@@ -584,7 +587,7 @@ Page({
           params = {
             newEmail: newEmail,
             newVerifyCode: newVerifyCode,
-          }
+          };
           break;
 
         case 'modifyAccountEmail':
@@ -594,7 +597,7 @@ Page({
             verifyCode: verifyCode,
             newEmail: newEmail,
             newVerifyCode: newVerifyCode,
-          }
+          };
           break;
 
         case 'modifyAccountLoginPassword':
@@ -604,7 +607,7 @@ Page({
             verifyCode: verifyCode,
             currentPassword: currentPassword,
             newPassword: newPassword,
-          }
+          };
           break;
 
         case 'modifyAccountWalletPassword':
@@ -614,7 +617,7 @@ Page({
             verifyCode: verifyCode,
             currentWalletPassword: currentWalletPassword,
             newWalletPassword: newWalletPassword,
-          }
+          };
           break;
 
         default:
@@ -658,5 +661,4 @@ Page({
       });
     }
   },
-
 });

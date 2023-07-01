@@ -27,7 +27,8 @@
   border-bottom: 1px solid var(--weui-FG-3);
 }
 
-.weui-cell_vcode, .weui-cell_select {
+.weui-cell_vcode,
+.weui-cell_select {
   border-top: 1px solid var(--weui-FG-3);
 }
 
