@@ -19,9 +19,9 @@ module.exports = {
     if (fresnsSendConfig.sendWaiting) {
       const expiresTime = fresnsSendConfig.expiresTime || 0;
 
-      const currentTime = new Date().getTime();  // 获取当前时间戳（毫秒数）
-      const timeDifference = expiresTime - currentTime;  // 毫秒数差值
-      const secondsDifference = Math.round(timeDifference / 1000);  // 转换为秒，四舍五入到最接近的整数
+      const currentTime = new Date().getTime(); // 获取当前时间戳（毫秒数）
+      const timeDifference = expiresTime - currentTime; // 毫秒数差值
+      const secondsDifference = Math.round(timeDifference / 1000); // 转换为秒，四舍五入到最接近的整数
 
       console.log('fresnsSendConfig', 'secondsDifference', secondsDifference);
 
@@ -75,14 +75,15 @@ module.exports = {
     if (fresnsSendConfig.sendWaiting) {
       const expiresTime = fresnsSendConfig.expiresTime || 0;
 
-      const currentTime = new Date().getTime();  // 获取当前时间戳（毫秒数）
-      const timeDifference = expiresTime - currentTime;  // 毫秒数差值
-      const secondsDifference = Math.round(timeDifference / 1000);  // 转换为秒，四舍五入到最接近的整数
+      const currentTime = new Date().getTime(); // 获取当前时间戳（毫秒数）
+      const timeDifference = expiresTime - currentTime; // 毫秒数差值
+      const secondsDifference = Math.round(timeDifference / 1000); // 转换为秒，四舍五入到最接近的整数
 
       // 正在倒计时
       if (secondsDifference > 0) {
         wx.showToast({
-          title: (await fresnsLang('errorUnavailable')) + ': ' + secondsDifference + ' ' + (await fresnsLang('unitSecond')),
+          title:
+            (await fresnsLang('errorUnavailable')) + ': ' + secondsDifference + ' ' + (await fresnsLang('unitSecond')),
           icon: 'none',
         });
 
@@ -161,9 +162,9 @@ module.exports = {
     if (checkSendConfig.sendWaiting) {
       const newExpiresTime = checkSendConfig.expiresTime || 0;
 
-      const newCurrentTime = new Date().getTime();  // 获取当前时间戳（毫秒数）
-      const newTimeDifference = newExpiresTime - newCurrentTime;  // 毫秒数差值
-      const newSecondsDifference = Math.round(newTimeDifference / 1000);  // 转换为秒，四舍五入到最接近的整数
+      const newCurrentTime = new Date().getTime(); // 获取当前时间戳（毫秒数）
+      const newTimeDifference = newExpiresTime - newCurrentTime; // 毫秒数差值
+      const newSecondsDifference = Math.round(newTimeDifference / 1000); // 转换为秒，四舍五入到最接近的整数
 
       console.log('fresnsSendConfig', 'checkSendConfig', newSecondsDifference);
 
