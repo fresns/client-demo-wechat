@@ -8,9 +8,7 @@ import { truncateText } from '../../../utils/fresnsUtilities';
 
 Component({
   /** 外部 mixin 引入 **/
-  mixins: [
-    require('../../../mixins/handler/commentHandler'),
-  ],
+  mixins: [require('../../../mixins/handler/commentHandler')],
 
   /** 组件的属性列表 **/
   properties: {

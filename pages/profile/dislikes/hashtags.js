@@ -8,10 +8,7 @@ import { fresnsConfig, fresnsViewProfile } from '../../../api/tool/function';
 
 Page({
   /** 外部 mixin 引入 **/
-  mixins: [
-    require('../../../mixins/themeChanged'),
-    require('../../../mixins/checkSiteMode'),
-  ],
+  mixins: [require('../../../mixins/themeChanged'), require('../../../mixins/checkSiteMode')],
 
   /** 页面的初始数据 **/
   data: {
