@@ -15,6 +15,8 @@ Page({
     require('../../mixins/loginInterceptor'),
     require('../../mixins/sendVerifyCode'),
   ],
+
+  /** 页面的初始数据 **/
   data: {
     fresnsConfig: null,
     fresnsLang: null,
