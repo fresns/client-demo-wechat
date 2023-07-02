@@ -5,9 +5,7 @@
  */
 Component({
   /** 外部 mixin 引入 **/
-  mixins: [
-    require('../../mixins/handler/userHandler'),
-  ],
+  mixins: [require('../../mixins/handler/userHandler')],
 
   /** 组件的属性列表 **/
   properties: {
