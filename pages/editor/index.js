@@ -7,6 +7,8 @@ import { fresnsApi } from '../../api/api';
 import { fresnsConfig } from '../../api/tool/function';
 import { repPluginUrl, generateRandomString } from '../../utils/fresnsUtilities';
 
+const app = getApp();
+
 Page({
   /** 外部 mixin 引入 **/
   mixins: [
@@ -102,25 +104,20 @@ Page({
      * 如果配置了编辑器插件，则跳转到插件页面
      */
     if (editorService) {
-      const newUrl = repPluginUrl(editorService, {
-        type: type,
+      const fresnsExtensions = {
+        type: 'editor',
         scene: scene,
-        pid: pid,
-        plid: plid,
-        cid: cid,
-        clid: clid,
-      });
+        postMessageKey: 'fresnsEditor',
+        plid: draftId,
+        clid: draftId,
+        title: 'Editor',
+        url: editorService,
+      };
 
-      // 过滤 options 里指定参数
-      const filteredOptions = Object.entries(options).filter(([key]) => key !== 'type');
+      app.globalData.fresnsExtensions = fresnsExtensions;
 
-      // 将过滤后的 options 对象转换为 URL 参数字符串
-      const urlParams = filteredOptions
-        .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
-        .join('&');
-
-      wx.redirectTo({
-        url: '/pages/webview?url=' + newUrl + '&' + urlParams,
+      wx.navigateTo({
+        url: '/pages/webview',
       });
 
       return;
@@ -175,6 +172,8 @@ Page({
   onLoadDraft: async function (draftData) {
     wx.showNavigationBarLoading();
 
+    console.log(draftData);
+
     const titleConfig = this.data.editorConfig.editor.toolbar.title;
 
     // 标题配置
@@ -192,7 +191,7 @@ Page({
       draftSelector: false, // 关闭草稿选择器
       editorStatus: true, // 显示编辑器
       showTitleInput: showTitleInput, // 标题输入框是否显示
-      contentCursorPosition: draftData.detail.content.length, // 获取内容光标位置
+      contentCursorPosition: draftData.detail.contentLength ? draftData.detail.content.length : 0, // 获取内容光标位置
     });
 
     wx.hideNavigationBarLoading();

@@ -27,9 +27,15 @@
         </view>
     </view>
 
-    <view class="group-extensions" wx:if="{{ extensions }}" wx:for="{{ extensions }}" wx:for-item="extension">
+    <view class="group-extensions" wx:if="{{ extensions }}" wx:for="{{ extensions }}" wx:for-item="extension" wx:key="plugin">
         <view class="extension-box">
-            <navigator url="/pages/webview?url={{ extension.url }}" data-type="group" data-scene="groupExtension" data-gid="{{ gid }}">
+            <navigator url="/pages/webview" bind:tap="fresnsExtensions"
+                data-type="group"
+                data-scene="groupExtension"
+                data-post-message-key="fresnsGroupExtension"
+                data-gid="{{ gid }}"
+                data-url="{{ extensions.url }}"
+                data-title="{{ extensions.name }}">
                 <view class="extension-icon">
                     <image src="{{ extension.icon }}"></image>
                 </view>

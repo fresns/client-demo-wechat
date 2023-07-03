@@ -40,7 +40,14 @@
             <view class="allow_mask_static"></view>
             <view class="allow-info">
                 <view class="allow-text">{{ contentPreReadInfo }} {{ post.readConfig.previewPercentage }}%</view>
-                <navigator class="weui-btn weui-btn_primary" url="/pages/webview?url={{ post.readConfig.buttonUrl }}">
+                <navigator class="weui-btn weui-btn_primary" url="/pages/webview" bind:tap="fresnsExtensions"
+                    data-type="post"
+                    data-scene="postAuthBtn"
+                    data-post-message-key="fresnsPostAuthBtn"
+                    data-pid="{{ post.pid }}"
+                    data-uid="{{ post.author.uid }}"
+                    data-url="{{ post.readConfig.buttonUrl }}"
+                    data-title="{{ post.readConfig.buttonName }}">
                     {{ post.readConfig.buttonName }}
                 </navigator>
             </view>
@@ -65,11 +72,19 @@
                 <image wx:if="{{ post.group.cover }}" src="{{ post.group.cover }}" class="group-icon" mode="aspectFit"></image>
                 {{ post.group.gname }}
             </navigator>
+
             <!-- 特殊用户 -->
-            <navigator wx:if="{{ post.isUserList }}" class="content-users float-end" url="/pages/webview?url={{ post.userListUrl }}">
-                {{ post.userListName }}
-                <text wx:if="{{ post.userListCount }}" class="weui-badge">
-                    {{ post.userListCount }}
+            <navigator wx:if="{{ post.affiliatedUserConfig.hasUserList }}" class="content-users float-end" url="/pages/webview" bind:tap="fresnsExtensions"
+                data-type="post"
+                data-scene="postUserList"
+                data-post-message-key="fresnsPostUserList"
+                data-pid="{{ post.pid }}"
+                data-uid="{{ post.author.uid }}"
+                data-url="{{ post.affiliatedUserConfig.userListUrl }}"
+                data-title="{{ post.affiliatedUserConfig.userListName }}">
+                {{ post.affiliatedUserConfig.userListName }}
+                <text wx:if="{{ post.affiliatedUserConfig.userListCount }}" class="weui-badge">
+                    {{ post.affiliatedUserConfig.userListCount }}
                 </text>
             </navigator>
         </view>

@@ -33,9 +33,16 @@
         </picker>
 
         <!-- 扩展资料 -->
-        <navigator wx:for="{{ fresnsUserPanel.profiles }}" wx:for-item="item" wx:key="plugin" url="/pages/webview?url={{ item.url }}">
-            <mp-cell value="{{ item.name }}" hover="{{ true }}" link="{{ true }}"/>
-        </navigator>
+        <block wx:for="{{ fresnsUserPanel.profiles }}" wx:for-item="item" wx:key="plugin">
+            <navigator url="/pages/webview" bind:tap="fresnsExtensions"
+                data-type="account"
+                data-scene="profileExtension"
+                data-post-message-key="fresnsProfileExtension"
+                data-url="{{ item.url }}"
+                data-title="{{ item.name }}">
+                <mp-cell value="{{ item.name }}" hover="{{ true }}" link="{{ true }}"/>
+            </navigator>
+        </block>
     </mp-cells>
 
     <!-- 偏好设置 -->
@@ -59,9 +66,16 @@
     <!-- 账号信息 -->
     <mp-cells ext-class="setting-cells" title="{{ fresnsLang.settingAccount }}">
         <!-- 实名认证 -->
-        <navigator wx:if="{{ fresnsConfig.account_real_name_service }}" url="/pages/webview?url={{ fresnsConfig.account_real_name_service }}">
-            <mp-cell value="{{ fresnsLang.accountRealName }}" footer="{{ fresnsAccount.verifyStatus ? fresnsLang.success : fresnsLang.settingNot }}" hover="{{ true }}" link="{{ true }}"/>
-        </navigator>
+        <block wx:if="{{ fresnsConfig.account_real_name_service }}">
+            <navigator url="/pages/webview" bind:tap="fresnsExtensions"
+                data-type="account"
+                data-scene="realName"
+                data-post-message-key="fresnsRealName"
+                data-url="{{ fresnsConfig.account_real_name_service }}"
+                data-title="{{ fresnsLang.accountRealName }}">
+                <mp-cell value="{{ fresnsLang.accountRealName }}" footer="{{ fresnsAccount.verifyStatus ? fresnsLang.success : fresnsLang.settingNot }}" hover="{{ true }}" link="{{ true }}"/>
+            </navigator>
+        </block>
 
         <!-- 手机号 -->
         <mp-cell value="{{ fresnsLang.phone }}" footer="{{ fresnsAccount.phone ? ('+' + fresnsAccount.countryCode + ' ' + fresnsAccount.purePhone) : fresnsLang.settingNot }}" hover="{{ true }}" link="{{ true }}" bind:tap="showModifyDialog" data-value="{{ fresnsAccount.phone }}" data-event="editPhone" data-title="{{ fresnsLang.phone }}"/>
@@ -78,9 +92,17 @@
 
     <!-- 互联信息 -->
     <mp-cells ext-class="setting-cells" wx:if="{{ fresnsAccount.connects }}" title="{{ fresnsLang.settingConnect }}">
-        <navigator  wx:for="{{ fresnsAccount.connects }}" wx:for-item="item" wx:key="plugin" url="/pages/webview?url={{ item.service }}">
-            <mp-cell value="{{ item.connectName }}" footer="{{ item.connected ? item.nickname : fresnsLang.settingNot }}" hover="{{ true }}" link="{{ true }}"/>
-        </navigator>
+        <block wx:for="{{ fresnsAccount.connects }}" wx:for-item="item" wx:key="plugin">
+            <navigator url="/pages/webview" bind:tap="fresnsExtensions"
+                data-type="account"
+                data-scene="connect"
+                data-post-message-key="fresnsConnect"
+                data-connect-platform-id="{{ item.connectPlatformId }}"
+                data-url="{{ item.service }}"
+                data-title="{{ item.connected ? item.nickname : item.connectPlatformId }}">
+                <mp-cell value="{{ item.connectName }}" footer="{{ item.connected ? item.nickname : fresnsLang.settingNot }}" hover="{{ true }}" link="{{ true }}"/>
+            </navigator>
+        </block>
     </mp-cells>
 
     <!-- 修改对话框 -->

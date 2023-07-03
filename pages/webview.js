@@ -6,9 +6,14 @@
 import { getPluginAuthorization } from '../api/tool/helper';
 import { repPluginUrl } from '../utils/fresnsUtilities';
 
+const app = getApp();
+
 Page({
   /** 外部 mixin 引入 **/
-  mixins: [require('../mixins/themeChanged')],
+  mixins: [
+    require('../mixins/themeChanged'),
+    require('../mixins/fresnsExtensions'),
+  ],
 
   /** 页面的初始数据 **/
   data: {
@@ -17,39 +22,72 @@ Page({
 
   /** 监听页面加载 **/
   onLoad: async function (options) {
-    if (options['data-title']) {
-      wx.setNavigationBarTitle({
-        title: options['data-title'],
-      });
+    console.log('web-view', options);
+
+    let extensionsTitle = options.title || app.globalData.extensionsTitle;
+    let extensionsUrl = options.url || app.globalData.extensionsUrl;
+
+    const fresnsExtensions = app.globalData.fresnsExtensions;
+
+    if (!extensionsTitle) {
+      extensionsTitle = fresnsExtensions.title || '';
     }
 
-    const urlParams = {
-      authorization: await getPluginAuthorization(),
-      type: options['data-type'],
-      scene: options['data-scene'],
-      postMessageKey: options['data-post-message-key'],
-      callbackUlid: options['data-callback-ulid'],
-      aid: options['data-aid'],
-      uid: options['data-uid'],
-      rid: options['data-rid'],
-      gid: options['data-gid'],
-      pid: options['data-pid'],
-      cid: options['data-cid'],
-      fid: options['data-fid'],
-      eid: options['data-eid'],
-      plid: options['data-plid'],
-      clid: options['data-clid'],
-      uploadInfo: options['data-upload-info'],
-    };
+    wx.setNavigationBarTitle({
+      title: extensionsTitle,
+    });
 
-    const newUrl = repPluginUrl(options.url, urlParams);
+    if (!extensionsUrl) {
+      const url = fresnsExtensions.url;
+
+      const urlParams = {
+        authorization: await getPluginAuthorization(),
+        type: fresnsExtensions.type || '',
+        scene: fresnsExtensions.scene || '',
+        postMessageKey: fresnsExtensions.postMessageKey || '',
+        callbackUlid: fresnsExtensions.callbackUlid || '',
+        aid: fresnsExtensions.aid || '',
+        uid: fresnsExtensions.uid || '',
+        rid: fresnsExtensions.rid || '',
+        gid: fresnsExtensions.gid || '',
+        pid: fresnsExtensions.pid || '',
+        cid: fresnsExtensions.cid || '',
+        fid: fresnsExtensions.fid || '',
+        eid: fresnsExtensions.eid || '',
+        plid: fresnsExtensions.plid || '',
+        clid: fresnsExtensions.clid || '',
+        connectPlatformId: fresnsExtensions.connectPlatformId || '',
+        uploadInfo: fresnsExtensions.uploadInfo || '',
+        locationInfo: fresnsExtensions.locationInfo || '',
+      };
+  
+      const newUrl = repPluginUrl(url, urlParams);
+
+      extensionsUrl = newUrl;
+    }
+
+    console.log('fresnsExtensions', extensionsUrl);
 
     this.setData({
-      url: newUrl,
+      url: extensionsUrl,
     });
   },
 
-  // 回调消息
+  /** 监听页面隐藏 **/
+  onHide: function () {
+    app.globalData.fresnsExtensions = {};
+    app.globalData.extensionsUrl = '';
+    app.globalData.extensionsTitle = '';
+  },
+
+  /** 监听页面退出 **/
+  onUnload: function () {
+    app.globalData.fresnsExtensions = {};
+    app.globalData.extensionsUrl = '';
+    app.globalData.extensionsTitle = '';
+  },
+
+  /** 回调消息 **/
   onMessage(e) {
     const messageData = e.detail.data[0];
 

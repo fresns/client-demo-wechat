@@ -5,6 +5,7 @@
  */
 import { fresnsConfig } from '../api/tool/function';
 import { globalInfo } from './fresnsGlobalInfo';
+import { base64_encode } from '../libs/base64/base64';
 
 // 在缓存中存储项目
 export async function cachePut(key, data = '', minutes = null) {
@@ -81,7 +82,7 @@ export function parseUrlParams(urlParams = '') {
   return paramsObj;
 }
 
-// repPluginUrl
+// 替换 URL 变量值
 export function repPluginUrl(url = '', params = {}) {
   let updatedUrl = url;
 
@@ -131,19 +132,19 @@ export function strUploadInfo(usageType = '', tableName = '', tableColumn = '', 
   };
 
   const imageStr = JSON.stringify(image).replace(/\n|\r/g, '');
-  const imageBase64Encoded = wx.arrayBufferToBase64(imageStr);
+  const imageBase64Encoded = base64_encode(imageStr);
   const imageUrlEncoded = encodeURIComponent(imageBase64Encoded);
 
   const videoStr = JSON.stringify(video).replace(/\n|\r/g, '');
-  const videoBase64Encoded = wx.arrayBufferToBase64(videoStr);
+  const videoBase64Encoded = base64_encode(videoStr);
   const videoUrlEncoded = encodeURIComponent(videoBase64Encoded);
 
   const audioStr = JSON.stringify(audio).replace(/\n|\r/g, '');
-  const audioBase64Encoded = wx.arrayBufferToBase64(audioStr);
+  const audioBase64Encoded = base64_encode(audioStr);
   const audioUrlEncoded = encodeURIComponent(audioBase64Encoded);
 
   const documentStr = JSON.stringify(document).replace(/\n|\r/g, '');
-  const documentBase64Encoded = wx.arrayBufferToBase64(documentStr);
+  const documentBase64Encoded = base64_encode(documentStr);
   const documentUrlEncoded = encodeURIComponent(documentBase64Encoded);
 
   const uploadInfo = {

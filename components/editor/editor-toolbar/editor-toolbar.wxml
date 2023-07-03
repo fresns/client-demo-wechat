@@ -62,7 +62,7 @@
             <view class="weui-tabbar__label">{{ fresnsLang.editorHashtag }}</view>
         </view>
 
-        <view class="weui-flex__item" wx:if="{{ config.extend.status && config.extend.list }}" data-tool="extend" bind:tap="onClickToolBar">
+        <view class="weui-flex__item" wx:if="{{ config.extend.status && config.extend.list.length > 0 }}" data-tool="extend" bind:tap="onClickToolBar">
             <view class="tabbar_icon">
                 <image src="../../../assets/toolbar/expand.png" class="weui-tabbar__icon"></image>
             </view>

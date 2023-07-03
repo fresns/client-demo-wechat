@@ -5,8 +5,10 @@
  */
 import { fresnsApi } from '../../../api/api';
 import { fresnsLang } from '../../../api/tool/function';
-import { cachePut, cacheGet, repPluginUrl, strUploadInfo } from '../../../utils/fresnsUtilities';
+import { cachePut, cacheGet, strUploadInfo } from '../../../utils/fresnsUtilities';
 import { callPageFunction } from '../../../utils/fresnsCallback';
+
+const app = getApp();
 
 Component({
   /** 组件的属性列表 **/
@@ -22,6 +24,7 @@ Component({
     fresnsLang: null,
     toolbarBottom: 0,
 
+    editorType: null,
     usageType: null,
     tableName: null,
     uploadInfo: {},
@@ -41,20 +44,26 @@ Component({
   observers: {
     // 上传参数配置
     'type, draftId': async function (type, draftId) {
+      let editorType;
       let usageType;
       let tableName;
       switch (type) {
         case 'comment':
+          editorType = 'commentEditor';
           usageType = 8;
           tableName = 'comment_logs';
           break;
         default:
+          editorType = 'postEditor';
           usageType = 7;
           tableName = 'post_logs';
       }
       const uploadInfo = strUploadInfo(usageType, tableName, 'id', draftId);
 
+      console.log('uploadInfo', );
+
       this.setData({
+        editorType: editorType,
         usageType: usageType,
         tableName: tableName,
         uploadInfo: uploadInfo,
@@ -131,8 +140,7 @@ Component({
     // 工具栏
     onClickToolBar: function (e) {
       const { tool } = e.currentTarget.dataset;
-      const { draftId, config, tableName, uploadInfo } = this.data;
-      const postMessageKey = 'fileUploadDone';
+      const { draftId, config, fresnsLang, editorType, tableName, uploadInfo } = this.data;
 
       // 表情
       if (tool == 'sticker') {
@@ -147,13 +155,21 @@ Component({
       // 图片
       if (tool == 'image') {
         if (config.image.uploadForm == 'plugin') {
-          const uploadUrl = repPluginUrl(config.image.uploadUrl, {
+          const fresnsExtensions = {
+            type: 'editor',
+            scene: editorType,
+            postMessageKey: 'fresnsEditorUpload',
+            plid: draftId,
+            clid: draftId,
             uploadInfo: uploadInfo.image,
-            postMessageKey: postMessageKey,
-          });
+            title: fresnsLang.editorUpload,
+            url: config.image.uploadUrl,
+          };
+
+          app.globalData.fresnsExtensions = fresnsExtensions;
 
           wx.navigateTo({
-            url: '/pages/webview?url=' + uploadUrl,
+            url: '/pages/webview',
           });
 
           return;
@@ -167,13 +183,21 @@ Component({
       // 视频
       if (tool == 'video') {
         if (config.video.uploadForm == 'plugin') {
-          const uploadUrl = repPluginUrl(config.video.uploadUrl, {
+          const fresnsExtensions = {
+            type: 'editor',
+            scene: editorType,
+            postMessageKey: 'fresnsEditorUpload',
+            plid: draftId,
+            clid: draftId,
             uploadInfo: uploadInfo.video,
-            postMessageKey: postMessageKey,
-          });
+            title: fresnsLang.editorUpload,
+            url: config.video.uploadUrl,
+          };
+
+          app.globalData.fresnsExtensions = fresnsExtensions;
 
           wx.navigateTo({
-            url: '/pages/webview?url=' + uploadUrl,
+            url: '/pages/webview',
           });
 
           return;

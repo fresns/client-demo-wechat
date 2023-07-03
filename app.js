@@ -14,6 +14,11 @@ App({
   // 全局数据
   globalData: {
     theme: 'light', // dark
+
+    // fresns extensions
+    fresnsExtensions: {},
+    extensionsUrl: '',
+    extensionsTitle: '',
   },
 
   // 监听小程序初始化
