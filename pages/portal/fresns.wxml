@@ -29,7 +29,7 @@
                 </view>
             </view>
             <view class="weui-panel__ft">
-                <navigator class="weui-cell weui-cell_active weui-cell_access weui-cell_link" url="/pages/webview?url=https://fresns.cn">
+                <navigator class="weui-cell weui-cell_active weui-cell_access weui-cell_link" url="/pages/webview?url=https://docs.fresns.cn/guide/changelog.html">
                     <view class="weui-cell__bd">当前版本</view>
                     <text class="weui-cell__ft">v{{ version }}</text>
                 </navigator>

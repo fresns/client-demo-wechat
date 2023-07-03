@@ -25,7 +25,7 @@ Fresns 是一款支持多语言和跨时区的免费开源软件，研发和生�
 | --- | --- | --- |
 | [Fresns](https://gitee.com/fresns/fresns) | 2.x | 后端 API |
 | [WeUI](https://github.com/Tencent/weui-wxss) | 2.x | 小程序 UI 框架 |
-| [mp-html](https://github.com/jin-yufeng/mp-html) | 2.4.1 | 小程序富文本组件 |
+| [mp-html](https://github.com/jin-yufeng/mp-html) | 2.x | 小程序富文本组件 |
 
 ## 使用说明
 

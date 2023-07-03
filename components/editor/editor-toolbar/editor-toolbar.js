@@ -60,8 +60,6 @@ Component({
       }
       const uploadInfo = strUploadInfo(usageType, tableName, 'id', draftId);
 
-      console.log('uploadInfo');
-
       this.setData({
         editorType: editorType,
         usageType: usageType,
@@ -218,7 +216,6 @@ Component({
 
       // 标题
       if (tool == 'title') {
-        console.log('toolbar title');
         return callPageFunction('switchShowTitleInput');
       }
 
