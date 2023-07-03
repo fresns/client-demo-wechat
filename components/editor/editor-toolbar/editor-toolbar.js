@@ -60,7 +60,7 @@ Component({
       }
       const uploadInfo = strUploadInfo(usageType, tableName, 'id', draftId);
 
-      console.log('uploadInfo', );
+      console.log('uploadInfo');
 
       this.setData({
         editorType: editorType,

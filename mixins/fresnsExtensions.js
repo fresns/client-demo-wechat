@@ -9,7 +9,7 @@ import { repPluginUrl } from '../utils/fresnsUtilities';
 const app = getApp();
 
 module.exports = {
-  fresnsExtensions: async function(e) {
+  fresnsExtensions: async function (e) {
     console.log('fresnsExtensions', e);
 
     const type = e.currentTarget.dataset.type || '';
