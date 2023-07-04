@@ -293,16 +293,14 @@ Component({
 
           const uploadPromises = tempFiles.map(async (tempFile) => {
             // 上传
-            const response = await fresnsApi.common.commonUploadFile(
-              tempFile.tempFilePath,
-              {
-                tableName: tableName,
-                tableColumn: 'id',
-                tableId: draftId,
-                type: fileType,
-                uploadMode: 'file',
-                file: tempFile.tempFilePath,
-              });
+            const response = await fresnsApi.common.commonUploadFile(tempFile.tempFilePath, {
+              tableName: tableName,
+              tableColumn: 'id',
+              tableId: draftId,
+              type: fileType,
+              uploadMode: 'file',
+              file: tempFile.tempFilePath,
+            });
 
             if (response.code === 0) {
               callPageFunction('onRepFile', type, tempFile.tempFilePath, response.data);

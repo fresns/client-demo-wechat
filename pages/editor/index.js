@@ -377,7 +377,7 @@ Page({
       urlKey = 'videoUrl';
     }
 
-    const index = fileArr.findIndex(fileArr => fileArr[urlKey] === filePath);
+    const index = fileArr.findIndex((fileArr) => fileArr[urlKey] === filePath);
 
     if (index !== -1) {
       fileArr[index] = fileData;
