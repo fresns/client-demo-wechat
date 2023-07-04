@@ -5,7 +5,7 @@
  */
 import { fresnsApi } from '../../api/api';
 import { fresnsConfig } from '../../api/tool/function';
-import { repPluginUrl, generateRandomString } from '../../utils/fresnsUtilities';
+import { generateRandomString } from '../../utils/fresnsUtilities';
 
 const app = getApp();
 
@@ -15,6 +15,7 @@ Page({
     require('../../mixins/themeChanged'),
     require('../../mixins/checkSiteMode'),
     require('../../mixins/loginInterceptor'),
+    require('../../mixins/fresnsCallback'),
   ],
 
   /** 页面的初始数据 **/
@@ -145,34 +146,9 @@ Page({
     });
   },
 
-  /** 监听页面显示 **/
-  onShow: async function () {
-    // 处理插件回调消息
-    const postMessage = wx.getStorageSync('fresnsPluginMessage');
-    console.log('fresnsPluginMessage', postMessage);
-
-    if (postMessage?.postMessageKey == 'fresnsEditor') {
-      const type = this.data.type;
-      const draftDetail = this.data.draftDetail;
-
-      const detailRes = await fresnsApi.editor.editorDetail({
-        type: type,
-        draftId: draftDetail.id,
-      });
-
-      if (detailRes.code === 0) {
-        this.setData({
-          draftDetail: detailRes.data,
-        });
-      }
-    }
-  },
-
   // 选择草稿
   onLoadDraft: async function (draftData) {
     wx.showNavigationBarLoading();
-
-    console.log(draftData);
 
     const titleConfig = this.data.editorConfig.editor.toolbar.title;
 
@@ -386,6 +362,28 @@ Page({
     });
 
     Array.prototype.push.apply(draftDetail.files[type], fileArr);
+
+    this.setData({
+      draftDetail: draftDetail,
+    });
+  },
+  onRepFile(type = 'images', filePath, fileData) {
+    const draftDetail = this.data.draftDetail;
+
+    const fileArr = draftDetail.files[type];
+
+    let urlKey = 'imageSquareUrl';
+    if (type == 'videos') {
+      urlKey = 'videoUrl';
+    }
+
+    const index = fileArr.findIndex(fileArr => fileArr[urlKey] === filePath);
+
+    if (index !== -1) {
+      fileArr[index] = fileData;
+    }
+
+    draftDetail.files[type] = fileArr;
 
     this.setData({
       draftDetail: draftDetail,

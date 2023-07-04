@@ -206,12 +206,12 @@ Component({
       if (gid == '__recommend') {
         resultRes = await fresnsApi.group.groupList({
           recommend: 1,
-          whitelistKeys: 'gid,gname,cover,category.gid',
+          whitelistKeys: 'gid,gname,cover,category.gid,publishRule',
         });
       } else {
         resultRes = await fresnsApi.group.groupList({
           gid: gid,
-          whitelistKeys: 'gid,gname,cover,category.gid',
+          whitelistKeys: 'gid,gname,cover,category.gid,publishRule',
         });
       }
 

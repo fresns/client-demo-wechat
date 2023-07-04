@@ -152,6 +152,7 @@ Component({
 
       // 图片
       if (tool == 'image') {
+        // 插件页上传
         if (config.image.uploadForm == 'plugin') {
           const fresnsExtensions = {
             type: 'editor',
@@ -173,6 +174,7 @@ Component({
           return;
         }
 
+        // 直接上传
         return setTimeout(() => {
           this.onSelectImageOrVideo('image', tableName, draftId, config.image);
         }, 100);
@@ -180,6 +182,7 @@ Component({
 
       // 视频
       if (tool == 'video') {
+        // 插件页上传
         if (config.video.uploadForm == 'plugin') {
           const fresnsExtensions = {
             type: 'editor',
@@ -201,6 +204,7 @@ Component({
           return;
         }
 
+        // 直接上传
         return setTimeout(() => {
           this.onSelectImageOrVideo('video', tableName, draftId, config.video);
         }, 100);
@@ -275,6 +279,7 @@ Component({
     // 上传图片或视频
     onSelectImageOrVideo: function (fileType, tableName, draftId, fileConfig) {
       const type = fileType + 's';
+      const extensionsArray = fileConfig.extensions.split(',');
 
       wx.chooseMedia({
         count: fileConfig.uploadNumber,
@@ -286,18 +291,27 @@ Component({
           const tempFiles = res.tempFiles;
           callPageFunction('onAddFiles', type, tempFiles);
 
-          // const uploadPromises = tempFiles.map(tempFile => {
-          //   return fresnsApi.common.commonUploadFile(
-          //     tempFile.tempFilePath,
-          //     {
-          //       tableName: tableName,
-          //       tableColumn: 'id',
-          //       tableId: draftId,
-          //       type: fileType,
-          //       uploadMode: 'file',
-          //       file: tempFile.tempFilePath,
-          //   });
-          // });
+          const uploadPromises = tempFiles.map(async (tempFile) => {
+            // 上传
+            const response = await fresnsApi.common.commonUploadFile(
+              tempFile.tempFilePath,
+              {
+                tableName: tableName,
+                tableColumn: 'id',
+                tableId: draftId,
+                type: fileType,
+                uploadMode: 'file',
+                file: tempFile.tempFilePath,
+              });
+
+            if (response.code === 0) {
+              callPageFunction('onRepFile', type, tempFile.tempFilePath, response.data);
+            }
+
+            return response;
+          });
+
+          console.log('uploadPromises', uploadPromises);
         },
       });
     },

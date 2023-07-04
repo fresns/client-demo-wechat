@@ -95,3 +95,7 @@
   height: 24px;
   margin-right: 10px;
 }
+
+.opacity {
+  opacity: .5!important;
+}

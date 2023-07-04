@@ -42,12 +42,23 @@
             <view class="groups">
                 <scroll-view scroll-y="true" bindscrolltolower="loadGroupList">
                     <block wx:for="{{ groups }}" wx:for-item="group" wx:key="gid">
-                        <view class="group" data-gid="{{ group.gid }}" bind:tap="onClickGroup">
-                            <view class="group-cover" wx:if="{{ group.cover }}">
-                                <image src="{{ group.cover }}"/>
+                        <block wx:if="{{ group.publishRule.allowPost }}">
+                            <view class="group" data-gid="{{ group.gid }}" bind:tap="onClickGroup">
+                                <view class="group-cover" wx:if="{{ group.cover }}">
+                                    <image src="{{ group.cover }}"/>
+                                </view>
+                                <view class="group-name">{{ group.gname }}</view>
                             </view>
-                            <view class="group-name">{{ group.gname }}</view>
-                        </view>
+                        </block>
+
+                        <block wx:else>
+                            <view class="group opacity">
+                                <view class="group-cover" wx:if="{{ group.cover }}">
+                                    <image src="{{ group.cover }}"/>
+                                </view>
+                                <view class="group-name">{{ group.gname }}</view>
+                            </view>
+                        </block>
                     </block>
 
                     <!-- 加载动效 -->
