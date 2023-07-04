@@ -38,22 +38,22 @@ module.exports = {
       case 'fresnsEditorUpload':
         const type = this.data.type;
         const draftDetail = this.data.draftDetail;
-  
+
         const detailRes = await fresnsApi.editor.editorDetail({
           type: type,
           draftId: draftDetail.id,
         });
-  
+
         if (detailRes.code === 0) {
           draftDetail.files = detailRes.data.detail.files;
-      
+
           this.setData({
             draftDetail: draftDetail,
           });
-        };
+        }
         break;
       default:
-        // code
+      // code
     }
 
     if (fresnsCallback.action.windowClose) {

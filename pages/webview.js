@@ -90,7 +90,7 @@ Page({
 
     const messageData = e.detail.data[0];
 
-    const fresnsCallback = JSON.parse(messageData)
+    const fresnsCallback = JSON.parse(messageData);
 
     wx.setStorageSync('fresnsCallback', fresnsCallback);
   },

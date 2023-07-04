@@ -8,9 +8,7 @@ import { fresnsLang } from '../../api/tool/function';
 
 Component({
   /** 外部 mixin 引入 **/
-  mixins: [
-    require('../../mixins/fresnsExtensions'),
-  ],
+  mixins: [require('../../mixins/fresnsExtensions')],
 
   /** 组件的属性列表 **/
   properties: {
