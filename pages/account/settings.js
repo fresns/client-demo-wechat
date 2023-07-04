@@ -15,6 +15,7 @@ Page({
     require('../../mixins/loginInterceptor'),
     require('../../mixins/sendVerifyCode'),
     require('../../mixins/fresnsExtensions'),
+    require('../../mixins/fresnsCallback'),
   ],
 
   /** 页面的初始数据 **/

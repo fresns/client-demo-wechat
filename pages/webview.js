@@ -85,9 +85,13 @@ Page({
   },
 
   /** 回调消息 **/
-  onMessage(e) {
+  fresnsCallback: function (e) {
+    console.log('fresnsCallback', e);
+
     const messageData = e.detail.data[0];
 
-    wx.setStorageSync('fresnsPluginMessage', messageData);
+    const fresnsCallback = JSON.parse(messageData)
+
+    wx.setStorageSync('fresnsCallback', fresnsCallback);
   },
 });
