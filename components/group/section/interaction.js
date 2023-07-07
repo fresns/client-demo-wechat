@@ -94,7 +94,7 @@ Component({
       } else {
         group.interaction.followStatus = true; // 关注
         group.followCount = group.followCount + 1; // 计数加一
-        
+
         if (group.interaction.blockStatus) {
           group.interaction.blockStatus = false; // 取消屏蔽
           group.blockCount = group.blockCount ? group.blockCount - 1 : group.blockCount; // 计数减一
@@ -127,7 +127,7 @@ Component({
       } else {
         group.interaction.blockStatus = true; // 屏蔽
         group.blockCount = group.blockCount + 1; // 计数加一
-        
+
         if (group.interaction.followStatus) {
           group.interaction.followStatus = false; // 取消关注
           group.followCount = group.followCount ? group.followCount - 1 : group.followCount; // 计数减一
@@ -148,6 +148,5 @@ Component({
         callPageFunction('onChangeGroup', initialGroup);
       }
     },
-
-  }
+  },
 });

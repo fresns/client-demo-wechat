@@ -27,7 +27,8 @@ module.exports = {
 
     const idx = users.findIndex((value) => value.uid === newUser.uid);
 
-    if (idx !== -1) { // 确保找到了用户
+    if (idx !== -1) {
+      // 确保找到了用户
       users[idx] = newUser;
 
       this.setData({
@@ -57,7 +58,8 @@ module.exports = {
 
     const idx = groups.findIndex((value) => value.gid === newGroup.gid);
 
-    if (idx !== -1) { // 确保找到了小组
+    if (idx !== -1) {
+      // 确保找到了小组
       groups[idx] = newGroup;
 
       this.setData({
@@ -73,7 +75,7 @@ module.exports = {
       return;
     }
 
-    const newGroupTree = groupTree.map(tree => dfs(tree, newGroup.gid, newGroup));
+    const newGroupTree = groupTree.map((tree) => dfs(tree, newGroup.gid, newGroup));
 
     this.setData({
       groupTree: newGroupTree,
@@ -101,7 +103,8 @@ module.exports = {
 
     const idx = hashtags.findIndex((value) => value.hid === newHashtag.hid);
 
-    if (idx !== -1) { // 确保找到了话题
+    if (idx !== -1) {
+      // 确保找到了话题
       hashtags[idx] = newHashtag;
 
       this.setData({
@@ -131,7 +134,8 @@ module.exports = {
 
     const idx = posts.findIndex((value) => value.pid === newPost.pid);
 
-    if (idx !== -1) { // 确保找到了帖子
+    if (idx !== -1) {
+      // 确保找到了帖子
       posts[idx] = newPost;
 
       this.setData({
@@ -161,7 +165,8 @@ module.exports = {
 
     const idx = comments.findIndex((value) => value.cid === newComment.cid);
 
-    if (idx !== -1) { // 确保找到了评论
+    if (idx !== -1) {
+      // 确保找到了评论
       comments[idx] = newComment;
 
       this.setData({

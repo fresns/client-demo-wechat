@@ -31,7 +31,9 @@ Component({
 
         if (user.interaction.dislikeStatus) {
           user.interaction.dislikeStatus = false; // 取消踩
-          user.stats.dislikeMeCount = user.stats.dislikeMeCount ? user.stats.dislikeMeCount - 1 : user.stats.dislikeMeCount; // 计数减一
+          user.stats.dislikeMeCount = user.stats.dislikeMeCount
+            ? user.stats.dislikeMeCount - 1
+            : user.stats.dislikeMeCount; // 计数减一
         }
       }
 
@@ -57,7 +59,9 @@ Component({
 
       if (user.interaction.dislikeStatus) {
         user.interaction.dislikeStatus = false; // 取消踩
-        user.stats.dislikeMeCount = user.stats.dislikeMeCount ? user.stats.dislikeMeCount - 1 : user.stats.dislikeMeCount; // 计数减一
+        user.stats.dislikeMeCount = user.stats.dislikeMeCount
+          ? user.stats.dislikeMeCount - 1
+          : user.stats.dislikeMeCount; // 计数减一
       } else {
         user.interaction.dislikeStatus = true; // 踩
         user.stats.dislikeMeCount = user.stats.dislikeMeCount + 1; // 计数加一
@@ -94,7 +98,7 @@ Component({
       } else {
         user.interaction.followStatus = true; // 关注
         user.stats.followMeCount = user.stats.followMeCount + 1; // 计数加一
-        
+
         if (user.interaction.blockStatus) {
           user.interaction.blockStatus = false; // 取消屏蔽
           user.stats.blockMeCount = user.stats.blockMeCount ? user.stats.blockMeCount - 1 : user.stats.blockMeCount; // 计数减一
@@ -127,7 +131,7 @@ Component({
       } else {
         user.interaction.blockStatus = true; // 屏蔽
         user.stats.blockMeCount = user.stats.blockMeCount + 1; // 计数加一
-        
+
         if (user.interaction.followStatus) {
           user.interaction.followStatus = false; // 取消关注
           user.stats.followMeCount = user.stats.followMeCount ? user.stats.followMeCount - 1 : user.stats.followMeCount; // 计数减一
@@ -148,6 +152,5 @@ Component({
         callPageFunction('onChangeUser', initialUser);
       }
     },
-
   },
 });
