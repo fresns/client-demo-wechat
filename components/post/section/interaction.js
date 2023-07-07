@@ -3,13 +3,12 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
+import { fresnsApi } from '../../../api/api';
 import { fresnsLang } from '../../../api/tool/function';
+import { callPageFunction } from '../../../utils/fresnsCallback';
 import { truncateText } from '../../../utils/fresnsUtilities';
 
 Component({
-  /** 外部 mixin 引入 **/
-  mixins: [require('../../../mixins/handler/postHandler')],
-
   /** 组件的属性列表 **/
   properties: {
     type: String,
@@ -81,7 +80,7 @@ Component({
         items.push({
           text: post.interaction.followStatus ? '✔ ' + post.interaction.followName : post.interaction.followName,
           type: 'default',
-          value: post.interaction.followStatus ? 'unfollow' : 'follow',
+          value: 'follow',
         });
       }
 
@@ -90,7 +89,7 @@ Component({
         items.push({
           text: post.interaction.blockStatus ? '✔ ' + post.interaction.blockName : post.interaction.blockName,
           type: 'warn',
-          value: post.interaction.blockStatus ? 'unblock' : 'block',
+          value: 'block',
         });
       }
 
@@ -131,10 +130,10 @@ Component({
       });
     },
     actionClickShare(e) {
-      console.log(e);
+      const value = e.detail.value;
 
       // 复制链接
-      if (e.detail.value === 'onShareCopyLink') {
+      if (value === 'onShareCopyLink') {
         wx.setClipboardData({
           data: this.data.postUrl,
           success: function (res) {
@@ -146,12 +145,12 @@ Component({
       }
 
       // 分享给好友
-      if (e.detail.value === 'onShareAppMessage') {
+      if (value === 'onShareAppMessage') {
         // this.data.postPage
       }
 
       // 分享到朋友圈
-      if (e.detail.value === 'onShareTimeline') {
+      if (value === 'onShareTimeline') {
         // this.data.postPage
       }
 
@@ -167,11 +166,156 @@ Component({
       });
     },
     actionClickMore(e) {
-      console.log(e);
+      const value = e.detail.value;
+
+      // 关注
+      if (value === 'follow') {
+        this.onClickPostFollow();
+      }
+
+      // 屏蔽
+      if (value === 'block') {
+        this.onClickPostBlock();
+      }
 
       this.setData({
         showActionSheet: false,
       });
     },
+
+    /** 以下是互动功能 **/
+
+    // 赞
+    onClickPostLike: async function () {
+      const post = this.data.post;
+      const initialPost = JSON.parse(JSON.stringify(this.data.post)); // 拷贝一个小组初始数据
+
+      if (post.interaction.likeStatus) {
+        post.interaction.likeStatus = false; // 取消赞
+        post.likeCount = post.likeCount ? post.likeCount - 1 : post.likeCount; // 计数减一
+      } else {
+        post.interaction.likeStatus = true; // 赞
+        post.likeCount = post.likeCount + 1; // 计数加一
+
+        if (post.interaction.dislikeStatus) {
+          post.interaction.dislikeStatus = false; // 取消踩
+          post.dislikeCount = post.dislikeCount ? post.dislikeCount - 1 : post.dislikeCount; // 计数减一
+        }
+      }
+
+      // mixins/fresnsInteraction.js
+      callPageFunction('onChangePost', post);
+
+      const resultRes = await fresnsApi.user.userMark({
+        interactionType: 'like',
+        markType: 'post',
+        fsid: post.pid,
+      });
+
+      // 接口请求失败，数据还原
+      if (resultRes.code != 0) {
+        callPageFunction('onChangePost', initialPost);
+      }
+    },
+
+    // 踩
+    onClickPostDislike: async function () {
+      const post = this.data.post;
+      const initialPost = JSON.parse(JSON.stringify(this.data.post)); // 拷贝一个小组初始数据
+
+      if (post.interaction.dislikeStatus) {
+        post.interaction.dislikeStatus = false; // 取消踩
+        post.dislikeCount = post.dislikeCount ? post.dislikeCount - 1 : post.dislikeCount; // 计数减一
+      } else {
+        post.interaction.dislikeStatus = true; // 踩
+        post.dislikeCount = post.dislikeCount + 1; // 计数加一
+
+        if (post.interaction.likeStatus) {
+          post.interaction.likeStatus = false; // 取消赞
+          post.likeCount = post.likeCount ? post.likeCount - 1 : post.likeCount; // 计数减一
+        }
+      }
+
+      // mixins/fresnsInteraction.js
+      callPageFunction('onChangePost', post);
+
+      const resultRes = await fresnsApi.user.userMark({
+        interactionType: 'dislike',
+        markType: 'post',
+        fsid: post.pid,
+      });
+
+      // 接口请求失败，数据还原
+      if (resultRes.code != 0) {
+        callPageFunction('onChangePost', initialPost);
+      }
+    },
+
+    // 关注
+    onClickPostFollow: async function () {
+      const post = this.data.post;
+      const initialPost = JSON.parse(JSON.stringify(this.data.post)); // 拷贝一个小组初始数据
+
+      if (post.interaction.followStatus) {
+        post.interaction.followStatus = false; // 取消关注
+        post.followCount = post.followCount ? post.followCount - 1 : post.followCount; // 计数减一
+      } else {
+        post.interaction.followStatus = true; // 关注
+        post.followCount = post.followCount + 1; // 计数加一
+        
+        if (post.interaction.blockStatus) {
+          post.interaction.blockStatus = false; // 取消屏蔽
+          post.blockCount = post.blockCount ? post.blockCount - 1 : post.blockCount; // 计数减一
+        }
+      }
+
+      // mixins/fresnsInteraction.js
+      callPageFunction('onChangePost', post);
+
+      const resultRes = await fresnsApi.user.userMark({
+        interactionType: 'follow',
+        markType: 'post',
+        fsid: post.pid,
+      });
+
+      // 接口请求失败，数据还原
+      if (resultRes.code != 0) {
+        callPageFunction('onChangePost', initialPost);
+      }
+    },
+
+    // 屏蔽
+    onClickPostBlock: async function () {
+      const post = this.data.post;
+      const initialPost = JSON.parse(JSON.stringify(this.data.post)); // 拷贝一个小组初始数据
+
+      if (post.interaction.blockStatus) {
+        post.interaction.blockStatus = false; // 取消屏蔽
+        post.blockCount = post.blockCount ? post.blockCount - 1 : post.blockCount; // 计数减一
+      } else {
+        post.interaction.blockStatus = true; // 屏蔽
+        post.blockCount = post.blockCount + 1; // 计数加一
+        
+        if (post.interaction.followStatus) {
+          post.interaction.followStatus = false; // 取消关注
+          post.followCount = post.followCount ? post.followCount - 1 : post.followCount; // 计数减一
+        }
+      }
+
+      // mixins/fresnsInteraction.js
+      callPageFunction('onChangePost', post);
+
+      const resultRes = await fresnsApi.user.userMark({
+        interactionType: 'block',
+        markType: 'post',
+        fsid: post.pid,
+      });
+
+      // 接口请求失败，数据还原
+      if (resultRes.code != 0) {
+        callPageFunction('onChangePost', initialPost);
+      }
+    },
+
   },
 });

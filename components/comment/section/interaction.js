@@ -7,9 +7,6 @@ import { fresnsLang } from '../../../api/tool/function';
 import { truncateText } from '../../../utils/fresnsUtilities';
 
 Component({
-  /** 外部 mixin 引入 **/
-  mixins: [require('../../../mixins/handler/commentHandler')],
-
   /** 组件的属性列表 **/
   properties: {
     type: String,
@@ -76,7 +73,7 @@ Component({
             ? '✔ ' + comment.interaction.followName
             : comment.interaction.followName,
           type: 'default',
-          value: comment.interaction.followStatus ? 'unfollow' : 'follow',
+          value: 'follow',
         });
       }
 
@@ -85,7 +82,7 @@ Component({
         items.push({
           text: comment.interaction.blockStatus ? '✔ ' + comment.interaction.blockName : comment.interaction.blockName,
           type: 'warn',
-          value: comment.interaction.blockStatus ? 'unblock' : 'block',
+          value: 'block',
         });
       }
 
@@ -124,7 +121,29 @@ Component({
       });
     },
     actionClickShare(e) {
-      console.log(e);
+      const value = e.detail.value;
+
+      // 复制链接
+      if (value === 'onShareCopyLink') {
+        wx.setClipboardData({
+          data: this.data.postUrl,
+          success: function (res) {
+            wx.showToast({
+              title: '复制成功',
+            });
+          },
+        });
+      }
+
+      // 分享给好友
+      if (value === 'onShareAppMessage') {
+        // this.data.postPage
+      }
+
+      // 分享到朋友圈
+      if (value === 'onShareTimeline') {
+        // this.data.postPage
+      }
 
       this.setData({
         showShareActionSheet: false,
@@ -138,11 +157,156 @@ Component({
       });
     },
     actionClickMore(e) {
-      console.log(e);
+      const value = e.detail.value;
+
+      // 关注
+      if (value === 'follow') {
+        this.onClickCommentFollow();
+      }
+
+      // 屏蔽
+      if (value === 'block') {
+        this.onClickCommentBlock();
+      }
 
       this.setData({
         showActionSheet: false,
       });
     },
+
+    /** 以下是互动功能 **/
+
+    // 赞
+    onClickCommentLike: async function () {
+      const comment = this.data.comment;
+      const initialComment = JSON.parse(JSON.stringify(this.data.comment)); // 拷贝一个小组初始数据
+
+      if (comment.interaction.likeStatus) {
+        comment.interaction.likeStatus = false; // 取消赞
+        comment.likeCount = comment.likeCount ? comment.likeCount - 1 : comment.likeCount; // 计数减一
+      } else {
+        comment.interaction.likeStatus = true; // 赞
+        comment.likeCount = comment.likeCount + 1; // 计数加一
+
+        if (comment.interaction.dislikeStatus) {
+          comment.interaction.dislikeStatus = false; // 取消踩
+          comment.dislikeCount = comment.dislikeCount ? comment.dislikeCount - 1 : comment.dislikeCount; // 计数减一
+        }
+      }
+
+      // mixins/fresnsInteraction.js
+      callPageFunction('onChangeComment', comment);
+
+      const resultRes = await fresnsApi.user.userMark({
+        interactionType: 'like',
+        markType: 'comment',
+        fsid: comment.cid,
+      });
+
+      // 接口请求失败，数据还原
+      if (resultRes.code != 0) {
+        callPageFunction('onChangeComment', initialComment);
+      }
+    },
+
+    // 踩
+    onClickCommentDislike: async function () {
+      const comment = this.data.comment;
+      const initialComment = JSON.parse(JSON.stringify(this.data.comment)); // 拷贝一个小组初始数据
+
+      if (comment.interaction.dislikeStatus) {
+        comment.interaction.dislikeStatus = false; // 取消踩
+        comment.dislikeCount = comment.dislikeCount ? comment.dislikeCount - 1 : comment.dislikeCount; // 计数减一
+      } else {
+        comment.interaction.dislikeStatus = true; // 踩
+        comment.dislikeCount = comment.dislikeCount + 1; // 计数加一
+
+        if (comment.interaction.likeStatus) {
+          comment.interaction.likeStatus = false; // 取消赞
+          comment.likeCount = comment.likeCount ? comment.likeCount - 1 : comment.likeCount; // 计数减一
+        }
+      }
+
+      // mixins/fresnsInteraction.js
+      callPageFunction('onChangeComment', comment);
+
+      const resultRes = await fresnsApi.user.userMark({
+        interactionType: 'dislike',
+        markType: 'comment',
+        fsid: comment.cid,
+      });
+
+      // 接口请求失败，数据还原
+      if (resultRes.code != 0) {
+        callPageFunction('onChangeComment', initialComment);
+      }
+    },
+
+    // 关注
+    onClickCommentFollow: async function () {
+      const comment = this.data.comment;
+      const initialComment = JSON.parse(JSON.stringify(this.data.comment)); // 拷贝一个小组初始数据
+
+      if (comment.interaction.followStatus) {
+        comment.interaction.followStatus = false; // 取消关注
+        comment.followCount = comment.followCount ? comment.followCount - 1 : comment.followCount; // 计数减一
+      } else {
+        comment.interaction.followStatus = true; // 关注
+        comment.followCount = comment.followCount + 1; // 计数加一
+        
+        if (comment.interaction.blockStatus) {
+          comment.interaction.blockStatus = false; // 取消屏蔽
+          comment.blockCount = comment.blockCount ? comment.blockCount - 1 : comment.blockCount; // 计数减一
+        }
+      }
+
+      // mixins/fresnsInteraction.js
+      callPageFunction('onChangeComment', comment);
+
+      const resultRes = await fresnsApi.user.userMark({
+        interactionType: 'follow',
+        markType: 'comment',
+        fsid: comment.cid,
+      });
+
+      // 接口请求失败，数据还原
+      if (resultRes.code != 0) {
+        callPageFunction('onChangeComment', initialComment);
+      }
+    },
+
+    // 屏蔽
+    onClickCommentBlock: async function () {
+      const comment = this.data.comment;
+      const initialComment = JSON.parse(JSON.stringify(this.data.comment)); // 拷贝一个小组初始数据
+
+      if (comment.interaction.blockStatus) {
+        comment.interaction.blockStatus = false; // 取消屏蔽
+        comment.blockCount = comment.blockCount ? comment.blockCount - 1 : comment.blockCount; // 计数减一
+      } else {
+        comment.interaction.blockStatus = true; // 屏蔽
+        comment.blockCount = comment.blockCount + 1; // 计数加一
+        
+        if (comment.interaction.followStatus) {
+          comment.interaction.followStatus = false; // 取消关注
+          comment.followCount = comment.followCount ? comment.followCount - 1 : comment.followCount; // 计数减一
+        }
+      }
+
+      // mixins/fresnsInteraction.js
+      callPageFunction('onChangeComment', comment);
+
+      const resultRes = await fresnsApi.user.userMark({
+        interactionType: 'block',
+        markType: 'comment',
+        fsid: comment.cid,
+      });
+
+      // 接口请求失败，数据还原
+      if (resultRes.code != 0) {
+        callPageFunction('onChangeComment', initialComment);
+      }
+    },
+
   },
 });

@@ -5,28 +5,28 @@
 * -->
 <view class="mark-btn">
     <!-- 点赞 -->
-    <view wx:if="{{ user.interaction.likeSetting }}" class="weui-btn weui-btn_mini {{ user.interaction.likeStatus ? 'weui-btn_primary' : 'weui-btn_default' }}" data-user="{{ user }}" bind:tap="onClickUserLike">
+    <view wx:if="{{ user.interaction.likeSetting }}" class="weui-btn weui-btn_mini {{ user.interaction.likeStatus ? 'weui-btn_primary' : 'weui-btn_default' }}" bind:tap="onClickUserLike">
         <image wx:if="{{ !user.interaction.likeStatus }}" class="weui-btn_cell__icon" src="/assets/interaction/like.png"></image>
         <image wx:if="{{ user.interaction.likeStatus }}" class="weui-btn_cell__icon" src="/assets/interaction/like-active.png"></image>
         {{ user.stats.likeMeCount ? user.stats.likeMeCount : '' }}
     </view>
 
     <!-- 点踩 -->
-    <view wx:if="{{ user.interaction.dislikeSetting }}" class="weui-btn weui-btn_mini {{ user.interaction.dislikeStatus ? 'weui-btn_primary' : 'weui-btn_default' }}" data-user="{{ user }}" bind:tap="onClickUserDislike">
+    <view wx:if="{{ user.interaction.dislikeSetting }}" class="weui-btn weui-btn_mini {{ user.interaction.dislikeStatus ? 'weui-btn_primary' : 'weui-btn_default' }}" bind:tap="onClickUserDislike">
         <image wx:if="{{ !user.interaction.dislikeStatus }}" class="weui-btn_cell__icon" src="/assets/interaction/dislike.png"></image>
         <image wx:if="{{ user.interaction.dislikeStatus }}" class="weui-btn_cell__icon" src="/assets/interaction/dislike-active.png"></image>
         {{ user.stats.dislikeMeCount ? user.stats.dislikeMeCount : '' }}
     </view>
 
     <!-- 关注 -->
-    <view wx:if="{{ user.interaction.followSetting }}" class="weui-btn weui-btn_mini {{ user.interaction.followStatus ? 'weui-btn_primary' : 'weui-btn_default' }}" data-user="{{ user }}" bind:tap="onClickUserFollow">
+    <view wx:if="{{ user.interaction.followSetting }}" class="weui-btn weui-btn_mini {{ user.interaction.followStatus ? 'weui-btn_primary' : 'weui-btn_default' }}" bind:tap="onClickUserFollow">
         <image wx:if="{{ !user.interaction.followStatus }}" class="weui-btn_cell__icon" src="/assets/interaction/follow.png"></image>
         <image wx:if="{{ user.interaction.followStatus }}" class="weui-btn_cell__icon" src="/assets/interaction/follow-active.png"></image>
         {{ user.stats.followMeCount ? user.stats.followMeCount : '' }}
     </view>
 
     <!-- 屏蔽 -->
-    <view wx:if="{{ user.interaction.blockSetting }}" class="weui-btn weui-btn_mini {{ user.interaction.blockStatus ? 'weui-btn_primary' : 'weui-btn_default' }}" data-user="{{ user }}" bind:tap="onClickUserBlock">
+    <view wx:if="{{ user.interaction.blockSetting }}" class="weui-btn weui-btn_mini {{ user.interaction.blockStatus ? 'weui-btn_primary' : 'weui-btn_default' }}" bind:tap="onClickUserBlock">
         <image wx:if="{{ !user.interaction.blockStatus }}" class="weui-btn_cell__icon" src="/assets/interaction/block.png"></image>
         <image wx:if="{{ user.interaction.blockStatus }}" class="weui-btn_cell__icon" src="/assets/interaction/block-active.png"></image>
         {{ user.stats.blockMeCount ? user.stats.blockMeCount : '' }}

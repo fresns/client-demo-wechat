@@ -1,6 +1,6 @@
 {
   "component": true,
   "usingComponents": {
-    "interaction": "/components/hashtag/interaction"
+    "interaction": "/components/hashtag/section/interaction"
   }
 }

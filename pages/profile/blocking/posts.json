@@ -2,7 +2,7 @@
   "navigationBarTitleText": "用户",
   "usingComponents": {
     "profile-user": "/components/user/profile",
-    "profile-switch": "/components/user/switch",
+    "profile-switch": "/components/user/section/switch",
     "loading": "/components/loading/loading",
     "post": "/components/post/post"
   }

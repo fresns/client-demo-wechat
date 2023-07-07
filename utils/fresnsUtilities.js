@@ -250,3 +250,21 @@ export function formattedDate(datetime = null) {
 
   return `${year}-${month}-${day}`;
 }
+
+// 查找树结构小组
+export function dfs(tree, gid, newGroup) {
+  if (tree.gid === gid) {
+    return newGroup;
+  }
+
+  if (tree.groups) {
+    for (let i = 0; i < tree.groups.length; i++) {
+      let result = dfs(tree.groups[i], gid, newGroup);
+      if (result !== tree.groups[i]) {  // 找到了匹配的节点并且已经替换了
+        tree.groups[i] = result;
+      }
+    }
+  }
+
+  return tree;
+}

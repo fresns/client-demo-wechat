@@ -2,6 +2,6 @@
   "component": true,
   "usingComponents": {
     "mp-html": "mp-html",
-    "interaction": "/components/user/interaction"
+    "interaction": "/components/user/section/interaction"
   }
 }

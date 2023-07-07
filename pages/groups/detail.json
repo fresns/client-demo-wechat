@@ -2,7 +2,7 @@
   "navigationBarTitleText": "小组",
   "enablePullDownRefresh": true,
   "usingComponents": {
-    "interaction": "/components/group/interaction",
+    "interaction": "/components/group/section/interaction",
     "loading": "/components/loading/loading",
     "post": "/components/post/post"
   }

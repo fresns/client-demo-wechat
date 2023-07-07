@@ -1,6 +1,6 @@
 {
   "component": true,
   "usingComponents": {
-    "interaction": "/components/user/interaction"
+    "interaction": "/components/user/section/interaction"
   }
 }

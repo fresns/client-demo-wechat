@@ -2,7 +2,7 @@
   "navigationBarTitleText": "话题",
   "enablePullDownRefresh": true,
   "usingComponents": {
-    "interaction": "/components/hashtag/interaction",
+    "interaction": "/components/hashtag/section/interaction",
     "loading": "/components/loading/loading",
     "post": "/components/post/post"
   }
