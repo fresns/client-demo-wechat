@@ -5,7 +5,7 @@
  */
 import { fresnsApi } from '../../../api/api';
 import { fresnsLang } from '../../../api/tool/function';
-import { callPageFunction, callPrevPageFunction , truncateText } from '../../../utils/fresnsUtilities';
+import { callPageFunction, callPrevPageFunction, truncateText } from '../../../utils/fresnsUtilities';
 
 Component({
   /** 组件的属性列表 **/
