@@ -4,7 +4,7 @@
  * Licensed under the Apache-2.0 license
  */
 import { fresnsApi } from '../../../api/api';
-import { callPageFunction } from '../../../utils/fresnsCallback';
+import { callPageFunction, callPrevPageFunction } from '../../../utils/fresnsUtilities';
 
 Component({
   /** 组件的属性列表 **/
@@ -39,6 +39,7 @@ Component({
 
       // mixins/fresnsInteraction.js
       callPageFunction('onChangeUser', user);
+      callPrevPageFunction('onChangeUser', user);
 
       const resultRes = await fresnsApi.user.userMark({
         interactionType: 'like',
@@ -49,6 +50,7 @@ Component({
       // 接口请求失败，数据还原
       if (resultRes.code != 0) {
         callPageFunction('onChangeUser', initialUser);
+        callPrevPageFunction('onChangeUser', initialUser);
       }
     },
 
@@ -74,6 +76,7 @@ Component({
 
       // mixins/fresnsInteraction.js
       callPageFunction('onChangeUser', user);
+      callPrevPageFunction('onChangeUser', user);
 
       const resultRes = await fresnsApi.user.userMark({
         interactionType: 'dislike',
@@ -84,6 +87,7 @@ Component({
       // 接口请求失败，数据还原
       if (resultRes.code != 0) {
         callPageFunction('onChangeUser', initialUser);
+        callPrevPageFunction('onChangeUser', initialUser);
       }
     },
 
@@ -107,6 +111,7 @@ Component({
 
       // mixins/fresnsInteraction.js
       callPageFunction('onChangeUser', user);
+      callPrevPageFunction('onChangeUser', user);
 
       const resultRes = await fresnsApi.user.userMark({
         interactionType: 'follow',
@@ -117,6 +122,7 @@ Component({
       // 接口请求失败，数据还原
       if (resultRes.code != 0) {
         callPageFunction('onChangeUser', initialUser);
+        callPrevPageFunction('onChangeUser', initialUser);
       }
     },
 
@@ -140,6 +146,7 @@ Component({
 
       // mixins/fresnsInteraction.js
       callPageFunction('onChangeUser', user);
+      callPrevPageFunction('onChangeUser', user);
 
       const resultRes = await fresnsApi.user.userMark({
         interactionType: 'block',
@@ -150,6 +157,7 @@ Component({
       // 接口请求失败，数据还原
       if (resultRes.code != 0) {
         callPageFunction('onChangeUser', initialUser);
+        callPrevPageFunction('onChangeUser', initialUser);
       }
     },
   },

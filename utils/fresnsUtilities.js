@@ -68,6 +68,30 @@ export function navigateToUserLogin() {
   }
 }
 
+// 回调主页面
+export function callPageFunction(functionName, ...args) {
+  const pages = getCurrentPages();
+  const currentPage = pages[pages.length - 1];
+  if (!currentPage) return;
+
+  let fun = currentPage[functionName];
+  if (fun && typeof fun === 'function') {
+    return fun.apply(currentPage, args);
+  }
+}
+
+// 回调上一个页面
+export function callPrevPageFunction(functionName, ...args) {
+  const pages = getCurrentPages();
+  const prevPage = pages[pages.length - 2];
+  if (!prevPage) return;
+
+  let fun = prevPage[functionName];
+  if (fun && typeof fun === 'function') {
+    return fun.apply(prevPage, args);
+  }
+}
+
 // parseUrlParams
 export function parseUrlParams(urlParams = '') {
   if (!urlParams) {

@@ -5,7 +5,7 @@
  */
 import appConfig from '../../../fresns';
 import { fresnsLang } from '../../../api/tool/function';
-import { callPageFunction } from '../../../utils/fresnsCallback';
+import { callPageFunction } from '../../../utils/fresnsUtilities';
 
 Component({
   /** 组件的属性列表 **/

@@ -5,8 +5,7 @@
  */
 import { fresnsApi } from '../../../api/api';
 import { fresnsLang } from '../../../api/tool/function';
-import { enJson } from '../../../utils/fresnsUtilities';
-import { callPageFunction } from '../../../utils/fresnsCallback';
+import { callPageFunction, enJson } from '../../../utils/fresnsUtilities';
 
 Component({
   /** 组件的属性列表 **/

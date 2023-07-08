@@ -4,7 +4,7 @@
  * Licensed under the Apache-2.0 license
  */
 import { fresnsLang } from '../../../api/tool/function';
-import { truncateText } from '../../../utils/fresnsUtilities';
+import { callPageFunction, callPrevPageFunction, truncateText } from '../../../utils/fresnsUtilities';
 
 Component({
   /** 组件的属性列表 **/
@@ -196,6 +196,7 @@ Component({
 
       // mixins/fresnsInteraction.js
       callPageFunction('onChangeComment', comment);
+      callPrevPageFunction('onChangeComment', comment);
 
       const resultRes = await fresnsApi.user.userMark({
         interactionType: 'like',
@@ -206,6 +207,7 @@ Component({
       // 接口请求失败，数据还原
       if (resultRes.code != 0) {
         callPageFunction('onChangeComment', initialComment);
+        callPrevPageFunction('onChangeComment', initialComment);
       }
     },
 
@@ -229,6 +231,7 @@ Component({
 
       // mixins/fresnsInteraction.js
       callPageFunction('onChangeComment', comment);
+      callPrevPageFunction('onChangeComment', comment);
 
       const resultRes = await fresnsApi.user.userMark({
         interactionType: 'dislike',
@@ -239,6 +242,7 @@ Component({
       // 接口请求失败，数据还原
       if (resultRes.code != 0) {
         callPageFunction('onChangeComment', initialComment);
+        callPrevPageFunction('onChangeComment', initialComment);
       }
     },
 
@@ -262,6 +266,7 @@ Component({
 
       // mixins/fresnsInteraction.js
       callPageFunction('onChangeComment', comment);
+      callPrevPageFunction('onChangeComment', comment);
 
       const resultRes = await fresnsApi.user.userMark({
         interactionType: 'follow',
@@ -272,6 +277,7 @@ Component({
       // 接口请求失败，数据还原
       if (resultRes.code != 0) {
         callPageFunction('onChangeComment', initialComment);
+        callPrevPageFunction('onChangeComment', initialComment);
       }
     },
 
@@ -295,6 +301,7 @@ Component({
 
       // mixins/fresnsInteraction.js
       callPageFunction('onChangeComment', comment);
+      callPrevPageFunction('onChangeComment', comment);
 
       const resultRes = await fresnsApi.user.userMark({
         interactionType: 'block',
@@ -305,6 +312,7 @@ Component({
       // 接口请求失败，数据还原
       if (resultRes.code != 0) {
         callPageFunction('onChangeComment', initialComment);
+        callPrevPageFunction('onChangeComment', initialComment);
       }
     },
   },

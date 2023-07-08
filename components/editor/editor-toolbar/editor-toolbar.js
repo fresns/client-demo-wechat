@@ -5,8 +5,7 @@
  */
 import { fresnsApi } from '../../../api/api';
 import { fresnsLang } from '../../../api/tool/function';
-import { cachePut, cacheGet, strUploadInfo } from '../../../utils/fresnsUtilities';
-import { callPageFunction } from '../../../utils/fresnsCallback';
+import { cachePut, cacheGet, callPageFunction, strUploadInfo } from '../../../utils/fresnsUtilities';
 
 const app = getApp();
 
