@@ -11,7 +11,7 @@
 
     <!-- 角标 -->
     <view class="card-label" wx:if="{{ post.operations.diversifyImages }}">
-        <block wx:for="{{ post.operations.diversifyImages }}" wx:for-item="iconItem">
+        <block wx:for="{{ post.operations.diversifyImages }}" wx:for-item="iconItem" wx:key="code">
             <image wx:if="{{ iconItem.code == 'label' }}" src="{{ iconItem.imageUrl }}" mode="aspectFit"></image>
         </block>
     </view>
@@ -20,7 +20,7 @@
         <!-- 内容 -->
         <view class="fresns-content">
             <view class="content-title">
-                <block wx:for="{{ post.operations.diversifyImages }}" wx:for-item="iconItem">
+                <block wx:for="{{ post.operations.diversifyImages }}" wx:for-item="iconItem" wx:key="code">
                     <image wx:if="{{ iconItem.code == 'title' }}" src="{{ iconItem.imageUrl }}" mode="heightFix"></image>
                 </block>
                 <text wx:if="{{ post.title }}">{{ post.title }}</text>
