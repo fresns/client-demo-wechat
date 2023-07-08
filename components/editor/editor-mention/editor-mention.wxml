@@ -23,7 +23,7 @@
                 <form class="weui-search-bar__form" aria-role="combobox" aria-haspopup="true" aria-expanded="{{ inputVal.length > 0 ? 'true' : 'false' }}" aria-owns="searchResult">
                     <view class="weui-search-bar__box">
                         <i class="weui-icon-search"></i>
-                        <input aria-controls="searchResult" type="text" class="weui-search-bar__input" placeholder="{{ inputPlaceholder }}" value="{{ inputVal }}" focus="{{ inputShowed }}" bind:input="inputTyping"/>
+                        <input aria-controls="searchResult" type="text" class="weui-search-bar__input" placeholder="{{ inputPlaceholder }}" value="{{ inputVal }}" focus="{{ inputShowed }}" bindinput="inputTyping" bindconfirm="inputConfirm"/>
                         <view aria-role="button" aria-label="清除" class="weui-icon-clear" wx:if="{{ inputVal.length > 0 }}" bind:tap="clearInput"></view>
                     </view>
                     <label class="weui-search-bar__label" bind:tap="showInput">
@@ -42,14 +42,16 @@
 
                 <!-- 结果列表 -->
                 <scroll-view scroll-y="true" style="height:500px;">
-                    <view role="option" class="weui-cell weui-cell_active weui-cell_access">
-                        <view class="weui-cell__hd">
-                            <image src="/assets/images/icon.png"></image>
+                    <block wx:for="{{ users }}" wx:for-item="user">
+                        <view role="option" class="weui-cell weui-cell_active weui-cell_access" bind:tap="onSelectUser" data-fsid="{{ user.fsid }}">
+                            <view class="weui-cell__hd">
+                                <image src="{{ user.image }}"></image>
+                            </view>
+                            <view class="weui-cell__bd weui-cell_primary">
+                                <view>{{ user.name }}</view>
+                            </view>
                         </view>
-                        <view class="weui-cell__bd weui-cell_primary">
-                            <view>实时搜索文本</view>
-                        </view>
-                    </view>
+                    </block>
                 </scroll-view>
             </view>
 

@@ -26,7 +26,6 @@ Component({
 
     hashtagConfig: {},
 
-    searchKey: '',
     hashtags: [],
     loadingStatus: false,
     loadingTipType: 'none',
@@ -90,11 +89,14 @@ Component({
     inputTyping(e) {
       const value = e.detail.value;
 
-      console.log('handleInput', e, value);
-
       this.setData({
         inputVal: value,
       });
+    },
+
+    // 输入完成
+    inputConfirm: async function () {
+      await this.loadHashtagList();
     },
 
     // 选中
@@ -114,7 +116,7 @@ Component({
 
     // 加载话题列表
     loadHashtagList: async function () {
-      const searchKey = this.data.searchKey;
+      const searchKey = this.data.inputVal;
       if (!searchKey) {
         return;
       }

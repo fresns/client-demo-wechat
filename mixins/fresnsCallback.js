@@ -33,8 +33,10 @@ module.exports = {
 
     switch (fresnsCallback.action.postMessageKey) {
       case 'reload':
-        //  重新载入，小程序不支持重载页面
+        // 重新载入，小程序不支持重载页面
         break;
+
+      // 编辑器上传文件
       case 'fresnsEditorUpload':
         const type = this.data.type;
         const draftDetail = this.data.draftDetail;
@@ -52,6 +54,12 @@ module.exports = {
           });
         }
         break;
+
+      // 设置页操作账号互联
+      case 'fresnsConnect':
+        this.reloadFresnsAccount();
+        break;
+
       default:
       // code
     }

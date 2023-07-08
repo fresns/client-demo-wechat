@@ -23,7 +23,6 @@ Component({
     inputCancel: '取消',
     inputVal: '',
 
-    searchKey: '',
     users: [],
     loadingStatus: false,
     loadingTipType: 'none',
@@ -93,6 +92,11 @@ Component({
       });
     },
 
+    // 输入完成
+    inputConfirm: async function () {
+      await this.loadUserList();
+    },
+
     // 选中
     onSelectUser: async function (e) {
       const fsid = e.currentTarget.dataset.fsid;
@@ -106,7 +110,7 @@ Component({
 
     // 加载用户列表
     loadUserList: async function () {
-      const searchKey = this.data.searchKey;
+      const searchKey = this.data.inputVal;
       if (!searchKey) {
         return;
       }
