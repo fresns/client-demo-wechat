@@ -37,17 +37,17 @@ Component({
           /<a\s+href="(?:[^"]*\/)?([^"]+)"\s+class="fresns_hashtag"\s+target="_blank">([\s\S]*?)<\/a>/gi,
           '<a href="/pages/hashtags/detail?hid=$1">$2</a>'
         );
-  
+
         // 匹配艾特
         newContent = newContent.replace(
           /<a\s+href="(?:[^"]*\/)?([^"]+)"\s+class="fresns_mention"\s+target="_blank">@([\s\S]*?)<\/a>/gi,
           '<a href="/pages/profile/posts?fsid=$1">@$2</a>'
         );
-  
+
         // 替换用户默认首页
         const userHomePath = await globalInfo.userHomePath();
         newContent = newContent.replace('/pages/profile/posts?fsid=', userHomePath);
-  
+
         // 增加表情图样式
         newContent = newContent.replace(
           /<img\s+src="([^"]+)"\s+class="fresns_sticker"\s+alt="([\s\S]*?)"\s*\/?>/gi,
