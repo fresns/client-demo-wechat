@@ -39,7 +39,7 @@
     </view>
 </block>
 
-<block wx:if="{{ !userLogin }}">
+<block wx:else>
     <navigator url="/pages/account/login" class="weui-btn weui-btn_primary">
         {{ fsLang.accountLogin }}
     </navigator>

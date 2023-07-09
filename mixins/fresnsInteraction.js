@@ -12,6 +12,10 @@ module.exports = {
     const profile = this.data.profile;
 
     if (profile) {
+      if (profile.uid != newUser.uid) {
+        return;
+      }
+
       this.setData({
         profile: newUser,
       });
@@ -27,14 +31,16 @@ module.exports = {
 
     const idx = users.findIndex((value) => value.uid === newUser.uid);
 
-    if (idx !== -1) {
-      // 确保找到了用户
-      users[idx] = newUser;
-
-      this.setData({
-        users: users,
-      });
+    if (idx == -1) {
+      // 未找到记录
+      return;
     }
+
+    users[idx] = newUser;
+
+    this.setData({
+      users: users,
+    });
   },
 
   /** 更改小组 **/
@@ -43,6 +49,10 @@ module.exports = {
     const group = this.data.group;
 
     if (group) {
+      if (group.gid != newGroup.gid) {
+        return;
+      }
+
       this.setData({
         group: newGroup,
       });
@@ -59,7 +69,7 @@ module.exports = {
     const idx = groups.findIndex((value) => value.gid === newGroup.gid);
 
     if (idx !== -1) {
-      // 确保找到了小组
+      // 找到了小组
       groups[idx] = newGroup;
 
       this.setData({
@@ -88,6 +98,10 @@ module.exports = {
     const hashtag = this.data.hashtag;
 
     if (hashtag) {
+      if (hashtag.hid != newHashtag.hid) {
+        return;
+      }
+
       this.setData({
         hashtag: newHashtag,
       });
@@ -103,14 +117,16 @@ module.exports = {
 
     const idx = hashtags.findIndex((value) => value.hid === newHashtag.hid);
 
-    if (idx !== -1) {
-      // 确保找到了话题
-      hashtags[idx] = newHashtag;
-
-      this.setData({
-        hashtags: hashtags,
-      });
+    if (idx == -1) {
+      // 未找到记录
+      return;
     }
+
+    hashtags[idx] = newHashtag;
+
+    this.setData({
+      hashtags: hashtags,
+    });
   },
 
   /** 更改帖子 **/
@@ -119,6 +135,10 @@ module.exports = {
     const post = this.data.post;
 
     if (post) {
+      if (post.pid != newPost.pid) {
+        return;
+      }
+
       this.setData({
         post: newPost,
       });
@@ -134,14 +154,16 @@ module.exports = {
 
     const idx = posts.findIndex((value) => value.pid === newPost.pid);
 
-    if (idx !== -1) {
-      // 确保找到了帖子
-      posts[idx] = newPost;
-
-      this.setData({
-        posts: posts,
-      });
+    if (idx == -1) {
+      // 未找到记录
+      return;
     }
+
+    posts[idx] = newPost;
+
+    this.setData({
+      posts: posts,
+    });
   },
 
   /** 更改评论 **/
@@ -150,6 +172,10 @@ module.exports = {
     const comment = this.data.comment;
 
     if (comment) {
+      if (comment.cid != newComment.cid) {
+        return;
+      }
+
       this.setData({
         comment: newComment,
       });
@@ -165,13 +191,15 @@ module.exports = {
 
     const idx = comments.findIndex((value) => value.cid === newComment.cid);
 
-    if (idx !== -1) {
-      // 确保找到了评论
-      comments[idx] = newComment;
-
-      this.setData({
-        comments: comments,
-      });
+    if (idx == -1) {
+      // 未找到记录
+      return;
     }
+
+    comments[idx] = newComment;
+
+    this.setData({
+      comments: comments,
+    });
   },
 };

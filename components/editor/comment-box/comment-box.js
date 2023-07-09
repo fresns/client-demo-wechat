@@ -3,6 +3,7 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
+import { fresnsApi } from '../../../api/api';
 import { fresnsConfig, fresnsLang } from '../../../api/tool/function';
 import { globalInfo } from '../../../utils/fresnsGlobalInfo';
 

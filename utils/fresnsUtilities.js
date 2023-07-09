@@ -200,7 +200,11 @@ export function enJson(encoded) {
 }
 
 // 处理 HTML 标签
-export function truncateText(text, length) {
+export function truncateText(text = '', length) {
+  if (!text) {
+    return text;
+  }
+
   // 过滤掉 HTML 标签和换行符
   const strippedText = text.replace(/(<([^>]+)>)/gi, '').replace(/(\r\n|\n|\r)/gm, '');
 
