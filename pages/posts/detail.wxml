@@ -9,7 +9,7 @@
 
     <!--评论列表-->
     <view class="weui-panel weui-panel_access">
-        <view class="weui-panel__hd">帖子评论</view>
+        <view class="weui-panel__hd">{{ commentName }}</view>
         <view class="weui-panel__bd">
             <!-- 评论列表 -->
             <view class="weui-media-box weui-media-box_text" wx:for="{{ comments }}" wx:for-index="idx" wx:for-item="comment" wx:key="cid">
@@ -30,7 +30,7 @@
         </view>
     </view>
 
-    <mp-half-screen-dialog show="{{ showCommentBox }}" maskClosable="{{ false }}" title="{{ title }}">
+    <mp-half-screen-dialog show="{{ showCommentBox }}" title="{{ title }}">
         <view slot="desc">
             <comment-box pid="{{ post.pid }}" cid="" />
         </view>

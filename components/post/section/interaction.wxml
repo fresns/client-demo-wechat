@@ -26,7 +26,7 @@
     <view class="weui-flex__item" wx:if="{{ type == 'list' }}">
         <view class="fs_btn" bind:tap="onClickCreateComment">
             <image src="{{ '/assets/interaction/content-comment.png' }}" class="card-footer-icon" mode="aspectFit"></image>
-            <text wx:if="{{ post.postCount }}" class="card-footer-text">{{ post.postCount }}</text>
+            <text wx:if="{{ post.commentCount }}" class="card-footer-text">{{ post.commentCount }}</text>
         </view>
 
         <!-- 评论框 -->

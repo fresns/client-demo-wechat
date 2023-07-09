@@ -9,7 +9,7 @@
 
     <!-- 评论互动 -->
     <view class="weui-panel weui-panel_access">
-        <view class="weui-panel__hd">全部评论</view>
+        <view class="weui-panel__hd">{{ commentName }}</view>
         <view class="weui-panel__bd">
             <!-- 评论列表 -->
             <view class="weui-media-box weui-media-box_text" wx:for="{{ comments }}" wx:for-index="idx" wx:for-item="comment" wx:key="cid">

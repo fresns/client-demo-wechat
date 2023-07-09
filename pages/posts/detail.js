@@ -20,6 +20,7 @@ Page({
     // 详情
     title: null,
     post: null,
+    commentName: null,
 
     // 评论框
     showCommentBox: false,
@@ -42,6 +43,7 @@ Page({
 
     this.setData({
       query: options,
+      commentName: await fresnsConfig('comment_name'),
     });
 
     const postDetailRes = await fresnsApi.post.postDetail({

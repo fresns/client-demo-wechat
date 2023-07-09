@@ -3,6 +3,7 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
+import { fresnsApi } from '../../../api/api';
 import { fresnsLang } from '../../../api/tool/function';
 import { callPageFunction, callPrevPageFunction, truncateText } from '../../../utils/fresnsUtilities';
 
@@ -168,10 +169,6 @@ Component({
       if (value === 'block') {
         this.onClickCommentBlock();
       }
-
-      this.setData({
-        showActionSheet: false,
-      });
     },
 
     /** 以下是互动功能 **/

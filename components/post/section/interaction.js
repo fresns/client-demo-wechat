@@ -176,10 +176,6 @@ Component({
       if (value === 'block') {
         this.onClickPostBlock();
       }
-
-      this.setData({
-        showActionSheet: false,
-      });
     },
 
     /** 以下是互动功能 **/
