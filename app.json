@@ -1,7 +1,7 @@
 {
   "pages": [
     "pages/portal/index",
-    "pages/portal/fresns",
+    "pages/portal/about",
     "pages/portal/policies",
 
     "pages/users/index",
