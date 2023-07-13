@@ -23,3 +23,28 @@
   float: right;
   text-align: right;
 }
+
+/* tabs */
+.sticker-box {
+  width: 100%;
+  border-top: 1px solid var(--weui-FG-3);
+  margin-top: 15px;
+  padding-top: 10px;
+}
+
+.tab-title-selected {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+swiper {
+  display: none;
+}
+
+.stickers {
+  padding: 10px 0;
+}
+
+.stickers image {
+  padding: 10px;
+}

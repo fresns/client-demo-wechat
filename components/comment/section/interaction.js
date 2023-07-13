@@ -115,6 +115,13 @@ Component({
       });
     },
 
+    // 评论框隐藏
+    eventCommentBoxHide: function () {
+      this.setData({
+        showCommentBox: false,
+      });
+    },
+
     // 分享
     onClickShare() {
       this.setData({
@@ -159,6 +166,29 @@ Component({
     },
     actionClickMore(e) {
       const value = e.detail.value;
+      const comment = this.data.comment;
+
+      // 编辑
+      if (value === 'edit') {
+        wx.navigateTo({
+          url: '/pages/editor/index?type=comment&fsid=' + comment.cid,
+        });
+
+        this.setData({
+          showActionSheet: false,
+        });
+      }
+
+      // 删除
+      if (value === 'delete') {
+        // mixins/fresnsInteraction.js
+        callPageFunction('onDeleteComment', comment.cid);
+        callPrevPageFunction('onDeleteComment', comment.cid);
+
+        this.setData({
+          showActionSheet: false,
+        });
+      }
 
       // 关注
       if (value === 'follow') {

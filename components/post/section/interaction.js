@@ -115,10 +115,17 @@ Component({
 
   /** 组件功能 **/
   methods: {
-    // 评论
+    // 评论框显示
     onClickCreateComment() {
       this.setData({
         showCommentBox: true,
+      });
+    },
+
+    // 评论框隐藏
+    eventCommentBoxHide: function () {
+      this.setData({
+        showCommentBox: false,
       });
     },
 
@@ -166,6 +173,29 @@ Component({
     },
     actionClickMore(e) {
       const value = e.detail.value;
+      const post = this.data.post;
+
+      // 编辑
+      if (value === 'edit') {
+        wx.navigateTo({
+          url: '/pages/editor/index?type=post&fsid=' + post.pid,
+        });
+
+        this.setData({
+          showActionSheet: false,
+        });
+      }
+
+      // 删除
+      if (value === 'delete') {
+        // mixins/fresnsInteraction.js
+        callPageFunction('onDeletePost', post.pid);
+        callPrevPageFunction('onDeletePost', post.pid);
+
+        this.setData({
+          showActionSheet: false,
+        });
+      }
 
       // 关注
       if (value === 'follow') {

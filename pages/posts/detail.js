@@ -5,7 +5,7 @@
  */
 import { fresnsApi } from '../../api/api';
 import { fresnsConfig, fresnsLang } from '../../api/tool/function';
-import { truncateText } from '../../utils/fresnsUtilities';
+import { truncateText, callPrevPageFunction } from '../../utils/fresnsUtilities';
 
 Page({
   /** 外部 mixin 引入 **/
@@ -69,6 +69,10 @@ Page({
         title: nickname + ': ' + postTitle,
         commentBtnName: await fresnsConfig('publish_comment_name'),
       });
+
+      // 替换上一页数据
+      // mixins/fresnsInteraction.js
+      callPrevPageFunction('onChangePost', post);
     }
 
     await this.loadFresnsPageData();
