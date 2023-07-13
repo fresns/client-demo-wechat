@@ -57,7 +57,7 @@ Page({
         text: await fresnsLang('delete'),
         type: 'warn',
         value: 'delete',
-      }
+      },
     ];
 
     this.setData({
@@ -191,16 +191,16 @@ Page({
       });
 
       if (resultRes.code === 0) {
-        const list = (type == 'post') ? this.data.posts : this.data.comments;
+        const list = type == 'post' ? this.data.posts : this.data.comments;
 
         const idx = list.findIndex((value) => value.id === id);
-  
+
         if (idx >= 0) {
           list.splice(idx, 1);
-  
+
           this.setData({
-            posts: (type == 'post') ? list : [],
-            comments: (type == 'comment') ? list : [],
+            posts: type == 'post' ? list : [],
+            comments: type == 'comment' ? list : [],
           });
         }
       }
