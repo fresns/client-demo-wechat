@@ -5,6 +5,7 @@
  */
 import { fresnsApi } from '../../api/api';
 import { fresnsConfig } from '../../api/tool/function';
+import { callPrevPageFunction } from '../../utils/fresnsUtilities';
 
 Page({
   /** 外部 mixin 引入 **/
@@ -50,6 +51,10 @@ Page({
       wx.setNavigationBarTitle({
         title: hashtagDetailRes.data.detail.hname,
       });
+
+      // 替换上一页数据
+      // mixins/fresnsInteraction.js
+      callPrevPageFunction('onChangeHashtag', hashtagDetailRes.data.detail);
     }
 
     await this.loadFresnsPageData();

@@ -4,6 +4,7 @@
  * Licensed under the Apache-2.0 license
  */
 import { fresnsApi } from '../../api/api';
+import { callPrevPageFunction } from '../../utils/fresnsUtilities';
 
 Page({
   /** 外部 mixin 引入 **/
@@ -50,6 +51,10 @@ Page({
       wx.setNavigationBarTitle({
         title: groupDetailRes.data.detail.gname,
       });
+
+      // 替换上一页数据
+      // mixins/fresnsInteraction.js
+      callPrevPageFunction('onChangeGroup', groupDetailRes.data.detail);
     }
 
     await this.loadFresnsPageData();

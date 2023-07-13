@@ -4,7 +4,7 @@
  * Licensed under the Apache-2.0 license
  */
 import { fresnsApi } from '../../../api/api';
-import { fresnsLang } from '../../../api/tool/function';
+import { fresnsCodeMessage, fresnsLang } from '../../../api/tool/function';
 import { cachePut, cacheGet, callPageFunction, strUploadInfo } from '../../../utils/fresnsUtilities';
 
 const app = getApp();
@@ -291,6 +291,23 @@ Component({
           callPageFunction('onAddFiles', type, tempFiles);
 
           const uploadPromises = tempFiles.map(async (tempFile) => {
+            // 判断文件扩展名 extensionsArray
+
+            // 判断时长
+            if (fileType == 'video') {
+              let duration = tempFile.duration;
+
+              if (duration > fileConfig.maxTime) {
+                wx.showToast({
+                  title: await fresnsCodeMessage(36114),
+                  icon: 'none',
+                  duration: 3000,
+                });
+
+                return;
+              }
+            }
+
             // 上传
             const response = await fresnsApi.common.commonUploadFile(tempFile.tempFilePath, {
               tableName: tableName,
