@@ -27,6 +27,7 @@ Page({
     // 配置参数
     options: null,
     type: null,
+    submitBtnName: '',
 
     // 草稿选择器
     draftSelector: false,
@@ -61,21 +62,22 @@ Page({
     let editorService;
     let scene;
     let pid;
-    let plid;
     let cid;
-    let clid;
+    let publishBtnName;
+
     switch (type) {
       case 'post':
         editorService = await fresnsConfig('post_editor_service');
         scene = 'postEditor';
         pid = fsid;
-        plid = draftId;
+        publishBtnName = await fresnsConfig('publish_post_name');
         break;
+
       case 'comment':
         editorService = await fresnsConfig('comment_editor_service');
         scene = 'commentEditor';
         cid = fsid;
-        clid = draftId;
+        publishBtnName = await fresnsConfig('publish_comment_name');
 
         // 评论必填参数判断
         const commentPid = options.commentPid; // 评论哪个帖子
@@ -89,16 +91,18 @@ Page({
           return;
         }
         break;
+
       default:
         editorService = null;
         scene = 'postEditor';
         pid = fsid;
-        plid = draftId;
+        publishBtnName = await fresnsConfig('publish_post_name');
     }
 
     this.setData({
       options: options,
       type: type,
+      submitBtnName: publishBtnName,
     });
 
     /**
@@ -109,6 +113,8 @@ Page({
         type: 'editor',
         scene: scene,
         postMessageKey: 'fresnsEditor',
+        pid: pid,
+        cid: cid,
         plid: draftId,
         clid: draftId,
         title: 'Editor',
@@ -261,6 +267,8 @@ Page({
     });
   },
   onContentInsert(text) {
+    console.log('onContentInsert', text);
+
     const draftDetail = this.data.draftDetail;
     const cursorPosition = this.data.contentCursorPosition;
 
@@ -422,10 +430,17 @@ Page({
 
     if (submitRes.code === 0) {
       wx.showToast({
-        title: '提交成功',
+        title: submitRes.message,
         icon: 'success',
       });
 
+      wx.redirectTo({
+        url: '/pages/posts/index',
+      });
+    }
+
+    // 发表成功，待审核
+    if (submitRes.code === 38200) {
       wx.redirectTo({
         url: '/pages/posts/index',
       });

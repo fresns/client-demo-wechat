@@ -18,24 +18,27 @@
 
     <!-- 帖子草稿 -->
     <view class="weui-cells weui-cells_after-title" wx:if="{{ type == 'post' }}">
-        <navigator wx:for="{{ posts }}" wx:for-item="post" url="" class="weui-cell weui-cell_example">
+        <view wx:for="{{ posts }}" wx:for-item="post" class="weui-cell weui-cell_example" bind:tap="onEditMenus" data-id="{{ post.id }}" data-title="{{ post.title || post.contentLength > 40 ? post.content.slice(0, 40) + '...' : post.content }}">
             <view class="weui-cell__hd">{{ post.id }}</view>
             <view class="weui-cell__bd">{{ post.title || post.contentLength > 40 ? post.content.slice(0, 40) + '...' : post.content }}</view>
             <view class="weui-cell__ft">{{ post.contentLength }}</view>
-        </navigator>
+        </view>
     </view>
 
     <!-- 评论草稿 -->
     <view class="weui-cells weui-cells_after-title" wx:if="{{ type == 'comment' }}">
-        <navigator wx:for="{{ comments }}" wx:for-item="comment" url="" class="weui-cell weui-cell_example">
+        <view wx:for="{{ comments }}" wx:for-item="comment" class="weui-cell weui-cell_example" bind:tap="onEditMenus" data-id="{{ comment.id }}" data-title="{{ comment.contentLength > 40 ? comment.content.slice(0, 40) + '...' : comment.content }}">
             <view class="weui-cell__hd">{{ comment.id }}</view>
             <view class="weui-cell__bd">{{ comment.contentLength > 40 ? comment.content.slice(0, 40) + '...' : comment.content }}</view>
             <view class="weui-cell__ft">{{ comment.contentLength }}</view>
-        </navigator>
+        </view>
     </view>
 
     <!-- 加载动效 -->
     <loading status="{{ loadingStatus }}" tipType="{{ loadingTipType }}"></loading>
+
+    <!-- 菜单 -->
+    <mp-actionSheet show="{{ showActionSheet }}" actions="{{ actionGroups }}" title="{{ title }}" bindactiontap="actionClickMenu"/>
 
     <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
         <text class="weui-loadmore__tips">Powered by Fresns</text>

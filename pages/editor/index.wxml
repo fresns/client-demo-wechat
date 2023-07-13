@@ -42,7 +42,7 @@
 
             <!-- 发表按钮 -->
             <view class="weui-form__opr-area" style="margin-top:30px;">
-                <view class="weui-btn weui-btn_primary" aria-role="button" bind:tap="submitDraft">提交发表</view>
+                <view class="weui-btn weui-btn_primary" aria-role="button" bind:tap="submitDraft">{{ submitBtnName }}</view>
             </view>
         </view>
 

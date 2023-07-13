@@ -24,10 +24,6 @@
   margin-top: 10px;
 }
 
-.weui-tabs-bar__title {
-  margin: 0px 10px;
-}
-
 .tab-title-selected {
   font-weight: bold;
 }
