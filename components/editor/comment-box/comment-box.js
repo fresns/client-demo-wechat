@@ -79,7 +79,7 @@ Component({
         {
           text: await fresnsLang('delete'),
           type: 'warn',
-          value: 'delete'
+          value: 'delete',
         },
       ];
 
@@ -304,7 +304,7 @@ Component({
         commentPid: '',
         commentCid: '',
         newCid: '',
-      }
+      };
 
       if (submitRes.code === 0) {
         this.setData({
@@ -319,7 +319,7 @@ Component({
           newCid: submitRes.data.fsid,
         };
 
-        this.triggerEvent('eventCommentBoxHide', {data: ''});
+        this.triggerEvent('eventCommentBoxHide', { data: '' });
 
         // mixins/fresnsInteraction.js
         callPageFunction('onPublishCommentAction', data);
@@ -329,17 +329,16 @@ Component({
           title: submitRes.message,
           icon: 'none',
         });
-      };
+      }
 
       // 发表成功，待审核
       if (submitRes.code === 38200) {
-        this.triggerEvent('eventCommentBoxHide', {data: ''});
+        this.triggerEvent('eventCommentBoxHide', { data: '' });
 
         // mixins/fresnsInteraction.js
         callPageFunction('onPublishCommentAction', data);
         callPrevPageFunction('onPublishCommentAction', data);
       }
-    }
-
+    },
   },
 });
