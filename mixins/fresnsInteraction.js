@@ -246,9 +246,9 @@ module.exports = {
       if (commentDetailRes.code === 0) {
         let detail = commentDetailRes.data.detail;
         detail.replyToPost = {
-          pid: detail.replyToPost.pid
+          pid: detail.replyToPost.pid,
         };
-  
+
         comments.unshift(detail);
       }
 
@@ -352,5 +352,4 @@ module.exports = {
       }
     }
   },
-
 };
