@@ -116,7 +116,7 @@ const post = {
    */
   postDelete: (options = {}) => {
     return request({
-      url: '/api/v2/post/delete' + options.pid,
+      url: '/api/v2/post/' + options.pid,
       data: {
         ...options,
       },

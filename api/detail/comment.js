@@ -103,7 +103,7 @@ const comment = {
    */
   commentDelete: (options = {}) => {
     return request({
-      url: '/api/v2/comment/delete' + options.cid,
+      url: '/api/v2/comment/' + options.cid,
       data: {
         ...options,
       },

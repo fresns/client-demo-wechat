@@ -77,8 +77,18 @@ const common = {
    * 上传文件
    * @return {wx.RequestTask}
    */
-  commonUploadFile: async (filePath, formData) => {
-    return uploadFile(filePath, {
+  commonUploadFile: async (filePath = null, formData) => {
+    if (filePath) {
+      return uploadFile(filePath, {
+        url: '/api/v2/common/upload-file',
+        data: {
+          ...formData,
+        },
+        method: 'POST',
+      });
+    }
+
+    return request({
       url: '/api/v2/common/upload-file',
       data: {
         ...formData,

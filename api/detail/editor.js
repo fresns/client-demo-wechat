@@ -3,16 +3,26 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import { request } from '../tool/request';
+import { request, uploadFile } from '../tool/request';
 
 const editor = {
   /**
    * 快速发表
    * @return {wx.RequestTask}
    */
-  editorQuickPublish: async (filePath, formData) => {
-    return request(filePath, {
-      url: '/api/v2/editor/' + options.type + '/quick-publish',
+  editorQuickPublish: async (filePath = null, formData) => {
+    if (filePath) {
+      return uploadFile(filePath, {
+        url: '/api/v2/editor/' + formData.type + '/quick-publish',
+        data: {
+          ...formData,
+        },
+        method: 'POST',
+      });
+    }
+
+    return request({
+      url: '/api/v2/editor/' + formData.type + '/quick-publish',
       data: {
         ...formData,
       },

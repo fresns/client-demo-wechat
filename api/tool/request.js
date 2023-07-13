@@ -78,10 +78,15 @@ export function uploadFile(filePath, options) {
       }
     });
 
+    let name = 'file';
+    if (url == '/api/v2/editor/post/quick-publish' || url == '/api/v2/editor/comment/quick-publish') {
+      name = 'image';
+    }
+
     wx.uploadFile({
       url: appConfig.apiHost + url,
       filePath: filePath,
-      name: 'file',
+      name: name,
       header: await getHeaders(),
       formData: data,
 
