@@ -36,7 +36,7 @@
             </view>
 
             <!-- 搜索结果 -->
-            <view aria-role="listbox" id="searchResult" class="weui-cells searchbar-result" wx:if="{{ hashtags.length > 0 }}">
+            <view aria-role="listbox" id="searchResult" class="weui-cells searchbar-result">
                 <!-- 加载动效 -->
                 <loading status="{{ loadingStatus }}" tipType="{{ loadingTipType }}"></loading>
 

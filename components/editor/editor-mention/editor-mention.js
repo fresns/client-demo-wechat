@@ -85,8 +85,6 @@ Component({
     inputTyping(e) {
       const value = e.detail.value;
 
-      console.log('handleInput', e, value);
-
       this.setData({
         inputVal: value,
       });
@@ -104,8 +102,13 @@ Component({
       const text = '@' + fsid + ' ';
 
       callPageFunction('onContentInsert', text);
+      this.triggerEvent('eventContentInsert', {
+        data: text,
+      });
 
-      this.close;
+      this.setData({
+        showDialog: false,
+      });
     },
 
     // 加载用户列表
@@ -127,8 +130,14 @@ Component({
       });
 
       if (resultRes.code === 0) {
+        let tipType = 'none';
+        if (!resultRes.data) {
+          tipType = 'empty';
+        }
+
         this.setData({
           users: resultRes.data,
+          loadingTipType: tipType,
         });
       }
 

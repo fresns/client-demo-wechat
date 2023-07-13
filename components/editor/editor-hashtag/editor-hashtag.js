@@ -110,8 +110,13 @@ Component({
       }
 
       callPageFunction('onContentInsert', text);
+      this.triggerEvent('eventContentInsert', {
+        data: text,
+      });
 
-      this.close;
+      this.setData({
+        showDialog: false,
+      });
     },
 
     // 加载话题列表
@@ -133,8 +138,14 @@ Component({
       });
 
       if (resultRes.code === 0) {
+        let tipType = 'none';
+        if (!resultRes.data) {
+          tipType = 'empty';
+        }
+
         this.setData({
           hashtags: resultRes.data,
+          loadingTipType: tipType,
         });
       }
 

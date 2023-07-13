@@ -4,7 +4,7 @@
     Licensed under the Apache-2.0 license
 * -->
 <scroll-view class="editor-draft-selector" scroll-y="true" bindscrolltolower="loadDraftList">
-    <view class="weui-cells__title">{{ fsLang.selectDraft }}</view>
+    <view class="weui-cells__title" wx:if="{{ posts.length > 0 }}">{{ fsLang.selectDraft }}</view>
 
     <!-- 帖子草稿列表 -->
     <view class="weui-cells weui-cells_after-title" wx:if="{{ type == 'post' }}">
