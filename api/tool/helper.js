@@ -78,30 +78,7 @@ export async function getHeaders() {
  * https://docs.fresns.cn/extensions/callback/url-authorization.html
  */
 export async function getPluginAuthorization() {
-  const now = new Date();
-  const timestamp = now.getTime();
-
-  const headers = {
-    'X-Fresns-App-Id': appConfig.appId,
-    'X-Fresns-Client-Platform-Id': 7, // https://docs.fresns.cn/database/dictionary/platforms.html
-    'X-Fresns-Client-Version': globalInfo.clientVersion,
-    'X-Fresns-Client-Device-Info': globalInfo.deviceInfo,
-    'X-Fresns-Client-Lang-Tag': globalInfo.langTag,
-    'X-Fresns-Client-Timezone': null,
-    'X-Fresns-Client-Content-Format': null,
-    'X-Fresns-Aid': globalInfo.aid,
-    'X-Fresns-Aid-Token': globalInfo.aidToken,
-    'X-Fresns-Uid': globalInfo.uid,
-    'X-Fresns-Uid-Token': globalInfo.uidToken,
-    'X-Fresns-Signature': await makeSignature(timestamp),
-    'X-Fresns-Signature-Timestamp': timestamp,
-  };
-
-  for (const key in headers) {
-    if (headers[key] === null) {
-      delete headers[key];
-    }
-  }
+  const headers = await getHeaders();
 
   const headersStr = JSON.stringify(headers).replace(/\n|\r/g, '');
   const base64Encoded = base64_encode(headersStr);
