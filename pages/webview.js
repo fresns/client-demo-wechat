@@ -19,7 +19,7 @@ Page({
 
   /** 监听页面加载 **/
   onLoad: async function (options) {
-    console.log('web-view', options);
+    console.log('web-view options', options);
 
     let extensionsTitle = options.title || app.globalData.extensionsTitle;
     let extensionsUrl = options.url || app.globalData.extensionsUrl;
