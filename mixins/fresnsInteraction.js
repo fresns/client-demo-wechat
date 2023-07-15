@@ -49,7 +49,7 @@ module.exports = {
       shareTitle = title;
     }
 
-    console.log('onShareAppMessage', shareTitle, sharePath);
+    console.log('onShareAppMessage return', shareTitle, sharePath);
 
     return {
       title: shareTitle,
