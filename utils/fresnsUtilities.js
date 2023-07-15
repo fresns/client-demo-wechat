@@ -68,6 +68,14 @@ export function navigateToUserLogin() {
   }
 }
 
+// 获取当前页路径
+export function getCurrentPagePath() {
+  const pages = getCurrentPages();
+  const currentPage = pages[pages.length - 1];
+
+  return currentPage.route;
+}
+
 // 回调主页面
 export function callPageFunction(functionName, ...args) {
   const pages = getCurrentPages();
