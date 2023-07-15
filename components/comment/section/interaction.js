@@ -7,6 +7,8 @@ import { fresnsApi } from '../../../api/api';
 import { fresnsLang } from '../../../api/tool/function';
 import { callPageFunction, callPrevPageFunction, truncateText } from '../../../utils/fresnsUtilities';
 
+const app = getApp();
+
 Component({
   /** 组件的属性列表 **/
   properties: {
@@ -16,16 +18,25 @@ Component({
 
   /** 组件的初始数据 **/
   data: {
+    fresnsLang: {},
     title: null,
+
     showCommentBox: false,
+    nickname: null,
+
     showShareActionSheet: false,
-    shareActionGroups: [
-      { text: '复制链接', value: 'onShareCopyLink' },
-      { text: '分享给好友', value: 'onShareAppMessage' },
-      { text: '分享到朋友圈', value: 'onShareTimeline' },
-    ],
+
     actionGroups: [],
     showActionSheet: false,
+  },
+
+  /** 组件生命周期声明对象 **/
+  lifetimes: {
+    attached: async function () {
+      this.setData({
+        fresnsLang: await fresnsLang(),
+      });
+    },
   },
 
   /** 组件数据字段监听器 **/
@@ -101,6 +112,7 @@ Component({
 
       this.setData({
         title: nickname + ': ' + truncateText(comment.content, 20),
+        nickname: nickname,
         actionGroups: items,
       });
     },
@@ -123,38 +135,33 @@ Component({
     },
 
     // 分享
-    onClickShare() {
+    onShowShareMenus() {
       this.setData({
         showShareActionSheet: true,
       });
     },
-    actionClickShare(e) {
-      const value = e.detail.value;
-
-      // 复制链接
-      if (value === 'onShareCopyLink') {
-        wx.setClipboardData({
-          data: this.data.postUrl,
-          success: function (res) {
-            wx.showToast({
-              title: '复制成功',
-            });
-          },
-        });
-      }
-
-      // 分享给好友
-      if (value === 'onShareAppMessage') {
-        // this.data.postPage
-      }
-
-      // 分享到朋友圈
-      if (value === 'onShareTimeline') {
-        // this.data.postPage
-      }
-
+    onHideShareMenus() {
       this.setData({
         showShareActionSheet: false,
+      });
+    },
+
+    // 分享功能
+    onShareCopyLink() {
+      const comment = this.data.comment;
+      const copySuccess = this.data.fresnsLang.copySuccess;
+
+      wx.setClipboardData({
+        data: comment.url,
+        success: function (res) {
+          wx.showToast({
+            title: copySuccess,
+          });
+        },
+      });
+
+      this.setData({
+        showShareActionSheet: true,
       });
     },
 
@@ -198,6 +205,25 @@ Component({
       // 屏蔽
       if (value === 'block') {
         this.onClickCommentBlock();
+      }
+
+      // 扩展插件
+      if (value.startsWith('http')) {
+        const fresnsExtensions = {
+          type: 'comment',
+          scene: 'manage',
+          postMessageKey: 'fresnsCommentManage',
+          cid: comment.cid,
+          uid: comment.author.uid,
+          title: 'Fresns Manage',
+          url: value,
+        };
+
+        app.globalData.fresnsExtensions = fresnsExtensions;
+
+        wx.navigateTo({
+          url: '/pages/webview',
+        });
       }
     },
 

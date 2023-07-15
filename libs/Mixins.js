@@ -12,7 +12,6 @@ const originMethods = [
   'onUnload',
   'onPullDownRefresh',
   'onReachBottom',
-  'onShareAppMessage',
   'onPageScroll',
   'onTabItemTap',
 ]

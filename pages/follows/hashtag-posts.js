@@ -17,6 +17,7 @@ Page({
 
   /** 页面的初始数据 **/
   data: {
+    title: null,
     // 当前页面数据
     posts: [],
     // 下次请求时候的页码，初始值为 1
@@ -30,6 +31,10 @@ Page({
   /** 监听页面加载 **/
   onLoad: async function () {
     wx.setNavigationBarTitle({
+      title: await fresnsConfig('menu_follow_hashtag_posts'),
+    });
+
+    this.setData({
       title: await fresnsConfig('menu_follow_hashtag_posts'),
     });
 

@@ -15,11 +15,17 @@ Page({
   ],
 
   /** 页面的初始数据 **/
-  data: {},
+  data: {
+    title: null,
+  },
 
   /** 监听页面加载 **/
   onLoad: async function () {
     wx.setNavigationBarTitle({
+      title: await fresnsConfig('menu_search'),
+    });
+
+    this.setData({
       title: await fresnsConfig('menu_search'),
     });
   },

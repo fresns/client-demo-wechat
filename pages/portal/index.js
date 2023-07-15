@@ -11,6 +11,7 @@ Page({
 
   /** 页面的初始数据 **/
   data: {
+    title: null,
     content: null,
   },
 
@@ -23,28 +24,29 @@ Page({
     const value = (await fresnsConfig('portal_8')) || 'null';
 
     this.setData({
+      title: await fresnsConfig('menu_portal_title'),
       content: value,
     });
   },
 
   /** 右上角菜单-分享给好友 **/
-  onShareAppMessage: async function () {
+  onShareAppMessage: function () {
     return {
-      title: await fresnsConfig('menu_portal_title'),
+      title: this.data.title,
     };
   },
 
   /** 右上角菜单-分享到朋友圈 **/
-  onShareTimeline: async function () {
+  onShareTimeline: function () {
     return {
-      title: await fresnsConfig('menu_portal_title'),
+      title: this.data.title,
     };
   },
 
   /** 右上角菜单-收藏 **/
-  onAddToFavorites: async function () {
+  onAddToFavorites: function () {
     return {
-      title: await fresnsConfig('menu_portal_title'),
+      title: this.data.title,
     };
   },
 });

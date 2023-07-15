@@ -18,6 +18,7 @@ Page({
 
   /** 页面的初始数据 **/
   data: {
+    title: null,
     // 当前页面数据
     users: [],
     // 下次请求时候的页码，初始值为 1
@@ -31,6 +32,10 @@ Page({
   /** 监听页面加载 **/
   onLoad: async function () {
     wx.setNavigationBarTitle({
+      title: await fresnsConfig('menu_like_users'),
+    });
+
+    this.setData({
       title: await fresnsConfig('menu_like_users'),
     });
 

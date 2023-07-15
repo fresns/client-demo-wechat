@@ -17,6 +17,7 @@ Page({
 
   /** 页面的初始数据 **/
   data: {
+    title: null,
     // 位置
     mapUrl: null,
     mapId: 5,
@@ -51,6 +52,7 @@ Page({
     const mapUrl = `plugin://chooseLocation/index?key=${tencentMapKey}&referer=${tencentMapReferer}&location=${locationInfo}`;
 
     this.setData({
+      title: await fresnsConfig('menu_nearby_comments'),
       mapUrl: mapUrl,
       poi: await fresnsLang('location'),
       select: await fresnsLang('select'),

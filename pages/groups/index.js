@@ -17,6 +17,7 @@ Page({
 
   /** 页面的初始数据 **/
   data: {
+    title: null,
     vtabs: [],
     activeTab: 0,
     menuGroupType: null,
@@ -44,6 +45,7 @@ Page({
     }
 
     this.setData({
+      title: await fresnsConfig('menu_group_title'),
       menuGroupType: await fresnsConfig('menu_group_type'),
       requestState: requestState,
       requestQuery: requestQuery,
@@ -163,24 +165,17 @@ Page({
     await this.loadFresnsPageData();
   },
 
-  /** 右上角菜单-分享给好友 **/
-  onShareAppMessage: async function () {
-    return {
-      title: await fresnsConfig('menu_group_title'),
-    };
-  },
-
   /** 右上角菜单-分享到朋友圈 **/
-  onShareTimeline: async function () {
+  onShareTimeline: function () {
     return {
-      title: await fresnsConfig('menu_group_title'),
+      title: this.data.title,
     };
   },
 
   /** 右上角菜单-收藏 **/
-  onAddToFavorites: async function () {
+  onAddToFavorites: function () {
     return {
-      title: await fresnsConfig('menu_group_title'),
+      title: this.data.title,
     };
   },
 });

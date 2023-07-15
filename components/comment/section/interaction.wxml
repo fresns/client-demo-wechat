@@ -32,14 +32,14 @@
         <!-- 评论框 -->
         <mp-half-screen-dialog show="{{ showCommentBox }}" title="{{ title }}">
             <view slot="desc">
-                <comment-box pid="{{ comment.replyToPost.pid }}" cid="{{ comment.cid }}" nickname="{{ comment.author.nickname }}" bind:eventCommentBoxHide="eventCommentBoxHide"/>
+                <comment-box pid="{{ comment.replyToPost.pid }}" cid="{{ comment.cid }}" nickname="{{ nickname }}" bind:eventCommentBoxHide="eventCommentBoxHide"/>
             </view>
         </mp-half-screen-dialog>
     </view>
 
     <!-- 分享 -->
     <view class="weui-flex__item">
-        <view class="fs_btn" bind:tap="onClickShare">
+        <view class="fs_btn" bind:tap="onShowShareMenus">
             <image src="{{ '/assets/interaction/content-share.png' }}" class="card-footer-icon" mode="aspectFit"></image>
         </view>
     </view>
@@ -54,7 +54,21 @@
     </view>
 
     <!-- 分享菜单 -->
-    <mp-actionSheet show="{{ showShareActionSheet }}" actions="{{ shareActionGroups }}" title="{{ title }}" bindactiontap="actionClickShare"/>
+	<view wx:if="{{ showShareActionSheet }}" class="fadeIn" bind:tap="onHideShareMenus">
+		<view class="weui-mask"></view>
+		<view class="weui-actionsheet weui-actionsheet_toggle">
+			<view class="weui-actionsheet__title">
+				<view class="weui-actionsheet__title-text">{{ title }}</view>
+			</view>
+			<view class="weui-actionsheet__menu">
+				<view class="weui-actionsheet__cell" bind:tap="onShareCopyLink">{{ fresnsLang.copyLink }}</view>
+				<button class="weui-actionsheet__cell" open-type="share" data-type="comment" data-fsid="{{ comment.cid }}" data-title="{{ title }}" style="width:100%;font-weight:400;background-color:var(--weui-BG-2);">发送给朋友</button>
+			</view>
+			<view class="weui-actionsheet__action">
+				<view class="weui-actionsheet__cell" bind:tap="onHideShareMenus">{{ fresnsLang.cancel }}</view>
+			</view>
+		</view>
+	</view>
 
     <!-- 更多菜单 -->
     <mp-actionSheet show="{{ showActionSheet }}" actions="{{ actionGroups }}" title="{{ title }}" bindactiontap="actionClickMore"/>

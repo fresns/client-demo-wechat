@@ -4,9 +4,59 @@
  * Licensed under the Apache-2.0 license
  */
 import { fresnsApi } from '../api/api';
-import { dfs } from '../utils/fresnsUtilities';
+import { globalInfo } from '../utils/fresnsGlobalInfo';
+import { getCurrentPagePath, dfs } from '../utils/fresnsUtilities';
 
 module.exports = {
+  /** 右上角菜单-分享给好友 **/
+  onShareAppMessage: async function (res) {
+    console.log('onShareAppMessage res', res);
+
+    let shareTitle = this.data.title;
+    let sharePath = getCurrentPagePath();
+
+    if (res.from == 'button') {
+      const type = res.target.dataset.type;
+      const fsid = res.target.dataset.fsid;
+      const title = res.target.dataset.title;
+
+      switch (type) {
+        case 'user':
+          const userHomePath = await globalInfo.userHomePath();
+          sharePath = userHomePath + fsid;
+          break;
+
+        case 'group':
+          sharePath = '/pages/groups/detail?gid=' + fsid;
+          break;
+
+        case 'hashtag':
+          sharePath = '/pages/hashtags/detail?hid=' + fsid;
+          break;
+
+        case 'post':
+          sharePath = '/pages/posts/detail?pid=' + fsid;
+          break;
+
+        case 'comment':
+          sharePath = '/pages/comments/detail?cid=' + fsid;
+          break;
+
+        default:
+          // code
+      }
+
+      shareTitle = title;
+    }
+
+    console.log('onShareAppMessage', shareTitle, sharePath);
+
+    return {
+      title: shareTitle,
+      path: sharePath,
+    };
+  },
+
   /** 更改用户 **/
   onChangeUser(newUser) {
     // 详情页

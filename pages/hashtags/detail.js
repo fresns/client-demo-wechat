@@ -17,6 +17,7 @@ Page({
 
   /** 页面的初始数据 **/
   data: {
+    title: null,
     // 详情
     hid: null,
     hashtag: null,
@@ -44,6 +45,7 @@ Page({
 
     if (hashtagDetailRes.code === 0) {
       this.setData({
+        title: hashtagDetailRes.data.detail.hname,
         hashtag: hashtagDetailRes.data.detail,
         hashtagFormat: await fresnsConfig('hashtag_format'),
       });
@@ -118,14 +120,6 @@ Page({
   /** 监听用户上拉触底 **/
   onReachBottom: async function () {
     await this.loadFresnsPageData();
-  },
-
-  /** 右上角菜单-分享给好友 **/
-  onShareAppMessage: function () {
-    return {
-      title: this.data.hashtag.hname,
-      imageUrl: this.data.hashtag.cover,
-    };
   },
 
   /** 右上角菜单-分享到朋友圈 **/

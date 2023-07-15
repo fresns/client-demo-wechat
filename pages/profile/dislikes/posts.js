@@ -38,7 +38,7 @@ Page({
 
     this.setData({
       profile: viewProfile,
-      title: await fresnsConfig('menu_profile_dislike_posts'),
+      title: viewProfile.nickname + ': ' + await fresnsConfig('menu_profile_dislike_posts'),
     });
 
     await this.loadFresnsPageData();
@@ -104,24 +104,17 @@ Page({
     await this.loadFresnsPageData();
   },
 
-  /** 右上角菜单-分享给好友 **/
-  onShareAppMessage: function () {
-    return {
-      title: this.data.profile.nickname,
-    };
-  },
-
   /** 右上角菜单-分享到朋友圈 **/
   onShareTimeline: function () {
     return {
-      title: this.data.profile.nickname,
+      title: this.data.title,
     };
   },
 
   /** 右上角菜单-收藏 **/
   onAddToFavorites: function () {
     return {
-      title: this.data.profile.nickname,
+      title: this.data.title,
     };
   },
 });

@@ -17,6 +17,7 @@ Page({
 
   /** 页面的初始数据 **/
   data: {
+    title: null,
     // 详情
     gid: null,
     group: null,
@@ -44,6 +45,7 @@ Page({
 
     if (groupDetailRes.code === 0) {
       this.setData({
+        title: groupDetailRes.data.detail.gname,
         group: groupDetailRes.data.detail,
         extensions: groupDetailRes.data.items.extensions,
       });
@@ -118,14 +120,6 @@ Page({
   /** 监听用户上拉触底 **/
   onReachBottom: async function () {
     await this.loadFresnsPageData();
-  },
-
-  /** 右上角菜单-分享给好友 **/
-  onShareAppMessage: function () {
-    return {
-      title: this.data.group.gname,
-      imageUrl: this.data.group.cover,
-    };
   },
 
   /** 右上角菜单-分享到朋友圈 **/

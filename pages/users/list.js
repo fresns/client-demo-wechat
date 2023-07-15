@@ -17,6 +17,7 @@ Page({
 
   /** 页面的初始数据 **/
   data: {
+    title: null,
     // 默认查询条件
     requestState: null,
     requestQuery: null,
@@ -40,6 +41,7 @@ Page({
     }
 
     this.setData({
+      title: await fresnsConfig('menu_user_list_title'),
       requestState: requestState,
       requestQuery: requestQuery,
     });
@@ -121,24 +123,17 @@ Page({
     await this.loadFresnsPageData();
   },
 
-  /** 右上角菜单-分享给好友 **/
-  onShareAppMessage: async function () {
-    return {
-      title: await fresnsConfig('menu_user_list_title'),
-    };
-  },
-
   /** 右上角菜单-分享到朋友圈 **/
-  onShareTimeline: async function () {
+  onShareTimeline: function () {
     return {
-      title: await fresnsConfig('menu_user_list_title'),
+      title: this.data.title,
     };
   },
 
   /** 右上角菜单-收藏 **/
-  onAddToFavorites: async function () {
+  onAddToFavorites: function () {
     return {
-      title: await fresnsConfig('menu_user_list_title'),
+      title: this.data.title,
     };
   },
 });

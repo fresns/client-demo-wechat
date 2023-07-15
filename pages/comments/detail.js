@@ -23,8 +23,9 @@ Page({
     commentName: null,
 
     // 评论框
-    showCommentBox: false,
     commentBtnName: null,
+    showCommentBox: false,
+    nickname: null,
 
     // 评论列表
     query: {},
@@ -67,6 +68,7 @@ Page({
       this.setData({
         comment: comment,
         title: nickname + ': ' + commentTitle,
+        nickname: nickname,
         commentBtnName: await fresnsConfig('publish_comment_name'),
       });
 
@@ -143,13 +145,6 @@ Page({
     this.setData({
       showCommentBox: true,
     });
-  },
-
-  /** 右上角菜单-分享给好友 **/
-  onShareAppMessage: function () {
-    return {
-      title: this.data.title,
-    };
   },
 
   /** 右上角菜单-分享到朋友圈 **/
