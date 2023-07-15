@@ -214,10 +214,8 @@ Page({
       }
     }
 
-    const loginAccount = await fresnsLogin.loginAccount(params);
+    await fresnsLogin.loginAccount(params);
 
-    if (loginAccount.code != 0) {
-      wx.hideNavigationBarLoading();
-    }
+    wx.hideNavigationBarLoading();
   },
 });
