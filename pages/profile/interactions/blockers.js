@@ -38,7 +38,7 @@ Page({
 
     this.setData({
       profile: viewProfile,
-      title: viewProfile.nickname + ': ' + await fresnsConfig('menu_profile_blockers'),
+      title: viewProfile.nickname + ': ' + (await fresnsConfig('menu_profile_blockers')),
     });
 
     await this.loadFresnsPageData();

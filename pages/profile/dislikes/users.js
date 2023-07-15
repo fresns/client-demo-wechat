@@ -38,7 +38,7 @@ Page({
 
     this.setData({
       profile: viewProfile,
-      title: viewProfile.nickname + ': ' + await fresnsConfig('menu_profile_dislike_users'),
+      title: viewProfile.nickname + ': ' + (await fresnsConfig('menu_profile_dislike_users')),
     });
 
     await this.loadFresnsPageData();

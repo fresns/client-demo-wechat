@@ -43,7 +43,7 @@ module.exports = {
           break;
 
         default:
-          // code
+        // code
       }
 
       shareTitle = title;

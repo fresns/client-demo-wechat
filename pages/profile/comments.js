@@ -38,7 +38,7 @@ Page({
 
     this.setData({
       profile: viewProfile,
-      title: viewProfile.nickname + ': ' + await fresnsConfig('comment_name'),
+      title: viewProfile.nickname + ': ' + (await fresnsConfig('comment_name')),
     });
 
     await this.loadFresnsPageData();
