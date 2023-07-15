@@ -43,7 +43,7 @@ export async function makeSignature(timestamp) {
 /**
  * 获取请求标头
  * https://docs.fresns.cn/api/headers.html
-*/
+ */
 export async function getHeaders() {
   const now = new Date();
   const timestamp = now.getTime();
@@ -74,9 +74,9 @@ export async function getHeaders() {
 }
 
 /**
-* 获取插件鉴权信息
-* https://docs.fresns.cn/extensions/callback/url-authorization.html
-*/
+ * 获取插件鉴权信息
+ * https://docs.fresns.cn/extensions/callback/url-authorization.html
+ */
 export async function getPluginAuthorization() {
   const now = new Date();
   const timestamp = now.getTime();
