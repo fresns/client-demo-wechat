@@ -9,11 +9,11 @@ import { globalInfo } from '../../utils/fresnsGlobalInfo';
 const md5 = require('../../libs/md5/md5');
 const { base64_encode } = require('../../libs/base64/base64');
 
-/** 获取签名 **/
-export async function getSignature(timestamp) {
+/** 生成签名 **/
+export async function makeSignature(timestamp) {
   const headers = {
     'X-Fresns-App-Id': appConfig.appId,
-    'X-Fresns-Client-Platform-Id': 8,
+    'X-Fresns-Client-Platform-Id': 7, // https://docs.fresns.cn/database/dictionary/platforms.html
     'X-Fresns-Client-Version': globalInfo.clientVersion,
     'X-Fresns-Aid': globalInfo.aid,
     'X-Fresns-Aid-Token': globalInfo.aidToken,
@@ -40,14 +40,17 @@ export async function getSignature(timestamp) {
   return md5(stringSignTemp);
 }
 
-/** 获取请求标头 **/
+/**
+ * 获取请求标头
+ * https://docs.fresns.cn/api/headers.html
+*/
 export async function getHeaders() {
   const now = new Date();
   const timestamp = now.getTime();
 
   const headers = {
     'X-Fresns-App-Id': appConfig.appId,
-    'X-Fresns-Client-Platform-Id': 8,
+    'X-Fresns-Client-Platform-Id': 7, // https://docs.fresns.cn/database/dictionary/platforms.html
     'X-Fresns-Client-Version': globalInfo.clientVersion,
     'X-Fresns-Client-Device-Info': globalInfo.deviceInfo,
     'X-Fresns-Client-Lang-Tag': globalInfo.langTag,
@@ -57,7 +60,7 @@ export async function getHeaders() {
     'X-Fresns-Aid-Token': globalInfo.aidToken,
     'X-Fresns-Uid': globalInfo.uid,
     'X-Fresns-Uid-Token': globalInfo.uidToken,
-    'X-Fresns-Signature': await getSignature(timestamp),
+    'X-Fresns-Signature': await makeSignature(timestamp),
     'X-Fresns-Signature-Timestamp': timestamp,
   };
 
@@ -70,14 +73,17 @@ export async function getHeaders() {
   return headers;
 }
 
-/** 获取插件鉴权信息 **/
+/**
+* 获取插件鉴权信息
+* https://docs.fresns.cn/extensions/callback/url-authorization.html
+*/
 export async function getPluginAuthorization() {
   const now = new Date();
   const timestamp = now.getTime();
 
   const headers = {
     'X-Fresns-App-Id': appConfig.appId,
-    'X-Fresns-Client-Platform-Id': 8,
+    'X-Fresns-Client-Platform-Id': 7, // https://docs.fresns.cn/database/dictionary/platforms.html
     'X-Fresns-Client-Version': globalInfo.clientVersion,
     'X-Fresns-Client-Device-Info': globalInfo.deviceInfo,
     'X-Fresns-Client-Lang-Tag': globalInfo.langTag,
@@ -87,8 +93,8 @@ export async function getPluginAuthorization() {
     'X-Fresns-Aid-Token': globalInfo.aidToken,
     'X-Fresns-Uid': globalInfo.uid,
     'X-Fresns-Uid-Token': globalInfo.uidToken,
-    'X-Fresns-Signature': await getSignature(timestamp),
-    'X-Fresns-Signature-Timestamp': now.getTime(),
+    'X-Fresns-Signature': await makeSignature(timestamp),
+    'X-Fresns-Signature-Timestamp': timestamp,
   };
 
   for (const key in headers) {
