@@ -2,5 +2,8 @@
   "navigationBarTitleText": "消息",
   "enablePullDownRefresh": true,
   "usingComponents": {
+    "mp-actionSheet": "weui-miniprogram/actionsheet/actionsheet",
+    "loading": "/components/loading/loading",
+    "file": "/components/message/section/file"
   }
 }

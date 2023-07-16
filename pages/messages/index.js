@@ -43,6 +43,9 @@ Page({
       return;
     }
 
+    this.setData({
+      loadingStatus: true,
+    });
     wx.showNavigationBarLoading();
 
     const resultRes = await fresnsApi.message.conversationList({
@@ -54,8 +57,8 @@ Page({
       const { paginate, list } = resultRes.data;
       const isReachBottom = paginate.currentPage === paginate.lastPage;
       let tipType = 'none';
-      if (isReachBottom) {
-        tipType = this.data.conversations.length > 0 ? 'page' : 'empty';
+      if (isReachBottom && paginate.lastPage > 1) {
+        tipType = this.data.conversations ? 'page' : 'empty';
       }
 
       this.setData({
@@ -66,11 +69,10 @@ Page({
       });
     }
 
+    wx.hideNavigationBarLoading();
     this.setData({
       loadingStatus: false,
     });
-
-    wx.hideNavigationBarLoading();
   },
 
   /** 监听用户下拉动作 **/

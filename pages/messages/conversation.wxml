@@ -4,5 +4,51 @@
     Licensed under the Apache-2.0 license
 * -->
 <view class="page" data-weui-theme="{{ theme }}">
-    
+    <!-- 加载动效 -->
+    <loading status="{{ loadingStatus }}" tipType="{{ loadingTipType }}"></loading>
+
+    <!-- 消息列表 -->
+    <view class="message" wx:for="{{ messages }}" wx:for-item="message">
+        <block wx:if="{{ message.isMe }}">
+            <view class="weui-flex">
+                <view class="weui-flex__item">
+                    <block wx:if="{{ message.type == 1 }}">
+                        <view class="message-content message-content-me" bind:longpress="onClickDelete" data-id="{{ message.id }}" data-content="{{ message.content }}">{{ message.content }}</view>
+                    </block>
+                    <block wx:if="{{ message.type == 2 }}">
+                        <view class="message-content message-file-me" bind:longpress="onClickDelete" data-id="{{ message.id }}" data-content="{{ message.content }}"><file file="{{ message.file }}"/></view>
+                    </block>
+                </view>
+                <view class="user-avatar">
+                    <image src="{{ message.user.avatar }}" class="avatar-img" mode="scaleToFill"></image>
+                </view>
+            </view>
+        </block>
+
+        <block wx:else>
+            <view class="weui-flex">
+                <view class="user-avatar">
+                    <image src="{{ message.user.avatar }}" class="avatar-img" mode="scaleToFill"></image>
+                </view>
+                <view class="weui-flex__item">
+                    <block wx:if="{{ message.type == 1 }}">
+                        <view class="message-content message-content-it" bind:longpress="onClickDelete" data-id="{{ message.id }}" data-content="{{ message.content }}">{{ message.content }}</view>
+                    </block>
+                    <block wx:if="{{ message.type == 2 }}">
+                        <view class="message-content message-file-it" bind:longpress="onClickDelete" data-id="{{ message.id }}" data-content="{{ message.content }}"><file file="{{ message.file }}"/></view>
+                    </block>
+                </view>
+            </view>
+        </block>
+    </view>
+
+    <!-- 删除消息 -->
+    <mp-actionSheet show="{{ showActionSheet }}" actions="{{ actionGroups }}" title="{{ title }}" bindactiontap="actionClickDelete"/>
+
+    <!-- 消息发送框 -->
+    <view class="weui-tabbar send-message">
+        <view class="weui-tabbar__item" bind:tap="onClickCreateComment">
+            <view class="weui-tabbar__label">发送功能未开发</view>
+        </view>
+    </view>
 </view>
