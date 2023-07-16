@@ -10,8 +10,7 @@ Component({
   },
 
   /** 组件的初始数据 **/
-  data: {
-  },
+  data: {},
 
   /** 组件功能 **/
   methods: {

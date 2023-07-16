@@ -92,7 +92,7 @@ Page({
         page: this.data.page + 1,
         loadingTipType: tipType,
         isReachBottom: isReachBottom,
-      })
+      });
     }
 
     wx.hideNavigationBarLoading();
@@ -116,14 +116,14 @@ Page({
         text: await fresnsLang('delete'),
         type: 'warn',
         value: id,
-      }
+      },
     ];
 
     this.setData({
       title: content,
       actionGroups: actionGroups,
       showActionSheet: true,
-    })
+    });
   },
 
   // 操作删除
@@ -153,6 +153,6 @@ Page({
 
     this.setData({
       showActionSheet: false,
-    })
+    });
   },
 });
