@@ -3,7 +3,7 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import { fresnsConfig, fresnsAccount } from '../../api/tool/function';
+import { fresnsConfig, fresnsAccount, fresnsUserPanels } from '../../api/tool/function';
 import { fresnsLogin } from '../../utils/fresnsLogin';
 
 Page({
@@ -15,6 +15,8 @@ Page({
     fresnsLang: null,
 
     users: [],
+    userPanels: {},
+
     // 密码输入框是否可见
     isPasswordDialogVisible: false,
     // 输入的密码
@@ -29,17 +31,15 @@ Page({
     });
 
     const users = await fresnsAccount('detail.users');
+    const userPanels = await fresnsUserPanels();
 
     this.setData({
       users: users,
+      userPanels: userPanels,
     });
   },
 
-  /**
-   * 选择用户
-   * @param e
-   * @return {Promise<void>}
-   */
+  // 选择用户
   selectUserUser: async function (e) {
     const { user } = e.currentTarget.dataset;
     if (user.hasPassword) {
@@ -58,11 +58,8 @@ Page({
       });
     }
   },
-  /**
-   * 密码修改监听函数
-   * @param e
-   * @return {*}
-   */
+
+  // 密码修改监听函数
   onInputPassword: function (e) {
     const { value } = e.detail;
     this.setData({
@@ -70,11 +67,8 @@ Page({
     });
     return value;
   },
-  /**
-   * 提交密码
-   * @param e
-   * @return {Promise<void>}
-   */
+
+  // 提交密码
   onSubmitPassword: async function (e) {
     const { currentUser } = this.data;
     try {
@@ -84,12 +78,13 @@ Page({
         uidOrUsername: currentUser.uid.toString(),
         password: this.data.password,
       });
-      const { message, code } = selectUserRes;
-      if (code === 0) {
+
+      if (selectUserRes.code === 0) {
         this.setData({
           isPasswordDialogVisible: false,
           password: '',
         });
+
         wx.redirectTo({
           url: '/pages/user/index',
         });

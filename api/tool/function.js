@@ -133,24 +133,62 @@ export const fresnsUserPanel = async (key = null) => {
     return null;
   }
 
-  let fresnsUserPanel = cacheGet('fresnsUserPanel');
-  let data = fresnsUserPanel?.data;
+  const user = await fresnsUser('detail');
 
-  if (!fresnsUserPanel) {
-    const result = await fresnsApi.user.userPanel();
-
-    if (result.code === 0 && result.data) {
-      cachePut('fresnsUserPanel', result.data, 1);
-    }
-
-    data = result.data;
-  }
+  const userPanel = await fresnsUserPanels(user.uid);
 
   if (!key) {
+    return userPanel;
+  }
+
+  return data_get(userPanel, key);
+};
+
+// fresnsUserPanels
+export const fresnsUserPanels = async (uid = null) => {
+  if (!globalInfo.userLogin) {
+    return null;
+  }
+
+  let fresnsUserPanels = cacheGet('fresnsUserPanels');
+  let data = fresnsUserPanels?.data;
+
+  if (!fresnsUserPanels) {
+    let items = {};
+
+    const getUserPanels = async (users) => {
+      // 循环请求用户面板信息
+      let userPanels = users.map(async user => {
+        const result = await fresnsApi.user.userPanel({
+          uidOrUsername: user.uid
+        });
+
+        if (result.code === 0) {
+          items[user.uid] = result.data;
+        }
+      });
+
+      // 等待所有用户面板信息
+      await Promise.all(userPanels);
+
+      return items;
+    }
+
+    // 获取账号名下用户列表
+    const users = await fresnsAccount('detail.users');
+
+    // 获取用户面板列表
+    const panels = await getUserPanels(users);
+
+    cachePut('fresnsUserPanels', panels, 1);
+    data = panels;
+  }
+
+  if (!uid) {
     return data;
   }
 
-  return data_get(data, key);
+  return data[uid];
 };
 
 // fresnsViewProfile

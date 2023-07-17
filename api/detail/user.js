@@ -101,9 +101,12 @@ const user = {
    * 用户面板
    * @return {wx.RequestTask}
    */
-  userPanel: () => {
+  userPanel: (options = {}) => {
     return request({
       url: '/api/v2/user/panel',
+      data: {
+        ...options,
+      },
     });
   },
 
