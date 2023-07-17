@@ -158,9 +158,9 @@ export const fresnsUserPanels = async (uid = null) => {
 
     const getUserPanels = async (users) => {
       // 循环请求用户面板信息
-      let userPanels = users.map(async user => {
+      let userPanels = users.map(async (user) => {
         const result = await fresnsApi.user.userPanel({
-          uidOrUsername: user.uid
+          uidOrUsername: user.uid,
         });
 
         if (result.code === 0) {
@@ -172,7 +172,7 @@ export const fresnsUserPanels = async (uid = null) => {
       await Promise.all(userPanels);
 
       return items;
-    }
+    };
 
     // 获取账号名下用户列表
     const users = await fresnsAccount('detail.users');
