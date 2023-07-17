@@ -21,7 +21,7 @@ Page({
       title: await fresnsConfig('menu_portal_title'),
     });
 
-    const value = (await fresnsConfig('portal_8')) || 'null';
+    const value = (await fresnsConfig('portal_7')) || 'null';
 
     this.setData({
       title: await fresnsConfig('menu_portal_title'),
