@@ -51,7 +51,7 @@ export async function getHeaders() {
   const utcTimezone = (timezoneOffsetInHours > 0 ? '+' : '') + timezoneOffsetInHours.toString(); // 获取 UTC 时区
 
   const timeDiff = now.getTimezoneOffset() * 60 * 1000; // 获取时区偏移的毫秒数
-  const utcTimeStamp = Math.floor((Date.now() + timeDiff)); // 获取 UTC+0 的 Unix 时间戳（毫秒级）
+  const utcTimeStamp = Math.floor(Date.now() + timeDiff); // 获取 UTC+0 的 Unix 时间戳（毫秒级）
 
   const headers = {
     'X-Fresns-App-Id': appConfig.appId,
