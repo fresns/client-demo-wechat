@@ -31,6 +31,19 @@
         <picker bindchange="modifyBirthday" mode="date" header-text="{{ fresnsLang.userBirthday }}" value="{{ formattedBirthday }}" start="1950-01-01" end="{{ endDate }}">
             <mp-cell value="{{ fresnsLang.userBirthday }}" footer="{{ formattedBirthday }}" hover="{{ true }}" link="{{ true }}"/>
         </picker>
+    </mp-cells>
+
+    <!-- 互动设置 -->
+    <mp-cells ext-class="setting-cells" title="{{ fresnsLang.settingInteraction }}">
+        <!-- 对话 -->
+        <picker bindchange="modifyConversationLimit" header-text="{{ fresnsConfig.menu_conversations }}" range="{{ limitOptions }}" value="{{ fresnsUser.conversationLimit - 1 }}">
+            <mp-cell value="{{ fresnsConfig.menu_conversations }}" footer="{{ limitOptions[fresnsUser.conversationLimit - 1] }}" hover="{{ true }}" link="{{ true }}"/>
+        </picker>
+
+        <!-- 评论 -->
+        <picker bindchange="modifyCommentLimit" header-text="{{ fresnsConfig.comment_name }}" range="{{ limitOptions }}" value="{{ fresnsUser.commentLimit - 1 }}">
+            <mp-cell value="{{ fresnsConfig.comment_name }}" footer="{{ limitOptions[fresnsUser.commentLimit - 1] }}" hover="{{ true }}" link="{{ true }}"/>
+        </picker>
 
         <!-- 扩展资料 -->
         <block wx:for="{{ fresnsUserPanel.profiles }}" wx:for-item="item" wx:key="plugin">
@@ -43,24 +56,6 @@
                 <mp-cell value="{{ item.name }}" hover="{{ true }}" link="{{ true }}"/>
             </navigator>
         </block>
-    </mp-cells>
-
-    <!-- 偏好设置 -->
-    <mp-cells ext-class="setting-cells" title="{{ fresnsLang.settingPreference }}">
-        <!-- 对话 -->
-        <picker bindchange="modifyConversationLimit" header-text="{{ fresnsConfig.menu_conversations }}" range="{{ limitOptions }}" value="{{ fresnsUser.conversationLimit - 1 }}">
-            <mp-cell value="{{ fresnsConfig.menu_conversations }}" footer="{{ limitOptions[fresnsUser.conversationLimit - 1] }}" hover="{{ true }}" link="{{ true }}"/>
-        </picker>
-
-        <!-- 评论 -->
-        <picker bindchange="modifyCommentLimit" header-text="{{ fresnsConfig.comment_name }}" range="{{ limitOptions }}" value="{{ fresnsUser.commentLimit - 1 }}">
-            <mp-cell value="{{ fresnsConfig.comment_name }}" footer="{{ limitOptions[fresnsUser.commentLimit - 1] }}" hover="{{ true }}" link="{{ true }}"/>
-        </picker>
-
-        <!-- 时区 -->
-        <picker bindchange="modifyTimezone" header-text="{{ fresnsLang.userTimeZone }}" range="{{ fresnsConfig.utc }}" range-key="{{ 'name' }}" value="{{ initialTimezoneIndex }}">
-            <mp-cell value="{{ fresnsLang.userTimeZone }}" footer="{{ 'UTC' + fresnsUser.timezone }}" hover="{{ true }}" link="{{ true }}"/>
-        </picker>
     </mp-cells>
 
     <!-- 账号信息 -->

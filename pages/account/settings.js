@@ -246,30 +246,6 @@ Page({
     }
   },
 
-  // 修改时区
-  modifyTimezone: async function (e) {
-    console.log('modifyTimezone', e);
-
-    const value = Number(e.detail.value);
-    const utc = await fresnsConfig('utc');
-
-    const timezone = utc[value].value;
-
-    console.log('modifyTimezone value', value, timezone);
-
-    const userEditRes = await fresnsApi.user.userEdit({
-      timezone: timezone,
-    });
-
-    if (userEditRes.code === 0) {
-      this.reloadFresnsUser();
-
-      this.setData({
-        initialTimezoneIndex: value,
-      });
-    }
-  },
-
   // 显示修改框
   showModifyDialog: function (e) {
     this.setData({
