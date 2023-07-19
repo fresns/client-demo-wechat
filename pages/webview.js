@@ -10,9 +10,7 @@ const app = getApp();
 
 Page({
   /** 外部 mixin 引入 **/
-  mixins: [
-    require('../mixins/themeChanged'),
-  ],
+  mixins: [require('../mixins/themeChanged')],
 
   /** 页面的初始数据 **/
   data: {

@@ -208,5 +208,5 @@ module.exports = {
     wx.removeStorageSync('fresnsCallback');
 
     wx.hideNavigationBarLoading();
-  }
+  },
 };
