@@ -65,7 +65,7 @@
 
     <view class="user-extensions" wx:if="{{ fresnsUserPanel.features.length > 0 }}">
         <view class="extension-box">
-            <block wx:for="{{ fresnsUserPanel.features }}" wx:for-item="item" wx:key="plugin">
+            <block wx:for="{{ fresnsUserPanel.features }}" wx:for-item="item" wx:key="fskey">
                 <navigator url="/pages/webview" bind:tap="fresnsExtensions"
                     data-type="account"
                     data-scene="featureExtension"

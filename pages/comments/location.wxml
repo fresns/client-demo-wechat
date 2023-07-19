@@ -10,7 +10,7 @@
     </view>
 
     <!-- 评论列表 -->
-    <view class="comment-list" wx:for="{{ comments }}" wx:for-index="idx" wx:for-item="comment" wx:key="cid">
+    <view class="comment-list" wx:for="{{ comments }}" wx:for-item="comment" wx:key="cid">
         <comment comment="{{ comment }}" type="list"></comment>
     </view>
 

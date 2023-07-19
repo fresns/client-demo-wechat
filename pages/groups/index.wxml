@@ -31,7 +31,7 @@
     <!-- 视图类型: 树结构 -->
     <view class="groups-vtabs" wx:if="{{ menuGroupType == 'tree' }}">
         <mp-vtabs vtabs="{{ vtabs }}" activeTab="{{ activeTab }}" bindtabclick="onTabClick" bindchange="onChange">
-            <block wx:for="{{ vtabs }}" wx:key="title" >
+            <block wx:for="{{ vtabs }}">
                 <mp-vtabs-content tabIndex="{{ index }}">
                     <view class="weui-panel weui-panel_access">
                         <view class="weui-panel__hd">{{ item.title }}</view>
@@ -47,7 +47,7 @@
     <!-- 视图类型: 列表 -->
     <view class="weui-media-box weui-media-box_small-appmsg" wx:if="{{ menuGroupType !== 'tree' }}">
         <view class="weui-cells">
-            <group wx:for="{{ groups }}" wx:for-index="idx" wx:for-item="group" wx:key="gid" group="{{ group }}"></group>
+            <group wx:for="{{ groups }}" wx:for-item="group" wx:key="gid" group="{{ group }}"></group>
         </view>
     </view>
 

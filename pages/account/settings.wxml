@@ -46,7 +46,7 @@
         </picker>
 
         <!-- 扩展资料 -->
-        <block wx:for="{{ fresnsUserPanel.profiles }}" wx:for-item="item" wx:key="plugin">
+        <block wx:for="{{ fresnsUserPanel.profiles }}" wx:for-item="item" wx:key="fskey">
             <navigator url="/pages/webview" bind:tap="fresnsExtensions"
                 data-type="account"
                 data-scene="profileExtension"
@@ -87,7 +87,7 @@
 
     <!-- 互联信息 -->
     <mp-cells ext-class="setting-cells" wx:if="{{ fresnsAccount.connects }}" title="{{ fresnsLang.settingConnect }}">
-        <block wx:for="{{ fresnsAccount.connects }}" wx:for-item="item" wx:key="plugin">
+        <block wx:for="{{ fresnsAccount.connects }}" wx:for-item="item" wx:key="connectPlatformId">
             <navigator url="/pages/webview" bind:tap="fresnsExtensions"
                 data-type="account"
                 data-scene="connect"

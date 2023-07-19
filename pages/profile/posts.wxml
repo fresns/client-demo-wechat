@@ -15,7 +15,7 @@
 
     <!-- 列表 -->
     <view class="profile-list">
-        <view class="post-list" wx:for="{{ posts }}" wx:for-index="idx" wx:for-item="post" wx:key="pid">
+        <view class="post-list" wx:for="{{ posts }}" wx:for-item="post" wx:key="pid">
             <post post="{{ post }}" type="list"></post>
         </view>
     </view>

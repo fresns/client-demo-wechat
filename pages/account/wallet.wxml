@@ -5,7 +5,7 @@
 * -->
 <view class="page" data-weui-theme="{{ theme }}">
     <!-- 钱包列表 -->
-    <view class="wallet-logs" wx:for="{{ walletLogs }}" wx:for-item="log">
+    <view class="wallet-logs" wx:for="{{ walletLogs }}" wx:for-item="log" wx:key="createdTimeAgo">
         <view>{{ log.type }}</view>
     </view>
 

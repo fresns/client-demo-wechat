@@ -31,7 +31,7 @@
     <!-- 话题列表 -->
     <view class="weui-media-box weui-media-box_small-appmsg">
         <view class="weui-cells">
-            <hashtag wx:for="{{ hashtags }}" wx:for-index="idx" wx:for-item="hashtag" wx:key="hid" hashtag="{{ hashtag }}"></hashtag>
+            <hashtag wx:for="{{ hashtags }}" wx:for-item="hashtag" wx:key="hid" hashtag="{{ hashtag }}"></hashtag>
         </view>
     </view>
 

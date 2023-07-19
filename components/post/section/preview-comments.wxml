@@ -27,13 +27,13 @@
 
     <!-- 热评-附带图片 -->
     <view class="comment-image-{{ previewComments[0].files.images.length }}" wx:if="{{ previewComments[0].files.images.length > 0 }}">
-        <image wx:for="{{ previewComments[0].files.images }}" wx:for-item="imageItem" src="{{ imageItem.imageSquareUrl }}" mode="widthFix"></image>
+        <image wx:for="{{ previewComments[0].files.images }}" wx:for-item="imageItem" wx:key="fid" src="{{ imageItem.imageSquareUrl }}" mode="widthFix"></image>
     </view>
 </view>
 
 <!-- 多条评论预览 -->
 <navigator class="comments" url="/pages/posts/detail?pid={{ pid }}" wx:if="{{ previewComments.length > 1 }}">
-    <view class="preview-list" wx:for="{{ previewComments }}" wx:for-item="comment">
+    <view class="preview-list" wx:for="{{ previewComments }}" wx:for-item="comment" wx:key="cid">
         <view class="preview-list-nickname">
             <text wx:if="{{ ! comment.author.status }}">{{ userDeactivate }}</text>
             <text wx:elif="{{ comment.isAnonymous }}">{{ authorAnonymous }}</text>

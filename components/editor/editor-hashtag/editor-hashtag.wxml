@@ -42,7 +42,7 @@
 
                 <!-- 结果列表 -->
                 <scroll-view scroll-y="true" style="height:500px;">
-                    <block wx:for="{{ hashtags }}" wx:for-item="hashtag">
+                    <block wx:for="{{ hashtags }}" wx:for-item="hashtag" wx:key="hid">
                         <view role="option" class="weui-cell weui-cell_active weui-cell_access" bind:tap="onSelectHashtag" data-name="{{ hashtag.name }}">
                             <view class="weui-cell__hd" wx:if="{{ hashtag.image }}">
                                 <image src="{{ hashtag.image }}"></image>

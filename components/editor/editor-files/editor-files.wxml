@@ -7,7 +7,7 @@
 <view class="weui-cell weui-cell_uploader" wx:if="{{ images.length > 0 }}">
     <view class="weui-uploader">
         <view class="weui-uploader__files">
-            <block wx:for="{{ images }}" wx:key="*this">
+            <block wx:for="{{ images }}" wx:key="fid">
                 <view class="weui-uploader__file {{ item.newChoice ? 'weui-uploader__file_status' : '' }}" data-type="image" data-fid="{{ item.fid }}" data-url="{{ item.imageBigUrl }}" bind:tap="handleFiles">
                     <image class="weui-uploader__img" src="{{ item.imageSquareUrl }}" mode="aspectFill" />
 
@@ -28,7 +28,7 @@
 <view class="weui-cell weui-cell_uploader" wx:if="{{ videos.length > 0 }}">
     <view class="weui-uploader">
         <view class="weui-uploader__files">
-            <block wx:for="{{ videos }}" wx:key="*this">
+            <block wx:for="{{ videos }}" wx:key="fid">
                 <view class="weui-uploader__file weui-uploader__file_status" data-type="video" data-fid="{{ item.fid }}" bind:tap="handleFiles">
                     <image class="weui-uploader__img" src="{{ item.videoPosterUrl }}" mode="aspectFill" />
                     <view aria-role="alert" class="weui-uploader__file-content" wx:if="{{ !item.newChoice && !item.waiting }}">
@@ -50,7 +50,7 @@
 
 <!-- 音频 -->
 <view class="weui-cell weui-cell_uploader" wx:if="{{ audios.length > 0 }}">
-    <block wx:for="{{ audios }}" wx:key="*this">
+    <block wx:for="{{ audios }}" wx:key="fid">
         <view class="file-audio">
             <audio name="{{ item.name }}" src="{{ item.audioUrl }}" controls loop data-type="audio" data-fid="{{ item.fid }}" catch:tap="handleFiles"></audio>
         </view>
@@ -59,7 +59,7 @@
 
 <!-- 文档 -->
 <view class="weui-cell weui-cell_uploader" wx:if="{{ documents.length > 0 }}">
-    <block wx:for="{{ documents }}" wx:key="*this">
+    <block wx:for="{{ documents }}" wx:key="fid">
         <view class="file-document" data-type="video" data-fid="{{ item.fid }}" bind:tap="handleFiles">
             <view class="doc-icon">
                 <image src="/assets/images/file.png" class="weui-btn_cell__icon" mode="aspectFit"></image>

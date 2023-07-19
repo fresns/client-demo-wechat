@@ -6,7 +6,7 @@
 <view class="page" data-weui-theme="{{ theme }}">
     <!-- 会话列表 -->
     <view class="weui-cells">
-        <navigator wx:for="{{ conversations }}" wx:for-item="conversation" url="/pages/messages/conversation?id={{ conversation.id }}" class="weui-cell weui-cell_active">
+        <navigator wx:for="{{ conversations }}" wx:for-item="conversation" wx:key="id" url="/pages/messages/conversation?id={{ conversation.id }}" class="weui-cell weui-cell_active">
             <view class="weui-cell__hd">
                 <image src="{{ conversation.user.avatar }}" class="user-avatar"></image>
                 <text class="weui-badge" wx:if="{{ conversation.unreadCount }}">{{ conversation.unreadCount }}</text>

@@ -7,7 +7,7 @@
     <view class="tab-navbar">
         <view class="weui-tab">
             <view class="weui-navbar">
-                <block wx:for="{{ tabs }}" wx:key="*this">
+                <block wx:for="{{ tabs }}">
                     <view id="{{ index }}" class="weui-navbar__item {{ activeIndex == index ? 'weui-navbar__item_on' : '' }}" bind:tap="tabClick">
                         {{ item }}
                     </view>
@@ -18,7 +18,7 @@
 
     <!-- 帖子草稿 -->
     <view class="weui-cells weui-cells_after-title" wx:if="{{ type == 'post' }}">
-        <view wx:for="{{ posts }}" wx:for-item="post" class="weui-cell weui-cell_example" bind:tap="onEditMenus" data-id="{{ post.id }}" data-title="{{ post.title || post.contentLength > 40 ? post.content.slice(0, 40) + '...' : post.content }}">
+        <view wx:for="{{ posts }}" wx:for-item="post" wx:key="pid" class="weui-cell weui-cell_example" bind:tap="onEditMenus" data-id="{{ post.id }}" data-title="{{ post.title || post.contentLength > 40 ? post.content.slice(0, 40) + '...' : post.content }}">
             <view class="weui-cell__hd">{{ post.id }}</view>
             <view class="weui-cell__bd">{{ post.title || post.contentLength > 40 ? post.content.slice(0, 40) + '...' : post.content }}</view>
             <view class="weui-cell__ft">{{ post.contentLength }}</view>
@@ -27,7 +27,7 @@
 
     <!-- 评论草稿 -->
     <view class="weui-cells weui-cells_after-title" wx:if="{{ type == 'comment' }}">
-        <view wx:for="{{ comments }}" wx:for-item="comment" class="weui-cell weui-cell_example" bind:tap="onEditMenus" data-id="{{ comment.id }}" data-title="{{ comment.contentLength > 40 ? comment.content.slice(0, 40) + '...' : comment.content }}">
+        <view wx:for="{{ comments }}" wx:for-item="comment" wx:key="cid" class="weui-cell weui-cell_example" bind:tap="onEditMenus" data-id="{{ comment.id }}" data-title="{{ comment.contentLength > 40 ? comment.content.slice(0, 40) + '...' : comment.content }}">
             <view class="weui-cell__hd">{{ comment.id }}</view>
             <view class="weui-cell__bd">{{ comment.contentLength > 40 ? comment.content.slice(0, 40) + '...' : comment.content }}</view>
             <view class="weui-cell__ft">{{ comment.contentLength }}</view>

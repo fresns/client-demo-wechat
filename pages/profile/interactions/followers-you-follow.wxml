@@ -15,7 +15,7 @@
 
     <!-- 列表 -->
     <view class="profile-list">
-        <view class="user-list" wx:for="{{ users }}" wx:for-index="idx" wx:for-item="user" wx:key="uid">
+        <view class="user-list" wx:for="{{ users }}" wx:for-item="user" wx:key="uid">
             <user user="{{ user }}"></user>
         </view>
     </view>

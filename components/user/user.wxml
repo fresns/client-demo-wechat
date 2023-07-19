@@ -37,7 +37,7 @@
 
                 <!-- 扩展图标 -->
                 <view wx:if="{{ user.operations.diversifyImages }}" class="user-icons weui-flex">
-                    <image wx:for="{{ user.operations.diversifyImages }}" wx:for-item="iconItem" wx:key="icon" src="{{ iconItem.imageUrl }}" alt="{{ iconItem.name }}" mode="heightFix"></image>
+                    <image wx:for="{{ user.operations.diversifyImages }}" wx:for-item="iconItem" wx:key="code" src="{{ iconItem.imageUrl }}" alt="{{ iconItem.name }}" mode="heightFix"></image>
                 </view>
 
                 <!-- 简要 -->

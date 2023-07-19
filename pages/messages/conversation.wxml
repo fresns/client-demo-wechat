@@ -4,11 +4,8 @@
     Licensed under the Apache-2.0 license
 * -->
 <view class="page" data-weui-theme="{{ theme }}">
-    <!-- 加载动效 -->
-    <loading status="{{ loadingStatus }}" tipType="{{ loadingTipType }}"></loading>
-
     <!-- 消息列表 -->
-    <view class="message" wx:for="{{ messages }}" wx:for-item="message">
+    <view class="message" wx:for="{{ messages }}" wx:for-item="message" wx:key="id">
         <block wx:if="{{ message.isMe }}">
             <view class="weui-flex">
                 <view class="weui-flex__item">
@@ -41,6 +38,9 @@
             </view>
         </block>
     </view>
+
+    <!-- 加载动效 -->
+    <loading status="{{ loadingStatus }}" tipType="{{ loadingTipType }}"></loading>
 
     <!-- 删除消息 -->
     <mp-actionSheet show="{{ showActionSheet }}" actions="{{ actionGroups }}" title="{{ title }}" bindactiontap="actionClickDelete"/>

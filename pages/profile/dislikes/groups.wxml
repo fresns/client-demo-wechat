@@ -17,7 +17,7 @@
     <view class="profile-list">
         <view class="weui-media-box weui-media-box_small-appmsg">
             <view class="weui-cells">
-                <group wx:for="{{ groups }}" wx:for-index="idx" wx:for-item="group" wx:key="gid" group="{{ group }}"></group>
+                <group wx:for="{{ groups }}" wx:for-item="group" wx:key="gid" group="{{ group }}"></group>
             </view>
         </view>
     </view>

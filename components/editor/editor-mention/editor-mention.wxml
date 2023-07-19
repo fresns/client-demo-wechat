@@ -42,7 +42,7 @@
 
                 <!-- 结果列表 -->
                 <scroll-view scroll-y="true" style="height:500px;">
-                    <block wx:for="{{ users }}" wx:for-item="user">
+                    <block wx:for="{{ users }}" wx:for-item="user" wx:key="uid">
                         <view role="option" class="weui-cell weui-cell_active weui-cell_access" bind:tap="onSelectUser" data-fsid="{{ user.fsid }}">
                             <view class="weui-cell__hd">
                                 <image src="{{ user.image }}"></image>
