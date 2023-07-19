@@ -77,7 +77,7 @@ Component({
             break;
 
           default:
-            // code
+          // code
         }
       }
 
@@ -97,7 +97,7 @@ Component({
           break;
 
         default:
-          // code
+        // code
       }
     },
   },

@@ -96,7 +96,7 @@ Component({
           break;
 
         default:
-          // code
+        // code
       }
 
       this.setData({

@@ -71,7 +71,7 @@ Component({
           break;
 
         default:
-          // code
+        // code
       }
 
       // 触发对象
@@ -103,7 +103,7 @@ Component({
           break;
 
         default:
-          // code
+        // code
       }
 
       // 触发事件
@@ -135,7 +135,7 @@ Component({
           break;
 
         default:
-          // code
+        // code
       }
 
       // 是否为提及通知（别人内容里提及了我，然后互动通知的我）
