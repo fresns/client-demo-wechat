@@ -5,7 +5,7 @@
  */
 import { fresnsApi } from '../api/api';
 import { globalInfo } from '../utils/fresnsGlobalInfo';
-import { getCurrentPagePath, dfs } from '../utils/fresnsUtilities';
+import { getCurrentPagePath, dfs, callPrevPageFunction } from '../utils/fresnsUtilities';
 
 module.exports = {
   /** 右上角菜单-分享给好友 **/
@@ -57,6 +57,81 @@ module.exports = {
     };
   },
 
+  /** 添加用户 **/
+  onAddUser(newUser) {
+    const users = this.data.users;
+
+    if (!users) {
+      return;
+    }
+
+    users.unshift(newUser);
+
+    this.setData({
+      users: users,
+    });
+  },
+
+  /** 添加小组 **/
+  onAddGroup(newGroup) {
+    const groups = this.data.groups;
+
+    if (!groups) {
+      return;
+    }
+
+    groups.unshift(newGroup);
+
+    this.setData({
+      groups: groups,
+    });
+  },
+
+  /** 添加话题 **/
+  onAddHashtag(newHashtag) {
+    const hashtags = this.data.hashtags;
+
+    if (!hashtags) {
+      return;
+    }
+
+    hashtags.unshift(newHashtag);
+
+    this.setData({
+      hashtags: hashtags,
+    });
+  },
+
+  /** 添加帖子 **/
+  onAddPost(newPost) {
+    const posts = this.data.posts;
+
+    if (!posts) {
+      return;
+    }
+
+    posts.unshift(newPost);
+
+    this.setData({
+      posts: posts,
+    });
+  },
+
+  /** 添加评论 **/
+  onAddComment(newComment) {
+    const comments = this.data.comments;
+
+    if (!comments) {
+      return;
+    }
+
+    comments.unshift(newComment);
+
+    this.setData({
+      comments: comments,
+    });
+  },
+
   /** 更改用户 **/
   onChangeUser(newUser) {
     // 详情页
@@ -70,6 +145,9 @@ module.exports = {
       this.setData({
         profile: newUser,
       });
+
+      // 同步更改上一页用户
+      callPrevPageFunction('onChangeUser', newUser);
 
       return;
     }
@@ -107,6 +185,9 @@ module.exports = {
       this.setData({
         group: newGroup,
       });
+
+      // 同步更改上一页小组
+      callPrevPageFunction('onChangeGroup', newGroup);
 
       return;
     }
@@ -157,6 +238,9 @@ module.exports = {
         hashtag: newHashtag,
       });
 
+      // 同步更改上一页话题
+      callPrevPageFunction('onChangeHashtag', newHashtag);
+
       return;
     }
 
@@ -193,6 +277,9 @@ module.exports = {
       this.setData({
         post: newPost,
       });
+
+      // 同步更改上一页帖子
+      callPrevPageFunction('onChangePost', newPost);
 
       return;
     }
@@ -231,6 +318,9 @@ module.exports = {
         comment: newComment,
       });
 
+      // 同步更改上一页评论
+      callPrevPageFunction('onChangeComment', newComment);
+
       return;
     }
 
@@ -252,6 +342,223 @@ module.exports = {
     this.setData({
       comments: comments,
     });
+  },
+
+  /** 移除用户 **/
+  onRemoveUser(removeUid) {
+    // 详情页
+    const profile = this.data.profile;
+
+    if (profile) {
+      if (profile.uid != removeUid) {
+        return;
+      }
+
+      // 移除上一页用户
+      callPrevPageFunction('onRemoveUser', removeUid);
+
+      // 后退上一页
+      wx.navigateBack();
+
+      return;
+    }
+
+    // 列表页
+    const users = this.data.users;
+    if (!users) {
+      return;
+    }
+
+    const idx = users.findIndex((value) => value.uid === removeUid);
+
+    if (idx == -1) {
+      // 未找到记录
+      return;
+    }
+
+    users.splice(idx, 1);
+
+    this.setData({
+      users: users,
+    });
+  },
+
+  /** 移除小组 **/
+  onRemoveGroup(removeGid) {
+    // 详情页
+    const group = this.data.group;
+
+    if (group) {
+      if (group.gid != removeGid) {
+        return;
+      }
+
+      // 移除上一页小组
+      callPrevPageFunction('onRemoveGroup', removeGid);
+
+      // 后退上一页
+      wx.navigateBack();
+
+      return;
+    }
+
+    // 列表页
+    const groups = this.data.groups;
+    if (!groups) {
+      return;
+    }
+
+    const idx = groups.findIndex((value) => value.gid === removeGid);
+
+    if (idx == -1) {
+      // 未找到记录
+      return;
+    }
+
+    groups.splice(idx, 1);
+
+    this.setData({
+      groups: groups,
+    });
+  },
+
+  /** 移除话题 **/
+  onRemoveHashtag(removeHid) {
+    // 详情页
+    const hashtag = this.data.hashtag;
+
+    if (hashtag) {
+      if (hashtag.hid != removeHid) {
+        return;
+      }
+
+      // 移除上一页话题
+      callPrevPageFunction('onRemoveHashtag', removeHid);
+
+      // 后退上一页
+      wx.navigateBack();
+
+      return;
+    }
+
+    // 列表页
+    const hashtags = this.data.hashtags;
+    if (!hashtags) {
+      return;
+    }
+
+    const idx = hashtags.findIndex((value) => value.hid === removeHid);
+
+    if (idx == -1) {
+      // 未找到记录
+      return;
+    }
+
+    hashtags.splice(idx, 1);
+
+    this.setData({
+      hashtags: hashtags,
+    });
+  },
+
+  /** 移除帖子 **/
+  onRemovePost(removePid) {
+    // 详情页
+    const post = this.data.post;
+
+    if (post) {
+      if (post.pid != removePid) {
+        return;
+      }
+
+      // 移除上一页帖子
+      callPrevPageFunction('onRemovePost', removePid);
+
+      // 后退上一页
+      wx.navigateBack();
+
+      return;
+    }
+
+    // 列表页
+    const posts = this.data.posts;
+    if (!posts) {
+      return;
+    }
+
+    const idx = posts.findIndex((value) => value.pid === removePid);
+
+    if (idx == -1) {
+      // 未找到记录
+      return;
+    }
+
+    posts.splice(idx, 1);
+
+    this.setData({
+      posts: posts,
+    });
+  },
+
+  /** 移除评论 **/
+  onRemoveComment(removeCid) {
+    // 详情页
+    const comment = this.data.comment;
+
+    if (comment) {
+      if (comment.cid != removeCid) {
+        return;
+      }
+
+      // 移除上一页评论
+      callPrevPageFunction('onRemoveComment', removeCid);
+
+      // 后退上一页
+      wx.navigateBack();
+
+      return;
+    }
+
+    // 列表页
+    const comments = this.data.comments;
+    if (!comments) {
+      return;
+    }
+
+    const idx = comments.findIndex((value) => value.cid === removeCid);
+
+    if (idx == -1) {
+      // 未找到记录
+      return;
+    }
+
+    comments.splice(idx, 1);
+
+    this.setData({
+      comments: comments,
+    });
+  },
+
+  /** 删除帖子 **/
+  onDeletePost: async function (deletePid) {
+    const resultRes = await fresnsApi.post.postDelete({
+      pid: deletePid,
+    });
+
+    if (resultRes.code === 0) {
+      this.onRemovePost(deletePid);
+    }
+  },
+
+  /** 删除评论 **/
+  onDeleteComment: async function (deleteCid) {
+    const resultRes = await fresnsApi.comment.commentDelete({
+      cid: deleteCid,
+    });
+
+    if (resultRes.code === 0) {
+      this.onRemoveComment(deleteCid);
+    }
   },
 
   /** 发表评论 **/
@@ -293,6 +600,7 @@ module.exports = {
       const commentDetailRes = await fresnsApi.comment.commentDetail({
         cid: newCid,
       });
+
       if (commentDetailRes.code === 0) {
         let detail = commentDetailRes.data.detail;
         detail.replyToPost = {
@@ -321,85 +629,5 @@ module.exports = {
     this.setData({
       showCommentBox: false,
     });
-  },
-
-  /** 删除帖子 **/
-  onDeletePost: async function (deletePid) {
-    // 详情页
-    const postDetail = this.data.post;
-    if (postDetail && postDetail.pid == deletePid) {
-      const resultRes = await fresnsApi.post.postDelete({
-        pid: deletePid,
-      });
-
-      if (resultRes.code === 0) {
-        wx.navigateBack({
-          delta: 1,
-        });
-      }
-    }
-
-    // 列表页
-    const posts = this.data.posts;
-    if (posts) {
-      const idx = posts.findIndex((value) => value.pid === deletePid);
-
-      if (idx == -1) {
-        // 未找到记录
-        return;
-      }
-
-      const resultRes = await fresnsApi.post.postDelete({
-        pid: deletePid,
-      });
-
-      if (resultRes.code === 0) {
-        posts.splice(idx, 1);
-
-        this.setData({
-          posts: posts,
-        });
-      }
-    }
-  },
-
-  /** 删除评论 **/
-  onDeleteComment: async function (deleteCid) {
-    // 详情页
-    const commentDetail = this.data.comment;
-    if (commentDetail && commentDetail.cid == deleteCid) {
-      const resultRes = await fresnsApi.comment.commentDelete({
-        cid: deleteCid,
-      });
-
-      if (resultRes.code === 0) {
-        wx.navigateBack({
-          delta: 1,
-        });
-      }
-    }
-
-    // 列表页
-    const comments = this.data.comments;
-    if (comments) {
-      const idx = comments.findIndex((value) => value.cid === deleteCid);
-
-      if (idx == -1) {
-        // 未找到记录
-        return;
-      }
-
-      const resultRes = await fresnsApi.comment.commentDelete({
-        cid: deleteCid,
-      });
-
-      if (resultRes.code === 0) {
-        comments.splice(idx, 1);
-
-        this.setData({
-          comments: comments,
-        });
-      }
-    }
   },
 };

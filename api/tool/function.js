@@ -5,7 +5,7 @@
  */
 import { fresnsApi } from '../api';
 import { globalInfo } from '../../utils/fresnsGlobalInfo';
-import { cachePut, cacheGet } from '../../utils/fresnsUtilities';
+import { cachePut, cacheGet, callPrevPageFunction } from '../../utils/fresnsUtilities';
 
 // fresnsConfig
 export const fresnsConfig = async (itemKey = null, defaultValue = null) => {
@@ -212,6 +212,10 @@ export const fresnsViewProfile = async (uidOrUsername = null) => {
 
     fresnsViewProfile = result.data.detail;
   }
+
+  // 替换上一页数据
+  // mixins/fresnsInteraction.js
+  callPrevPageFunction('onChangeUser', fresnsViewProfile);
 
   return fresnsViewProfile;
 };
