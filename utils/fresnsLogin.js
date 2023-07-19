@@ -31,7 +31,7 @@ export class FresnsLogin {
     }
 
     return await this.loginUser({
-      uidOrUsername: user.uid.toString(),
+      uidOrUsername: user.uid,
     });
   }
 
@@ -150,7 +150,7 @@ export class FresnsLogin {
 
     return await this.loginUser(
       {
-        uidOrUsername: user.uid.toString(),
+        uidOrUsername: user.uid,
       },
       isRedirect
     );
