@@ -3,3 +3,53 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
+@import '/assets/styles/weui.wxss';
+
+.card {
+  width: 100%;
+  overflow: hidden;
+  margin: 10px 0;
+  padding-bottom: 5px;
+  background-color: var(--weui-BG-2);
+  position: relative;
+}
+
+.card-header {
+  margin-top: 5px;
+}
+
+.card-body {
+  margin: 0 20px 15px 20px;
+  color: var(--weui-FG-0);
+}
+
+.card-footer {
+  margin: 0 20px 15px 20px;
+}
+
+.site-icon {
+  width: 66px;
+  height: 66px;
+}
+
+.site-icon .icon-img {
+  width: 40px;
+  height: 40px;
+  margin: 13px;
+  margin-bottom: -7px;
+}
+
+.site-info {
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.site-info .site-name {
+  font-size: 18px;
+  color: var(--weui-FG-0);
+}
+
+.notification-time {
+  font-size: 14px;
+  color: var(--weui-FG-1);
+}

@@ -1,0 +1,25 @@
+<!-- *
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
+    Licensed under the Apache-2.0 license
+* -->
+<navigator class="parent-content" url="{{ url }}">
+    <view class="weui-flex">
+        <view class="parent-content-avatar" wx:if="{{ avatar }}">
+            <image src="{{ avatar }}" mode="scaleToFill"></image>
+        </view>
+        <view class="parent-content-text weui-flex__item">
+            <view wx:if="{{ userDeactivate }}" class="parent-content-name">
+                {{ userDeactivateName }}:
+            </view>
+            <view wx:elif="{{ isAnonymous }}" class="parent-content-name">
+                {{ userAnonymousName }}:
+            </view>
+            <view wx:else class="parent-content-name">
+                {{ name }}:
+            </view>
+            <rich-text nodes="{{ content }}" class="weui-flex__item" />
+        </view>
+    </view>
+    <view class="parent-content-group" wx:if="{{ isGroup }}">{{ gname }}</view>
+</navigator>

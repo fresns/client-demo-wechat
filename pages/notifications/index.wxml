@@ -35,7 +35,8 @@
     </view>
 
     <!-- 通知列表 -->
-    <view class="notifications">
+    <view class="notifications" wx:for="{{ notifications }}" wx:for-item="notification" wx:key="id">
+        <notification notification="{{ notification }}"></notification>
     </view>
 
     <!-- 加载动效 -->

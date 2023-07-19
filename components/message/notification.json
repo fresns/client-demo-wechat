@@ -1,10 +1,8 @@
 {
   "component": true,
   "usingComponents": {
-    "mp-html": "mp-html",
-    "author": "/components/section/author",
-    "files": "/components/section/files",
-    "previewComments": "/components/post/section/preview-comments",
-    "interaction": "/components/post/section/interaction"
+    "user": "/components/section/author",
+    "badge": "/components/message/section/badge",
+    "content-box": "/components/message/section/content-box"
   }
 }

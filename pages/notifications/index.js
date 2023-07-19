@@ -11,6 +11,7 @@ Page({
     require('../../mixins/themeChanged'),
     require('../../mixins/checkSiteMode'),
     require('../../mixins/loginInterceptor'),
+    require('../../mixins/fresnsExtensions'),
   ],
 
   /** 页面的初始数据 **/
@@ -43,7 +44,7 @@ Page({
 
     const resultRes = await fresnsApi.message.notificationList({
       types: this.data.type,
-      userWhitelistKeys: 'avatar,nickname,status',
+      userWhitelistKeys: 'uid,fsid,avatar,nickname,username,status',
       page: this.data.page,
     });
 
