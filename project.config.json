@@ -51,7 +51,7 @@
     "condition": true
   },
   "compileType": "miniprogram",
-  "libVersion": "2.30.2",
+  "libVersion": "3.0.0",
   "appid": "wxcdaa14554bd22f64",
   "projectname": "Fresns",
   "condition": {},
