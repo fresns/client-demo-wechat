@@ -14,6 +14,7 @@ Page({
     require('../../mixins/checkSiteMode'),
     require('../../mixins/loginInterceptor'),
     require('../../mixins/fresnsInteraction'),
+    require('../../mixins/fresnsExtensions'),
   ],
 
   /** 页面的初始数据 **/

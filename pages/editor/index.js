@@ -15,7 +15,7 @@ Page({
     require('../../mixins/themeChanged'),
     require('../../mixins/checkSiteMode'),
     require('../../mixins/loginInterceptor'),
-    require('../../mixins/fresnsCallback'),
+    require('../../mixins/fresnsExtensions'),
   ],
 
   /** 页面的初始数据 **/

@@ -18,6 +18,7 @@ Page({
     require('../../mixins/themeChanged'),
     require('../../mixins/checkSiteMode'),
     require('../../mixins/sendVerifyCode'),
+    require('../../mixins/fresnsExtensions'),
   ],
 
   /** 页面的初始数据 **/
@@ -213,7 +214,7 @@ Page({
 
     console.log('onSubmit register');
     return await this.loginUser({
-      uidOrUsername: user.uid.toString(),
+      uidOrUsername: user.uid,
     });
   },
 });

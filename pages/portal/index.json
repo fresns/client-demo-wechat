@@ -1,7 +1,6 @@
 {
   "navigationBarTitleText": "门户",
   "usingComponents": {
-    "mp-html": "mp-html",
     "tabbar": "/components/tabbar/tabbar"
   }
 }

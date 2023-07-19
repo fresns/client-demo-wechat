@@ -8,7 +8,11 @@ import { fresnsLogin } from '../../utils/fresnsLogin';
 
 Page({
   /** 外部 mixin 引入 **/
-  mixins: [require('../../mixins/themeChanged'), require('../../mixins/loginInterceptor')],
+  mixins: [
+    require('../../mixins/themeChanged'),
+    require('../../mixins/loginInterceptor'),
+    require('../../mixins/fresnsExtensions'),
+  ],
 
   /** 页面的初始数据 **/
   data: {
@@ -51,7 +55,7 @@ Page({
       console.log('selectUserUser');
 
       await fresnsLogin.loginUser({
-        uidOrUsername: user.uid.toString(),
+        uidOrUsername: user.uid,
       });
       wx.redirectTo({
         url: '/pages/account/index',
@@ -75,7 +79,7 @@ Page({
       console.log('onSubmitPassword');
 
       const selectUserRes = await fresnsLogin.loginUser({
-        uidOrUsername: currentUser.uid.toString(),
+        uidOrUsername: currentUser.uid,
         password: this.data.password,
       });
 

@@ -15,7 +15,6 @@ Page({
     require('../../mixins/loginInterceptor'),
     require('../../mixins/sendVerifyCode'),
     require('../../mixins/fresnsExtensions'),
-    require('../../mixins/fresnsCallback'),
   ],
 
   /** 页面的初始数据 **/
@@ -257,6 +256,7 @@ Page({
 
     const fresnsAccount = this.data.fresnsAccount;
     const fresnsLang = this.data.fresnsLang;
+    const fresnsConfig = this.data.fresnsConfig;
 
     let showSubmitBtn = true;
     let codeType = null;
@@ -292,13 +292,13 @@ Page({
             name: fresnsLang.passwordCurrent,
           });
         }
-        if (fresnsAccount.phone) {
+        if (fresnsAccount.phone && fresnsConfig.send_sms_service) {
           settingTypeArr.push({
             code: 'sms',
             name: fresnsLang.smsVerifyCode,
           });
         }
-        if (fresnsAccount.email) {
+        if (fresnsAccount.email && fresnsConfig.send_email_service) {
           settingTypeArr.push({
             code: 'email',
             name: fresnsLang.emailVerifyCode,
@@ -318,13 +318,13 @@ Page({
             name: fresnsLang.passwordCurrent,
           });
         }
-        if (fresnsAccount.phone) {
+        if (fresnsAccount.phone && fresnsConfig.send_sms_service) {
           settingTypeArr.push({
             code: 'sms',
             name: fresnsLang.smsVerifyCode,
           });
         }
-        if (fresnsAccount.email) {
+        if (fresnsAccount.email && fresnsConfig.send_email_service) {
           settingTypeArr.push({
             code: 'email',
             name: fresnsLang.emailVerifyCode,
