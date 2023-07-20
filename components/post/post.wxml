@@ -58,12 +58,16 @@
 
         <!-- 扩展内容: 文本框 -->
         <view class="extend-bottom" wx:if="{{ post.extends.textBox.length > 0 }}">
-            <extend-text textBox="{{ post.extends.textBox }}"/>
+            <block wx:for="{{ post.extends.textBox }}" wx:key="eid" wx:for-item="text">
+                <extend-text text="{{ text }}"/>
+            </block>
         </view>
 
         <!-- 扩展内容: 信息框 -->
         <view class="extend-bottom" wx:if="{{ post.extends.infoBox.length > 0 }}">
-            <extend-info infoBox="{{ post.extends.infoBox }}"/>
+            <block wx:for="{{ post.extends.infoBox }}" wx:key="eid" wx:for-item="info">
+                <extend-info info="{{ info }}"/>
+            </block>
         </view>
 
         <!-- 引用帖子 -->

@@ -6,7 +6,7 @@
 Component({
   /** 组件的属性列表 **/
   properties: {
-    textBox: Array,
+    text: Object,
     disableNavigator: {
       type: Boolean,
       value: false,

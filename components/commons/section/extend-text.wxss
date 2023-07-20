@@ -4,3 +4,10 @@
  * Licensed under the Apache-2.0 license
  */
 @import '/assets/styles/weui.wxss';
+
+.frame-box-text {
+  background-color: var(--weui-BG-1);
+  padding: 10px;
+  border-left: 4px solid var(--weui-BG-4);
+  margin-bottom: 15px;
+}

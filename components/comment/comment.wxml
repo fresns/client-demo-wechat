@@ -31,12 +31,16 @@
 
         <!-- 扩展内容: 文本框 -->
         <view class="extend-bottom" wx:if="{{ comment.extends.textBox.length > 0 }}">
-            <extend-text textBox="{{ comment.extends.textBox }}"/>
+            <block wx:for="{{ comment.extends.textBox }}" wx:key="eid" wx:for-item="text">
+                <extend-text text="{{ text }}"/>
+            </block>
         </view>
 
         <!-- 扩展内容: 信息框 -->
         <view class="extend-bottom" wx:if="{{ comment.extends.infoBox.length > 0 }}">
-            <extend-info infoBox="{{ comment.extends.infoBox }}"/>
+            <block wx:for="{{ comment.extends.infoBox }}" wx:key="eid" wx:for-item="info">
+                <extend-info info="{{ info }}"/>
+            </block>
         </view>
 
         <!-- 评论预览 -->

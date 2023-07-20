@@ -3,16 +3,12 @@
     Copyright 2021-Present 唐杰
     Licensed under the Apache-2.0 license
 * -->
-<block wx:for="{{ textBox }}" wx:for-item="text">
-    <navigator class="frame-box-text"
-        url="{{ disableNavigator ? '' : '/pages/webview' }}"
-        bind:tap="fresnsExtensions"
-        data-type="post"
-        data-scene="extendBox"
-        data-post-message-key="none"
-        data-url="{{ text.accessUrl }}">
-        <view class="frame-text-content">
-            <mp-html content="{{ text.textContent }}" markdown="{{ text.textIsMarkdown }}" lazy-load="true" />
-        </view>
-    </navigator>
-</block>
+<navigator class="frame-box-text"
+    url="{{ disableNavigator ? '' : '/pages/webview' }}"
+    bind:tap="fresnsExtensions"
+    data-type="post"
+    data-scene="extendBox"
+    data-post-message-key="none"
+    data-url="{{ text.accessUrl }}">
+    <mp-html content="{{ text.textContent }}" markdown="{{ text.textIsMarkdown }}" lazy-load="true" />
+</navigator>
