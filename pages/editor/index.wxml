@@ -38,6 +38,10 @@
                 </view>
 
                 <editor-files files="{{ draftDetail.files }}"/>
+
+                <editor-read wx:if="{{ draftDetail.readJson.isReadLocked }}" readJson="{{ draftDetail.readJson }}"/>
+                <editor-comment-btn wx:if="{{ draftDetail.commentBtnJson.isCommentBtn }}" commentBtnJson="{{ draftDetail.commentBtnJson }}"/>
+                <editor-user-list wx:if="{{ draftDetail.userListJson.isUserList }}" userListJson="{{ draftDetail.userListJson }}"/>
             </view>
 
             <!-- 发表按钮 -->

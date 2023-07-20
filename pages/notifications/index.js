@@ -88,4 +88,25 @@ Page({
   onReachBottom: async function () {
     await this.loadFresnsPageData();
   },
+
+  // 标记已读
+  onMarkRead(id) {
+    const notifications = this.data.notifications;
+    if (!notifications) {
+      return;
+    }
+
+    const idx = notifications.findIndex((value) => value.id === id);
+
+    if (idx == -1) {
+      // 未找到记录
+      return;
+    }
+
+    notifications[idx].readStatus = true;
+
+    this.setData({
+      notifications: notifications,
+    });
+  },
 });

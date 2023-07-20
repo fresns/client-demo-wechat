@@ -3,7 +3,7 @@
   "enablePullDownRefresh": true,
   "usingComponents": {
     "interaction": "/components/hashtag/section/interaction",
-    "loading": "/components/loading/loading",
+    "loading": "/components/commons/loading/loading",
     "post": "/components/post/post"
   }
 }

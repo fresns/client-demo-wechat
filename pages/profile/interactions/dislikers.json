@@ -3,7 +3,7 @@
   "usingComponents": {
     "profile-user": "/components/user/profile",
     "profile-switch": "/components/user/section/switch",
-    "loading": "/components/loading/loading",
+    "loading": "/components/commons/loading/loading",
     "user": "/components/user/user"
   }
 }

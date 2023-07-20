@@ -2,6 +2,6 @@
   "navigationBarTitleText": "草稿箱",
   "usingComponents": {
     "mp-actionSheet": "weui-miniprogram/actionsheet/actionsheet",
-    "loading": "/components/loading/loading"
+    "loading": "/components/commons/loading/loading"
   }
 }

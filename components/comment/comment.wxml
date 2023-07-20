@@ -29,6 +29,16 @@
         <!-- 附件文件 -->
         <files files="{{ comment.files }}"/>
 
+        <!-- 扩展内容: 文本框 -->
+        <view class="extend-bottom" wx:if="{{ comment.extends.textBox.length > 0 }}">
+            <extend-text textBox="{{ comment.extends.textBox }}"/>
+        </view>
+
+        <!-- 扩展内容: 信息框 -->
+        <view class="extend-bottom" wx:if="{{ comment.extends.infoBox.length > 0 }}">
+            <extend-info infoBox="{{ comment.extends.infoBox }}"/>
+        </view>
+
         <!-- 评论预览 -->
         <view wx:if="{{ comment.subComments.length > 0 }}">
             <navigator class="sub-comments" url="/pages/comments/detail?cid={{ comment.cid }}">

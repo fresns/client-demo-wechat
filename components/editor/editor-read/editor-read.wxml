@@ -1,0 +1,41 @@
+<!-- *
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
+    Licensed under the Apache-2.0 license
+* -->
+<view class="editor-authority">
+    <mp-cell ext-class="cell-title" title="{{ fresnsLang.editorReadConfigTitle }}">
+        <view slot="footer">
+            <navigator class="weui-btn weui-btn_mini weui-btn_primary weui-wa-hotarea" aria-role="button"
+                url="/pages/webview"
+                bind:tap="fresnsExtensions"
+                data-type="editor"
+                data-scene="postEditor"
+                data-post-message-key="fresnsEditorUpdate"
+                data-url="{{ readJson.pluginUrl }}"
+                data-title="{{ readJson.defaultLangBtnName }}">
+                {{ fresnsLang.edit }}
+            </navigator>
+        </view>
+    </mp-cell>
+    <mp-cell title="{{ fresnsLang.editorReadConfigRoleName }}" wx:if="{{ readJson.permissions.roles.length > 0 }}">
+        <view slot="footer">
+            <text class="weui-badge" wx:for="{{ readJson.permissions.roles }}" wx:for-item="role">{{ role.name }}</text>
+        </view>
+    </mp-cell>
+    <mp-cell title="{{ fresnsLang.editorReadConfigUserName }}" wx:if="{{ readJson.permissions.users.length > 0 }}">
+        <view slot="footer">
+            <text class="weui-badge" wx:for="{{ readJson.permissions.users }}" wx:for-item="user">{{ user.nickname }}</text>
+        </view>
+    </mp-cell>
+    <mp-cell title="{{ fresnsLang.editorReadConfigPercentageName }}">
+        <view slot="footer">
+            <text>{{ readJson.previewPercentage }}%</text>
+        </view>
+    </mp-cell>
+    <mp-cell title="{{ fresnsLang.editorReadConfigButtonName }}">
+        <view slot="footer">
+            <text>{{ readJson.defaultLangBtnName }}</text>
+        </view>
+    </mp-cell>
+</view>

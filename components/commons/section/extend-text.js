@@ -6,9 +6,10 @@
 Component({
   /** 组件的属性列表 **/
   properties: {
-    allowJson: Object,
+    textBox: Array,
+    disableNavigator: {
+      type: Boolean,
+      value: false,
+    },
   },
-
-  /** 组件的初始数据 **/
-  data: {},
 });

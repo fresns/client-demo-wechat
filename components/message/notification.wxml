@@ -3,7 +3,7 @@
     Copyright 2021-Present 唐杰
     Licensed under the Apache-2.0 license
 * -->
-<view class="card">
+<view class="card" bind:tap="onCheckRead" data-id="{{ notification.id }}" data-status="{{ notification.readStatus }}">
     <view class="card-header">
         <block wx:if="{{ notification.actionUser }}">
             <user author="{{ notification.actionUser }}" isAnonymous="{{ notification.actionIsAnonymous }}" createdTimeAgo="{{ notification.timeAgo }}" location="{{ null }}">
@@ -28,6 +28,10 @@
                 </view>
             </view>
         </block>
+    </view>
+
+    <view class="card-label" wx:if="{{ !notification.readStatus }}">
+        <text aria-label="未读" class="weui-badge weui-badge_dot"></text>
     </view>
 
     <view class="card-body" wx:if="{{ notification.content }}" bind:tap="onClickToDetail">

@@ -3,7 +3,7 @@
   "enablePullDownRefresh": true,
   "usingComponents": {
     "mp-actionSheet": "weui-miniprogram/actionsheet/actionsheet",
-    "loading": "/components/loading/loading",
+    "loading": "/components/commons/loading/loading",
     "file": "/components/message/section/file"
   }
 }

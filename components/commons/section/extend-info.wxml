@@ -1,0 +1,26 @@
+<!-- *
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
+    Licensed under the Apache-2.0 license
+* -->
+<block wx:for="{{ infoBox }}" wx:for-item="info">
+    <navigator class="frame-box-info weui-flex frame-{{ info.infoBoxTypeString }}"
+        url="{{ disableNavigator ? '' : '/pages/webview' }}"
+        bind:tap="fresnsExtensions"
+        data-type="post"
+        data-scene="extendBox"
+        data-post-message-key="none"
+        data-url="{{ info.accessUrl }}">
+        <view class="box-image" wx:if="{{ info.cover }}">
+            <image src="{{ info.cover }}" mode="scaleToFill"></image>
+        </view>
+        <view class="box-content">
+            <view wx:if="{{ info.title }}" class="box-title" style="color:{{ info.titleColor }};">{{ info.title }}</view>
+            <view wx:if="{{ info.descPrimary }}" style="color:{{ info.descPrimaryColor }};">{{ info.descPrimary }}</view>
+            <view wx:if="{{ info.descSecondary }}" style="color:{{ info.descSecondaryColor }};">{{ info.descSecondary }}</view>
+        </view>
+        <view class="box-btn" wx:if="{{ info.buttonName }}">
+            <navigator class="weui-btn weui-btn_mini weui-btn_default" style="background-color:{{ info.buttonColor }};">{{ info.buttonName }}</navigator>
+        </view>
+    </navigator>
+</block>

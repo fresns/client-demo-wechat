@@ -2,8 +2,8 @@
   "navigationBarTitleText": "我踩的小组",
   "enablePullDownRefresh": true,
   "usingComponents": {
-    "tabbar": "/components/tabbar/tabbar",
-    "loading": "/components/loading/loading",
+    "tabbar": "/components/commons/tabbar/tabbar",
+    "loading": "/components/commons/loading/loading",
     "group": "/components/group/group"
   }
 }

@@ -16,7 +16,7 @@
             bindkeyboardheightchange="handleKeyboard"
             placeholder="{{ placeholder }}"
             placeholder-class="weui-input__placeholder"
-            style="height:300rpx;"/>
+            style="height:400rpx;"/>
 
         <view class="weui-textarea-counter">
             {{ draftContentLength }}/{{ contentLengthConfig }}

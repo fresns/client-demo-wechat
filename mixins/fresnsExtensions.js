@@ -163,8 +163,10 @@ module.exports = {
         }
         break;
 
-      // 编辑器上传文件
-      case 'fresnsEditorUpload':
+      // 编辑器更新草稿
+      case 'fresnsEditorUpdate':
+        // 合并编辑器里所有回调功能，统一采用再请求草稿，全量更新
+        // 如果有细化需求，也可以拆分编辑器里各个 post-message-key
         const type = this.data.type;
         const draftDetail = this.data.draftDetail;
 

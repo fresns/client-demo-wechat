@@ -3,8 +3,8 @@
   "enablePullDownRefresh": true,
   "usingComponents": {
     "mp-icon": "weui-miniprogram/icon/icon",
-    "tabbar": "/components/tabbar/tabbar",
-    "loading": "/components/loading/loading",
+    "tabbar": "/components/commons/tabbar/tabbar",
+    "loading": "/components/commons/loading/loading",
     "comment": "/components/comment/comment"
   }
 }

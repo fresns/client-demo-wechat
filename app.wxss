@@ -65,6 +65,11 @@
   border-bottom: 3px solid var(--weui-BRAND);
 }
 
+/* Cell */
+.cell-title .weui-cell__hd {
+  color: var(--weui-INDIGO);
+}
+
 /* List */
 .user-list {
   width: 100%;

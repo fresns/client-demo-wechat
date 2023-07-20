@@ -3,7 +3,7 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import { fresnsLang } from '../../api/tool/function';
+import { fresnsLang } from '../../../api/tool/function';
 
 Component({
   /** 组件的属性列表 **/

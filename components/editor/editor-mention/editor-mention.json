@@ -2,6 +2,6 @@
   "component": true,
   "usingComponents": {
     "mp-icon": "weui-miniprogram/icon/icon",
-    "loading": "/components/loading/loading"
+    "loading": "/components/commons/loading/loading"
   }
 }

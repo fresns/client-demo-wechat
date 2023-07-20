@@ -18,6 +18,12 @@
   margin-top: 5px;
 }
 
+.card-label {
+  position: absolute;
+  top: 20px;
+  right: 26px;
+}
+
 .card-body {
   margin: 0 20px 15px 20px;
   color: var(--weui-FG-0);

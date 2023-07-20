@@ -4,8 +4,8 @@
   "usingComponents": {
     "mp-vtabs": "@miniprogram-component-plus/vtabs",
     "mp-vtabs-content": "@miniprogram-component-plus/vtabs-content",
-    "tabbar": "/components/tabbar/tabbar",
-    "loading": "/components/loading/loading",
+    "tabbar": "/components/commons/tabbar/tabbar",
+    "loading": "/components/commons/loading/loading",
     "group": "/components/group/group"
   }
 }

@@ -56,8 +56,14 @@
         <!-- 附件文件 -->
         <files files="{{ post.files }}"/>
 
-        <!-- 扩展内容 -->
-        <view class="extend-bottom" wx:if="{{ post.extends.length > 0 }}">
+        <!-- 扩展内容: 文本框 -->
+        <view class="extend-bottom" wx:if="{{ post.extends.textBox.length > 0 }}">
+            <extend-text textBox="{{ post.extends.textBox }}"/>
+        </view>
+
+        <!-- 扩展内容: 信息框 -->
+        <view class="extend-bottom" wx:if="{{ post.extends.infoBox.length > 0 }}">
+            <extend-info infoBox="{{ post.extends.infoBox }}"/>
         </view>
 
         <!-- 引用帖子 -->
@@ -90,7 +96,7 @@
         </view>
 
         <!-- 评论预览 -->
-        <previewComments pid="{{ post.pid }}" commentCount="{{ post.commentCount }}" previewComments="{{ post.previewComments }}"></previewComments>
+        <preview-comments pid="{{ post.pid }}" commentCount="{{ post.commentCount }}" previewComments="{{ post.previewComments }}"/>
     </view>
 
     <!-- 功能按钮 -->

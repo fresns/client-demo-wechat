@@ -2,8 +2,8 @@
   "navigationBarTitleText": "话题主页",
   "enablePullDownRefresh": true,
   "usingComponents": {
-    "tabbar": "/components/tabbar/tabbar",
-    "loading": "/components/loading/loading",
+    "tabbar": "/components/commons/tabbar/tabbar",
+    "loading": "/components/commons/loading/loading",
     "hashtag": "/components/hashtag/hashtag"
   }
 }

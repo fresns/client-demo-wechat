@@ -2,8 +2,8 @@
   "navigationBarTitleText": "关注",
   "enablePullDownRefresh": true,
   "usingComponents": {
-    "tabbar": "/components/tabbar/tabbar",
-    "loading": "/components/loading/loading",
+    "tabbar": "/components/commons/tabbar/tabbar",
+    "loading": "/components/commons/loading/loading",
     "comment": "/components/comment/comment"
   }
 }

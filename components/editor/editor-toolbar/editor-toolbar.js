@@ -156,7 +156,7 @@ Component({
           const fresnsExtensions = {
             type: 'editor',
             scene: editorType,
-            postMessageKey: 'fresnsEditorUpload',
+            postMessageKey: 'fresnsEditorUpdate',
             plid: draftId,
             clid: draftId,
             uploadInfo: uploadInfo.image,
@@ -186,7 +186,7 @@ Component({
           const fresnsExtensions = {
             type: 'editor',
             scene: editorType,
-            postMessageKey: 'fresnsEditorUpload',
+            postMessageKey: 'fresnsEditorUpdate',
             plid: draftId,
             clid: draftId,
             uploadInfo: uploadInfo.video,

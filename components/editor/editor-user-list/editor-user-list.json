@@ -2,6 +2,5 @@
   "component": true,
   "usingComponents": {
     "mp-cell": "weui-miniprogram/cell/cell"
-  },
-  "styleIsolation": "shared"
+  }
 }

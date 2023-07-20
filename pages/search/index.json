@@ -1,7 +1,7 @@
 {
   "navigationBarTitleText": "搜索",
   "usingComponents": {
-    "loading": "/components/loading/loading",
+    "loading": "/components/commons/loading/loading",
     "user": "/components/user/user",
     "group": "/components/group/group",
     "hashtag": "/components/hashtag/hashtag",

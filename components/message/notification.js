@@ -3,8 +3,10 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
+import { fresnsApi } from '../../api/api';
 import { fresnsConfig } from '../../api/tool/function';
 import { globalInfo } from '../../utils/fresnsGlobalInfo';
+import { callPageFunction } from '../../utils/fresnsUtilities';
 
 Component({
   /** 组件的属性列表 **/
@@ -30,12 +32,26 @@ Component({
 
   /** 组件功能 **/
   methods: {
-    onClickToDetail: async function () {
-      const notification = this.data.notification;
+    onCheckRead: async function (e) {
+      const id = e.currentTarget.dataset.id;
+      const status = e.currentTarget.dataset.status;
 
-      if (!notification.contentFsid) {
+      if (status) {
         return;
       }
+
+      const resultRes = await fresnsApi.message.notificationMarkAsRead({
+        type: 'choose',
+        notificationIds: id.toString(),
+      });
+
+      if (resultRes.code === 0) {
+        callPageFunction('onMarkRead', id);
+      }
+    },
+
+    onClickToDetail: async function () {
+      const notification = this.data.notification;
 
       if (notification.type === 7) {
         // 提及，在哪里提及
@@ -79,6 +95,12 @@ Component({
           default:
           // code
         }
+
+        return;
+      }
+
+      if (!notification.contentFsid) {
+        return;
       }
 
       switch (notification.type) {

@@ -4,6 +4,6 @@
   "usingComponents": {
     "mp-actionSheet": "weui-miniprogram/actionsheet/actionsheet",
     "mp-dialog": "weui-miniprogram/dialog/dialog",
-    "tabbar": "/components/tabbar/tabbar"
+    "tabbar": "/components/commons/tabbar/tabbar"
   }
 }
