@@ -3,6 +3,6 @@
     "@miniprogram-component-plus/tabs": "^1.0.0",
     "@miniprogram-component-plus/vtabs": "^1.0.0",
     "@miniprogram-component-plus/vtabs-content": "^1.0.0",
-    "mp-html": "^2.4.1"
+    "mp-html": "^2.4.2"
   }
 }
