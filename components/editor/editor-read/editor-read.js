@@ -13,7 +13,7 @@ Component({
 
   /** 组件的初始数据 **/
   data: {
-    fresnsLang: {}
+    fresnsLang: {},
   },
 
   /** 组件生命周期声明对象 **/
