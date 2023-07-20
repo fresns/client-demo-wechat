@@ -20,9 +20,10 @@
     "editor-anonymous": "/components/editor/editor-anonymous/editor-anonymous",
 
     "editor-files": "/components/editor/editor-files/editor-files",
+    "editor-extends": "/components/editor/editor-extends/editor-extends",
+
     "editor-read": "/components/editor/editor-read/editor-read",
     "editor-comment-btn": "/components/editor/editor-comment-btn/editor-comment-btn",
-    "editor-user-list": "/components/editor/editor-user-list/editor-user-list",
-    "editor-extends": "/components/editor/editor-extends/editor-extends"
+    "editor-user-list": "/components/editor/editor-user-list/editor-user-list"
   }
 }

@@ -1,5 +1,8 @@
 {
   "component": true,
   "usingComponents": {
+    "mp-actionSheet": "weui-miniprogram/actionsheet/actionsheet",
+    "extend-text": "/components/commons/section/extend-text",
+    "extend-info": "/components/commons/section/extend-info"
   }
 }

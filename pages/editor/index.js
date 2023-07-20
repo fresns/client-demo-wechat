@@ -414,6 +414,23 @@ Page({
     });
   },
 
+  // 扩展内容
+  onDeleteExtend: async function (type, eid) {
+    const draftDetail = this.data.draftDetail;
+
+    const newExtends = draftDetail.extends[type].filter((extend) => extend.eid !== eid); // 仅保留与给定 fid 不同的文件
+
+    draftDetail.extends[type] = newExtends;
+
+    this.setData({
+      draftDetail: draftDetail,
+    });
+
+    await this.apiUpdateDraft({
+      deleteExtend: eid,
+    });
+  },
+
   // 提交发表
   submitDraft: async function () {
     const draftDetail = this.data.draftDetail;

@@ -39,6 +39,8 @@
 
                 <editor-files files="{{ draftDetail.files }}"/>
 
+                <editor-extends extends="{{ draftDetail.extends }}"/>
+
                 <editor-read wx:if="{{ draftDetail.readJson.isReadLocked }}" readJson="{{ draftDetail.readJson }}"/>
                 <editor-comment-btn wx:if="{{ draftDetail.commentBtnJson.isCommentBtn }}" commentBtnJson="{{ draftDetail.commentBtnJson }}"/>
                 <editor-user-list wx:if="{{ draftDetail.userListJson.isUserList }}" userListJson="{{ draftDetail.userListJson }}"/>
