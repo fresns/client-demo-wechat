@@ -31,7 +31,7 @@ Component({
             text: await fresnsLang('delete'),
             type: 'warn',
             value: 'delete',
-          }
+          },
         ],
       });
     },
@@ -61,5 +61,5 @@ Component({
         showActionSheet: false,
       });
     },
-  }
+  },
 });
