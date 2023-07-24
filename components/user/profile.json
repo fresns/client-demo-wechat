@@ -2,6 +2,7 @@
   "component": true,
   "usingComponents": {
     "mp-html": "mp-html",
+    "mp-actionSheet": "weui-miniprogram/actionsheet/actionsheet",
     "interaction": "/components/user/section/interaction"
   }
 }

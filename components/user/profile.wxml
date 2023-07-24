@@ -30,5 +30,12 @@
         <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">
             {{ user.stats.followUserCount }} {{ userFollowingName }}
         </view>
+
+        <view wx:if="{{ actionGroups.length > 0 }}" class="weui-btn weui-btn_mini weui-btn_default" bind:tap="onClickMore">
+            <image class="weui-btn_cell__icon" src="{{ buttonIcons.more }}"></image>
+        </view>
     </view>
 </view>
+
+<!-- 管理菜单 -->
+<mp-actionSheet show="{{ showActionSheet }}" actions="{{ actionGroups }}" title="{{ user.nickname }}" bindactiontap="actionClickMore"/>
