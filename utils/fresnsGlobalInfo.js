@@ -8,7 +8,7 @@ import { fresnsConfig } from '../api/tool/function';
 import { fresnsLogin } from './fresnsLogin';
 
 export class GlobalInfo {
-  clientVersion = '2.0.0';
+  clientVersion = '2.1.0';
   theme = null;
 
   // 处理用户主页路径

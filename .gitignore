@@ -6,4 +6,6 @@
 .DS_Store
 package-lock.json
 project.private.config.json
+app.miniapp.json
+project.miniapp.json
 fresns.js
