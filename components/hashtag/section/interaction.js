@@ -23,7 +23,7 @@ Component({
       followActive: '/assets/interaction/follow-active.png',
       block: '/assets/interaction/block.png',
       blockActive: '/assets/interaction/block-active.png',
-    }
+    },
   },
 
   /** 组件数据字段监听器 **/
@@ -40,10 +40,10 @@ Component({
       }
 
       const ButtonIconsArr = hashtag.operations.buttonIcons;
-      const likeItem = ButtonIconsArr.find(item => item.code === 'like');
-      const dislikeItem = ButtonIconsArr.find(item => item.code === 'dislike');
-      const followItem = ButtonIconsArr.find(item => item.code === 'follow');
-      const blockItem = ButtonIconsArr.find(item => item.code === 'block');
+      const likeItem = ButtonIconsArr.find((item) => item.code === 'like');
+      const dislikeItem = ButtonIconsArr.find((item) => item.code === 'dislike');
+      const followItem = ButtonIconsArr.find((item) => item.code === 'follow');
+      const blockItem = ButtonIconsArr.find((item) => item.code === 'block');
 
       const buttonIcons = {
         like: likeItem ? likeItem.imageUrl : '/assets/interaction/content-like.png',
@@ -54,7 +54,7 @@ Component({
         followActive: followItem ? followItem.imageActiveUrl : '/assets/interaction/follow-active.png',
         block: blockItem ? blockItem.imageUrl : '/assets/interaction/block.png',
         blockActive: blockItem ? blockItem.imageActiveUrl : '/assets/interaction/block-active.png',
-      }
+      };
 
       this.setData({
         buttonIcons: buttonIcons,

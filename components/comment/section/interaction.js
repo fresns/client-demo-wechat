@@ -39,12 +39,12 @@ Component({
       block: '/assets/interaction/block.png',
       blockActive: '/assets/interaction/block-active.png',
       comment: '/assets/interaction/content-comment.png',
-      commentActive:'/assets/interaction/content-comment.png',
+      commentActive: '/assets/interaction/content-comment.png',
       share: '/assets/interaction/content-share.png',
       shareActive: '/assets/interaction/content-share.png',
       more: '/assets/interaction/content-more.png',
       moreActive: '/assets/interaction/content-more.png',
-    }
+    },
   },
 
   /** 组件生命周期声明对象 **/
@@ -137,13 +137,13 @@ Component({
       const checkButtonIcons = post.operations && post.operations.buttonIcons;
       if (checkButtonIcons) {
         const ButtonIconsArr = post.operations.buttonIcons;
-        const likeItem = ButtonIconsArr.find(item => item.code === 'like');
-        const dislikeItem = ButtonIconsArr.find(item => item.code === 'dislike');
-        const followItem = ButtonIconsArr.find(item => item.code === 'follow');
-        const blockItem = ButtonIconsArr.find(item => item.code === 'block');
-        const commentItem = ButtonIconsArr.find(item => item.code === 'comment');
-        const shareItem = ButtonIconsArr.find(item => item.code === 'share');
-        const moreItem = ButtonIconsArr.find(item => item.code === 'more');
+        const likeItem = ButtonIconsArr.find((item) => item.code === 'like');
+        const dislikeItem = ButtonIconsArr.find((item) => item.code === 'dislike');
+        const followItem = ButtonIconsArr.find((item) => item.code === 'follow');
+        const blockItem = ButtonIconsArr.find((item) => item.code === 'block');
+        const commentItem = ButtonIconsArr.find((item) => item.code === 'comment');
+        const shareItem = ButtonIconsArr.find((item) => item.code === 'share');
+        const moreItem = ButtonIconsArr.find((item) => item.code === 'more');
 
         const buttonIcons = {
           like: likeItem ? likeItem.imageUrl : '/assets/interaction/content-like.png',
@@ -160,7 +160,7 @@ Component({
           shareActive: shareItem ? shareItem.imageActiveUrl : '/assets/interaction/content-share.png',
           more: moreItem ? moreItem.imageUrl : '/assets/interaction/content-more.png',
           moreActive: moreItem ? moreItem.imageActiveUrl : '/assets/interaction/content-more.png',
-        }
+        };
 
         this.setData({
           buttonIcons: buttonIcons,

@@ -25,7 +25,7 @@ Component({
       blockActive: '/assets/interaction/block-active.png',
       more: '/assets/interaction/content-more.png',
       moreActive: '/assets/interaction/content-more.png',
-    }
+    },
   },
 
   /** 组件数据字段监听器 **/
@@ -42,11 +42,11 @@ Component({
       }
 
       const ButtonIconsArr = user.operations.buttonIcons;
-      const likeItem = ButtonIconsArr.find(item => item.code === 'like');
-      const dislikeItem = ButtonIconsArr.find(item => item.code === 'dislike');
-      const followItem = ButtonIconsArr.find(item => item.code === 'follow');
-      const blockItem = ButtonIconsArr.find(item => item.code === 'block');
-      const moreItem = ButtonIconsArr.find(item => item.code === 'more');
+      const likeItem = ButtonIconsArr.find((item) => item.code === 'like');
+      const dislikeItem = ButtonIconsArr.find((item) => item.code === 'dislike');
+      const followItem = ButtonIconsArr.find((item) => item.code === 'follow');
+      const blockItem = ButtonIconsArr.find((item) => item.code === 'block');
+      const moreItem = ButtonIconsArr.find((item) => item.code === 'more');
 
       const buttonIcons = {
         like: likeItem ? likeItem.imageUrl : '/assets/interaction/content-like.png',
@@ -59,7 +59,7 @@ Component({
         blockActive: blockItem ? blockItem.imageActiveUrl : '/assets/interaction/block-active.png',
         more: moreItem ? moreItem.imageUrl : '/assets/interaction/content-more.png',
         moreActive: moreItem ? moreItem.imageActiveUrl : undefined,
-      }
+      };
 
       this.setData({
         buttonIcons: buttonIcons,
