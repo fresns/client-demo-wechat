@@ -34,12 +34,12 @@ Page({
     const viewProfile = await fresnsViewProfile(options.fsid);
 
     wx.setNavigationBarTitle({
-      title: viewProfile.nickname,
+      title: viewProfile.detail.nickname,
     });
 
     this.setData({
       profile: viewProfile,
-      title: viewProfile.nickname + ': ' + (await fresnsConfig('menu_profile_likes')),
+      title: viewProfile.detail.nickname + ': ' + (await fresnsConfig('menu_profile_likes')),
     });
 
     await this.loadFresnsPageData();
@@ -60,7 +60,7 @@ Page({
     console.log('uidOrUsername', this.data.profile.uid);
 
     const resultRes = await fresnsApi.user.userInteraction({
-      uidOrUsername: this.data.profile.uid,
+      uidOrUsername: this.data.profile.detail.uid,
       type: 'like',
       whitelistKeys:
         'fsid,uid,username,url,nickname,avatar,decorate,gender,bioHtml,verifiedStatus,verifiedIcon,verifiedDesc,nicknameColor,roleName,roleNameDisplay,roleIcon,roleIconDisplay,stats.likeMeCount,stats.dislikeMeCount,stats.followMeCount,stats.blockMeCount,interaction',

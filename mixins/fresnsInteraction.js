@@ -135,15 +135,18 @@ module.exports = {
   /** 更改用户 **/
   onChangeUser(newUser) {
     // 详情页
-    const profile = this.data.profile;
+    const user = this.data?.profile?.detail;
 
-    if (profile) {
-      if (profile.uid != newUser.uid) {
+    if (user) {
+      if (user.uid != newUser.uid) {
         return;
       }
 
+      const profile = this.data.profile;
+      profile.detail = newUser;
+
       this.setData({
-        profile: newUser,
+        profile: profile,
       });
 
       // 同步更改上一页用户
@@ -347,10 +350,10 @@ module.exports = {
   /** 移除用户 **/
   onRemoveUser(removeUid) {
     // 详情页
-    const profile = this.data.profile;
+    const user = this.data?.profile?.detail;
 
-    if (profile) {
-      if (profile.uid != removeUid) {
+    if (user) {
+      if (user.uid != removeUid) {
         return;
       }
 

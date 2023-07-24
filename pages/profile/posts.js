@@ -34,12 +34,12 @@ Page({
     const viewProfile = await fresnsViewProfile(options.fsid);
 
     wx.setNavigationBarTitle({
-      title: viewProfile.nickname,
+      title: viewProfile.detail.nickname,
     });
 
     this.setData({
       profile: viewProfile,
-      title: viewProfile.nickname + ': ' + (await fresnsConfig('post_name')),
+      title: viewProfile.detail.nickname + ': ' + (await fresnsConfig('post_name')),
     });
 
     await this.loadFresnsPageData();
@@ -58,7 +58,7 @@ Page({
     });
 
     const resultRes = await fresnsApi.post.postList({
-      uidOrUsername: this.data.profile.uid,
+      uidOrUsername: this.data.profile.detail.uid,
       page: this.data.page,
     });
 

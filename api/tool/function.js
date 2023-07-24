@@ -199,18 +199,16 @@ export const fresnsViewProfile = async (uidOrUsername = null) => {
 
   let fresnsViewProfile = cacheGet('fresnsViewProfile');
 
-  if (!fresnsViewProfile || fresnsViewProfile?.fsid != uidOrUsername) {
-    console.log('uidOrUsername', uidOrUsername);
-
+  if (!fresnsViewProfile || fresnsViewProfile?.detail?.fsid != uidOrUsername) {
     const result = await fresnsApi.user.userDetail({
       uidOrUsername: uidOrUsername,
     });
 
     if (result.code === 0 && result.data) {
-      cachePut('fresnsViewProfile', result.data.detail);
+      cachePut('fresnsViewProfile', result.data);
     }
 
-    fresnsViewProfile = result.data.detail;
+    fresnsViewProfile = result.data;
   }
 
   // 替换上一页数据
