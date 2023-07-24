@@ -76,7 +76,7 @@ Component({
           actionGroups: actionGroups,
         });
       }
-    }
+    },
   },
 
   /** 组件生命周期声明对象 **/
@@ -125,5 +125,5 @@ Component({
         showActionSheet: false,
       });
     },
-  }
+  },
 });
