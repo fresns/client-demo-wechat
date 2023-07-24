@@ -15,10 +15,10 @@ Component({
   /** 组件的初始数据 **/
   data: {
     buttonIcons: {
-      like: '/assets/interaction/content-like.png',
-      likeActive: '/assets/interaction/content-like-active.png',
-      dislike: '/assets/interaction/content-dislike.png',
-      dislikeActive: '/assets/interaction/content-dislike-active.png',
+      like: '/assets/interaction/like.png',
+      likeActive: '/assets/interaction/like-active.png',
+      dislike: '/assets/interaction/dislike.png',
+      dislikeActive: '/assets/interaction/dislike-active.png',
       follow: '/assets/interaction/follow.png',
       followActive: '/assets/interaction/follow-active.png',
       block: '/assets/interaction/block.png',
@@ -46,10 +46,10 @@ Component({
       const blockItem = ButtonIconsArr.find((item) => item.code === 'block');
 
       const buttonIcons = {
-        like: likeItem ? likeItem.imageUrl : '/assets/interaction/content-like.png',
-        likeActive: likeItem ? likeItem.imageActiveUrl : '/assets/interaction/content-like-active.png',
-        dislike: dislikeItem ? dislikeItem.imageUrl : '/assets/interaction/content-dislike.png',
-        dislikeActive: dislikeItem ? dislikeItem.imageActiveUrl : '/assets/interaction/content-dislike-active.png',
+        like: likeItem ? likeItem.imageUrl : '/assets/interaction/like.png',
+        likeActive: likeItem ? likeItem.imageActiveUrl : '/assets/interaction/like-active.png',
+        dislike: dislikeItem ? dislikeItem.imageUrl : '/assets/interaction/dislike.png',
+        dislikeActive: dislikeItem ? dislikeItem.imageActiveUrl : '/assets/interaction/dislike-active.png',
         follow: followItem ? followItem.imageUrl : '/assets/interaction/follow.png',
         followActive: followItem ? followItem.imageActiveUrl : '/assets/interaction/follow-active.png',
         block: blockItem ? blockItem.imageUrl : '/assets/interaction/block.png',
