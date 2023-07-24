@@ -6,29 +6,29 @@
 <view class="mark-btn">
     <!-- 点赞 -->
     <view wx:if="{{ hashtag.interaction.likeSetting }}" class="weui-btn weui-btn_mini {{ hashtag.interaction.likeStatus ? 'weui-btn_primary' : 'weui-btn_default' }}" bind:tap="onClickHashtagLike">
-        <image wx:if="{{ !hashtag.interaction.likeStatus }}" class="weui-btn_cell__icon" src="/assets/interaction/like.png"></image>
-        <image wx:if="{{ hashtag.interaction.likeStatus }}" class="weui-btn_cell__icon" src="/assets/interaction/like-active.png"></image>
+        <image wx:if="{{ !hashtag.interaction.likeStatus }}" class="weui-btn_cell__icon" src="{{ buttonIcons.like }}"></image>
+        <image wx:if="{{ hashtag.interaction.likeStatus }}" class="weui-btn_cell__icon" src="{{ buttonIcons.likeActive }}"></image>
         {{ hashtag.likeCount ? hashtag.likeCount : '' }}
     </view>
 
     <!-- 点踩 -->
     <view wx:if="{{ hashtag.interaction.dislikeSetting }}" class="weui-btn weui-btn_mini {{ hashtag.interaction.dislikeStatus ? 'weui-btn_primary' : 'weui-btn_default' }}" bind:tap="onClickHashtagDislike">
-        <image wx:if="{{ !hashtag.interaction.dislikeStatus }}" class="weui-btn_cell__icon" src="/assets/interaction/dislike.png"></image>
-        <image wx:if="{{ hashtag.interaction.dislikeStatus }}" class="weui-btn_cell__icon" src="/assets/interaction/dislike-active.png"></image>
+        <image wx:if="{{ !hashtag.interaction.dislikeStatus }}" class="weui-btn_cell__icon" src="{{ buttonIcons.dislike }}"></image>
+        <image wx:if="{{ hashtag.interaction.dislikeStatus }}" class="weui-btn_cell__icon" src="{{ buttonIcons.dislikeActive }}"></image>
         {{ hashtag.dislikeCount ? hashtag.dislikeCount : '' }}
     </view>
 
     <!-- 关注 -->
     <view wx:if="{{ hashtag.interaction.followSetting }}" class="weui-btn weui-btn_mini {{ hashtag.interaction.followStatus ? 'weui-btn_primary' : 'weui-btn_default' }}" bind:tap="onClickHashtagFollow">
-        <image wx:if="{{ !hashtag.interaction.followStatus }}" class="weui-btn_cell__icon" src="/assets/interaction/follow.png"></image>
-        <image wx:if="{{ hashtag.interaction.followStatus }}" class="weui-btn_cell__icon" src="/assets/interaction/follow-active.png"></image>
+        <image wx:if="{{ !hashtag.interaction.followStatus }}" class="weui-btn_cell__icon" src="{{ buttonIcons.follow }}"></image>
+        <image wx:if="{{ hashtag.interaction.followStatus }}" class="weui-btn_cell__icon" src="{{ buttonIcons.followActive }}"></image>
         {{ hashtag.followCount ? hashtag.followCount : '' }}
     </view>
 
     <!-- 屏蔽 -->
     <view wx:if="{{ hashtag.interaction.blockSetting }}" class="weui-btn weui-btn_mini {{ hashtag.interaction.blockStatus ? 'weui-btn_primary' : 'weui-btn_default' }}" bind:tap="onClickHashtagBlock">
-        <image wx:if="{{ !hashtag.interaction.blockStatus }}" class="weui-btn_cell__icon" src="/assets/interaction/block.png"></image>
-        <image wx:if="{{ hashtag.interaction.blockStatus }}" class="weui-btn_cell__icon" src="/assets/interaction/block-active.png"></image>
+        <image wx:if="{{ !hashtag.interaction.blockStatus }}" class="weui-btn_cell__icon" src="{{ buttonIcons.block }}"></image>
+        <image wx:if="{{ hashtag.interaction.blockStatus }}" class="weui-btn_cell__icon" src="{{ buttonIcons.blockActive }}"></image>
         {{ hashtag.blockCount ? hashtag.blockCount : '' }}
     </view>
 </view>

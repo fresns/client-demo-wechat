@@ -13,7 +13,54 @@ Component({
   },
 
   /** 组件的初始数据 **/
-  data: {},
+  data: {
+    buttonIcons: {
+      like: '/assets/interaction/content-like.png',
+      likeActive: '/assets/interaction/content-like-active.png',
+      dislike: '/assets/interaction/content-dislike.png',
+      dislikeActive: '/assets/interaction/content-dislike-active.png',
+      follow: '/assets/interaction/follow.png',
+      followActive: '/assets/interaction/follow-active.png',
+      block: '/assets/interaction/block.png',
+      blockActive: '/assets/interaction/block-active.png',
+    }
+  },
+
+  /** 组件数据字段监听器 **/
+  observers: {
+    group: async function (group) {
+      if (!group) {
+        return;
+      }
+
+      // buttonIcons
+      const checkButtonIcons = group.operations && group.operations.buttonIcons;
+      if (!checkButtonIcons) {
+        return;
+      }
+
+      const ButtonIconsArr = group.operations.buttonIcons;
+      const likeItem = ButtonIconsArr.find(item => item.code === 'like');
+      const dislikeItem = ButtonIconsArr.find(item => item.code === 'dislike');
+      const followItem = ButtonIconsArr.find(item => item.code === 'follow');
+      const blockItem = ButtonIconsArr.find(item => item.code === 'block');
+
+      const buttonIcons = {
+        like: likeItem ? likeItem.imageUrl : '/assets/interaction/content-like.png',
+        likeActive: likeItem ? likeItem.imageActiveUrl : '/assets/interaction/content-like-active.png',
+        dislike: dislikeItem ? dislikeItem.imageUrl : '/assets/interaction/content-dislike.png',
+        dislikeActive: dislikeItem ? dislikeItem.imageActiveUrl : '/assets/interaction/content-dislike-active.png',
+        follow: followItem ? followItem.imageUrl : '/assets/interaction/follow.png',
+        followActive: followItem ? followItem.imageActiveUrl : '/assets/interaction/follow-active.png',
+        block: blockItem ? blockItem.imageUrl : '/assets/interaction/block.png',
+        blockActive: blockItem ? blockItem.imageActiveUrl : '/assets/interaction/block-active.png',
+      }
+
+      this.setData({
+        buttonIcons: buttonIcons,
+      });
+    },
+  },
 
   /** 组件功能 **/
   methods: {

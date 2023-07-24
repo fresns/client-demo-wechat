@@ -7,8 +7,8 @@
     <!-- 点赞 -->
     <view class="weui-flex__item" wx:if="{{ comment.interaction.likeSetting }}">
         <view class="fs_btn" bind:tap="onClickCommentLike">
-            <image wx:if="{{ ! comment.interaction.likeStatus }}" src="{{ '/assets/interaction/content-like.png' }}" class="card-footer-icon" mode="aspectFit"></image>
-            <image wx:if="{{ comment.interaction.likeStatus }}" src="{{ '/assets/interaction/content-like-active.png' }}" class="card-footer-icon" mode="aspectFit"></image>
+            <image wx:if="{{ ! comment.interaction.likeStatus }}" src="{{ buttonIcons.like }}" class="card-footer-icon" mode="aspectFit"></image>
+            <image wx:if="{{ comment.interaction.likeStatus }}" src="{{ buttonIcons.likeActive }}" class="card-footer-icon" mode="aspectFit"></image>
             <text wx:if="{{ comment.likeCount }}" class="card-footer-text">{{ comment.likeCount }}</text>
         </view>
     </view>
@@ -16,8 +16,8 @@
     <!-- 点踩 -->
     <view class="weui-flex__item" wx:if="{{ comment.interaction.dislikeSetting }}">
         <view class="fs_btn" bind:tap="onClickCommentDislike">
-            <image wx:if="{{ ! comment.interaction.dislikeStatus }}" src="{{ '/assets/interaction/content-dislike.png' }}" class="card-footer-icon" mode="aspectFit"></image>
-            <image wx:if="{{ comment.interaction.dislikeStatus }}" src="{{ '/assets/interaction/content-dislike-active.png' }}" class="card-footer-icon" mode="aspectFit"></image>
+            <image wx:if="{{ ! comment.interaction.dislikeStatus }}" src="{{ buttonIcons.dislike }}" class="card-footer-icon" mode="aspectFit"></image>
+            <image wx:if="{{ comment.interaction.dislikeStatus }}" src="{{ buttonIcons.dislikeActive }}" class="card-footer-icon" mode="aspectFit"></image>
             <text wx:if="{{ comment.dislikeCount }}" class="card-footer-text">{{ comment.dislikeCount }}</text>
         </view>
     </view>
@@ -25,7 +25,7 @@
     <!-- 评论 -->
     <view class="weui-flex__item" wx:if="{{ type == 'list' }}">
         <view class="fs_btn" bind:tap="onClickCreateComment">
-            <image src="{{ '/assets/interaction/content-comment.png' }}" class="card-footer-icon" mode="aspectFit"></image>
+            <image src="{{ buttonIcons.comment }}" class="card-footer-icon" mode="aspectFit"></image>
             <text wx:if="{{ comment.commentCount }}" class="card-footer-text">{{ comment.commentCount }}</text>
         </view>
 
@@ -40,7 +40,7 @@
     <!-- 分享 -->
     <view class="weui-flex__item">
         <view class="fs_btn" bind:tap="onShowShareMenus">
-            <image src="{{ '/assets/interaction/content-share.png' }}" class="card-footer-icon" mode="aspectFit"></image>
+            <image src="{{ buttonIcons.share }}" class="card-footer-icon" mode="aspectFit"></image>
         </view>
     </view>
 
@@ -49,7 +49,7 @@
     <!-- 更多 -->
     <view class="item_more" data-post="{{ post }}" bind:tap="onClickContentMore">
         <view class="fs_btn">
-            <image src="{{ '/assets/interaction/content-more.png' }}" class="card-footer-icon" mode="aspectFit"></image>
+            <image src="{{ buttonIcons.more }}" class="card-footer-icon" mode="aspectFit"></image>
         </view>
     </view>
 

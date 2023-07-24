@@ -28,6 +28,23 @@ Component({
 
     actionGroups: [],
     showActionSheet: false,
+
+    buttonIcons: {
+      like: '/assets/interaction/content-like.png',
+      likeActive: '/assets/interaction/content-like-active.png',
+      dislike: '/assets/interaction/content-dislike.png',
+      dislikeActive: '/assets/interaction/content-dislike-active.png',
+      follow: '/assets/interaction/follow.png',
+      followActive: '/assets/interaction/follow-active.png',
+      block: '/assets/interaction/block.png',
+      blockActive: '/assets/interaction/block-active.png',
+      comment: '/assets/interaction/content-comment.png',
+      commentActive:'/assets/interaction/content-comment.png',
+      share: '/assets/interaction/content-share.png',
+      shareActive: '/assets/interaction/content-share.png',
+      more: '/assets/interaction/content-more.png',
+      moreActive: '/assets/interaction/content-more.png',
+    }
   },
 
   /** 组件生命周期声明对象 **/
@@ -115,6 +132,40 @@ Component({
         nickname: nickname,
         actionGroups: items,
       });
+
+      // buttonIcons
+      const checkButtonIcons = post.operations && post.operations.buttonIcons;
+      if (checkButtonIcons) {
+        const ButtonIconsArr = post.operations.buttonIcons;
+        const likeItem = ButtonIconsArr.find(item => item.code === 'like');
+        const dislikeItem = ButtonIconsArr.find(item => item.code === 'dislike');
+        const followItem = ButtonIconsArr.find(item => item.code === 'follow');
+        const blockItem = ButtonIconsArr.find(item => item.code === 'block');
+        const commentItem = ButtonIconsArr.find(item => item.code === 'comment');
+        const shareItem = ButtonIconsArr.find(item => item.code === 'share');
+        const moreItem = ButtonIconsArr.find(item => item.code === 'more');
+
+        const buttonIcons = {
+          like: likeItem ? likeItem.imageUrl : '/assets/interaction/content-like.png',
+          likeActive: likeItem ? likeItem.imageActiveUrl : '/assets/interaction/content-like-active.png',
+          dislike: dislikeItem ? dislikeItem.imageUrl : '/assets/interaction/content-dislike.png',
+          dislikeActive: dislikeItem ? dislikeItem.imageActiveUrl : '/assets/interaction/content-dislike-active.png',
+          follow: followItem ? followItem.imageUrl : '/assets/interaction/follow.png',
+          followActive: followItem ? followItem.imageActiveUrl : '/assets/interaction/follow-active.png',
+          block: blockItem ? blockItem.imageUrl : '/assets/interaction/block.png',
+          blockActive: blockItem ? blockItem.imageActiveUrl : '/assets/interaction/block-active.png',
+          comment: commentItem ? commentItem.imageUrl : '/assets/interaction/content-comment.png',
+          commentActive: commentItem ? commentItem.imageActiveUrl : '/assets/interaction/content-comment.png',
+          share: shareItem ? shareItem.imageUrl : '/assets/interaction/content-share.png',
+          shareActive: shareItem ? shareItem.imageActiveUrl : '/assets/interaction/content-share.png',
+          more: moreItem ? moreItem.imageUrl : '/assets/interaction/content-more.png',
+          moreActive: moreItem ? moreItem.imageActiveUrl : '/assets/interaction/content-more.png',
+        }
+
+        this.setData({
+          buttonIcons: buttonIcons,
+        });
+      }
     },
   },
 
