@@ -35,24 +35,24 @@ App({
               content: '新版本已经准备好，重新进入小程序使用新版',
               success: function (res) {
                 if (res.confirm) {
-                  updateManager.applyUpdate()
+                  updateManager.applyUpdate();
                 }
-              }
-            })
-          })
+              },
+            });
+          });
           updateManager.onUpdateFailed(function () {
             wx.showModal({
               title: '已经有新版本了哟~',
-              content: '新版本已经上线啦~，请您删除当前小程序，重新搜索打开哟~'
-            })
-          })
+              content: '新版本已经上线啦~，请您删除当前小程序，重新搜索打开哟~',
+            });
+          });
         }
-      })
+      });
     } else {
       wx.showModal({
         title: '提示',
-        content: '当前微信版本过低，无法使用本小程序，请升级到最新版微信。'
-      })
+        content: '当前微信版本过低，无法使用本小程序，请升级到最新版微信。',
+      });
     }
 
     // 主题配置
