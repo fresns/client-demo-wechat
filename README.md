@@ -43,7 +43,9 @@ Fresns 是一款免费开源的社交网络服务软件，专为跨平台而打�
 - 4、修改风格样式，或者使用第三方开发的风格样式覆盖原文件；
 - 5、使用[微信开发者工具](https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html)上传代码，提交到微信公众平台。
 
-> 初始配置里包括了「[腾讯位置服务地图选点](https://mp.weixin.qq.com/wxopen/plugindevdoc?appid=wx76a9a06e5b4e693e&token=&lang=zh_CN)」插件，用于帖子和评论查看附近时选择位置使用，如果你的小程序没有添加该插件，请在 `app.json` 配置文件中移除该插件 `chooseLocation`，否则启用小程序会报错。
+> 初始配置里包括了「[腾讯位置服务地图选点](https://mp.weixin.qq.com/wxopen/plugindevdoc?appid=wx76a9a06e5b4e693e&token=&lang=zh_CN)」插件，如果你的小程序没有添加该插件，请在 `app.json` 配置文件中移除该插件 `chooseLocation`，否则启用小程序会报错。
+
+> 腾讯位置服务地图选点：用于编辑器发表带位置信息的内容；以及附近页面，用于查询指定位置附近的内容。
 
 小程序支持编译成 iOS 和 Android 移动应用，也可以编译成 Web 网页应用，具体方法阅读 [Donut](https://dev.weixin.qq.com/) 教程。
 
