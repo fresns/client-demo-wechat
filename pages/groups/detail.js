@@ -24,6 +24,9 @@ Page({
     group: null,
     extensions: [],
 
+    // 置顶帖子
+    stickyPosts: [],
+
     // 帖子
     query: {},
     posts: [],
@@ -35,11 +38,6 @@ Page({
 
   /** 监听页面加载 **/
   onLoad: async function (options) {
-    this.setData({
-      gid: options.gid,
-      query: options,
-    });
-
     const groupDetailRes = await fresnsApi.group.groupDetail({
       gid: options.gid,
     });
@@ -59,6 +57,23 @@ Page({
       // mixins/fresnsInteraction.js
       callPrevPageFunction('onChangeGroup', groupDetailRes.data.detail);
     }
+
+    const resultRes = await fresnsApi.post.postList({
+      gid: options.gid,
+      stickyState: 2,
+      whitelistKeys: 'pid,title,content',
+    });
+
+    let stickyPosts = [];
+    if (resultRes.code === 0) {
+      stickyPosts = resultRes.data.list;
+    }
+
+    this.setData({
+      gid: options.gid,
+      query: options,
+      stickyPosts: stickyPosts,
+    });
 
     await this.loadFresnsPageData();
   },
