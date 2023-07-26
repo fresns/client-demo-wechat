@@ -134,9 +134,9 @@ Component({
       });
 
       // buttonIcons
-      const checkButtonIcons = post.operations && post.operations.buttonIcons;
+      const checkButtonIcons = comment.operations && comment.operations.buttonIcons;
       if (checkButtonIcons) {
-        const ButtonIconsArr = post.operations.buttonIcons;
+        const ButtonIconsArr = comment.operations.buttonIcons;
         const likeItem = ButtonIconsArr.find((item) => item.code === 'like');
         const dislikeItem = ButtonIconsArr.find((item) => item.code === 'dislike');
         const followItem = ButtonIconsArr.find((item) => item.code === 'follow');
