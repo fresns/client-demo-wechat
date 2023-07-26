@@ -58,6 +58,7 @@ Page({
       callPrevPageFunction('onChangeGroup', groupDetailRes.data.detail);
     }
 
+    // 置顶帖子
     const resultRes = await fresnsApi.post.postList({
       gid: options.gid,
       stickyState: 2,
@@ -66,7 +67,10 @@ Page({
 
     let stickyPosts = [];
     if (resultRes.code === 0) {
-      stickyPosts = resultRes.data.list;
+      resultRes.data.list.forEach(post => {
+        post.shortContent = post.content.substring(0, 20);
+        stickyPosts.push(post);
+      });
     }
 
     this.setData({
