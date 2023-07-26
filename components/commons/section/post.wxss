@@ -20,11 +20,6 @@
   margin-right: 6px;
 }
 
-.parent-post-nickname {
-  float: left;
-  padding-right: 5px;
-}
-
 .parent-post-content {
   color: var(--weui-FG-0);
   overflow: hidden;

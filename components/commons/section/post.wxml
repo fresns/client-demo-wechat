@@ -9,16 +9,7 @@
             <image src="{{ post.author.avatar }}" mode="scaleToFill"></image>
         </view>
         <view class="parent-post-content weui-flex__item">
-            <view wx:if="{{ !post.author.status }}" class="parent-post-nickname">
-                {{ userDeactivate }}:
-            </view>
-            <view wx:elif="{{ post.isAnonymous }}" class="parent-post-nickname">
-                {{ authorAnonymous }}:
-            </view>
-            <view wx:else class="parent-post-nickname">
-                {{ post.author.nickname }}:
-            </view>
-            <rich-text nodes="{{ post.content }}" class="weui-flex__item" />
+            <rich-text nodes="{{ newContent }}" class="weui-flex__item" />
         </view>
     </view>
     <view class="parent-post-group" wx:if="{{ post.group }}">{{ post.group.gname }}</view>

@@ -13,17 +13,32 @@ Component({
 
   /** 组件的初始数据 **/
   data: {
-    userDeactivate: null,
-    authorAnonymous: null,
+    newContent: null,
   },
 
-  /** 组件生命周期声明对象 **/
-  lifetimes: {
-    attached: async function () {
+  /** 组件数据字段监听器 **/
+  observers: {
+    post: async function (post) {
+      if (!post) {
+        return;
+      }
+
+      const userDeactivate = await fresnsLang('userDeactivate');
+      const authorAnonymous = await fresnsLang('contentAuthorAnonymous');
+
+      let nickname = post.author.nickname;
+      if (!post.author.status) {
+        nickname = userDeactivate;
+      }
+      if (post.isAnonymous) {
+        nickname = authorAnonymous;
+      }
+
+      const newContent = nickname + ': ' + post.content;
+
       this.setData({
-        userDeactivate: await fresnsLang('userDeactivate'),
-        authorAnonymous: await fresnsLang('contentAuthorAnonymous'),
+        newContent: newContent,
       });
-    },
+    }
   },
 });
