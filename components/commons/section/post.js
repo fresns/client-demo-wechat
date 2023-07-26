@@ -39,6 +39,6 @@ Component({
       this.setData({
         newContent: newContent,
       });
-    }
+    },
   },
 });
