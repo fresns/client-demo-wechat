@@ -7,6 +7,16 @@ import { request } from '../tool/request';
 
 const global = {
   /**
+   * 客户端状态
+   * @return {wx.RequestTask}
+   */
+  globalStatus: () => {
+    return request({
+      url: '/status.json',
+    });
+  },
+
+  /**
    * 全局配置信息
    * @return {wx.RequestTask}
    */
@@ -29,6 +39,16 @@ const global = {
       data: {
         ...options,
       },
+    });
+  },
+
+  /**
+   * 扩展频道
+   * @return {wx.RequestTask}
+   */
+  globalChannels: () => {
+    return request({
+      url: '/api/v2/global/channels',
     });
   },
 

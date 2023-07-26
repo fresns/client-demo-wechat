@@ -40,6 +40,10 @@ export function request(options) {
           return;
         }
 
+        if (url == '/status.json') {
+          return;
+        }
+
         const { code, message } = res.data;
 
         if (code !== 0) {
