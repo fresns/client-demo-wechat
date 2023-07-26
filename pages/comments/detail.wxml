@@ -18,7 +18,7 @@
         <view class="weui-panel__bd">
             <!-- 评论列表 -->
             <view class="weui-media-box weui-media-box_text" wx:for="{{ comments }}" wx:for-item="comment" wx:key="cid">
-                <comment comment="{{ comment }}" type="detail"></comment>
+                <comment comment="{{ comment }}" type="list"></comment>
             </view>
         </view>
     </view>
