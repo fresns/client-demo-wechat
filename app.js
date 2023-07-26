@@ -44,6 +44,8 @@ App({
             wx.showModal({
               title: '已经有新版本了哟~',
               content: '新版本已经上线啦~，请您删除当前小程序，重新搜索打开哟~',
+              showCancel: false,
+              confirmText: false,
             });
           });
         }
@@ -52,6 +54,8 @@ App({
       wx.showModal({
         title: '提示',
         content: '当前微信版本过低，无法使用本小程序，请升级到最新版微信。',
+        showCancel: false,
+        confirmText: false,
       });
     }
 
@@ -64,6 +68,25 @@ App({
   onShow: async function () {
     await globalInfo.init();
 
+    // 站点状态
+    try {
+      const fresnsStatus = await fresnsApi.global.globalStatus();
+      const langTag = wx.getStorageSync('langTag');
+
+      if (!fresnsStatus.activate) {
+        const deactivateDescription = fresnsStatus.deactivateDescription[langTag] || fresnsStatus.deactivateDescription.default;
+
+        wx.showModal({
+          content: deactivateDescription,
+          showCancel: false,
+          confirmText: false,
+        });
+      }
+    } catch (e) {
+      console.log('fresnsStatus', e);
+    }
+
+    // 全局配置
     try {
       const configValue = wx.getStorageSync('fresnsConfigs');
       if (!configValue) {
