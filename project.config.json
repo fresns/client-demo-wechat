@@ -59,5 +59,6 @@
     ],
     "include": []
   },
-  "projectArchitecture": "multiPlatform"
+  "projectArchitecture": "multiPlatform",
+  "projectname": "Fresns"
 }

@@ -112,11 +112,13 @@
     "navigationBarTitleText": "Fresns",
     "navigationBarTextStyle": "@navTxtStyle"
   },
-  "style": "v2",
-  "darkmode": true,
-  "lazyCodeLoading": "requiredComponents",
-  "themeLocation": "theme.json",
   "sitemapLocation": "sitemap.json",
+  "style": "v2",
+  "themeLocation": "theme.json",
+  "useExtendedLib": {
+    "weui": true
+  },
+  "darkmode": true,
   "plugins": {
     "chooseLocation": {
       "version": "1.0.10",
@@ -128,7 +130,5 @@
       "desc": "你的位置信息可用于编辑器发表带位置的内容和附近页面查询内容。"
     }
   },
-  "useExtendedLib": {
-    "weui": true
-  }
+  "lazyCodeLoading": "requiredComponents"
 }

@@ -6,23 +6,27 @@
 import { globalInfo } from '../utils/fresnsGlobalInfo';
 
 module.exports = {
+  /** 页面的初始数据 **/
   data: {
     theme: '',
   },
 
-  themeChanged(theme) {
-    this.setData({
-      theme,
-    });
-  },
-
+  /** 监听页面加载 **/
   onLoad() {
     const app = getApp();
     this.themeChanged(globalInfo.theme);
     app.watchThemeChange(this.themeChanged);
   },
 
+  /** 监听页面退出 **/
   onUnload() {
     getApp().unWatchThemeChange(this.themeChanged);
+  },
+
+  /** 主题变更 **/
+  themeChanged(theme) {
+    this.setData({
+      theme,
+    });
   },
 };

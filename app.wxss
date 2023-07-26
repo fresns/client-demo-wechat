@@ -41,6 +41,7 @@
 
 .weui-navbar {
   margin: 0 auto;
+  padding-top: 0;
 }
 
 .weui-navbar:after {
