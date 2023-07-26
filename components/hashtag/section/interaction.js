@@ -202,7 +202,7 @@ Component({
           if (res.confirm) {
             hashtag.interaction.blockStatus = true; // 屏蔽
             hashtag.blockCount = hashtag.blockCount + 1; // 计数加一
-    
+
             if (hashtag.interaction.followStatus) {
               hashtag.interaction.followStatus = false; // 取消关注
               hashtag.followCount = hashtag.followCount ? hashtag.followCount - 1 : hashtag.followCount; // 计数减一
@@ -222,7 +222,7 @@ Component({
               callPageFunction('onChangeHashtag', initialHashtag);
             }
           }
-        }
+        },
       });
     },
   },

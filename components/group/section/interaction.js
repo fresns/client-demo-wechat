@@ -222,7 +222,7 @@ Component({
               callPageFunction('onChangeGroup', initialGroup);
             }
           }
-        }
+        },
       });
     },
   },

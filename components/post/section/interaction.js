@@ -416,7 +416,7 @@ Component({
           if (res.confirm) {
             post.interaction.blockStatus = true; // 屏蔽
             post.blockCount = post.blockCount + 1; // 计数加一
-    
+
             if (post.interaction.followStatus) {
               post.interaction.followStatus = false; // 取消关注
               post.followCount = post.followCount ? post.followCount - 1 : post.followCount; // 计数减一
@@ -436,7 +436,7 @@ Component({
               callPageFunction('onChangePost', initialPost);
             }
           }
-        }
+        },
       });
     },
   },

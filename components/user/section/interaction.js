@@ -214,7 +214,9 @@ Component({
 
             if (user.interaction.followStatus) {
               user.interaction.followStatus = false; // 取消关注
-              user.stats.followMeCount = user.stats.followMeCount ? user.stats.followMeCount - 1 : user.stats.followMeCount; // 计数减一
+              user.stats.followMeCount = user.stats.followMeCount
+                ? user.stats.followMeCount - 1
+                : user.stats.followMeCount; // 计数减一
             }
 
             // mixins/fresnsInteraction.js
@@ -231,7 +233,7 @@ Component({
               callPageFunction('onChangeUser', initialUser);
             }
           }
-        }
+        },
       });
     },
   },
