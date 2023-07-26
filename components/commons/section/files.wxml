@@ -37,8 +37,8 @@
 
 <!-- 文档 -->
 <view class="content-files" wx:if="{{ files.documents.length > 0 }}">
-    <block wx:for="{{ files.documents }}" wx:for-item="fileItem" wx:key="fid" catch:tap="downloadFile">
-        <view class="file-document">
+    <block wx:for="{{ files.documents }}" wx:for-item="fileItem" wx:key="fid">
+        <view class="file-document" catch:tap="downloadFile">
             <view class="doc-icon">
                 <image src="/assets/images/file.png" class="weui-btn_cell__icon" mode="aspectFit"></image>
             </view>
