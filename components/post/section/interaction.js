@@ -383,32 +383,61 @@ Component({
       const post = this.data.post;
       const initialPost = JSON.parse(JSON.stringify(this.data.post)); // 拷贝一个小组初始数据
 
+      // 取消屏蔽
       if (post.interaction.blockStatus) {
         post.interaction.blockStatus = false; // 取消屏蔽
         post.blockCount = post.blockCount ? post.blockCount - 1 : post.blockCount; // 计数减一
-      } else {
-        post.interaction.blockStatus = true; // 屏蔽
-        post.blockCount = post.blockCount + 1; // 计数加一
 
-        if (post.interaction.followStatus) {
-          post.interaction.followStatus = false; // 取消关注
-          post.followCount = post.followCount ? post.followCount - 1 : post.followCount; // 计数减一
+        // mixins/fresnsInteraction.js
+        callPageFunction('onChangePost', post);
+
+        const resultRes = await fresnsApi.user.userMark({
+          interactionType: 'block',
+          markType: 'post',
+          fsid: post.pid,
+        });
+
+        // 接口请求失败，数据还原
+        if (resultRes.code != 0) {
+          callPageFunction('onChangePost', initialPost);
         }
+
+        return;
       }
 
-      // mixins/fresnsInteraction.js
-      callPageFunction('onChangePost', post);
+      // 屏蔽操作，二次确认
+      wx.showModal({
+        title: post.interaction.blockName,
+        cancelText: await fresnsLang('cancel'),
+        confirmText: await fresnsLang('confirm'),
 
-      const resultRes = await fresnsApi.user.userMark({
-        interactionType: 'block',
-        markType: 'post',
-        fsid: post.pid,
+        success: async (res) => {
+          // 确认
+          if (res.confirm) {
+            post.interaction.blockStatus = true; // 屏蔽
+            post.blockCount = post.blockCount + 1; // 计数加一
+    
+            if (post.interaction.followStatus) {
+              post.interaction.followStatus = false; // 取消关注
+              post.followCount = post.followCount ? post.followCount - 1 : post.followCount; // 计数减一
+            }
+
+            // mixins/fresnsInteraction.js
+            callPageFunction('onChangePost', post);
+
+            const resultRes = await fresnsApi.user.userMark({
+              interactionType: 'block',
+              markType: 'post',
+              fsid: post.pid,
+            });
+
+            // 接口请求失败，数据还原
+            if (resultRes.code != 0) {
+              callPageFunction('onChangePost', initialPost);
+            }
+          }
+        }
       });
-
-      // 接口请求失败，数据还原
-      if (resultRes.code != 0) {
-        callPageFunction('onChangePost', initialPost);
-      }
     },
   },
 });

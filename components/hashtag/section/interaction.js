@@ -5,6 +5,7 @@
  */
 import { fresnsApi } from '../../../api/api';
 import { callPageFunction } from '../../../utils/fresnsUtilities';
+import { fresnsLang } from '../../../api/tool/function';
 
 Component({
   /** 组件的属性列表 **/
@@ -168,32 +169,61 @@ Component({
       const hashtag = this.data.hashtag;
       const initialHashtag = JSON.parse(JSON.stringify(this.data.hashtag)); // 拷贝一个小组初始数据
 
+      // 取消屏蔽
       if (hashtag.interaction.blockStatus) {
         hashtag.interaction.blockStatus = false; // 取消屏蔽
         hashtag.blockCount = hashtag.blockCount ? hashtag.blockCount - 1 : hashtag.blockCount; // 计数减一
-      } else {
-        hashtag.interaction.blockStatus = true; // 屏蔽
-        hashtag.blockCount = hashtag.blockCount + 1; // 计数加一
 
-        if (hashtag.interaction.followStatus) {
-          hashtag.interaction.followStatus = false; // 取消关注
-          hashtag.followCount = hashtag.followCount ? hashtag.followCount - 1 : hashtag.followCount; // 计数减一
+        // mixins/fresnsInteraction.js
+        callPageFunction('onChangeHashtag', hashtag);
+
+        const resultRes = await fresnsApi.user.userMark({
+          interactionType: 'block',
+          markType: 'hashtag',
+          fsid: hashtag.hid,
+        });
+
+        // 接口请求失败，数据还原
+        if (resultRes.code != 0) {
+          callPageFunction('onChangeHashtag', initialHashtag);
         }
+
+        return;
       }
 
-      // mixins/fresnsInteraction.js
-      callPageFunction('onChangeHashtag', hashtag);
+      // 屏蔽操作，二次确认
+      wx.showModal({
+        title: hashtag.interaction.blockName,
+        cancelText: await fresnsLang('cancel'),
+        confirmText: await fresnsLang('confirm'),
 
-      const resultRes = await fresnsApi.user.userMark({
-        interactionType: 'block',
-        markType: 'hashtag',
-        fsid: hashtag.hid,
+        success: async (res) => {
+          // 确认
+          if (res.confirm) {
+            hashtag.interaction.blockStatus = true; // 屏蔽
+            hashtag.blockCount = hashtag.blockCount + 1; // 计数加一
+    
+            if (hashtag.interaction.followStatus) {
+              hashtag.interaction.followStatus = false; // 取消关注
+              hashtag.followCount = hashtag.followCount ? hashtag.followCount - 1 : hashtag.followCount; // 计数减一
+            }
+
+            // mixins/fresnsInteraction.js
+            callPageFunction('onChangeHashtag', hashtag);
+
+            const resultRes = await fresnsApi.user.userMark({
+              interactionType: 'block',
+              markType: 'hashtag',
+              fsid: hashtag.hid,
+            });
+
+            // 接口请求失败，数据还原
+            if (resultRes.code != 0) {
+              callPageFunction('onChangeHashtag', initialHashtag);
+            }
+          }
+        }
       });
-
-      // 接口请求失败，数据还原
-      if (resultRes.code != 0) {
-        callPageFunction('onChangeHashtag', initialHashtag);
-      }
     },
   },
 });

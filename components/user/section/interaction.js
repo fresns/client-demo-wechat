@@ -5,6 +5,7 @@
  */
 import { fresnsApi } from '../../../api/api';
 import { callPageFunction } from '../../../utils/fresnsUtilities';
+import { fresnsLang } from '../../../api/tool/function';
 
 Component({
   /** 组件的属性列表 **/
@@ -177,32 +178,61 @@ Component({
       const user = this.data.user;
       const initialUser = JSON.parse(JSON.stringify(this.data.user)); // 拷贝一个用户初始数据
 
+      // 取消屏蔽
       if (user.interaction.blockStatus) {
         user.interaction.blockStatus = false; // 取消屏蔽
         user.stats.blockMeCount = user.stats.blockMeCount ? user.stats.blockMeCount - 1 : user.stats.blockMeCount; // 计数减一
-      } else {
-        user.interaction.blockStatus = true; // 屏蔽
-        user.stats.blockMeCount = user.stats.blockMeCount + 1; // 计数加一
 
-        if (user.interaction.followStatus) {
-          user.interaction.followStatus = false; // 取消关注
-          user.stats.followMeCount = user.stats.followMeCount ? user.stats.followMeCount - 1 : user.stats.followMeCount; // 计数减一
+        // mixins/fresnsInteraction.js
+        callPageFunction('onChangeUser', user);
+
+        const resultRes = await fresnsApi.user.userMark({
+          interactionType: 'block',
+          markType: 'user',
+          fsid: user.uid,
+        });
+
+        // 接口请求失败，数据还原
+        if (resultRes.code != 0) {
+          callPageFunction('onChangeUser', initialUser);
         }
+
+        return;
       }
 
-      // mixins/fresnsInteraction.js
-      callPageFunction('onChangeUser', user);
+      // 屏蔽操作，二次确认
+      wx.showModal({
+        title: user.interaction.blockName,
+        cancelText: await fresnsLang('cancel'),
+        confirmText: await fresnsLang('confirm'),
 
-      const resultRes = await fresnsApi.user.userMark({
-        interactionType: 'block',
-        markType: 'user',
-        fsid: user.uid,
+        success: async (res) => {
+          // 确认
+          if (res.confirm) {
+            user.interaction.blockStatus = true; // 屏蔽
+            user.stats.blockMeCount = user.stats.blockMeCount + 1; // 计数加一
+
+            if (user.interaction.followStatus) {
+              user.interaction.followStatus = false; // 取消关注
+              user.stats.followMeCount = user.stats.followMeCount ? user.stats.followMeCount - 1 : user.stats.followMeCount; // 计数减一
+            }
+
+            // mixins/fresnsInteraction.js
+            callPageFunction('onChangeUser', user);
+
+            const resultRes = await fresnsApi.user.userMark({
+              interactionType: 'block',
+              markType: 'user',
+              fsid: user.uid,
+            });
+
+            // 接口请求失败，数据还原
+            if (resultRes.code != 0) {
+              callPageFunction('onChangeUser', initialUser);
+            }
+          }
+        }
       });
-
-      // 接口请求失败，数据还原
-      if (resultRes.code != 0) {
-        callPageFunction('onChangeUser', initialUser);
-      }
     },
   },
 });

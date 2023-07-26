@@ -5,6 +5,7 @@
  */
 import { fresnsApi } from '../../../api/api';
 import { callPageFunction } from '../../../utils/fresnsUtilities';
+import { fresnsLang } from '../../../api/tool/function';
 
 Component({
   /** 组件的属性列表 **/
@@ -168,32 +169,61 @@ Component({
       const group = this.data.group;
       const initialGroup = JSON.parse(JSON.stringify(this.data.group)); // 拷贝一个小组初始数据
 
+      // 取消屏蔽
       if (group.interaction.blockStatus) {
         group.interaction.blockStatus = false; // 取消屏蔽
         group.blockCount = group.blockCount ? group.blockCount - 1 : group.blockCount; // 计数减一
-      } else {
-        group.interaction.blockStatus = true; // 屏蔽
-        group.blockCount = group.blockCount + 1; // 计数加一
 
-        if (group.interaction.followStatus) {
-          group.interaction.followStatus = false; // 取消关注
-          group.followCount = group.followCount ? group.followCount - 1 : group.followCount; // 计数减一
+        // mixins/fresnsInteraction.js
+        callPageFunction('onChangeGroup', group);
+
+        const resultRes = await fresnsApi.user.userMark({
+          interactionType: 'block',
+          markType: 'group',
+          fsid: group.gid,
+        });
+
+        // 接口请求失败，数据还原
+        if (resultRes.code != 0) {
+          callPageFunction('onChangeGroup', initialGroup);
         }
+
+        return;
       }
 
-      // mixins/fresnsInteraction.js
-      callPageFunction('onChangeGroup', group);
+      // 屏蔽操作，二次确认
+      wx.showModal({
+        title: group.interaction.blockName,
+        cancelText: await fresnsLang('cancel'),
+        confirmText: await fresnsLang('confirm'),
 
-      const resultRes = await fresnsApi.user.userMark({
-        interactionType: 'block',
-        markType: 'group',
-        fsid: group.gid,
+        success: async (res) => {
+          // 确认
+          if (res.confirm) {
+            group.interaction.blockStatus = true; // 屏蔽
+            group.blockCount = group.blockCount + 1; // 计数加一
+
+            if (group.interaction.followStatus) {
+              group.interaction.followStatus = false; // 取消关注
+              group.followCount = group.followCount ? group.followCount - 1 : group.followCount; // 计数减一
+            }
+
+            // mixins/fresnsInteraction.js
+            callPageFunction('onChangeGroup', group);
+
+            const resultRes = await fresnsApi.user.userMark({
+              interactionType: 'block',
+              markType: 'group',
+              fsid: group.gid,
+            });
+
+            // 接口请求失败，数据还原
+            if (resultRes.code != 0) {
+              callPageFunction('onChangeGroup', initialGroup);
+            }
+          }
+        }
       });
-
-      // 接口请求失败，数据还原
-      if (resultRes.code != 0) {
-        callPageFunction('onChangeGroup', initialGroup);
-      }
     },
   },
 });
