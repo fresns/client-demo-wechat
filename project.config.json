@@ -1,18 +1,5 @@
 {
   "description": "项目配置文件",
-  "packOptions": {
-    "ignore": [
-      {
-        "value": "miniapp/android",
-        "type": "folder"
-      },
-      {
-        "value": "miniapp/ios",
-        "type": "folder"
-      }
-    ],
-    "include": []
-  },
   "setting": {
     "bundle": false,
     "userConfirmedBundleSwitch": false,
@@ -33,8 +20,6 @@
     "nodeModules": false,
     "enhance": true,
     "useMultiFrameRuntime": true,
-    "useApiHook": true,
-    "useApiHostProcess": true,
     "showShadowRootInWxmlPanel": true,
     "packNpmManually": false,
     "enableEngineNative": false,
@@ -51,9 +36,7 @@
     "condition": true
   },
   "compileType": "miniprogram",
-  "libVersion": "3.0.0",
   "appid": "wxcdaa14554bd22f64",
-  "projectname": "Fresns",
   "condition": {},
   "editorSetting": {
     "tabIndent": "insertSpaces",
@@ -61,6 +44,20 @@
   },
   "simulatorPluginLibVersion": {
     "wxext14566970e7e9f62": "2.27.3"
+  },
+  "libVersion": "3.0.0",
+  "packOptions": {
+    "ignore": [
+      {
+        "value": "miniapp/android",
+        "type": "folder"
+      },
+      {
+        "value": "miniapp/ios",
+        "type": "folder"
+      }
+    ],
+    "include": []
   },
   "projectArchitecture": "multiPlatform"
 }
