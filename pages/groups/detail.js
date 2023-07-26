@@ -67,7 +67,7 @@ Page({
 
     let stickyPosts = [];
     if (resultRes.code === 0) {
-      resultRes.data.list.forEach(post => {
+      resultRes.data.list.forEach((post) => {
         post.shortContent = post.content.substring(0, 20);
         stickyPosts.push(post);
       });
