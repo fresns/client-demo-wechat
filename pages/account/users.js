@@ -3,7 +3,7 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import { fresnsConfig, fresnsAccount, fresnsUserPanels } from '../../api/tool/function';
+import { fresnsConfig, fresnsCodeMessage, fresnsAccount, fresnsUserPanels } from '../../api/tool/function';
 import { fresnsLogin } from '../../utils/fresnsLogin';
 
 Page({
@@ -29,7 +29,7 @@ Page({
   },
 
   /** 监听页面加载 **/
-  onLoad: async function () {
+  onLoad: async function (options) {
     wx.setNavigationBarTitle({
       title: await fresnsConfig('menu_account_users'),
     });
@@ -41,6 +41,13 @@ Page({
       users: users,
       userPanels: userPanels,
     });
+
+    if (options.showToast === 'true') {
+      wx.showToast({
+        title: await fresnsCodeMessage('31601') || '请先登录用户再操作',
+        icon: 'none',
+      });
+    }
   },
 
   // 选择用户

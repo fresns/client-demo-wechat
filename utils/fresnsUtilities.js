@@ -52,7 +52,7 @@ export function navigateToAccountLogin() {
   const curPage = pages[pages.length - 1];
   if (curPage.route !== 'pages/account/login') {
     wx.redirectTo({
-      url: '/pages/account/login',
+      url: '/pages/account/login?showToast=true',
     });
   }
 }
@@ -63,7 +63,7 @@ export function navigateToUserLogin() {
   const curPage = pages[pages.length - 1];
   if (curPage.route !== 'pages/account/users') {
     wx.redirectTo({
-      url: '/pages/account/users',
+      url: '/pages/account/users?showToast=true',
     });
   }
 }
