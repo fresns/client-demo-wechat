@@ -44,7 +44,7 @@ Page({
 
     if (options.showToast === 'true') {
       wx.showToast({
-        title: await fresnsCodeMessage('31601') || '请先登录用户再操作',
+        title: (await fresnsCodeMessage('31601')) || '请先登录用户再操作',
         icon: 'none',
       });
     }

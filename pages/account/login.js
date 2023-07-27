@@ -94,7 +94,7 @@ Page({
 
     if (options.showToast === 'true') {
       wx.showToast({
-        title: await fresnsCodeMessage('31501') || '请先登录账号再操作',
+        title: (await fresnsCodeMessage('31501')) || '请先登录账号再操作',
         icon: 'none',
       });
     }
