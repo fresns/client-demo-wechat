@@ -9,15 +9,6 @@
             <image src="{{ avatar }}" mode="scaleToFill"></image>
         </view>
         <view class="parent-content-text weui-flex__item">
-            <view wx:if="{{ userDeactivate }}" class="parent-content-name">
-                {{ userDeactivateName }}:
-            </view>
-            <view wx:elif="{{ isAnonymous }}" class="parent-content-name">
-                {{ userAnonymousName }}:
-            </view>
-            <view wx:else class="parent-content-name">
-                {{ name }}:
-            </view>
             <rich-text nodes="{{ content }}" class="weui-flex__item" />
         </view>
     </view>

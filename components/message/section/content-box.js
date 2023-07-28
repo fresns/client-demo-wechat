@@ -99,17 +99,22 @@ Component({
         // code
       }
 
+      let newName = name;
+      if (userDeactivate) {
+        newName = await fresnsLang('userDeactivate');
+      }
+      if (isAnonymous) {
+        newName = await fresnsLang('contentAuthorAnonymous');
+      }
+
+      const newContent = newName + ': ' + content;
+
       this.setData({
         url: url,
         avatar: avatar,
-        name: name,
-        content: content,
+        content: newContent,
         isGroup: isGroup,
         gname: gname,
-        userDeactivate: userDeactivate,
-        isAnonymous: isAnonymous,
-        userDeactivateName: await fresnsLang('userDeactivate'),
-        userAnonymousName: await fresnsLang('contentAuthorAnonymous'),
       });
     },
   },

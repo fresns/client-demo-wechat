@@ -20,11 +20,6 @@
   margin-right: 6px;
 }
 
-.parent-content-name {
-  float: left;
-  padding-right: 5px;
-}
-
 .parent-content-text {
   color: var(--weui-FG-0);
   overflow: hidden;

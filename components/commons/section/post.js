@@ -23,15 +23,12 @@ Component({
         return;
       }
 
-      const userDeactivate = await fresnsLang('userDeactivate');
-      const authorAnonymous = await fresnsLang('contentAuthorAnonymous');
-
       let nickname = post.author.nickname;
       if (!post.author.status) {
-        nickname = userDeactivate;
+        nickname = await fresnsLang('userDeactivate');
       }
       if (post.isAnonymous) {
-        nickname = authorAnonymous;
+        nickname = await fresnsLang('contentAuthorAnonymous');
       }
 
       const newContent = nickname + ': ' + post.content;
