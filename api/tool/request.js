@@ -41,6 +41,8 @@ export function request(options) {
         }
 
         if (url == '/status.json') {
+          resolve(res.data);
+
           return;
         }
 
