@@ -116,9 +116,7 @@ Component({
       let unreadMessages = 0;
 
       if (globalInfo.userLogin) {
-        const unreadNotificationsArr = await fresnsUserPanel('unreadNotifications');
-
-        unreadNotifications = Object.values(unreadNotificationsArr).reduce((a, b) => a + b);
+        unreadNotifications = await fresnsUserPanel('unreadNotifications.all');
         unreadMessages = await fresnsUserPanel('conversations.unreadMessages');
       }
 
