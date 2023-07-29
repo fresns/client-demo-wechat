@@ -4,11 +4,12 @@
  * Licensed under the Apache-2.0 license
  */
 import { fresnsApi } from '../../api/api';
+import { fresnsConfig } from '../../api/tool/function';
 
 Page({
   /** 外部 mixin 引入 **/
   mixins: [
-    require('../../mixins/themeChanged'),
+    require('../../mixins/globalConfig'),
     require('../../mixins/checkSiteMode'),
     require('../../mixins/loginInterceptor'),
     require('../../mixins/fresnsExtensions'),
@@ -17,6 +18,7 @@ Page({
   /** 页面的初始数据 **/
   data: {
     type: null,
+    navName: {},
     notifications: [],
     page: 1,
     loadingStatus: false,
@@ -29,6 +31,18 @@ Page({
     const { type } = options;
     this.setData({
       type: type,
+      navName: {
+        all: await fresnsConfig('menu_notifications_all'),
+        systems: await fresnsConfig('menu_notifications_systems'),
+        recommends: await fresnsConfig('menu_notifications_recommends'),
+        likes: await fresnsConfig('menu_notifications_likes'),
+        dislikes: await fresnsConfig('menu_notifications_dislikes'),
+        follows: await fresnsConfig('menu_notifications_follows'),
+        blocks: await fresnsConfig('menu_notifications_blocks'),
+        mentions: await fresnsConfig('menu_notifications_mentions'),
+        comments: await fresnsConfig('menu_notifications_comments'),
+        quotes: await fresnsConfig('menu_notifications_quotes'),
+      },
     });
 
     await this.loadFresnsPageData();

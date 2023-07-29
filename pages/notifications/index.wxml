@@ -6,31 +6,34 @@
 <view class="page" data-weui-theme="{{ theme }}">
     <view class="weui-flex tab-navbar weui-navbar">
         <view class="weui-flex__item weui-navbar__item {{ !type ? 'weui-navbar__item_on' : '' }}">
-            <navigator url="/pages/notifications/index" open-type="redirect">全部</navigator>
+            <navigator url="/pages/notifications/index" open-type="redirect">{{ navName.all }}</navigator>
         </view>
         <view class="weui-flex__item weui-navbar__item {{ type == 1 ? 'weui-navbar__item_on' : '' }}">
-            <navigator url="/pages/notifications/index?type=1" open-type="redirect">系统</navigator>
+            <navigator url="/pages/notifications/index?type=1" open-type="redirect">{{ navName.systems }}</navigator>
         </view>
         <view class="weui-flex__item weui-navbar__item {{ type == 2 ? 'weui-navbar__item_on' : '' }}">
-            <navigator url="/pages/notifications/index?type=2" open-type="redirect">推荐</navigator>
+            <navigator url="/pages/notifications/index?type=2" open-type="redirect">{{ navName.recommends }}</navigator>
         </view>
         <view class="weui-flex__item weui-navbar__item {{ type == 3 ? 'weui-navbar__item_on' : '' }}">
-            <navigator url="/pages/notifications/index?type=3" open-type="redirect">点赞</navigator>
+            <navigator url="/pages/notifications/index?type=3" open-type="redirect">{{ navName.likes }}</navigator>
         </view>
         <view class="weui-flex__item weui-navbar__item {{ type == 4 ? 'weui-navbar__item_on' : '' }}">
-            <navigator url="/pages/notifications/index?type=4" open-type="redirect">踩</navigator>
+            <navigator url="/pages/notifications/index?type=4" open-type="redirect">{{ navName.dislikes }}</navigator>
         </view>
         <view class="weui-flex__item weui-navbar__item {{ type == 5 ? 'weui-navbar__item_on' : '' }}">
-            <navigator url="/pages/notifications/index?type=5" open-type="redirect">关注</navigator>
+            <navigator url="/pages/notifications/index?type=5" open-type="redirect">{{ navName.follows }}</navigator>
         </view>
         <view class="weui-flex__item weui-navbar__item {{ type == 6 ? 'weui-navbar__item_on' : '' }}">
-            <navigator url="/pages/notifications/index?type=6" open-type="redirect">屏蔽</navigator>
+            <navigator url="/pages/notifications/index?type=6" open-type="redirect">{{ navName.blocks }}</navigator>
         </view>
         <view class="weui-flex__item weui-navbar__item {{ type == 7 ? 'weui-navbar__item_on' : '' }}">
-            <navigator url="/pages/notifications/index?type=7" open-type="redirect">提及</navigator>
+            <navigator url="/pages/notifications/index?type=7" open-type="redirect">{{ navName.mentions }}</navigator>
         </view>
         <view class="weui-flex__item weui-navbar__item {{ type == 8 ? 'weui-navbar__item_on' : '' }}">
-            <navigator url="/pages/notifications/index?type=8" open-type="redirect">评论</navigator>
+            <navigator url="/pages/notifications/index?type=8" open-type="redirect">{{ navName.comments }}</navigator>
+        </view>
+        <view class="weui-flex__item weui-navbar__item {{ type == 9 ? 'weui-navbar__item_on' : '' }}">
+            <navigator url="/pages/notifications/index?type=9" open-type="redirect">{{ navName.quotes }}</navigator>
         </view>
     </view>
 

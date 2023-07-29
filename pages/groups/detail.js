@@ -9,7 +9,7 @@ import { callPrevPageFunction } from '../../utils/fresnsUtilities';
 Page({
   /** 外部 mixin 引入 **/
   mixins: [
-    require('../../mixins/themeChanged'),
+    require('../../mixins/globalConfig'),
     require('../../mixins/checkSiteMode'),
     require('../../mixins/fresnsExtensions'),
     require('../../mixins/fresnsInteraction'),

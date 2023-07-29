@@ -55,7 +55,7 @@
         </navigator>
         <navigator url="/pages/account/wallet" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
             <view class="weui-cell__bd">{{ fresnsConfig.menu_account_wallet }}</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access">{{ account.wallet.balance }}</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access">{{ fresnsAccount.wallet.currencyCode }} {{ fresnsAccount.wallet.balance }} {{ fresnsAccount.wallet.currencyUnit }}</view>
         </navigator>
         <navigator url="/pages/editor/draft-box?type=post" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
             <view class="weui-cell__bd">{{ fresnsConfig.menu_editor_drafts }}</view>

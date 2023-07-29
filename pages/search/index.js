@@ -9,7 +9,7 @@ import { fresnsConfig } from '../../api/tool/function';
 Page({
   /** 外部 mixin 引入 **/
   mixins: [
-    require('../../mixins/themeChanged'),
+    require('../../mixins/globalConfig'),
     require('../../mixins/checkSiteMode'),
     require('../../mixins/fresnsInteraction'),
     require('../../mixins/fresnsExtensions'),
