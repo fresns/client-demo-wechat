@@ -1,0 +1,24 @@
+<!-- *
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
+    Licensed under the Apache-2.0 license
+* -->
+<view class="page" data-weui-theme="{{ theme }}">
+    <!-- 列表 -->
+    <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:for="{{ logs }}" wx:for-item="log" wx:key="createdTimeAgo">
+            <view class="weui-cell__bd">
+                <view>{{ log.type == 'increment' ? '+' : '-' }}{{ log.amount }}</view>
+                <view class="weui-cell__desc desc_info">{{ fresnsLang.userExtcreditsLogOpeningAmount + ': ' +log.openingAmount }} | {{ fresnsLang.userExtcreditsLogClosingAmount + ': ' +log.closingAmount }}</view>
+            </view>
+            <view class="desc_info">{{ log.createdTimeAgo }}</view>
+        </view>
+    </view>
+
+    <!-- 加载动效 -->
+    <loading status="{{ loadingStatus }}" tipType="{{ loadingTipType }}"></loading>
+
+    <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
+        <text class="weui-loadmore__tips">Powered by Fresns</text>
+    </view>
+</view>
