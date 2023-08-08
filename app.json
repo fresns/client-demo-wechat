@@ -75,6 +75,7 @@
     "pages/account/wallet",
     "pages/account/users",
     "pages/account/settings",
+    "pages/account/delete-account",
 
     "pages/profile/posts",
     "pages/profile/comments",

@@ -641,4 +641,11 @@ Page({
       });
     }
   },
+
+  // 申请注销账号
+  accountDelete() {
+    wx.navigateTo({
+      url: '/pages/account/delete-account',
+    });
+  },
 });

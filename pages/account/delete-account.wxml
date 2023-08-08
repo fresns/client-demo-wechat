@@ -1,0 +1,81 @@
+<!-- *
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
+    Licensed under the Apache-2.0 license
+* -->
+<view class="page" data-weui-theme="{{ theme }}">
+	<view class="weui-form">
+        <view class="weui-form__bd">
+            <view class="weui-form__text-area">
+                <view class="weui-form__desc">
+                    <mp-html content="{{ fresnsConfig.account_delete }}" markdown="ture"/>
+                </view>
+            </view>
+
+            <view class="weui-form__control-area" wx:if="{{ !fresnsAccount.waitDelete }}">
+                <view class="weui-cells__group weui-cells__group_form">
+                    <view class="weui-cells__title">{{ fresnsLang.accountApplyDelete }}</view>
+
+                    <view class="weui-cells weui-cells_form">
+                        <radio-group bind:change="onTypeChange">
+                            <view class="weui-cell weui-cell_active">
+                                <view class="weui-cell__hd">
+                                    <label class="weui-label">{{ fresnsLang.accountType }}</label>
+                                </view>
+                                <view class="weui-cell__bd">
+                                    <label class="radio">
+                                        <radio value="0" checked="{{ type == '0' }}" />
+                                        {{ fresnsLang.phone }}
+                                    </label>
+                                    <label class="radio" style="margin-left:10px">
+                                        <radio value="1" checked="{{ type == '1' }}" />
+                                        {{ fresnsLang.email }}
+                                    </label>
+                                </view>
+                            </view>
+                        </radio-group>
+                        <view class="weui-cell weui-cell_active">
+                            <view class="weui-cell__hd"><label class="weui-label">{{ fresnsLang.account }}</label></view>
+                            <view class="weui-cell__bd">
+                                {{ account }}
+                            </view>
+                        </view>
+                        <view class="weui-cell weui-cell_active weui-cell_vcode weui-cell_wrap">
+                            <view class="weui-cell__hd">
+                                <label class="weui-label">{{ fresnsLang.verifyCode }}</label>
+                            </view>
+                            <view class="weui-cell__bd">
+                                <input class="weui-cell__control weui-cell__control_flex weui-input" value="{{ verifyCode }}" bindinput="onVerifyCodeChange" type="text" placeholder="{{ fresnsLang.verifyCode }}" placeholder-class="weui-input__placeholder" />
+                                <view aria-role="button" class="weui-cell__control weui-btn weui-btn_default weui-vcode-btn" bind:tap="sendVerifyCode">{{ isSendWaiting ? waitingRemainSeconds + ' ' + fresnsLang.unitSecond : fresnsLang.sendVerifyCode }}</view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+
+                <view class="weui-form__opr-area" style="margin-top: 30px;">
+                    <button class="weui-btn weui-btn_warn" type="warn" bind:tap="onSubmit">{{ fresnsLang.submit }}</button>
+                </view>
+            </view>
+
+            <view class="weui-form__control-area" wx:if="{{ fresnsAccount.waitDelete }}">
+                <view class="weui-information-bar weui-information-bar_warn-weak" style="position:initial;" aria-role="alert">
+                    <view class="weui-information-bar__hd">
+                        <text class="weui-icon-outlined-warn"></text>
+                    </view>
+                    <view class="weui-information-bar__bd">
+                        {{ fresnsLang.executionDate }}: {{ fresnsAccount.waitDeleteDateTime }}
+                    </view>
+                </view>
+
+                <view class="weui-form__opr-area" style="margin-top: 30px;">
+                    <button class="weui-btn weui-btn_primary" type="primary" bind:tap="onSubmitRecall">{{ fresnsLang.accountRecallDelete }}</button>
+                </view>
+            </view>
+
+        </view>
+	</view>
+
+    <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
+        <text class="weui-loadmore__tips">Powered by Fresns</text>
+    </view>
+</view>
