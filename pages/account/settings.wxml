@@ -95,7 +95,7 @@
                 data-connect-platform-id="{{ item.connectPlatformId }}"
                 data-url="{{ item.service }}"
                 data-title="{{ item.connected ? item.nickname : item.connectPlatformId }}">
-                <mp-cell value="{{ item.connectName }}" footer="{{ item.connected ? item.nickname : fresnsLang.settingNot }}" hover="{{ true }}" link="{{ true }}"/>
+                <mp-cell value="{{ item.connectName }}" footer="{{ item.connected ? (item.nickname || '✅') : fresnsLang.settingNot }}" hover="{{ true }}" link="{{ true }}"/>
             </navigator>
         </block>
     </mp-cells>
