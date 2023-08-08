@@ -114,7 +114,7 @@ module.exports = {
       return;
     }
 
-    if (type == 'sms' && !countryCode) {
+    if (type == 'sms' && !countryCode && useType != 4) {
       wx.showToast({
         title: (await fresnsLang('countryCode')) + ': ' + (await fresnsLang('errorEmpty')), // 国际区号: 不能为空
         icon: 'none',

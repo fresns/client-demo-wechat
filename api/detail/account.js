@@ -114,7 +114,7 @@ const account = {
    * 申请删除账号
    * @return {wx.RequestTask}
    */
-  accountDelete: (options = {}) => {
+  accountApplyDelete: (options = {}) => {
     return request({
       url: '/api/v2/account/apply-delete',
       data: {
@@ -128,9 +128,9 @@ const account = {
    * 撤销删除申请
    * @return {wx.RequestTask}
    */
-  accountRestore: (options = {}) => {
+  accountRecallDelete: () => {
     return request({
-      url: '/api/v2/account/restore',
+      url: '/api/v2/account/recall-delete',
       method: 'POST',
     });
   },
