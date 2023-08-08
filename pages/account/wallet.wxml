@@ -5,8 +5,23 @@
 * -->
 <view class="page" data-weui-theme="{{ theme }}">
     <!-- 钱包列表 -->
-    <view class="wallet-logs" wx:for="{{ walletLogs }}" wx:for-item="log" wx:key="createdTimeAgo">
-        <view>{{ log.type }}</view>
+    <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:for="{{ walletLogs }}" wx:for-item="log" wx:key="createdTimeAgo">
+            <view class="weui-cell__bd">
+                <view>
+                    <text wx:if="{{ log.type == 1 }}">{{ fresnsLang.walletLogType1 }}</text>
+                    <text wx:if="{{ log.type == 2 }}">{{ fresnsLang.walletLogType2 }}</text>
+                    <text wx:if="{{ log.type == 3 }}">{{ fresnsLang.walletLogType3 }}</text>
+                    <text wx:if="{{ log.type == 4 }}">{{ fresnsLang.walletLogType4 }}</text>
+                    <text wx:if="{{ log.type == 5 }}">{{ fresnsLang.walletLogType5 }}</text>
+                    <text wx:if="{{ log.type == 6 }}">{{ fresnsLang.walletLogType6 }}</text>
+                    {{ log.amountTotal }}
+                </view>
+                <view class="weui-cell__desc desc_info">{{ fresnsLang.walletLogAmount + ': ' +log.transactionAmount }} | {{ fresnsLang.walletLogSystemFee + ': ' +log.systemFee }}</view>
+                <view class="weui-cell__desc desc_info">{{ fresnsLang.walletLogOpeningBalance + ': ' +log.openingBalance }} | {{ fresnsLang.walletLogClosingBalance + ': ' +log.closingBalance }}</view>
+            </view>
+            <view class="desc_info">{{ log.createdTimeAgo }}</view>
+        </view>
     </view>
 
     <!-- 加载动效 -->
