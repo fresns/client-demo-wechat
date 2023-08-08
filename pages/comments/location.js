@@ -67,6 +67,8 @@ Page({
       mapLat: location.latitude,
       unit: 'km',
       length: 1,
+      whitelistKeys:
+        'cid,url,content,contentLength,isBrief,isMarkdown,isAnonymous,isSticky,digestState,createdTimeAgo,editedTimeAgo,likeCount,dislikeCount,commentCount,moreJson,location,files,isCommentPrivate,author.fsid,author.uid,author.username,author.nickname,author.avatar,author.decorate,author.verifiedStatus,author.nicknameColor,author.roleName,author.roleNameDisplay,author.status,manages,editControls,interaction,replyToPost.pid,replyToPost.author.avatar,replyToPost.author.nickname,replyToPost.author.status,replyToPost.isAnonymous,replyToPost.content,replyToPost.group.gname,replyToComment.author.avatar,replyToComment.author.nickname,replyToComment.author.status,replyToComment.isAnonymous,replyToComment.content,replyToComment.createdDatetime',
       page: this.data.page,
     });
 

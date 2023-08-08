@@ -5,6 +5,7 @@
  */
 import { fresnsApi } from '../../api/api';
 import { fresnsConfig } from '../../api/tool/function';
+import { globalInfo } from '../../utils/fresnsGlobalInfo';
 
 Page({
   /** 外部 mixin 引入 **/
@@ -58,6 +59,8 @@ Page({
       uidOrUsername: globalInfo.uid,
       markType: 'dislike',
       listType: 'posts',
+      whitelistKeys:
+        'pid,url,title,content,contentLength,isBrief,isMarkdown,isAnonymous,stickyState,digestState,createdTimeAgo,editedTimeAgo,likeCount,dislikeCount,commentCount,readConfig,affiliatedUserConfig,moreJson,location,operations,files,group.gid,group.gname,group.cover,author.fsid,author.uid,author.username,author.nickname,author.avatar,author.decorate,author.verifiedStatus,author.nicknameColor,author.roleName,author.roleNameDisplay,author.status,manages,editControls,interaction',
       page: this.data.page,
     });
 
