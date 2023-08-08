@@ -59,7 +59,7 @@ Page({
 
     const resultRes = await fresnsApi.user.userInteraction({
       uidOrUsername: this.data.profile.detail.uid,
-      type: 'dislike',
+      type: 'dislikers',
       whitelistKeys:
         'fsid,uid,username,url,nickname,avatar,decorate,gender,bioHtml,verifiedStatus,verifiedIcon,verifiedDesc,nicknameColor,roleName,roleNameDisplay,roleIcon,roleIconDisplay,stats.likeMeCount,stats.dislikeMeCount,stats.followMeCount,stats.blockMeCount,interaction',
       page: this.data.page,
