@@ -141,6 +141,7 @@ Page({
   // 提交重置
   onSubmit: async function () {
     const {
+      fresnsLang,
       type,
       emailAddress,
       countryCodeRange,
@@ -152,7 +153,7 @@ Page({
     } = this.data;
     if (password !== confirmPassword) {
       wx.showToast({
-        title: '两次密码填写不一致',
+        title: fresnsLang.passwordAgainError, // 两次输入的密码不一致
       });
       return;
     }
@@ -176,10 +177,10 @@ Page({
       };
     }
 
-    const registerRes = await fresnsApi.account.accountResetPassword(params);
-    if (registerRes.code === 0) {
+    const resetRes = await fresnsApi.account.accountResetPassword(params);
+    if (resetRes.code === 0) {
       wx.showToast({
-        title: '密码重置成功',
+        title: resetRes.message,
       });
       wx.redirectTo({
         url: '/pages/account/login',

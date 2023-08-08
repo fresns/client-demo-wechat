@@ -17,7 +17,7 @@
                     <text class="profile-username">{{ '@' + fresnsUser.username }}</text>
                 </view>
             </view>
-            <view class="weui-flex__item interactive-btn">
+            <view class="weui-flex__item settings-btn">
                 <navigator url="/pages/account/settings" class="weui-btn weui-btn_mini weui-btn_default">
                     {{ fresnsConfig.menu_account_settings }}
                 </navigator>

@@ -43,6 +43,7 @@ Page({
     confirmPassword: '',
 
     // 昵称
+    nicknameName: null,
     nickname: '',
   },
 
@@ -60,6 +61,7 @@ Page({
 
     this.setData({
       fresnsLang: await fresnsLang(),
+      nicknameName: await fresnsConfig('user_nickname_name'),
       countryCodeRange,
       countryCodeIndex: countryCodeRange.indexOf(defaultCode),
     });
@@ -153,6 +155,7 @@ Page({
   onSubmit: async function () {
     wx.showNavigationBarLoading();
     const {
+      fresnsLang,
       type,
       emailAddress,
       countryCodeRange,
@@ -166,7 +169,7 @@ Page({
     if (password !== confirmPassword) {
       wx.hideNavigationBarLoading();
       wx.showToast({
-        title: '两次密码填写不一致',
+        title: fresnsLang.passwordAgainError, // 两次输入的密码不一致
       });
       return;
     }
