@@ -111,6 +111,19 @@ const user = {
   },
 
   /**
+   * 用户扩展分值记录
+   * @return {wx.RequestTask}
+   */
+  userExtcreditsLogs: (options = {}) => {
+    return request({
+      url: '/api/v2/user/extcredits-logs',
+      data: {
+        ...options,
+      },
+    });
+  },
+
+  /**
    * 修改用户资料
    * @return {wx.RequestTask}
    */
