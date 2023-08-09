@@ -41,6 +41,7 @@ Page({
     // 密码
     password: '',
     confirmPassword: '',
+    checkPolicies: false,
 
     // 昵称
     nicknameName: null,
@@ -150,6 +151,11 @@ Page({
     });
     return value;
   },
+  onCheckPolicies: function (e) {
+    this.setData({
+      checkPolicies: !this.data.checkPolicies,
+    });
+  },
 
   // 提交注册
   onSubmit: async function () {
@@ -164,12 +170,24 @@ Page({
       verifyCode,
       password,
       confirmPassword,
+      checkPolicies,
       nickname,
     } = this.data;
+
+    if (!checkPolicies) {
+      wx.hideNavigationBarLoading();
+      wx.showToast({
+        title: fresnsLang.accountPoliciesError, // 请确认已经阅读并同意服务条款和隐私政策
+        icon: 'none',
+      });
+      return;
+    }
+
     if (password !== confirmPassword) {
       wx.hideNavigationBarLoading();
       wx.showToast({
         title: fresnsLang.passwordAgainError, // 两次输入的密码不一致
+        icon: 'none',
       });
       return;
     }

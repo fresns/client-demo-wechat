@@ -82,16 +82,18 @@
             </view>
         </view>
     </view>
-    <view class="weui-form__tips-area">
-        <label aria-role="" class="weui-agree">
-            <span class="weui-agree__text">
-                <text aria-hidden="true">{{ fresnsLang.accountInfo }}</text>
-                <navigator url="/pages/portal/policies?active=terms">《{{ fresnsLang.accountPoliciesTerms }}》</navigator>
-                <navigator url="/pages/portal/policies?active=privacy">《{{ fresnsLang.accountPoliciesPrivacy }}》</navigator>
-                <navigator url="/pages/portal/policies?active=cookies">《{{ fresnsLang.accountPoliciesCookies }}》</navigator>
-            </span>
-        </label>
-    </view>
+
+    <label class="weui-agree" bind:tap="onCheckPolicies">
+        <checkbox class="weui-agree__checkbox-check"/>
+        <i class="weui-agree__checkbox"></i>
+        <span class="weui-agree__text">
+            <text aria-hidden="true">{{ fresnsLang.accountInfo }}</text>
+            <navigator url="/pages/portal/policies?active=terms">《{{ fresnsLang.accountPoliciesTerms }}》</navigator>
+            <navigator url="/pages/portal/policies?active=privacy">《{{ fresnsLang.accountPoliciesPrivacy }}》</navigator>
+            <navigator url="/pages/portal/policies?active=cookies">《{{ fresnsLang.accountPoliciesCookies }}》</navigator>
+        </span>
+    </label>
+
     <view class="weui-form__opr-area">
         <button class="weui-btn weui-btn_primary" type="primary" bind:tap="onSubmit">{{ fresnsLang.accountRegister }}</button>
     </view>

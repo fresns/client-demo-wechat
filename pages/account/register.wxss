@@ -5,6 +5,11 @@
  */
 .weui-form__control-area {
   margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.weui-agree {
+  margin-bottom: 20px;
 }
 
 .weui-cells__group_form .weui-cell_wrap .weui-cell__bd {
