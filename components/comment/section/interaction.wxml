@@ -73,3 +73,5 @@
     <!-- 更多菜单 -->
     <mp-actionSheet show="{{ showActionSheet }}" actions="{{ actionGroups }}" title="{{ title }}" bindactiontap="actionClickMore"/>
 </view>
+
+<view wx:if="{{ comment.interaction.postAuthorLikeStatus }}">{{ fresnsLang.contentAuthorLiked }}</view>

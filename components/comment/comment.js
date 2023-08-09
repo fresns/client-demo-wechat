@@ -16,6 +16,7 @@ Component({
   /** 组件的初始数据 **/
   data: {
     commentContent: null,
+    contentAuthor: '',
     userHomePath: '',
     userDeactivate: null,
     authorAnonymous: null,
@@ -78,6 +79,7 @@ Component({
     attached: async function () {
       this.setData({
         userHomePath: await globalInfo.userHomePath(),
+        contentAuthor: await fresnsLang('contentAuthor'),
         userDeactivate: await fresnsLang('userDeactivate'),
         authorAnonymous: await fresnsLang('contentAuthorAnonymous'),
       });
