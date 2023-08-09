@@ -97,7 +97,7 @@ Page({
       Object.assign(this.data.query, {
         orderDirection: 'asc',
         whitelistKeys:
-          'cid,url,content,contentLength,isBrief,isMarkdown,isAnonymous,isSticky,digestState,createdTimeAgo,editedTimeAgo,likeCount,dislikeCount,commentCount,moreJson,location,files,isCommentPrivate,author.fsid,author.uid,author.username,author.nickname,author.avatar,author.decorate,author.verifiedStatus,author.nicknameColor,author.roleName,author.roleNameDisplay,author.status,manages,editControls,interaction,replyToPost.pid,replyToComment.cid,replyToComment.content,replyToComment.isAnonymous,replyToComment.createdDatetime,replyToComment.author.nickname,replyToComment.author.status',
+          'cid,url,content,contentLength,isBrief,isMarkdown,isAnonymous,isSticky,digestState,createdTimeAgo,editedTimeAgo,likeCount,dislikeCount,commentCount,moreJson,location,files,isCommentPrivate,author.fsid,author.uid,author.username,author.nickname,author.avatar,author.decorate,author.verifiedStatus,author.nicknameColor,author.roleName,author.roleNameDisplay,author.status,author.isPostAuthor,manages,editControls,interaction,replyToPost.pid,replyToComment.cid,replyToComment.content,replyToComment.isAnonymous,replyToComment.createdDatetime,replyToComment.author.nickname,replyToComment.author.status',
         page: this.data.page,
       })
     );
