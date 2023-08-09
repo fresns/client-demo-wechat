@@ -154,6 +154,7 @@ Page({
     if (password !== confirmPassword) {
       wx.showToast({
         title: fresnsLang.passwordAgainError, // 两次输入的密码不一致
+        icon: 'none',
       });
       return;
     }

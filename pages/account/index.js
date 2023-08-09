@@ -132,17 +132,19 @@ Page({
 
     if (e.detail.index === 1) {
       await fresnsLogin.logout();
+
+      this.setData({
+        accountLogin: false,
+        userLogin: false,
+
+        fresnsAccount: null,
+        fresnsUser: null,
+        fresnsUserPanel: null,
+      });
     }
 
     this.setData({
       showLogoutDialog: false,
-
-      accountLogin: false,
-      userLogin: false,
-
-      fresnsAccount: null,
-      fresnsUser: null,
-      fresnsUserPanel: null,
     });
   },
 });
