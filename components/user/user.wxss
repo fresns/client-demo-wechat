@@ -50,7 +50,7 @@
 .user-info .user-verified image {
   height: 18px;
   margin: 0 4px;
-  margin-top: 3px;
+  margin-top: 4px;
 }
 
 .user-info .user-name {
@@ -63,6 +63,7 @@
 .user-info .user-role-icon image {
   height: 18px;
   margin: 0 4px;
+  margin-left: 10px;
   margin-top: 4px;
 }
 

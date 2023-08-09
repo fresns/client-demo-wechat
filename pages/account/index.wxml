@@ -12,9 +12,22 @@
                     <image wx:if="{{ fresnsUser.decorate }}" src="{{ fresnsUser.decorate }}" class="avatar-decorate" mode="scaleToFill"></image>
                     <image src="{{ fresnsUser.avatar }}" class="avatar-img" mode="scaleToFill"></image>
                 </view>
-                <view class="profile-name">
+                <view class="profile-name weui-flex">
                     <text class="profile-nickname">{{ fresnsUser.nickname }}</text>
+
+                    <view wx:if="{{ fresnsUser.verifiedStatus }}" class="profile-verified">
+                        <image src="{{ fresnsUser.verifiedIcon ? fresnsUser.verifiedIcon : '/assets/images/icon-verified.png' }}" mode="heightFix"></image>
+                    </view>
+
                     <text class="profile-username">{{ '@' + fresnsUser.username }}</text>
+
+                    <view wx:if="{{ fresnsUser.roleIcon }}" class="profile-role-icon">
+                        <image src="{{ fresnsUser.roleIcon }}" mode="heightFix"></image>
+                    </view>
+
+                    <view wx:if="{{ fresnsUser.roleName }}" class="profile-role-name">
+                        <text class="weui-badge">{{ fresnsUser.roleName }}</text>
+                    </view>
                 </view>
             </view>
             <view class="weui-flex__item settings-btn">
