@@ -451,14 +451,14 @@ Page({
         title: submitRes.message,
         content: submitRes.data.join(' | '),
         confirmText: await fresnsConfig('menu_account_settings'),
-        success (res) {
+        success(res) {
           if (res.confirm) {
             // 去设置页
             wx.navigateTo({
               url: '/pages/account/settings',
             });
           }
-        }
+        },
       });
     }
 
@@ -468,7 +468,7 @@ Page({
         title: submitRes.message,
         cancelText: await fresnsConfig('menu_editor_drafts'), // 草稿箱
         confirmText: await fresnsConfig('menu_post_title'), // 帖子主页
-        success (res) {
+        success(res) {
           if (res.confirm) {
             // 去帖子主页
             wx.redirectTo({
@@ -480,7 +480,7 @@ Page({
               url: '/pages/editor/draft-box?type=post',
             });
           }
-        }
+        },
       });
     }
 
