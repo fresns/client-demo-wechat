@@ -12,6 +12,10 @@
   margin-top: 20px;
 }
 
+.weui-form__opr-area {
+  margin-top: 20px;
+}
+
 .btnLoading {
   margin: 10px 0;
 }
