@@ -31,7 +31,9 @@ Component({
         nickname = await fresnsLang('contentAuthorAnonymous');
       }
 
-      const newContent = nickname + ': ' + post.content;
+      const summaries = post.title || post.content;
+
+      const newContent = nickname + ': ' + summaries;
 
       this.setData({
         newContent: newContent,
