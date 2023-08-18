@@ -306,6 +306,48 @@ Component({
         newCid: '',
       };
 
+      // 禁止发表
+      if (submitRes.code == 36104) {
+        wx.showModal({
+          title: submitRes.message,
+          content: submitRes.data.join(' | '),
+          confirmText: await fresnsConfig('menu_account_settings'),
+          success(res) {
+            if (res.confirm) {
+              // 去设置页
+              wx.navigateTo({
+                url: '/pages/account/settings',
+              });
+            }
+          },
+        });
+      }
+
+      // 发表成功，待审核
+      if (submitRes.code == 38200) {
+        wx.showModal({
+          title: submitRes.message,
+          cancelText: await fresnsConfig('menu_editor_drafts'), // 草稿箱
+          confirmText: await fresnsLang('know'), // 知道了
+          success(res) {
+            if (res.confirm) {
+              // 知道了
+              this.triggerEvent('eventCommentBoxHide', { data: '' });
+
+              // mixins/fresnsInteraction.js
+              callPageFunction('onPublishCommentAction', data);
+              callPrevPageFunction('onPublishCommentAction', data);
+            } else if (res.cancel) {
+              // 去草稿箱
+              wx.redirectTo({
+                url: '/pages/editor/draft-box?type=comment',
+              });
+            }
+          },
+        });
+      }
+
+      // 发表成功
       if (submitRes.code === 0) {
         this.setData({
           content: '',
@@ -329,15 +371,6 @@ Component({
           title: submitRes.message,
           icon: 'none',
         });
-      }
-
-      // 发表成功，待审核
-      if (submitRes.code === 38200) {
-        this.triggerEvent('eventCommentBoxHide', { data: '' });
-
-        // mixins/fresnsInteraction.js
-        callPageFunction('onPublishCommentAction', data);
-        callPrevPageFunction('onPublishCommentAction', data);
       }
     },
   },
