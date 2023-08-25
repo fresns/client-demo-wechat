@@ -9,7 +9,7 @@ import { fresnsLogin } from './fresnsLogin';
 
 export class GlobalInfo {
   clientName = 'FresnsWeChat';
-  clientVersion = '2.2.0';
+  clientVersion = '2.2.1';
   theme = null;
 
   // 处理用户主页路径
