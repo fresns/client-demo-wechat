@@ -161,6 +161,7 @@ Page({
         console.log('modifyAvatar', tempFile);
 
         const resultRes = await fresnsApi.common.commonUploadFile(tempFile.tempFilePath, {
+          usageType: 5,
           tableName: 'users',
           tableColumn: 'avatar_file_id',
           tableKey: uid,

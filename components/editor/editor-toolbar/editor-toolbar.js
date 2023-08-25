@@ -137,7 +137,7 @@ Component({
     // 工具栏
     onClickToolBar: function (e) {
       const { tool } = e.currentTarget.dataset;
-      const { draftId, config, fresnsLang, editorType, tableName, uploadInfo } = this.data;
+      const { draftId, config, fresnsLang, editorType, usageType, tableName, uploadInfo } = this.data;
 
       // 表情
       if (tool == 'sticker') {
@@ -175,7 +175,7 @@ Component({
 
         // 直接上传
         return setTimeout(() => {
-          this.onSelectImageOrVideo('image', tableName, draftId, config.image);
+          this.onSelectImageOrVideo('image', usageType, tableName, draftId, config.image);
         }, 100);
       }
 
@@ -205,7 +205,7 @@ Component({
 
         // 直接上传
         return setTimeout(() => {
-          this.onSelectImageOrVideo('video', tableName, draftId, config.video);
+          this.onSelectImageOrVideo('video', usageType, tableName, draftId, config.video);
         }, 100);
       }
 
@@ -276,7 +276,7 @@ Component({
     },
 
     // 上传图片或视频
-    onSelectImageOrVideo: function (fileType, tableName, draftId, fileConfig) {
+    onSelectImageOrVideo: function (fileType, usageType, tableName, draftId, fileConfig) {
       const type = fileType + 's';
       const extensionsArray = fileConfig.extensions.split(',');
 
@@ -310,6 +310,7 @@ Component({
 
             // 上传
             const response = await fresnsApi.common.commonUploadFile(tempFile.tempFilePath, {
+              usageType: usageType,
               tableName: tableName,
               tableColumn: 'id',
               tableId: draftId,
