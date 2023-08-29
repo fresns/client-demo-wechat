@@ -42,10 +42,7 @@
     "tabIndent": "insertSpaces",
     "tabSize": 2
   },
-  "simulatorPluginLibVersion": {
-    "wxext14566970e7e9f62": "2.27.3"
-  },
-  "libVersion": "3.0.0",
+  "libVersion": "3.0.1",
   "packOptions": {
     "ignore": [
       {
