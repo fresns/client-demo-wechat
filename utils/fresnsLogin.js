@@ -101,7 +101,7 @@ export class FresnsLogin {
           wx.showToast({
             title: '[10001] ' + res.errMsg,
             icon: 'none',
-            duration: 3000,
+            duration: 2000,
           });
         }
       },

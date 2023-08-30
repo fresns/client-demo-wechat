@@ -83,7 +83,7 @@ module.exports = {
       wx.showToast({
         title: '[' + fresnsCallback.code + '] ' + fresnsCallback.message,
         icon: 'none',
-        duration: 3000,
+        duration: 2000,
       });
 
       // 处理完毕，清空回调信息

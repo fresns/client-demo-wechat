@@ -72,7 +72,7 @@ Component({
         wx.showToast({
           title: await fresnsCodeMessage(38203),
           icon: 'none',
-          duration: 3000,
+          duration: 2000,
         });
 
         return;

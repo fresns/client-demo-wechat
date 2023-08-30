@@ -32,7 +32,7 @@ export function request(options) {
           wx.showToast({
             title: '[' + res.statusCode + '] 接口请求异常',
             icon: 'none',
-            duration: 3000,
+            duration: 2000,
           });
 
           reject(res);
@@ -52,7 +52,7 @@ export function request(options) {
           wx.showToast({
             title: '[' + code + '] ' + message,
             icon: 'none',
-            duration: 3000,
+            duration: 2000,
           });
         }
 
@@ -64,7 +64,7 @@ export function request(options) {
         wx.showToast({
           title: '[' + res.statusCode + '] 接口请求失败',
           icon: 'none',
-          duration: 3000,
+          duration: 2000,
         });
 
         reject(res);
@@ -102,7 +102,7 @@ export function uploadFile(filePath, options) {
           wx.showToast({
             title: '[' + res.statusCode + '] 接口请求异常',
             icon: 'none',
-            duration: 3000,
+            duration: 2000,
           });
 
           reject(res);
@@ -117,7 +117,7 @@ export function uploadFile(filePath, options) {
           wx.showToast({
             title: '服务器返回的数据无法解析为 JSON',
             icon: 'none',
-            duration: 3000,
+            duration: 2000,
           });
           reject(error);
 
@@ -130,7 +130,7 @@ export function uploadFile(filePath, options) {
           wx.showToast({
             title: '[' + code + '] ' + message,
             icon: 'none',
-            duration: 3000,
+            duration: 2000,
           });
         }
 
@@ -142,7 +142,7 @@ export function uploadFile(filePath, options) {
         wx.showToast({
           title: '[' + res.statusCode + '] 接口请求失败',
           icon: 'none',
-          duration: 3000,
+          duration: 2000,
         });
 
         reject(res);
