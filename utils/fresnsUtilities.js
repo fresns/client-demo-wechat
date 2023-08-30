@@ -207,14 +207,18 @@ export function enJson(encoded) {
   return json;
 }
 
-// 处理 HTML 标签
-export function truncateText(text = '', length) {
+// 截取和过滤文本内容
+export function truncateText(text = '', length, richText = false) {
   if (!text) {
     return text;
   }
 
+  let strippedText = text;
+
   // 过滤掉 HTML 标签和换行符
-  const strippedText = text.replace(/(<([^>]+)>)/gi, '').replace(/(\r\n|\n|\r)/gm, '');
+  if (!richText) {
+    strippedText = text.replace(/(<([^>]+)>)/gi, '').replace(/(\r\n|\n|\r)/gm, '');
+  }
 
   // 截取指定长度的字符串
   const truncatedText = strippedText.substring(0, length);
