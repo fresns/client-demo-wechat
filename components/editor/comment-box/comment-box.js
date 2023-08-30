@@ -6,7 +6,7 @@
 import { fresnsApi } from '../../../api/api';
 import { fresnsConfig, fresnsLang } from '../../../api/tool/function';
 import { globalInfo } from '../../../utils/fresnsGlobalInfo';
-import { cachePut, cacheGet, callPageFunction, callPrevPageFunction } from '../../../utils/fresnsUtilities';
+import { cacheGet, callPageFunction, callPrevPageFunction } from '../../../utils/fresnsUtilities';
 
 Component({
   /** 组件的属性列表 **/
@@ -53,20 +53,10 @@ Component({
   lifetimes: {
     attached: async function () {
       const fresnsStickers = cacheGet('fresnsStickers');
+      const stickerList = fresnsStickers?.data ?? [];
 
-      let stickers = fresnsStickers?.data;
-      if (!stickers) {
-        const stickersRes = await fresnsApi.global.globalStickers();
-
-        if (stickersRes.code === 0) {
-          cachePut('fresnsStickers', stickersRes.data);
-
-          stickers = stickersRes.data;
-        }
-      }
-
-      const stickerTabs = stickers
-        ? stickers.map((item) => ({
+      const stickerTabs = stickerList
+        ? stickerList.map((item) => ({
             title: item.name,
             image: item.image,
             active: item.code,
@@ -92,7 +82,7 @@ Component({
         },
         userLogin: globalInfo.userLogin,
         stickerTabs: stickerTabs,
-        stickers: stickerTabs[0].stickers,
+        stickers: stickerTabs && stickerTabs.length ? stickerTabs[0].stickers : [],
         imageActionGroups: actionGroups,
         contentLengthConfig: await fresnsConfig('comment_editor_content_length'),
         hashtagConfig: {
@@ -176,7 +166,7 @@ Component({
       const stickerTabs = this.data.stickerTabs;
 
       this.setData({
-        stickers: stickerTabs[0].stickers,
+        stickers: stickerTabs && stickerTabs.length ? stickerTabs[0].stickers : [],
         showStickerBox: !this.data.showStickerBox,
       });
     },

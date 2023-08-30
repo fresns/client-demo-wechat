@@ -6,6 +6,7 @@
 import { fresnsApi } from '../api/api';
 import { fresnsConfig } from '../api/tool/function';
 import { fresnsLogin } from './fresnsLogin';
+import { cacheGet, cachePut } from './fresnsUtilities';
 
 export class GlobalInfo {
   clientName = 'FresnsWeChat';
@@ -161,6 +162,16 @@ export class GlobalInfo {
     // wechat auto login
     if (!globalInfo.accountLogin) {
       await fresnsLogin.wechatAutoLogin();
+    }
+
+    // stickers
+    const fresnsStickers = cacheGet('fresnsStickers');
+    if (!fresnsStickers) {
+      const stickersRes = await fresnsApi.global.globalStickers();
+
+      if (stickersRes.code === 0) {
+        cachePut('fresnsStickers', stickersRes.data ?? []);
+      }
     }
   }
 }
