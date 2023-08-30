@@ -8,45 +8,84 @@ import { globalInfo } from '../utils/fresnsGlobalInfo';
 import { getCurrentPagePath, dfs, callPrevPageFunction } from '../utils/fresnsUtilities';
 
 module.exports = {
-  /** 右上角菜单-分享给好友 **/
+  /** 右上角菜单-发送给朋友 **/
   onShareAppMessage: async function (res) {
     console.log('onShareAppMessage res', res);
 
+    let currentPagePath = getCurrentPagePath();
+    let type = '';
+    let fsid = '';
+
     let shareTitle = this.data.title;
-    let sharePath = getCurrentPagePath();
+    let sharePath = currentPagePath;
 
     if (res.from == 'button') {
-      const type = res.target.dataset.type;
-      const fsid = res.target.dataset.fsid;
-      const title = res.target.dataset.title;
+      type = res.target.dataset.type;
+      fsid = res.target.dataset.fsid;
 
-      switch (type) {
-        case 'user':
-          const userHomePath = await globalInfo.userHomePath();
-          sharePath = userHomePath + fsid;
-          break;
+      shareTitle = res.target.dataset.title;
+    }
 
-        case 'group':
+    if (res.from == 'menu') {
+      switch (currentPagePath) {
+        case 'pages/groups/detail':
+          type = 'group';
+          fsid = this.data.group.gid;
           sharePath = '/pages/groups/detail?gid=' + fsid;
           break;
 
-        case 'hashtag':
+        case 'pages/hashtags/detail':
+          type = 'hashtag';
+          fsid = this.data.hashtag.hid;
           sharePath = '/pages/hashtags/detail?hid=' + fsid;
           break;
 
-        case 'post':
+        case 'pages/posts/detail':
+          type = 'post';
+          fsid = this.data.post.pid;
           sharePath = '/pages/posts/detail?pid=' + fsid;
           break;
 
-        case 'comment':
+        case 'pages/comments/detail':
+          type = 'comment';
+          fsid = this.data.comment.cid;
           sharePath = '/pages/comments/detail?cid=' + fsid;
           break;
 
         default:
-        // code
+          if (currentPagePath.startsWith('pages/profile')) {
+            const userHomePath = await globalInfo.userHomePath();
+            type = 'user';
+            fsid = this.data.profile.detail.fsid;
+            sharePath = userHomePath + fsid;
+          }
       }
+    }
 
-      shareTitle = title;
+    switch (type) {
+      case 'user':
+        const userHomePath = await globalInfo.userHomePath();
+        sharePath = userHomePath + fsid;
+        break;
+
+      case 'group':
+        sharePath = '/pages/groups/detail?gid=' + fsid;
+        break;
+
+      case 'hashtag':
+        sharePath = '/pages/hashtags/detail?hid=' + fsid;
+        break;
+
+      case 'post':
+        sharePath = '/pages/posts/detail?pid=' + fsid;
+        break;
+
+      case 'comment':
+        sharePath = '/pages/comments/detail?cid=' + fsid;
+        break;
+
+      default:
+      // code
     }
 
     console.log('onShareAppMessage return', shareTitle, sharePath);
@@ -54,6 +93,80 @@ module.exports = {
     return {
       title: shareTitle,
       path: sharePath,
+    };
+  },
+
+  /** 右上角菜单-分享到朋友圈 **/
+  onShareTimeline: function () {
+    let currentPagePath = getCurrentPagePath();
+
+    let shareQuery = '';
+
+    switch (currentPagePath) {
+      case 'pages/groups/detail':
+        shareQuery = 'gid=' + this.data.group.gid;
+        break;
+
+      case 'pages/hashtags/detail':
+        shareQuery = 'hid=' + this.data.hashtag.hid;
+        break;
+
+      case 'pages/posts/detail':
+        shareQuery = 'pid=' + this.data.post.pid;
+        break;
+
+      case 'pages/comments/detail':
+        shareQuery = 'cid=' + this.data.comment.cid;
+        break;
+
+      default:
+        if (currentPagePath.startsWith('pages/profile')) {
+          shareQuery = 'fsid=' + this.data.profile.detail.fsid;
+        }
+    }
+
+    console.log('onShareTimeline', this.data.title, shareQuery);
+
+    return {
+      title: this.data.title,
+      query: shareQuery,
+    };
+  },
+
+  /** 右上角菜单-收藏 **/
+  onAddToFavorites: function () {
+    let currentPagePath = getCurrentPagePath();
+
+    let shareQuery = '';
+
+    switch (currentPagePath) {
+      case 'pages/groups/detail':
+        shareQuery = 'gid=' + this.data.group.gid;
+        break;
+
+      case 'pages/hashtags/detail':
+        shareQuery = 'hid=' + this.data.hashtag.hid;
+        break;
+
+      case 'pages/posts/detail':
+        shareQuery = 'pid=' + this.data.post.pid;
+        break;
+
+      case 'pages/comments/detail':
+        shareQuery = 'cid=' + this.data.comment.cid;
+        break;
+
+      default:
+        if (currentPagePath.startsWith('pages/profile')) {
+          shareQuery = 'fsid=' + this.data.profile.detail.fsid;
+        }
+    }
+
+    console.log('onAddToFavorites', this.data.title, shareQuery);
+
+    return {
+      title: this.data.title,
+      query: shareQuery,
     };
   },
 

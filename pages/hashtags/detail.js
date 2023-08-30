@@ -122,20 +122,4 @@ Page({
   onReachBottom: async function () {
     await this.loadFresnsPageData();
   },
-
-  /** 右上角菜单-分享到朋友圈 **/
-  onShareTimeline: function () {
-    return {
-      title: this.data.hashtag.hname,
-      imageUrl: this.data.hashtag.cover,
-    };
-  },
-
-  /** 右上角菜单-收藏 **/
-  onAddToFavorites: function () {
-    return {
-      title: this.data.hashtag.hname,
-      imageUrl: this.data.hashtag.cover,
-    };
-  },
 });
