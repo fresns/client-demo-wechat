@@ -7,8 +7,7 @@
     <view class="weui-cells weui-cells_form">
         <view class="weui-cell" hover-class="weui-cell_active">
             <view class="weui-cell__bd">
-                <textarea class="weui-textarea" placeholder-class="weui-input__placeholder" placeholder="{{ fresnsConfig.publish_comment_name + ' ' +  nickname }}"
-                    rows="3"
+                <textarea class="weui-textarea" style="height:140px" placeholder-class="weui-input__placeholder" placeholder="{{ fresnsConfig.publish_comment_name + ' ' +  nickname }}"
                     value="{{ content }}"
                     maxlength="{{ contentLengthConfig }}"
                     bindfocus="handleFocus"
@@ -80,6 +79,8 @@
 </block>
 
 <block wx:else>
+    <view class="login-tip">{{ fsLang.errorNoLogin }}</view>
+
     <navigator url="/pages/account/login" class="weui-btn weui-btn_primary">
         {{ fsLang.accountLogin }}
     </navigator>

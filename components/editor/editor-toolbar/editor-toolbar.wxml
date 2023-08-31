@@ -3,7 +3,7 @@
     Copyright 2021-Present 唐杰
     Licensed under the Apache-2.0 license
 * -->
-<view class="editor-toolbar" style="bottom:{{ toolbarBottom + 'rpx' }}">
+<view class="editor-toolbar">
     <!-- Toolbar -->
     <view class="weui-flex">
         <view class="weui-flex__item" wx:if="{{ config.sticker }}" data-tool="sticker" bind:tap="onClickToolBar">
@@ -87,6 +87,8 @@
             </view>
         </scroll-view>
     </view>
+
+    <view class="toolbar-bottom"></view>
 </view>
 
 <!-- 扩展菜单 -->

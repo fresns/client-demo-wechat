@@ -76,6 +76,7 @@ Component({
       this.setData({
         fresnsConfig: await fresnsConfig(),
         fsLang: {
+          errorNoLogin: await fresnsLang('errorNoLogin'),
           accountLogin: await fresnsLang('accountLogin'),
           content: await fresnsLang('editorContent'),
           anonymous: await fresnsLang('editorAnonymous'),

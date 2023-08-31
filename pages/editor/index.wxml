@@ -53,7 +53,7 @@
         </view>
 
         <!-- 编辑器工具栏 -->
-        <editor-toolbar type="{{ type }}" draftId="{{ draftDetail.id }}" config="{{ editorConfig.editor.toolbar }}" bottom="{{ toolbarBottom }}" />
+        <editor-toolbar type="{{ type }}" draftId="{{ draftDetail.id }}" config="{{ editorConfig.editor.toolbar }}"/>
     </block>
 
     <view class="weui-loadmore weui-loadmore_line tabbar-spacing">

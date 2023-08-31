@@ -15,13 +15,11 @@ Component({
     type: String,
     draftId: String,
     config: Object,
-    bottom: Number,
   },
 
   /** 组件的初始数据 **/
   data: {
     fresnsLang: null,
-    toolbarBottom: 0,
 
     editorType: null,
     usageType: null,
@@ -85,15 +83,6 @@ Component({
 
       this.setData({
         extends: items,
-      });
-    },
-
-    // 工具栏位置
-    bottom: async function (bottom) {
-      console.log('Toolbar Bottom', bottom);
-
-      this.setData({
-        toolbarBottom: bottom,
       });
     },
   },
@@ -245,8 +234,8 @@ Component({
     },
 
     // 切换表情
-    onClickTab: function (e) {
-      const index = e.detail.index;
+    onTabsClick: function (e) {
+      const index = e.detail.value;
       const stickerTabs = this.data.stickerTabs;
 
       this.setData({
