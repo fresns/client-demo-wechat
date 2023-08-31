@@ -100,6 +100,50 @@ export function callPrevPageFunction(functionName, ...args) {
   }
 }
 
+// 回调上一个页面中的组件
+export function callPrevPageComponentFunction(componentSelector, functionName, ...args) {
+  const pages = getCurrentPages();
+  const prevPage = pages[pages.length - 2];
+  if (!prevPage) return;
+
+  const componentInstance = prevPage.selectComponent(componentSelector);
+  if (!componentInstance) return;
+
+  let fun = componentInstance[functionName];
+  if (fun && typeof fun === 'function') {
+    return fun.apply(componentInstance, args);
+  }
+}
+
+// 回调指定页面
+export function callSpecificPageFunction(route, functionName, ...args) {
+  const pages = getCurrentPages();
+  const targetPage = pages.find((page) => page.route == route);
+
+  if (!targetPage) return;
+
+  let fun = targetPage[functionName];
+  if (fun && typeof fun === 'function') {
+    return fun.apply(targetPage, args);
+  }
+}
+
+// 回调指定页面中的组件
+export function callSpecificPageComponentFunction(route, componentSelector, functionName, ...args) {
+  const pages = getCurrentPages();
+  const targetPage = pages.find((page) => page.route == route);
+
+  if (!targetPage) return;
+
+  const componentInstance = targetPage.selectComponent(componentSelector);
+  if (!componentInstance) return;
+
+  let fun = componentInstance[functionName];
+  if (fun && typeof fun === 'function') {
+    return fun.apply(componentInstance, args);
+  }
+}
+
 // parseUrlParams
 export function parseUrlParams(urlParams = '') {
   if (!urlParams) {
