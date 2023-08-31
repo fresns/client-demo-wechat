@@ -110,7 +110,7 @@ Page({
       return;
     }
 
-    const idx = notifications.findIndex((value) => value.id === id);
+    const idx = notifications.findIndex((value) => value.id == id);
 
     if (idx == -1) {
       // 未找到记录
@@ -122,5 +122,7 @@ Page({
     this.setData({
       notifications: notifications,
     });
+
+    wx.removeStorageSync('fresnsUserPanels');
   },
 });

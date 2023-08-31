@@ -110,6 +110,31 @@ Page({
     });
   },
 
+  // 修改通知消息数
+  onChangeUnreadNotifications: function () {
+    const fresnsUserPanel = this.data.fresnsUserPanel;
+    fresnsUserPanel.unreadNotifications.all = fresnsUserPanel.unreadNotifications.all
+      ? fresnsUserPanel.unreadNotifications.all - 1
+      : fresnsUserPanel.unreadNotifications.all;
+
+    this.setData({
+      fresnsUserPanel: fresnsUserPanel,
+    });
+  },
+
+  // 修改私信消息数
+  onChangeUnreadMessages: function (count = 1) {
+    console.log('onChangeUnreadMessages account count', count);
+    const fresnsUserPanel = this.data.fresnsUserPanel;
+    fresnsUserPanel.conversations.unreadMessages = fresnsUserPanel.conversations.unreadMessages
+      ? fresnsUserPanel.conversations.unreadMessages - count
+      : fresnsUserPanel.conversations.unreadMessages;
+
+    this.setData({
+      fresnsUserPanel: fresnsUserPanel,
+    });
+  },
+
   /** 切换语言菜单 **/
   showLanguageSheet: function (e) {
     this.setData({

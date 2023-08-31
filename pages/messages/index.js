@@ -92,4 +92,29 @@ Page({
   onReachBottom: async function () {
     await this.loadFresnsPageData();
   },
+
+  // 标记已读
+  onMarkRead(id) {
+    const conversations = this.data.conversations;
+    if (!conversations) {
+      return;
+    }
+
+    const idx = conversations.findIndex((value) => value.id == id);
+
+    if (idx == -1) {
+      // 未找到记录
+      return;
+    }
+
+    const unreadCount = conversations[idx].unreadCount;
+
+    conversations[idx].unreadCount = 0;
+
+    this.setData({
+      conversations: conversations,
+    });
+
+    wx.removeStorageSync('fresnsUserPanels');
+  },
 });

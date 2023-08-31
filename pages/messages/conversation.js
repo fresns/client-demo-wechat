@@ -5,6 +5,7 @@
  */
 import { fresnsApi } from '../../api/api';
 import { fresnsLang } from '../../api/tool/function';
+import { callPrevPageFunction } from '../../utils/fresnsUtilities';
 
 Page({
   /** 外部 mixin 引入 **/
@@ -47,10 +48,14 @@ Page({
       title = resultRes.data.user.status ? resultRes.data.user.nickname : userDeactivate;
 
       // 标对话为已读
-      await fresnsApi.message.conversationMarkAsRead({
-        type: 'conversation',
-        conversationId: conversationId,
-      });
+      if (resultRes.data.unreadCount > 0) {
+        await fresnsApi.message.conversationMarkAsRead({
+          type: 'conversation',
+          conversationId: conversationId,
+        });
+
+        callPrevPageFunction('onMarkRead', conversationId);
+      }
     }
 
     wx.setNavigationBarTitle({
@@ -139,7 +144,7 @@ Page({
       if (resultRes.code == 0) {
         const messages = this.data.messages;
 
-        const idx = messages.findIndex((value) => value.id === id);
+        const idx = messages.findIndex((value) => value.id == id);
 
         if (idx >= 0) {
           messages.splice(idx, 1);
