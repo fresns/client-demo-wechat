@@ -50,5 +50,5 @@
     </view>
 
     <!-- Tabbar -->
-    <tabbar activeLabel="notifications"></tabbar>
+    <tabbar id="fresnsTabbar" activeLabel="notifications"></tabbar>
 </view>

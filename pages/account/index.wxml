@@ -133,5 +133,5 @@
     </view>
 
     <!-- Tabbar -->
-    <tabbar activeLabel="account"></tabbar>
+    <tabbar id="fresnsTabbar" activeLabel="account"></tabbar>
 </view>

@@ -54,5 +54,5 @@
     </view>
 
     <!-- Tabbar -->
-    <tabbar activeLabel="posts"></tabbar>
+    <tabbar id="fresnsTabbar" activeLabel="posts"></tabbar>
 </view>

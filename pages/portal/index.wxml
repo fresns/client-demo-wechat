@@ -12,5 +12,5 @@
         <text class="weui-loadmore__tips">Powered by Fresns</text>
     </view>
 
-    <tabbar activeLabel="portal"></tabbar>
+    <tabbar id="fresnsTabbar" activeLabel="portal"></tabbar>
 </view>

@@ -44,5 +44,5 @@
     </view>
 
     <!-- Tabbar -->
-    <tabbar activeLabel="comments"></tabbar>
+    <tabbar id="fresnsTabbar" activeLabel="comments"></tabbar>
 </view>

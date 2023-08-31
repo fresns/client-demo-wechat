@@ -29,3 +29,7 @@
 .weui-cells .weui-cell__ft {
   font-size: 0.7rem;
 }
+
+.user-avatar {
+  border-radius: 12rpx;
+}

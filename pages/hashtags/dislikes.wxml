@@ -43,5 +43,5 @@
     </view>
 
     <!-- Tabbar -->
-    <tabbar activeLabel="hashtags"></tabbar>
+    <tabbar id="fresnsTabbar" activeLabel="hashtags"></tabbar>
 </view>
