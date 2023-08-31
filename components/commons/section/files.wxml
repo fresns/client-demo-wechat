@@ -21,7 +21,7 @@
 <view class="content-files" wx:if="{{ files.videos.length > 0 }}">
     <block wx:for="{{ files.videos }}" wx:for-item="fileItem" wx:key="fid">
         <view class="file-video">
-            <video src="{{ fileItem.videoUrl }}" controls poster="{{ fileItem.videoPosterUrl }}" play-btn-position="center" catch:tap="handleFileTap"></video>
+            <video src="{{ fileItem.videoUrl }}" controls show-mute-btn="{{ true }}" poster="{{ fileItem.videoPosterUrl }}" play-btn-position="center" catch:tap="handleFileTap"></video>
         </view>
     </block>
 </view>
