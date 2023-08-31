@@ -10,7 +10,7 @@ import { cacheGet, cachePut } from './fresnsUtilities';
 
 export class GlobalInfo {
   clientName = 'FresnsWeChat';
-  clientVersion = '2.2.1';
+  clientVersion = '2.3.0';
   theme = null;
 
   // 处理用户主页路径
