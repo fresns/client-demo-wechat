@@ -4,6 +4,9 @@
     Licensed under the Apache-2.0 license
 * -->
 <view class="page" data-weui-theme="{{ theme }}">
+    <!-- 加载动效 -->
+    <loading status="{{ loadingStatus }}" tipType="none"></loading>
+
     <!-- 已登录 -->
     <view class="profile-header" wx:if="{{ userLogin }}">
         <view class="weui-flex">

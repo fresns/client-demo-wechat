@@ -88,15 +88,20 @@
     <!-- 互联信息 -->
     <mp-cells ext-class="setting-cells" wx:if="{{ fresnsAccount.connects }}" title="{{ fresnsLang.settingConnect }}">
         <block wx:for="{{ fresnsAccount.connects }}" wx:for-item="item" wx:key="connectPlatformId">
-            <navigator url="/pages/webview" bind:tap="fresnsExtensions"
-                data-type="account"
-                data-scene="connect"
-                data-post-message-key="fresnsConnect"
-                data-connect-platform-id="{{ item.connectPlatformId }}"
-                data-url="{{ item.service }}"
-                data-title="{{ item.connected ? item.nickname : item.connectPlatformId }}">
-                <mp-cell value="{{ item.connectName }}" footer="{{ item.connected ? (item.nickname || '✅') : fresnsLang.settingNot }}" hover="{{ true }}" link="{{ true }}"/>
-            </navigator>
+            <block wx:if="{{ item.connectPlatformId == 25 && !item.connected }}">
+                <mp-cell icon="/assets/connects/{{ item.connectPlatformId }}.png" value="微信小程序" footer="{{ fresnsLang.settingAccountConnect }}" hover="{{ true }}" link="{{ true }}" bind:tap="onConnectWeChatMiniApp"/>
+            </block>
+            <block wx:else>
+                <navigator url="/pages/webview" bind:tap="fresnsExtensions"
+                    data-type="account"
+                    data-scene="connect"
+                    data-post-message-key="fresnsConnect"
+                    data-connect-platform-id="{{ item.connectPlatformId }}"
+                    data-url="{{ item.service }}"
+                    data-title="{{ item.connected ? item.nickname : item.connectPlatformId }}">
+                    <mp-cell icon="/assets/connects/{{ item.connectPlatformId }}.png" value="{{ item.connectPlatformId == 24 ? '微信' : (item.connectPlatformId == 25 ? '微信小程序' : item.connectName) }}" footer="{{ item.connected ? (item.nickname || '✅') : fresnsLang.settingAccountConnect }}" hover="{{ true }}" link="{{ true }}"/>
+                </navigator>
+            </block>
         </block>
     </mp-cells>
 
@@ -122,7 +127,7 @@
                 <view class="weui-cells weui-cells_form" style="margin-top: 0;">
                     <view class="weui-cell weui-cell_active">
                         <view class="weui-cell__bd">
-                            <input type="nickname" value="{{ modifyDialogValue }}" maxlength="{{ fresnsConfig.nickname_max }}" bindinput="handleInput" bindkeyboardheightchange="handleKeyboard" placeholder="{{ modifyDialogTitle }}" class="weui-input"/>
+                            <input value="{{ modifyDialogValue }}" maxlength="{{ fresnsConfig.nickname_max }}" bindinput="handleInput" bindkeyboardheightchange="handleKeyboard" placeholder="{{ modifyDialogTitle }}" class="weui-input"/>
                         </view>
                     </view>
                 </view>
@@ -136,7 +141,7 @@
                 <view class="weui-cells weui-cells_form" style="margin-top: 0;">
                     <view class="weui-cell weui-cell_active">
                         <view class="weui-cell__bd">
-                            <textarea maxlength="{{ fresnsConfig.bio_length }}" bindinput="handleInput" bindkeyboardheightchange="handleKeyboard" placeholder="{{ fresnsConfig.user_bio_name }}" value="{{ fresnsUser.bio ? fresnsUser.bio : '' }}" class="weui-textarea" rows="5"></textarea>
+                            <textarea maxlength="{{ fresnsConfig.bio_length }}" bindinput="handleInput" placeholder="{{ fresnsConfig.user_bio_name }}" value="{{ fresnsUser.bio ? fresnsUser.bio : '' }}" confirm-type="done" show-confirm-bar="{{ false }}" class="weui-textarea" style="height:120px"></textarea>
                             <view class="weui-textarea-counter">{{ modifyDialogNewValue.length || 0 }}/{{ fresnsConfig.bio_length }}</view>
                         </view>
                     </view>
@@ -232,7 +237,7 @@
                     <!-- 使用当前密码修改 -->
                     <block wx:if="{{ settingTypeSelect == 'password' }}">
                         <mp-cell title="{{ fresnsLang.passwordCurrent }}" ext-class="weui-border-top">
-                            <input class="weui-input" placeholder="{{ fresnsLang.passwordCurrent }}" maxlength="32" bindinput="{{ modifyDialogEvent == 'editPassword' ? 'inputCurrentPassword' : 'inputCurrentWalletPassword' }}"/>
+                            <input class="weui-input" placeholder="{{ fresnsLang.passwordCurrent }}" maxlength="32" bindinput="{{ modifyDialogEvent == 'editPassword' ? 'inputCurrentPassword' : 'inputCurrentWalletPassword' }}" bindkeyboardheightchange="handleKeyboard"/>
                         </mp-cell>
                     </block>
 
@@ -289,10 +294,12 @@
                     <view class="weui-cells__tips">{{ fresnsLang.errorEmpty }}</view>
                 </block>
             </block>
+
+            <view style="height:{{ modifyDialogHeight + 'rpx' }}"></view>
         </view>
 
         <!-- 身份验证按钮 -->
-        <view slot="footer" style="margin-bottom: {{ modifyDialogHeight + 'rpx' }}" wx:if="{{ verifyIdentityRequired }}">
+        <view slot="footer" wx:if="{{ verifyIdentityRequired }}">
             <button class="weui-btn weui-btn_default" type="default" bind:tap="verifyIdentity">
                 <mp-loading type="dot-gray" show="{{ btnLoading }}" extClass="btnLoading" />
                 {{ fresnsLang.check }}
@@ -300,8 +307,12 @@
         </view>
 
         <!-- 提交编辑按钮 -->
-        <view slot="footer" style="margin-bottom: {{ modifyDialogHeight + 'rpx' }}" wx:if="{{ showSubmitBtn }}">
+        <view slot="footer" wx:if="{{ showSubmitBtn }}">
             <button class="weui-btn weui-btn_primary" type="primary" bind:tap="submitChange" data-edit-key="{{ modifyDialogEvent }}" data-edit-value="{{ modifyDialogNewValue }}">{{ fresnsLang.saveChanges }}</button>
+
+            <block wx:if="{{ modifyDialogEvent === 'bio' }}">
+                <view style="height:350rpx"></view>
+            </block>
         </view>
     </mp-half-screen-dialog>
 

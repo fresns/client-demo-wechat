@@ -353,8 +353,9 @@ Page({
 
   // 键盘高度发生变化的时候触发
   handleKeyboard: function (e) {
+    const height = e.detail.height || 0;
     this.setData({
-      modifyDialogHeight: e.detail.height + 50,
+      modifyDialogHeight: height + 50,
     });
   },
 
@@ -641,6 +642,34 @@ Page({
         icon: 'none',
       });
     }
+  },
+
+  // 绑定微信小程序
+  onConnectWeChatMiniApp: async function (e) {
+    wx.login({
+      success: async (res) => {
+        let wechatCode = res.code;
+        console.log('WeChat Code', wechatCode);
+
+        if (wechatCode) {
+          const loginRes = await fresnsApi.wechatLogin.oauth({
+            code: wechatCode,
+          });
+
+          if (loginRes.code === 0) {
+            this.reloadFresnsAccount();
+          }
+
+          console.log('onConnectWeChatMiniApp', loginRes);
+        } else {
+          wx.showToast({
+            title: '[10001] ' + res.errMsg,
+            icon: 'none',
+            duration: 2000,
+          });
+        }
+      },
+    });
   },
 
   // 申请注销账号

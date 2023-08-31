@@ -13,6 +13,8 @@ Page({
 
   /** 页面的初始数据 **/
   data: {
+    loadingStatus: false,
+
     accountLogin: false,
     userLogin: false,
 
@@ -80,8 +82,12 @@ Page({
 
   /** 监听用户下拉动作 **/
   onPullDownRefresh: async function () {
-    wx.showNavigationBarLoading();
     console.log('reload data start');
+
+    wx.showNavigationBarLoading();
+    this.setData({
+      loadingStatus: true
+    });
 
     wx.removeStorageSync('fresnsAccount');
     wx.removeStorageSync('fresnsUser');
@@ -93,10 +99,15 @@ Page({
       fresnsUserPanel: await fresnsUserPanel(),
     });
 
-    wx.stopPullDownRefresh();
-
-    wx.hideNavigationBarLoading();
-    console.log('reload data end');
+    wx.stopPullDownRefresh({
+      complete: () => {
+        wx.hideNavigationBarLoading();
+        this.setData({
+          loadingStatus: false
+        });
+        console.log('reload data end');
+      }
+    });
   },
 
   /** 切换语言菜单 **/
