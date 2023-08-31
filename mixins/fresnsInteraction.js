@@ -125,7 +125,7 @@ module.exports = {
         }
     }
 
-    console.log('onShareTimeline', this.data.title, shareQuery);
+    console.log('onShareTimeline', shareQuery);
 
     return {
       title: this.data.title,
@@ -162,7 +162,7 @@ module.exports = {
         }
     }
 
-    console.log('onAddToFavorites', this.data.title, shareQuery);
+    console.log('onAddToFavorites', shareQuery);
 
     return {
       title: this.data.title,
@@ -274,7 +274,7 @@ module.exports = {
       return;
     }
 
-    const idx = users.findIndex((value) => value.uid === newUser.uid);
+    const idx = users.findIndex((value) => value.uid == newUser.uid);
 
     if (idx == -1) {
       // 未找到记录
@@ -314,7 +314,7 @@ module.exports = {
       return;
     }
 
-    const idx = groups.findIndex((value) => value.gid === newGroup.gid);
+    const idx = groups.findIndex((value) => value.gid == newGroup.gid);
 
     if (idx !== -1) {
       // 找到了小组
@@ -366,7 +366,7 @@ module.exports = {
       return;
     }
 
-    const idx = hashtags.findIndex((value) => value.hid === newHashtag.hid);
+    const idx = hashtags.findIndex((value) => value.hid == newHashtag.hid);
 
     if (idx == -1) {
       // 未找到记录
@@ -406,7 +406,7 @@ module.exports = {
       return;
     }
 
-    const idx = posts.findIndex((value) => value.pid === newPost.pid);
+    const idx = posts.findIndex((value) => value.pid == newPost.pid);
 
     if (idx == -1) {
       // 未找到记录
@@ -446,7 +446,7 @@ module.exports = {
       return;
     }
 
-    const idx = comments.findIndex((value) => value.cid === newComment.cid);
+    const idx = comments.findIndex((value) => value.cid == newComment.cid);
 
     if (idx == -1) {
       // 未找到记录
@@ -485,7 +485,7 @@ module.exports = {
       return;
     }
 
-    const idx = users.findIndex((value) => value.uid === removeUid);
+    const idx = users.findIndex((value) => value.uid == removeUid);
 
     if (idx == -1) {
       // 未找到记录
@@ -524,7 +524,7 @@ module.exports = {
       return;
     }
 
-    const idx = groups.findIndex((value) => value.gid === removeGid);
+    const idx = groups.findIndex((value) => value.gid == removeGid);
 
     if (idx == -1) {
       // 未找到记录
@@ -563,7 +563,7 @@ module.exports = {
       return;
     }
 
-    const idx = hashtags.findIndex((value) => value.hid === removeHid);
+    const idx = hashtags.findIndex((value) => value.hid == removeHid);
 
     if (idx == -1) {
       // 未找到记录
@@ -602,7 +602,7 @@ module.exports = {
       return;
     }
 
-    const idx = posts.findIndex((value) => value.pid === removePid);
+    const idx = posts.findIndex((value) => value.pid == removePid);
 
     if (idx == -1) {
       // 未找到记录
@@ -641,7 +641,7 @@ module.exports = {
       return;
     }
 
-    const idx = comments.findIndex((value) => value.cid === removeCid);
+    const idx = comments.findIndex((value) => value.cid == removeCid);
 
     if (idx == -1) {
       // 未找到记录
@@ -698,7 +698,7 @@ module.exports = {
       // 列表页
       const posts = this.data.posts;
       if (posts) {
-        const postIdx = posts.findIndex((value) => value.pid === commentPid);
+        const postIdx = posts.findIndex((value) => value.pid == commentPid);
 
         if (postIdx >= 0) {
           posts[postIdx].commentCount = posts[postIdx].commentCount + 1;
@@ -728,7 +728,7 @@ module.exports = {
 
       // 涉及父级评论，父级评论总数 +1
       if (commentCid) {
-        const commentIdx = comments.findIndex((value) => value.cid === commentCid);
+        const commentIdx = comments.findIndex((value) => value.cid == commentCid);
 
         if (commentIdx >= 0) {
           comments[commentIdx].commentCount = comments[commentIdx].commentCount + 1;

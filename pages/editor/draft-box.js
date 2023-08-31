@@ -193,7 +193,7 @@ Page({
       if (resultRes.code === 0) {
         const list = type == 'post' ? this.data.posts : this.data.comments;
 
-        const idx = list.findIndex((value) => value.id === id);
+        const idx = list.findIndex((value) => value.id == id);
 
         if (idx >= 0) {
           list.splice(idx, 1);

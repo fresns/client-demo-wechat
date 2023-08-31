@@ -52,7 +52,7 @@ Page({
       });
     }
 
-    const index = tabs.findIndex((tab) => tab.active === options.active);
+    const index = tabs.findIndex((tab) => tab.active == options.active);
 
     this.setData({
       tabs: tabs,

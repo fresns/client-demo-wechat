@@ -110,7 +110,7 @@ Component({
   lifetimes: {
     attached: async function () {
       const { tabs, activeLabel } = this.data;
-      const index = tabs.findIndex((tab) => tab.label === activeLabel);
+      const index = tabs.findIndex((tab) => tab.label == activeLabel);
 
       let unreadNotifications = 0;
       let unreadMessages = 0;
