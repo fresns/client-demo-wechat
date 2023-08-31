@@ -69,7 +69,7 @@ export class FresnsLogin {
     wx.removeStorageSync('uidToken');
     wx.removeStorageSync('fresnsAccount');
     wx.removeStorageSync('fresnsUser');
-    wx.removeStorageSync('fresnsUserPanel');
+    wx.removeStorageSync('fresnsUserPanels');
 
     return;
   }

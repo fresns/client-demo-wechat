@@ -91,7 +91,7 @@ Page({
 
     wx.removeStorageSync('fresnsAccount');
     wx.removeStorageSync('fresnsUser');
-    wx.removeStorageSync('fresnsUserPanel');
+    wx.removeStorageSync('fresnsUserPanels');
 
     this.setData({
       fresnsAccount: await fresnsAccount('detail'),
