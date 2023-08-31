@@ -16,10 +16,10 @@
 
     <view class="interactive-group">
         <view class="weui-media-box__info">
-            <view class="weui-media-box__info__meta">{{ group.likeCount }} 人点赞</view>
-            <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{ group.followCount }} 人加入</view>
-            <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{ group.postCount }} 个帖子</view>
-            <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{ group.postDigestCount }} 个精华帖</view>
+            <view class="weui-media-box__info__meta">{{ group.likeCount }} {{ fsConfig.like_group_name }}</view>
+            <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{ group.followCount }} {{ fsConfig.follow_group_name }}</view>
+            <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{ group.postCount }} {{ fsConfig.post_name }}</view>
+            <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{ group.postDigestCount }} {{ fsLang.contentDigest }}</view>
         </view>
 
         <view class="interactive-btn">
@@ -44,16 +44,16 @@
         </view>
     </view>
 
-	<view class="weui-msg" wx:if="{{ group.mode == 2 && !group.interaction.followStatus }}">
+	<view class="weui-msg" wx:if="{{ !group.canViewContent }}">
 		<view class="weui-msg__icon-area"><text class="weui-icon-warn weui-icon_msg"></text></view>
 		<view class="weui-msg__text-area">
-			<view class="weui-msg__title">无权浏览</view>
-			<view class="weui-msg__desc">只有小组成员才能查看小组内帖子</view>
+			<view class="weui-msg__title">{{ fsLang.errorUnavailable }}</view>
+			<view class="weui-msg__desc">{{ viewContentTip }}</view>
 		</view>
 	</view>
 
     <view wx:else>
-        <view class="weui-cells__title">最新帖子</view>
+        <view class="weui-cells__title">{{ fsLang.contentNewList }}</view>
         <!-- 帖子列表 -->
         <view class="post-list" wx:for="{{ posts }}" wx:for-item="post" wx:key="pid">
             <post post="{{ post }}" type="list"></post>

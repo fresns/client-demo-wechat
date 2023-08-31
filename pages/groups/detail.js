@@ -4,6 +4,7 @@
  * Licensed under the Apache-2.0 license
  */
 import { fresnsApi } from '../../api/api';
+import { fresnsConfig, fresnsLang, fresnsCodeMessage } from '../../api/tool/function';
 import { callPrevPageFunction } from '../../utils/fresnsUtilities';
 
 Page({
@@ -19,10 +20,13 @@ Page({
   /** 页面的初始数据 **/
   data: {
     title: null,
+    fsConfig: {},
+    fsLang: {},
     // 详情
     gid: null,
     group: null,
     extensions: [],
+    viewContentTip: '',
 
     // 置顶帖子
     stickyPosts: [],
@@ -77,6 +81,17 @@ Page({
       gid: options.gid,
       query: options,
       stickyPosts: stickyPosts,
+      fsConfig: {
+        post_name: await fresnsConfig('post_name'),
+        like_group_name: await fresnsConfig('like_group_name'),
+        follow_group_name: await fresnsConfig('follow_group_name'),
+      },
+      fsLang: {
+        contentDigest: await fresnsLang('contentDigest'),
+        errorUnavailable: await fresnsLang('errorUnavailable'),
+        contentNewList: await fresnsLang('contentNewList'),
+      },
+      viewContentTip: await fresnsCodeMessage('37103'),
     });
 
     await this.loadFresnsPageData();

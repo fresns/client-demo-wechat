@@ -19,6 +19,8 @@ Page({
   /** 页面的初始数据 **/
   data: {
     title: null,
+    fsConfig: {},
+    fsLang: {},
     // 详情
     hid: null,
     hashtag: null,
@@ -38,6 +40,15 @@ Page({
     this.setData({
       hid: options.hid,
       query: options,
+      fsConfig: {
+        post_name: await fresnsConfig('post_name'),
+        like_hashtag_name: await fresnsConfig('like_hashtag_name'),
+        follow_hashtag_name: await fresnsConfig('follow_hashtag_name'),
+      },
+      fsLang: {
+        contentDigest: await fresnsLang('contentDigest'),
+        contentNewList: await fresnsLang('contentNewList'),
+      },
     });
 
     const hashtagDetailRes = await fresnsApi.hashtag.hashtagDetail({
