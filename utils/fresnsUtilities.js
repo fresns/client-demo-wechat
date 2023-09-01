@@ -234,6 +234,11 @@ export function strUploadInfo(usageType = '', tableName = '', tableColumn = '', 
 }
 
 // 解码参数
+function arrayBufferToString(buffer) {
+  const byteArray = new Uint8Array(buffer);
+  const charArray = Array.from(byteArray).map(byte => String.fromCharCode(byte));
+  return charArray.join('');
+}
 export function enJson(encoded) {
   // Step 1: URL 解码
   const decodedURLData = decodeURIComponent(encoded);
@@ -241,9 +246,8 @@ export function enJson(encoded) {
   // Step 2: Base64 解码为 ArrayBuffer
   const arrayBuffer = wx.base64ToArrayBuffer(decodedURLData);
 
-  // Step 3: 将 ArrayBuffer 转换为字符串
-  const decoder = new TextDecoder('utf-8');
-  const jsonString = decoder.decode(arrayBuffer);
+  // Step 3: 使用上面的函数将 ArrayBuffer 转换为字符串
+  const jsonString = arrayBufferToString(arrayBuffer);
 
   // Step 4: 将字符串转换为 JSON
   const json = JSON.parse(jsonString);
