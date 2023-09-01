@@ -236,7 +236,7 @@ export function strUploadInfo(usageType = '', tableName = '', tableColumn = '', 
 // 解码参数
 function arrayBufferToString(buffer) {
   const byteArray = new Uint8Array(buffer);
-  const charArray = Array.from(byteArray).map(byte => String.fromCharCode(byte));
+  const charArray = Array.from(byteArray).map((byte) => String.fromCharCode(byte));
   return charArray.join('');
 }
 export function enJson(encoded) {
