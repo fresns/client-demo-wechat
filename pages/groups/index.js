@@ -115,7 +115,7 @@ Page({
         const isReachBottom = paginate.currentPage === paginate.lastPage;
 
         const listCount = list.length + this.data.groups.length;
-  
+
         let tipType = 'none';
         if (isReachBottom) {
           tipType = listCount > 0 ? 'page' : 'empty';
