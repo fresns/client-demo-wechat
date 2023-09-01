@@ -4,7 +4,7 @@
  * Licensed under the Apache-2.0 license
  */
 import { fresnsApi } from '../../api/api';
-import { fresnsConfig } from '../../api/tool/function';
+import { fresnsConfig, fresnsLang } from '../../api/tool/function';
 import { callPrevPageFunction } from '../../utils/fresnsUtilities';
 
 Page({

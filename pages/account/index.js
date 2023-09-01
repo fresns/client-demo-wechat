@@ -112,10 +112,12 @@ Page({
 
   // 修改通知消息数
   onChangeUnreadNotifications: function () {
+    console.log('onChangeUnreadNotifications account');
+
     const fresnsUserPanel = this.data.fresnsUserPanel;
-    fresnsUserPanel.unreadNotifications.all = fresnsUserPanel.unreadNotifications.all
-      ? fresnsUserPanel.unreadNotifications.all - 1
-      : fresnsUserPanel.unreadNotifications.all;
+    const newCount = fresnsUserPanel.unreadNotifications.all - 1;
+
+    fresnsUserPanel.unreadNotifications.all = newCount;
 
     this.setData({
       fresnsUserPanel: fresnsUserPanel,
@@ -124,11 +126,12 @@ Page({
 
   // 修改私信消息数
   onChangeUnreadMessages: function (count = 1) {
-    console.log('onChangeUnreadMessages account count', count);
+    console.log('onChangeUnreadMessages account', count);
+
     const fresnsUserPanel = this.data.fresnsUserPanel;
-    fresnsUserPanel.conversations.unreadMessages = fresnsUserPanel.conversations.unreadMessages
-      ? fresnsUserPanel.conversations.unreadMessages - count
-      : fresnsUserPanel.conversations.unreadMessages;
+    const newCount = fresnsUserPanel.conversations.unreadMessages - count;
+
+    fresnsUserPanel.conversations.unreadMessages = newCount;
 
     this.setData({
       fresnsUserPanel: fresnsUserPanel,
