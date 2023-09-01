@@ -273,13 +273,13 @@ Page({
     let cursorPosition = this.data.contentCursorPosition;
 
     if (!draftDetail.content) {
-        draftDetail.content = ''; // 这里确保content不为null
+      draftDetail.content = ''; // 这里确保content不为null
     }
 
     // 检查光标位置，并设置默认值
     if (cursorPosition === undefined || cursorPosition === 0) {
-        cursorPosition = draftDetail.content.length; // 设置为末尾
-        // 或者 cursorPosition = 0; // 设置为开始
+      cursorPosition = draftDetail.content.length; // 设置为末尾
+      // 或者 cursorPosition = 0; // 设置为开始
     }
 
     const prevCharacter = draftDetail.content.charAt(cursorPosition - 1);
@@ -287,16 +287,17 @@ Page({
 
     let newText = text;
     if (prevCharacter === firstCharacterOfText) {
-        newText = text.slice(1);
+      newText = text.slice(1);
     }
 
-    const newContent = draftDetail.content.slice(0, cursorPosition) + newText + draftDetail.content.slice(cursorPosition);
+    const newContent =
+      draftDetail.content.slice(0, cursorPosition) + newText + draftDetail.content.slice(cursorPosition);
 
     draftDetail.content = newContent;
 
     this.setData({
-        draftDetail: draftDetail,
-        contentCursorPosition: cursorPosition + text.length,
+      draftDetail: draftDetail,
+      contentCursorPosition: cursorPosition + text.length,
     });
   },
   onContentSubmit(content) {
