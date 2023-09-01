@@ -92,3 +92,9 @@
   width: 16px;
   margin-right: 0;
 }
+
+.content-ip-location {
+  font-size: 14px;
+  margin-left: 15px;
+  color: var(--weui-FG-1);
+}

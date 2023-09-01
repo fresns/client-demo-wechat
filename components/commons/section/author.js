@@ -3,7 +3,7 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import { fresnsLang } from '../../../api/tool/function';
+import { fresnsConfig, fresnsLang } from '../../../api/tool/function';
 import { globalInfo } from '../../../utils/fresnsGlobalInfo';
 
 Component({
@@ -13,6 +13,7 @@ Component({
     isAnonymous: Boolean,
     createdTimeAgo: String,
     location: Object,
+    ipLocation: String,
   },
 
   /** 组件的初始数据 **/
@@ -20,6 +21,7 @@ Component({
     userHomePath: '',
     userDeactivate: null,
     authorAnonymous: null,
+    ipLocationStatus: false,
   },
 
   /** 组件生命周期声明对象 **/
@@ -29,6 +31,9 @@ Component({
         userHomePath: await globalInfo.userHomePath(),
         userDeactivate: await fresnsLang('userDeactivate'),
         authorAnonymous: await fresnsLang('contentAuthorAnonymous'),
+        ipLocationStatus: await fresnsConfig('account_ip_location_status'),
+        ipLocationDesc: await fresnsLang('ipLocation'),
+        errorIp: await fresnsLang('errorIp'),
       });
     },
   },

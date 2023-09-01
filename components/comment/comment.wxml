@@ -6,7 +6,7 @@
 <view class="card">
     <view class="card-header">
         <!-- 用户信息 -->
-        <author author="{{ comment.author }}" isAnonymous="{{ comment.isAnonymous }}" createdTimeAgo="{{ comment.createdTimeAgo }}" location="{{ comment.location }}">
+        <author author="{{ comment.author }}" isAnonymous="{{ comment.isAnonymous }}" createdTimeAgo="{{ comment.createdTimeAgo }}" location="{{ comment.location }}" ipLocation="{{ comment.moreJson.ipLocation || '' }}">
             <view wx:if="{{ comment.author.isPostAuthor }}" style="margin-right:10px;">{{ contentAuthor }}</view>
         </author>
     </view>
