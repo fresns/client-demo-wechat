@@ -77,9 +77,12 @@ Page({
     if (resultRes.code === 0) {
       const { paginate, list } = resultRes.data;
       const isReachBottom = paginate.currentPage === paginate.lastPage;
+
+      const listCount = list.length + this.data.logs.length;
+
       let tipType = 'none';
       if (isReachBottom) {
-        tipType = this.data.logs.length > 0 ? 'page' : 'empty';
+        tipType = listCount > 0 ? 'page' : 'empty';
       }
 
       this.setData({

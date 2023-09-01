@@ -119,9 +119,12 @@ Page({
     if (postsRes.code === 0) {
       const { paginate, list } = postsRes.data;
       const isReachBottom = paginate.currentPage === paginate.lastPage;
+
+      const listCount = list.length + this.data.posts.length;
+
       let tipType = 'none';
       if (isReachBottom) {
-        tipType = this.data.posts.length > 0 ? 'page' : 'empty';
+        tipType = listCount > 0 ? 'page' : 'empty';
       }
 
       this.setData({

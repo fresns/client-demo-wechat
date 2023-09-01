@@ -56,9 +56,12 @@ Page({
     if (resultRes.code === 0) {
       const { paginate, list } = resultRes.data;
       const isReachBottom = paginate.currentPage === paginate.lastPage;
+
+      const listCount = list.length + this.data.conversations.length;
+
       let tipType = 'none';
       if (isReachBottom && paginate.lastPage > 1) {
-        tipType = this.data.conversations ? 'page' : 'empty';
+        tipType = listCount > 0 ? 'page' : 'empty';
       }
 
       this.setData({
