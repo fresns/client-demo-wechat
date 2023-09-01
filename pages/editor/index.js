@@ -270,25 +270,33 @@ Page({
     console.log('onContentInsert', text);
 
     const draftDetail = this.data.draftDetail;
-    const cursorPosition = this.data.contentCursorPosition;
+    let cursorPosition = this.data.contentCursorPosition;
 
-    const prevCharacter = draftDetail.content.charAt(cursorPosition - 1); // 光标前一个字符
-    const firstCharacterOfText = text.charAt(0); // 插入文本的第一个字符
+    if (!draftDetail.content) {
+        draftDetail.content = ''; // 这里确保content不为null
+    }
+
+    // 检查光标位置，并设置默认值
+    if (cursorPosition === undefined || cursorPosition === 0) {
+        cursorPosition = draftDetail.content.length; // 设置为末尾
+        // 或者 cursorPosition = 0; // 设置为开始
+    }
+
+    const prevCharacter = draftDetail.content.charAt(cursorPosition - 1);
+    const firstCharacterOfText = text.charAt(0);
 
     let newText = text;
     if (prevCharacter === firstCharacterOfText) {
-      // 如果两个字符一样，避免重复，去除一个
-      newText = text.slice(1);
+        newText = text.slice(1);
     }
 
-    const newContent =
-      draftDetail.content.slice(0, cursorPosition) + newText + draftDetail.content.slice(cursorPosition);
+    const newContent = draftDetail.content.slice(0, cursorPosition) + newText + draftDetail.content.slice(cursorPosition);
 
     draftDetail.content = newContent;
 
     this.setData({
-      draftDetail: draftDetail,
-      contentCursorPosition: cursorPosition + text.length,
+        draftDetail: draftDetail,
+        contentCursorPosition: cursorPosition + text.length,
     });
   },
   onContentSubmit(content) {

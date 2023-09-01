@@ -22,7 +22,7 @@
             <view class="weui-search-bar {{ inputShowed ? 'weui-search-bar_focusing' : '' }}" id="searchBar">
                 <form class="weui-search-bar__form" aria-role="combobox" aria-haspopup="true" aria-expanded="{{ inputVal.length > 0 ? 'true' : 'false' }}" aria-owns="searchResult">
                     <view class="weui-search-bar__box">
-                        <i class="weui-icon-search"></i>
+                        <mp-icon icon="search" size="{{ 20 }}" style="margin: 0 10px;"/>
                         <input aria-controls="searchResult" type="text" class="weui-search-bar__input" placeholder="{{ inputPlaceholder }}" value="{{ inputVal }}" focus="{{ inputShowed }}" confirm-type="search" adjust-position="{{ false }}" bindinput="inputTyping" bindconfirm="inputConfirm"/>
                         <view aria-role="button" aria-label="清除" class="weui-icon-clear" wx:if="{{ inputVal.length > 0 }}" bind:tap="clearInput"></view>
                     </view>
