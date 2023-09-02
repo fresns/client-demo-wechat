@@ -188,12 +188,64 @@ Component({
         }, 100);
       }
 
-      // 音频和文档
-      if (tool == 'audio' || tool == 'document') {
-        return wx.showToast({
-          title: '小程序里不支持上传，请到网站或 App 操作上传',
-          icon: 'none',
-        });
+      // 音频
+      if (tool == 'audio') {
+        // 插件页上传
+        if (config.audio.uploadForm == 'plugin') {
+          const fresnsExtensions = {
+            type: 'editor',
+            scene: editorType,
+            postMessageKey: 'fresnsEditorUpdate',
+            plid: draftId,
+            clid: draftId,
+            uploadInfo: uploadInfo.audio,
+            title: fresnsLang.editorUpload,
+            url: config.audio.uploadUrl,
+          };
+
+          app.globalData.fresnsExtensions = fresnsExtensions;
+
+          wx.navigateTo({
+            url: '/pages/webview',
+          });
+
+          return;
+        }
+
+        // 直接上传
+        return setTimeout(() => {
+          this.onSelectFile('audio', usageType, tableName, draftId, config.audio);
+        }, 100);
+      }
+
+      // 文档
+      if (tool == 'document') {
+        // 插件页上传
+        if (config.document.uploadForm == 'plugin') {
+          const fresnsExtensions = {
+            type: 'editor',
+            scene: editorType,
+            postMessageKey: 'fresnsEditorUpdate',
+            plid: draftId,
+            clid: draftId,
+            uploadInfo: uploadInfo.document,
+            title: fresnsLang.editorUpload,
+            url: config.document.uploadUrl,
+          };
+
+          app.globalData.fresnsExtensions = fresnsExtensions;
+
+          wx.navigateTo({
+            url: '/pages/webview',
+          });
+
+          return;
+        }
+
+        // 直接上传
+        return setTimeout(() => {
+          this.onSelectFile('document', usageType, tableName, draftId, config.document);
+        }, 100);
       }
 
       // 标题
@@ -287,6 +339,44 @@ Component({
               }
             }
 
+            // 上传
+            const response = await fresnsApi.common.commonUploadFile(tempFile.tempFilePath, {
+              usageType: usageType,
+              tableName: tableName,
+              tableColumn: 'id',
+              tableId: draftId,
+              type: fileType,
+              uploadMode: 'file',
+              file: tempFile.tempFilePath,
+            });
+
+            if (response.code === 0) {
+              callPageFunction('onRepFile', type, tempFile.tempFilePath, response.data);
+            }
+
+            return response;
+          });
+
+          console.log('uploadPromises', uploadPromises);
+        },
+      });
+    },
+
+    // 上传文件
+    onSelectFile: function (fileType, usageType, tableName, draftId, fileConfig) {
+      const type = fileType + 's';
+      const extensionsArray = fileConfig.extensions.split(',');
+
+      wx.chooseMessageFile({
+        count: fileConfig.uploadNumber,
+        type: 'file',
+        extension: extensionsArray,
+
+        success: async (res) => {
+          const tempFiles = res.tempFiles;
+          callPageFunction('onAddFiles', type, tempFiles);
+
+          const uploadPromises = tempFiles.map(async (tempFile) => {
             // 上传
             const response = await fresnsApi.common.commonUploadFile(tempFile.tempFilePath, {
               usageType: usageType,
