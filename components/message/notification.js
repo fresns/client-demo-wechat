@@ -40,14 +40,12 @@ Component({
         return;
       }
 
-      const resultRes = await fresnsApi.message.notificationMarkAsRead({
+      callPageFunction('onMarkRead', id);
+
+      await fresnsApi.message.notificationMarkAsRead({
         type: 'choose',
         notificationIds: id.toString(),
       });
-
-      if (resultRes.code === 0) {
-        callPageFunction('onMarkRead', id);
-      }
     },
 
     onClickToDetail: async function () {

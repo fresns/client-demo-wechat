@@ -6,7 +6,7 @@
 <view class="card" bind:tap="onCheckRead" data-id="{{ notification.id }}" data-status="{{ notification.readStatus }}">
     <view class="card-header">
         <block wx:if="{{ notification.actionUser }}">
-            <user author="{{ notification.actionUser }}" isAnonymous="{{ notification.actionIsAnonymous }}" createdTimeAgo="{{ notification.timeAgo }}" location="{{ null }}">
+            <user author="{{ notification.actionUser }}" isAnonymous="{{ notification.actionIsAnonymous }}" createdTimeAgo="{{ notification.timeAgo }}" location="{{ null }}" ipLocationShow="{{ false }}">
                 <badge notification="{{ notification }}"></badge>
             </user>
         </block>
