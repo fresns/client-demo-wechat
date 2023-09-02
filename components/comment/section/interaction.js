@@ -179,7 +179,7 @@ Component({
     },
 
     // 评论框高度
-    eventCommentBoxHeight: function(e) {
+    eventCommentBoxHeight: function (e) {
       let height = e.detail.height;
 
       if (e.detail.height) {
