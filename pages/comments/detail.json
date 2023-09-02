@@ -2,7 +2,6 @@
   "navigationBarTitleText": "评论",
   "enablePullDownRefresh": true,
   "usingComponents": {
-    "mp-half-screen-dialog": "weui-miniprogram/half-screen-dialog/half-screen-dialog",
     "loading": "/components/commons/loading/loading",
     "comment": "/components/comment/comment",
     "comment-box": "/components/editor/comment-box/comment-box"

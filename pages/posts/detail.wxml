@@ -9,7 +9,7 @@
         <loading status="{{ loadingStatus }}" tipType="{{ loadingTipType }}"></loading>
     </block>
     <block wx:if="{{ post }}">
-        <post post="{{ post }}" type="detail"></post>
+        <post id="postComponent" post="{{ post }}" type="detail"></post>
     </block>
 
     <!--评论列表-->
@@ -34,12 +34,6 @@
             </view>
         </view>
     </view>
-
-    <mp-half-screen-dialog show="{{ showCommentBox }}" title="{{ title }}">
-        <view slot="desc">
-            <comment-box pid="{{ post.pid }}" cid="" nickname="{{ nickname }}"/>
-        </view>
-    </mp-half-screen-dialog>
 
     <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
         <text class="weui-loadmore__tips">Powered by Fresns</text>

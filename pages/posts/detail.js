@@ -25,8 +25,6 @@ Page({
 
     // 评论框
     commentBtnName: null,
-    showCommentBox: false,
-    nickname: null,
 
     // 评论列表
     query: {},
@@ -69,7 +67,6 @@ Page({
       this.setData({
         post: post,
         title: nickname + ': ' + postTitle,
-        nickname: nickname,
         commentBtnName: await fresnsConfig('publish_comment_name'),
       });
 
@@ -147,9 +144,7 @@ Page({
   },
 
   // 评论
-  onClickCreateComment() {
-    this.setData({
-      showCommentBox: true,
-    });
+  onClickCreateComment: function() {
+    this.selectComponent("#postComponent").triggerComment();
   },
 });

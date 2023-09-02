@@ -2,7 +2,6 @@
   "navigationBarTitleText": "帖子",
   "enablePullDownRefresh": true,
   "usingComponents": {
-    "mp-half-screen-dialog": "weui-miniprogram/half-screen-dialog/half-screen-dialog",
     "loading": "/components/commons/loading/loading",
     "post": "/components/post/post",
     "comment": "/components/comment/comment",
