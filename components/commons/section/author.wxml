@@ -37,7 +37,7 @@
         <view class="weui-flex">
             <view class="content-desc"><slot></slot></view>
             <view class="content-time">{{ createdTimeAgo }}</view>
-            <view class="content-ip-location" wx:if="{{ ipLocationStatus }}">
+            <view class="content-ip-location" wx:if="{{ ipLocationStatus && ipLocationShow }}">
                 <mp-icon icon="location" color="black" size="{{ 16 }}"/>
                 <block wx:if="{{ ipLocation }}">
                     {{ ipLocationDesc + ipLocation }}
@@ -91,7 +91,7 @@
         <view class="weui-flex">
             <view class="content-desc"><slot></slot></view>
             <view class="content-time">{{ createdTimeAgo }}</view>
-            <view class="content-ip-location" wx:if="{{ ipLocationStatus }}">
+            <view class="content-ip-location" wx:if="{{ ipLocationStatus && ipLocationShow }}">
                 <mp-icon icon="location" color="black" size="{{ 16 }}"/>
                 <block wx:if="{{ ipLocation }}">
                     {{ ipLocationDesc + ipLocation }}

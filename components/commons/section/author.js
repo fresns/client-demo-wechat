@@ -14,6 +14,10 @@ Component({
     createdTimeAgo: String,
     location: Object,
     ipLocation: String,
+    ipLocationShow: {
+      type: Boolean,
+      value: true,
+    },
   },
 
   /** 组件的初始数据 **/
