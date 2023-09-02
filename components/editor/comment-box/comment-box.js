@@ -45,8 +45,6 @@ Component({
 
     showMentionDialog: false,
     showHashtagDialog: false,
-
-    boxBottom: 0,
   },
 
   /** 组件生命周期声明对象 **/
@@ -95,11 +93,6 @@ Component({
 
   /** 组件功能 **/
   methods: {
-    // 输入框聚焦时触发
-    handleFocus: function (e) {
-      const height = e.detail.height;
-    },
-
     // 键盘输入时触发
     handleInput: function (e) {
       const fsConfig = this.data.fresnsConfig;
@@ -141,9 +134,7 @@ Component({
     handleKeyboard: function (e) {
       const height = e.detail.height;
 
-      this.setData({
-        boxBottom: height + 20,
-      });
+      this.triggerEvent('eventCommentBoxHeight', { height: height });
     },
 
     // 输入框失去焦点时触发

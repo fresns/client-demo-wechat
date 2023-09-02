@@ -28,13 +28,6 @@
             <image src="{{ buttonIcons.comment }}" class="card-footer-icon" mode="aspectFit"></image>
             <text wx:if="{{ post.commentCount }}" class="card-footer-text">{{ post.commentCount }}</text>
         </view>
-
-        <!-- 评论框 -->
-        <mp-half-screen-dialog show="{{ showCommentBox }}" title="{{ title }}">
-            <view slot="desc">
-                <comment-box pid="{{ post.pid }}" cid="" nickname="{{ nickname }}" bind:eventCommentBoxHide="eventCommentBoxHide"/>
-            </view>
-        </mp-half-screen-dialog>
     </view>
 
     <!-- 分享 -->
@@ -72,4 +65,22 @@
 
     <!-- 更多菜单 -->
     <mp-actionSheet show="{{ showActionSheet }}" actions="{{ actionGroups }}" title="{{ title }}" bindactiontap="actionClickMore"/>
+
+    <!-- 评论框 -->
+    <view wx:if="{{ showCommentBox }}" aria-role="dialog" aria-modal="true" aria-labelledby="js_dialog_title">
+        <view class="weui-mask {{ showCommentBox ? 'weui-animate_fade-in' : 'weui-animate_fade-out'}}" bind:tap="eventCommentBoxHide"></view>
+        <view class="weui-half-screen-dialog {{ showCommentBox ? 'weui-animate_slide-up' : 'weui-animate_slide-down'}}" style="bottom:{{ commentBoxBottom }}rpx !important;">
+            <view class="weui-half-screen-dialog__hd">
+                <view class="weui-half-screen-dialog__hd__side" bind:tap="eventCommentBoxHide">
+                    <mp-icon icon="close" size="{{ 24 }}"/>
+                </view>
+                <view class="weui-half-screen-dialog__hd__main">
+                    <strong class="weui-half-screen-dialog__title" id="js_dialog_title">{{ title }}</strong>
+                </view>
+            </view>
+            <view class="weui-half-screen-dialog__bd">
+                <comment-box pid="{{ post.pid }}" cid="" nickname="{{ nickname }}" bind:eventCommentBoxHide="eventCommentBoxHide" bind:eventCommentBoxHeight="eventCommentBoxHeight"/>
+            </view>
+        </view>
+    </view>
 </view>

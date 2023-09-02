@@ -10,7 +10,7 @@
                 <textarea class="weui-textarea" style="height:140px" placeholder-class="weui-input__placeholder" placeholder="{{ fresnsConfig.publish_comment_name + ' ' +  nickname }}"
                     value="{{ content }}"
                     maxlength="{{ contentLengthConfig }}"
-                    bindfocus="handleFocus"
+                    adjust-position="{{ false }}"
                     bindblur="handleBlur"
                     bindinput="handleInput"
                     bindconfirm="handleConfirm"
@@ -74,8 +74,6 @@
 
     <!-- 图片菜单 -->
     <mp-actionSheet show="{{ imageShowActionSheet }}" actions="{{ imageActionGroups }}" bindactiontap="clickManageImage"/>
-
-    <view style="height:{{ boxBottom + 'rpx' }}"></view>
 </block>
 
 <block wx:else>

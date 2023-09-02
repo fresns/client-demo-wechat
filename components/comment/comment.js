@@ -72,6 +72,10 @@ Component({
         url: '/pages/comments/detail?cid=' + this.data.comment.cid,
       });
     },
+
+    triggerComment: function() {
+      this.selectComponent("#interactionComponent").onClickCreateComment();
+    },
   },
 
   /** 组件生命周期声明对象 **/

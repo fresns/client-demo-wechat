@@ -63,7 +63,7 @@
 
     <!-- 功能按钮 -->
     <view class="card-footer {{ (type == 'list') ? 'list-style' : '' }}">
-        <interaction type="{{ type }}" comment="{{ comment }}"></interaction>
+        <interaction id="interactionComponent" type="{{ type }}" comment="{{ comment }}"></interaction>
     </view>
 
     <!-- 所属帖子 -->

@@ -178,6 +178,19 @@ Component({
       });
     },
 
+    // 评论框高度
+    eventCommentBoxHeight: function(e) {
+      let height = e.detail.height;
+
+      if (e.detail.height) {
+        height = e.detail.height + 50;
+      }
+
+      this.setData({
+        commentBoxBottom: height,
+      });
+    },
+
     // 评论框隐藏
     eventCommentBoxHide: function () {
       this.setData({
