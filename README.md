@@ -43,7 +43,11 @@ Fresns 是一款免费开源的社交网络服务软件，专为跨平台而打�
 - 2、解压后使用[微信开发者工具](https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html)导入项目，项目名称和 AppID 填写你的小程序信息；
 - 3、将根目录的 `fresns.example.js` 文件名修改为 `fresns.js`，然后根据里面的描述填写你的配置信息（[Fresns 官方社区 API 密钥，对外公开，所有人可以直接使用](https://discuss.fresns.cn/post/RJ35gFtb)）；
 - 4、修改风格样式，或者使用第三方开发的风格样式覆盖原文件；
-- 5、使用[微信开发者工具](https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html)上传代码，提交到微信公众平台。
+- 5、将你的 `apiHost` 录入到微信配置：公众平台->开发->开发管理->开发设置
+    - 服务器域名 `request合法域名` 和 `uploadFile合法域名`
+    - 业务域名
+- 6、安装配套插件「[微信登录](https://marketplace.fresns.cn/open-source/detail/WeChatLogin)」，配置小程序密钥信息；
+- 7、使用[微信开发者工具](https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html)上传代码，提交到微信公众平台。
 
 > 初始配置里包括了「[腾讯位置服务地图选点](https://mp.weixin.qq.com/wxopen/plugindevdoc?appid=wx76a9a06e5b4e693e&token=&lang=zh_CN)」插件，如果你的小程序没有添加该插件，请在 `app.json` 配置文件中移除该插件 `chooseLocation`，否则启用小程序会报错。
 
