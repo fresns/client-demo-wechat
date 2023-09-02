@@ -102,7 +102,7 @@
             <view class="weui-cell__bd">{{ fresnsLang.optionUser }}</view>
             <view class="weui-cell__ft weui-cell__ft_in-access">{{ fresnsAccount.users.length }}</view>
         </navigator>
-        <view class="weui-cell weui-cell_access" bind:tap="showLanguageSheet">
+        <view class="weui-cell weui-cell_access" wx:if="{{ fresnsConfig.language_status }}" bind:tap="showLanguageSheet">
             <view class="weui-cell__bd">{{ fresnsLang.optionLanguage }}</view>
             <view class="weui-cell__ft weui-cell__ft_in-access"></view>
         </view>
