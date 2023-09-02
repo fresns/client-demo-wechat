@@ -144,7 +144,7 @@ Page({
   },
 
   // 评论
-  onClickCreateComment: function() {
-    this.selectComponent("#postComponent").triggerComment();
+  onClickCreateComment: function () {
+    this.selectComponent('#postComponent').triggerComment();
   },
 });
