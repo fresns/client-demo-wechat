@@ -29,3 +29,11 @@
 .weui_fs:before {
   border-top: 0px solid var(--weui-FG-3);
 }
+
+.client-version {
+  color: var(--weui-FG-1);
+  font-size: 14px;
+  text-align: center;
+  margin-top: -20px;
+  margin-bottom: 30px;
+}

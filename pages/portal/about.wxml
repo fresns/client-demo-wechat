@@ -31,7 +31,7 @@
             <view class="weui-panel__ft">
                 <navigator class="weui-cell weui-cell_active weui-cell_access weui-cell_link" url="/pages/webview?url=https://docs.fresns.cn/guide/changelog.html">
                     <view class="weui-cell__bd">当前版本</view>
-                    <text class="weui-cell__ft">v{{ version }}</text>
+                    <text class="weui-cell__ft">v{{ fresnsVersion }}</text>
                 </navigator>
             </view>
         </view>
@@ -40,5 +40,9 @@
 
     <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
         <text class="weui-loadmore__tips">Powered by Fresns</text>
+    </view>
+
+    <view class="client-version">
+        <text>小程序版本 v{{ clientVersion }}</text>
     </view>
 </view>

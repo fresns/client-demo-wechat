@@ -3,6 +3,7 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
+import { fresnsApi } from '../../api/api';
 import { globalInfo } from '../../utils/fresnsGlobalInfo';
 
 Page({
@@ -11,13 +12,17 @@ Page({
 
   /** 页面的初始数据 **/
   data: {
-    version: '2.x',
+    fresnsVersion: '2.x',
+    clientVersion: '1.x',
   },
 
   /** 监听页面加载 **/
   onLoad: async function () {
+    const fresnsStatus = await fresnsApi.global.globalStatus();
+
     this.setData({
-      version: globalInfo.clientVersion,
+      fresnsVersion: fresnsStatus.version,
+      clientVersion: globalInfo.clientVersion,
     });
   },
 
