@@ -10,7 +10,7 @@ const md5 = require('../../libs/md5/md5');
 const { base64_encode } = require('../../libs/base64/base64');
 
 /** 生成签名 **/
-export async function makeSignature(utcTimeStamp) {
+export async function makeSignature(utcTimestamp) {
   const headers = {
     'X-Fresns-App-Id': appConfig.appId,
     'X-Fresns-Client-Platform-Id': 7, // https://docs.fresns.cn/database/dictionary/platforms.html
@@ -19,7 +19,7 @@ export async function makeSignature(utcTimeStamp) {
     'X-Fresns-Aid-Token': globalInfo.aidToken,
     'X-Fresns-Uid': globalInfo.uid,
     'X-Fresns-Uid-Token': globalInfo.uidToken,
-    'X-Fresns-Signature-Timestamp': utcTimeStamp,
+    'X-Fresns-Signature-Timestamp': utcTimestamp,
   };
 
   const strA = [
@@ -50,8 +50,22 @@ export async function getHeaders() {
   const timezoneOffsetInHours = now.getTimezoneOffset() / -60; // 获取时区偏移的小时数
   const utcTimezone = (timezoneOffsetInHours > 0 ? '+' : '') + timezoneOffsetInHours.toString(); // 获取 UTC 时区
 
-  const timeDiff = now.getTimezoneOffset() * 60 * 1000; // 获取时区偏移的毫秒数
-  const utcTimeStamp = Math.floor(Date.now() + timeDiff); // 获取 UTC+0 的 Unix 时间戳（毫秒级）
+  // 是否为夏令时
+  function isDST() {
+    const january = new Date(new Date().getFullYear(), 0, 1);
+    const july = new Date(new Date().getFullYear(), 6, 1);
+
+    return january.getTimezoneOffset() !== july.getTimezoneOffset();
+  }
+
+  let timeDiff = now.getTimezoneOffset() * 60 * 1000; // 获取时区偏移的毫秒数
+  if (isDST()) {
+    timeDiff += 60 * 60 * 1000; // 增加一个小时
+  }
+
+  const utcPositiveOffset = Math.floor(Date.now() + timeDiff); // 东区
+  const utcNegativeOffset = Math.floor(Date.now() - timeDiff); // 西区
+  const utcTimestamp = timezoneOffsetInHours > 0 ? utcPositiveOffset : utcNegativeOffset; // 获取 UTC+0 的 Unix 时间戳（毫秒级）
 
   const headers = {
     'X-Fresns-App-Id': appConfig.appId,
@@ -65,8 +79,8 @@ export async function getHeaders() {
     'X-Fresns-Aid-Token': globalInfo.aidToken,
     'X-Fresns-Uid': globalInfo.uid,
     'X-Fresns-Uid-Token': globalInfo.uidToken,
-    'X-Fresns-Signature': await makeSignature(utcTimeStamp),
-    'X-Fresns-Signature-Timestamp': utcTimeStamp,
+    'X-Fresns-Signature': await makeSignature(utcTimestamp),
+    'X-Fresns-Signature-Timestamp': utcTimestamp,
   };
 
   for (const key in headers) {
