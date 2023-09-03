@@ -60,12 +60,15 @@ export async function getHeaders() {
 
   let timeDiff = now.getTimezoneOffset() * 60 * 1000; // 获取时区偏移的毫秒数
   if (isDST()) {
-    timeDiff += 60 * 60 * 1000; // 增加一个小时
+    timeDiff += 60 * 60 * 1000; // 夏令时增加一个小时
   }
 
   const utcPositiveOffset = Math.floor(Date.now() + timeDiff); // 东区
   const utcNegativeOffset = Math.floor(Date.now() - timeDiff); // 西区
-  const utcTimestamp = timezoneOffsetInHours > 0 ? utcPositiveOffset : utcNegativeOffset; // 获取 UTC+0 的 Unix 时间戳（毫秒级）
+  let utcTimestamp = timezoneOffsetInHours > 0 ? utcPositiveOffset : utcNegativeOffset; // 获取 UTC+0 的 Unix 时间戳（毫秒级）
+  if (timezoneOffsetInHours == 0) {
+    utcTimestamp = Math.floor(Date.now() - 28800000); // 如果当前设备是 UTC+0 时区，微信写死了输出为东八区时间了
+  }
 
   const headers = {
     'X-Fresns-App-Id': appConfig.appId,
