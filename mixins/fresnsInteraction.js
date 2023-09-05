@@ -12,7 +12,7 @@ module.exports = {
   onShareAppMessage: async function (res) {
     console.log('onShareAppMessage res', res);
 
-    let currentPagePath = getCurrentPagePath();
+    const currentPagePath = getCurrentPagePath();
     let type = '';
     let fsid = '';
 
@@ -98,7 +98,7 @@ module.exports = {
 
   /** 右上角菜单-分享到朋友圈 **/
   onShareTimeline: function () {
-    let currentPagePath = getCurrentPagePath();
+    const currentPagePath = getCurrentPagePath();
 
     let shareQuery = '';
 
@@ -135,7 +135,7 @@ module.exports = {
 
   /** 右上角菜单-收藏 **/
   onAddToFavorites: function () {
-    let currentPagePath = getCurrentPagePath();
+    const currentPagePath = getCurrentPagePath();
 
     let shareQuery = '';
 

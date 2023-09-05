@@ -5,6 +5,7 @@
  */
 import appConfig from '../../fresns';
 import { getHeaders } from './helper';
+import { fresnsLogin } from '../../utils/fresnsLogin';
 
 // 常规请求
 export function request(options) {
@@ -27,7 +28,7 @@ export function request(options) {
       enableHttp2: true,
 
       // 请求成功
-      success: (res) => {
+      success: async (res) => {
         if (res.statusCode !== 200) {
           wx.showToast({
             title: '[' + res.statusCode + '] 接口请求异常',
@@ -48,15 +49,21 @@ export function request(options) {
 
         const { code, message } = res.data;
 
-        if (code !== 0) {
-          wx.showToast({
-            title: '[' + code + '] ' + message,
-            icon: 'none',
-            duration: 2000,
-          });
+        if (code === 0) {
+          resolve(res.data);
+
+          return;
         }
 
-        resolve(res.data);
+        if (code === 31502 || code === 31503 || code === 31504 || code === 31505 || code === 31602 || code === 31603) {
+          await fresnsLogin.logout();
+        }
+
+        wx.showToast({
+          title: '[' + code + '] ' + message,
+          icon: 'none',
+          duration: 2000,
+        });
       },
 
       // 请求失败

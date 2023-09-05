@@ -29,4 +29,16 @@ module.exports = {
       theme,
     });
   },
+
+  /** 后退页面 **/
+  navigateBack(delta = 1) {
+    wx.navigateBack({
+      delta: delta,
+      fail() {
+        wx.reLaunch({
+          url: '/pages/posts/index',
+        });
+      },
+    });
+  },
 };
