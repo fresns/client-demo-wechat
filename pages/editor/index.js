@@ -173,7 +173,7 @@ Page({
 
     // 标题配置
     let showTitleInput = false;
-    if (titleConfig.status && titleConfig.view) {
+    if (titleConfig.status && titleConfig.view == 1) {
       showTitleInput = true;
     }
     if (draftData.detail.title) {
