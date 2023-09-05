@@ -1,0 +1,25 @@
+<!-- *
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
+    Licensed under the Apache-2.0 license
+* -->
+<view aria-role="dialog" aria-modal="true" class="fadeIn" wx:if="{{ showPrivacy }}">
+    <view class="weui-mask"></view>
+    <view class="weui-dialog">
+        <view class="weui-dialog__hd"><strong class="weui-dialog__title">{{ fresnsLang.accountPoliciesAuthTip }}</strong></view>
+        <view class="weui-dialog__bd" style="margin-bottom: 0px;height: 120px;">
+            <view style="font-size: 15px;">{{ fresnsLang.accountPoliciesAuthDesc }}</view>
+            <view class="weui-footer" style="margin-top: 10px;">
+                <view class="weui-footer__links">
+                    <navigator class="weui-footer__link weui-wa-hotarea" url="/pages/portal/policies?active=terms" wx:if="{{ fresnsConfig.account_terms_status }}">{{ fresnsLang.accountPoliciesTerms }}</navigator>
+                    <navigator class="weui-footer__link weui-wa-hotarea" url="/pages/portal/policies?active=privacy" wx:if="{{ fresnsConfig.account_privacy_status }}">{{ fresnsLang.accountPoliciesPrivacy }}</navigator>
+                    <navigator class="weui-footer__link weui-wa-hotarea" bindtap="handleOpenPrivacyContract">隐私保护指引</navigator>
+                </view>
+            </view>
+        </view>
+        <view class="weui-dialog__ft">
+            <button class="weui-dialog__btn weui-dialog__btn_default" bindtap="closePrivacy">{{ fresnsLang.disagree }}</button>
+            <button class="weui-dialog__btn weui-dialog__btn_primary" id="agree-btn" open-type="agreePrivacyAuthorization" bindagreeprivacyauthorization="handleAgreePrivacyAuthorization">{{ fresnsLang.agreeAuth }}</button>
+        </view>
+    </view>
+</view>

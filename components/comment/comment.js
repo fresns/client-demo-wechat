@@ -15,6 +15,7 @@ Component({
 
   /** 组件的初始数据 **/
   data: {
+    showPrivacy: false,
     commentContent: null,
     contentAuthor: '',
     userHomePath: '',
@@ -63,6 +64,7 @@ Component({
 
   /** 组件功能 **/
   methods: {
+    // 进入详情页
     onClickToDetail(e) {
       if (this.data.type != 'list') {
         return;
@@ -73,6 +75,28 @@ Component({
       });
     },
 
+    // 用户点击链接
+    onClickContentLink(e) {
+      const link = e.detail.href;
+
+      if (link.startsWith('/pages/webview')) {
+        return;
+      }
+
+      // 触发复制功能，判断隐私授权
+      wx.getPrivacySetting({
+        success: res => {
+          if (res.needAuthorization) {
+            // 需要弹出隐私协议
+            this.setData({
+              showPrivacy: true,
+            });
+          }
+        },
+      });
+    },
+
+    // 发表评论事件
     triggerComment: function () {
       this.selectComponent('#interactionComponent').onClickCreateComment();
     },

@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "登录",
   "usingComponents": {
-    "mp-loading": "weui-miniprogram/loading/loading"
+    "mp-loading": "weui-miniprogram/loading/loading",
+    "privacy": "/components/commons/privacy/privacy"
   }
 }

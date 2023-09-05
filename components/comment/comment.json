@@ -2,6 +2,7 @@
   "component": true,
   "usingComponents": {
     "mp-html": "mp-html",
+    "privacy": "/components/commons/privacy/privacy",
     "author": "/components/commons/section/author",
     "files": "/components/commons/section/files",
     "extend-text": "/components/commons/section/extend-text",

@@ -182,4 +182,7 @@
     <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
         <text class="weui-loadmore__tips">Powered by Fresns</text>
     </view>
+
+    <!-- 隐私授权 -->
+    <privacy showPrivacy="{{ showPrivacy }}"/>
 </view>

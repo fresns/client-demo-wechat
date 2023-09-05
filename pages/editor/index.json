@@ -2,6 +2,7 @@
   "navigationBarTitleText": "选择草稿",
   "usingComponents": {
     "mp-toptips": "weui-miniprogram/toptips/toptips",
+    "privacy": "/components/commons/privacy/privacy",
 
     "editor-draft-selector": "/components/editor/editor-draft-selector/editor-draft-selector",
 

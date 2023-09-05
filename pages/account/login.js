@@ -28,6 +28,7 @@ Page({
 
   /** 页面的初始数据 **/
   data: {
+    showPrivacy: false,
     fresnsLang: null,
     wechatLoginBtnName: null,
 
@@ -58,6 +59,18 @@ Page({
   onLoad: async function (options) {
     wx.setNavigationBarTitle({
       title: await fresnsConfig('menu_account_login'),
+    });
+
+    // 判断隐私授权
+    wx.getPrivacySetting({
+      success: res => {
+        if (res.needAuthorization) {
+          // 需要弹出隐私协议
+          this.setData({
+            showPrivacy: true,
+          });
+        }
+      },
     });
 
     const [defaultCode, codeArray] = await Promise.all([

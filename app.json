@@ -132,5 +132,6 @@
   "lazyCodeLoading": "requiredComponents",
   "useExtendedLib": {
     "weui": true
-  }
+  },
+  "__usePrivacyCheck__": true
 }

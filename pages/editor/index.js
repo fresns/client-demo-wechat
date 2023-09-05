@@ -20,6 +20,7 @@ Page({
 
   /** 页面的初始数据 **/
   data: {
+    showPrivacy: false,
     // 提示条
     tipError: '',
     tipDelay: 3000,
@@ -51,6 +52,18 @@ Page({
   onLoad: async function (options) {
     wx.setNavigationBarTitle({
       title: await fresnsConfig('menu_editor_functions'),
+    });
+
+    // 判断隐私授权
+    wx.getPrivacySetting({
+      success: res => {
+        if (res.needAuthorization) {
+          // 需要弹出隐私协议
+          this.setData({
+            showPrivacy: true,
+          });
+        }
+      },
     });
 
     // 编辑器参数
