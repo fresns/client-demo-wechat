@@ -212,7 +212,7 @@ export const fresnsViewProfile = async (uidOrUsername = null) => {
         pageSize: 15,
         currentPage: 1,
         lastPage: 1,
-      }
+      },
     };
 
     if (result.code === 0 && globalInfo.userLogin) {
