@@ -7,20 +7,20 @@
     <view class="weui-flex">
         <view class="profile-info">
             <view class="profile-avatar">
-                <image wx:if="{{ user.decorate }}" src="{{ user.decorate }}" class="avatar-decorate" mode="scaleToFill"></image>
-                <image wx:if="{{ user.avatar }}" src="{{ user.avatar }}" class="avatar-img" mode="scaleToFill"></image>
+                <image wx:if="{{ user.decorate }}" src="{{ user.decorate }}" class="avatar-decorate" mode="scaleToFill"/>
+                <image wx:if="{{ user.avatar }}" src="{{ user.avatar }}" class="avatar-img" mode="scaleToFill"/>
             </view>
             <view class="profile-name weui-flex">
                 <text class="profile-nickname" style="color:{{ user.nicknameColor ? user.nicknameColor : '' }}">{{ user.nickname }}</text>
 
                 <view wx:if="{{ user.verifiedStatus }}" class="profile-verified">
-                    <image src="{{ user.verifiedIcon ? user.verifiedIcon : '/assets/images/icon-verified.png' }}" mode="heightFix"></image>
+                    <image src="{{ user.verifiedIcon ? user.verifiedIcon : '/assets/images/icon-verified.png' }}" mode="heightFix"/>
                 </view>
 
                 <text class="profile-username">@{{ user.fsid }}</text>
 
                 <view wx:if="{{ user.roleIconDisplay }}" class="profile-role-icon">
-                    <image src="{{ user.roleIcon }}" mode="heightFix"></image>
+                    <image src="{{ user.roleIcon }}" mode="heightFix"/>
                 </view>
 
                 <view wx:if="{{ user.roleNameDisplay }}" class="profile-role-name">
@@ -34,6 +34,10 @@
         </view>
     </view>
 
+    <view class="profile-verified-desc" wx:if="{{ user.verifiedStatus }}">
+        <text>{{ user.verifiedDesc }}</text>
+    </view>
+
     <view class="profile-bio" wx:if="{{ user.bio }}"><mp-html content="{{ user.bioHtml }}"/></view>
 
     <view class="profile-stats weui-media-box__info">
@@ -45,8 +49,16 @@
         </view>
 
         <view class="weui-media-box__info__meta weui-media-box__info__meta_extra" wx:if="{{ actionGroups.length > 0 }}" bind:tap="onClickMore">
-            <image class="weui-btn_cell__icon" src="{{ buttonIcons.more }}"></image>
+            <image class="weui-btn_cell__icon" src="{{ buttonIcons.more }}"/>
         </view>
+    </view>
+
+    <view class="profile-followersYouKnow" wx:if="{{ followersYouKnow.paginate.total > 0 }}" bind:tap="onClickToFollowersYouKnow">
+        <block wx:for="{{ followersYouKnow.list }}" wx:key="*this">
+            <text>{{ item.nickname }}</text>
+            <text wx:if="{{ index < followersYouKnow.list.length - 1 }}">,</text>
+        </block>
+        <text>{{ userFollowersYouKnowDesc }}</text>
     </view>
 </view>
 

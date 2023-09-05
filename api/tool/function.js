@@ -204,11 +204,32 @@ export const fresnsViewProfile = async (uidOrUsername = null) => {
       uidOrUsername: uidOrUsername,
     });
 
-    if (result.code === 0 && result.data) {
-      cachePut('fresnsViewProfile', result.data);
+    let profile = result.data;
+    profile.followersYouKnow = {
+      list: [],
+      paginate: {
+        total: 0,
+        pageSize: 15,
+        currentPage: 1,
+        lastPage: 1,
+      }
+    };
+
+    if (result.code === 0 && globalInfo.userLogin) {
+      const followerResult = await fresnsApi.user.userFollowersYouKnow({
+        uidOrUsername: uidOrUsername,
+        whitelistKeys: 'nickname,avatar',
+        pageSize: 3,
+      });
+
+      if (followerResult.code === 0) {
+        profile.followersYouKnow = followerResult.data;
+      }
+
+      cachePut('fresnsViewProfile', profile);
     }
 
-    fresnsViewProfile = result.data;
+    fresnsViewProfile = profile;
   }
 
   // 替换上一页数据

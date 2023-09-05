@@ -84,7 +84,33 @@
 
 .profile-bio {
   padding: 10px 20px;
-  font-weight: 300;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.profile-verified-desc {
+  margin: 0 20px;
+}
+
+.profile-verified-desc text {
+  padding: 3px 10px;
+  border-radius: 10px;
+  font-weight: 400;
+  font-size: 12px;
+  color: var(--weui-FG-HALF);
+  background-color: var(--weui-ORANGE);
+}
+
+.profile-verified-desc image {
+  height: 14px;
+}
+
+.profile-extcredits {
+  padding: 10px 20px;
+}
+
+.extcredits-tag {
+  margin-right: 10px;
 }
 
 .profile-tab-text {
@@ -94,5 +120,11 @@
 }
 
 .profile-stats {
+  margin: 10px 20px;
+}
+
+.profile-followersYouKnow {
   margin: 0 20px;
+  font-size: 14px;
+  color: var(--weui-FG-1);
 }

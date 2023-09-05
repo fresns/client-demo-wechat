@@ -12,12 +12,14 @@ Component({
   properties: {
     user: Object,
     items: Object,
+    followersYouKnow: Object,
   },
 
   /** 组件的初始数据 **/
   data: {
     userFollowerName: '',
     userFollowingName: '',
+    userFollowersYouKnowDesc: '',
 
     buttonIcons: {
       more: '/assets/interaction/content-more.png',
@@ -82,18 +84,23 @@ Component({
   /** 组件生命周期声明对象 **/
   lifetimes: {
     attached: async function () {
-      const userFollowerName = await fresnsConfig('user_follower_name');
-      const userFollowingName = await fresnsLang('userFollowing');
-
       this.setData({
-        userFollowerName: userFollowerName,
-        userFollowingName: userFollowingName,
+        userFollowerName: await fresnsConfig('user_follower_name'),
+        userFollowingName: await fresnsLang('userFollowing'),
+        userFollowersYouKnowDesc: await fresnsLang('userFollowersYouKnow'),
       });
     },
   },
 
   /** 组件功能 **/
   methods: {
+    // 认识的关注者
+    onClickToFollowersYouKnow(e) {
+      wx.navigateTo({
+        url: '/pages/profile/interactions/followers-you-follow?fsid=' + this.data.user.fsid,
+      });
+    },
+
     // 评论框显示
     onClickMore() {
       this.setData({
