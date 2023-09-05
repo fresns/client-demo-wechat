@@ -21,6 +21,7 @@ Page({
     // 详情
     title: null,
     comment: null,
+    loadingDetailStatus: true,
     commentName: null,
 
     // 评论框
@@ -66,6 +67,7 @@ Page({
 
       this.setData({
         comment: comment,
+        loadingDetailStatus: false,
         title: nickname + ': ' + commentTitle,
         commentBtnName: await fresnsConfig('publish_comment_name'),
       });

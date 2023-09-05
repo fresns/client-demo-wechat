@@ -5,9 +5,7 @@
 * -->
 <view class="page" data-weui-theme="{{ theme }}">
     <!-- 评论详情 -->
-    <block wx:if="{{ !comment }}">
-        <loading status="{{ loadingStatus }}" tipType="{{ loadingTipType }}"></loading>
-    </block>
+    <loading status="{{ loadingDetailStatus }}" tipType="none"></loading>
     <block wx:if="{{ comment }}">
         <comment id="commentComponent" comment="{{ comment }}" type="detail"></comment>
     </block>

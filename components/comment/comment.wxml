@@ -20,7 +20,7 @@
         <!-- 评论内容 -->
         <view class="fresns-content">
             <view class="content-text">
-                <mp-html content="{{ commentContent }}" markdown="{{ comment.isMarkdown }}" lazy-load="true" />
+                <mp-html content="{{ commentContent }}" markdown="{{ comment.isMarkdown }}" lazy-load="{{ true }}" selectable="{{ true }}"/>
             </view>
 
             <view class="content-brief" wx:if="{{ type == 'list' && comment.isBrief }}">

@@ -5,9 +5,7 @@
 * -->
 <view class="page" data-weui-theme="{{ theme }}">
     <!--帖子详情-->
-    <block wx:if="{{ !post }}">
-        <loading status="{{ loadingStatus }}" tipType="{{ loadingTipType }}"></loading>
-    </block>
+    <loading status="{{ loadingDetailStatus }}" tipType="none"></loading>
     <block wx:if="{{ post }}">
         <post id="postComponent" post="{{ post }}" type="detail"></post>
     </block>
