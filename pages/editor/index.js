@@ -56,7 +56,7 @@ Page({
 
     // 判断隐私授权
     wx.getPrivacySetting({
-      success: res => {
+      success: (res) => {
         if (res.needAuthorization) {
           // 需要弹出隐私协议
           this.setData({
