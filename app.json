@@ -108,6 +108,7 @@
 
     "pages/webview"
   ],
+  "entryPagePath": "pages/portal/index",
   "window": {
     "backgroundTextStyle": "@bgTxtStyle",
     "navigationBarBackgroundColor": "@navBgColor",
