@@ -7,7 +7,7 @@
     <view class="weui-mask"></view>
     <view class="weui-dialog">
         <view class="weui-dialog__hd"><strong class="weui-dialog__title">{{ fresnsLang.accountPoliciesAuthTip }}</strong></view>
-        <view class="weui-dialog__bd" style="margin-bottom: 0px;height: 120px;">
+        <view class="weui-dialog__bd" style="margin-bottom: 0px;height: 130px;">
             <view style="font-size: 15px;">{{ fresnsLang.accountPoliciesAuthDesc }}</view>
             <view class="weui-footer" style="margin-top: 10px;">
                 <view class="weui-footer__links">
