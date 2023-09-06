@@ -16,20 +16,22 @@
         <reply-to-comment comment="{{ comment.replyToComment }}"></reply-to-comment>
     </view>
 
-    <view class="card-body {{ (type == 'list') ? 'list-style' : '' }}" bind:tap="onClickToDetail">
+    <view class="card-body {{ (type == 'list') ? 'list-style' : '' }}">
         <!-- 评论内容 -->
-        <view class="fresns-content">
-            <view class="content-text">
-                <mp-html content="{{ commentContent }}" markdown="{{ comment.isMarkdown }}" lazy-load="{{ true }}" selectable="{{ true }}" bind:linktap="onClickContentLink"/>
+        <view bind:tap="onClickToDetail">
+            <view class="fresns-content">
+                <view class="content-text">
+                    <mp-html content="{{ commentContent }}" markdown="{{ comment.isMarkdown }}" lazy-load="{{ true }}" selectable="{{ true }}" bind:linktap="onClickContentLink"/>
+                </view>
+
+                <view class="content-brief" wx:if="{{ type == 'list' && comment.isBrief }}">
+                    <navigator class="navigator-inline" url="/pages/comments/detail?cid={{ comment.cid }}">全文</navigator>
+                </view>
             </view>
 
-            <view class="content-brief" wx:if="{{ type == 'list' && comment.isBrief }}">
-                <navigator class="navigator-inline" url="/pages/comments/detail?cid={{ comment.cid }}">全文</navigator>
-            </view>
+            <!-- 附件文件 -->
+            <files files="{{ comment.files }}"/>
         </view>
-
-        <!-- 附件文件 -->
-        <files files="{{ comment.files }}"/>
 
         <!-- 扩展内容: 文本框 -->
         <view class="extend-bottom" wx:if="{{ comment.extends.textBox.length > 0 }}">

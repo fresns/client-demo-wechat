@@ -16,9 +16,9 @@
         </block>
     </view>
 
-    <view class="card-body {{ (type == 'list') ? 'list-style' : '' }}" bind:tap="onClickToDetail">
+    <view class="card-body {{ (type == 'list') ? 'list-style' : '' }}">
         <!-- 内容 -->
-        <view class="fresns-content">
+        <view class="fresns-content" bind:tap="onClickToDetail">
             <view class="content-title">
                 <block wx:for="{{ post.operations.diversifyImages }}" wx:for-item="iconItem" wx:key="code">
                     <image wx:if="{{ iconItem.code == 'title' }}" src="{{ iconItem.imageUrl }}" mode="heightFix"></image>
@@ -54,7 +54,9 @@
         </view>
 
         <!-- 附件文件 -->
-        <files files="{{ post.files }}"/>
+        <view bind:tap="onClickToDetail">
+            <files files="{{ post.files }}"/>
+        </view>
 
         <!-- 扩展内容: 文本框 -->
         <view class="extend-bottom" wx:if="{{ post.extends.textBox.length > 0 }}">
