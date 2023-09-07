@@ -3,10 +3,10 @@
     Copyright 2021-Present 唐杰
     Licensed under the Apache-2.0 license
 * -->
-<view class="weui-btn weui-btn_mini weui-btn_default weui-wa-hotarea" bind:tap="onClickReselect" wx:if="{{ poi }}">
-    {{ poi }}
+<view class="weui-btn weui-btn_mini weui-btn_default weui-wa-hotarea" bind:tap="onClickReselect" wx:if="{{ location.poi }}">
+    {{ location.poi }}
 </view>
-<view class="weui-btn weui-btn_mini weui-btn_default weui-wa-hotarea" bind:tap="onClickAddLocation" wx:else>
+<view class="weui-btn weui-btn_mini weui-btn_default weui-wa-hotarea" bind:tap="onClickSelectLocation" wx:else>
     {{ addLocation }}
 </view>
 

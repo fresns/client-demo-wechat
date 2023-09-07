@@ -20,7 +20,6 @@ Page({
   data: {
     title: null,
     // 位置
-    mapUrl: null,
     mapId: 5,
     latitude: null,
     longitude: null,
@@ -42,52 +41,11 @@ Page({
       title: await fresnsConfig('menu_nearby_posts'),
     });
 
-    const { tencentMapKey, tencentMapReferer } = appConfig;
-    const deviceInfo = wx.getStorageSync('deviceInfo');
-
-    const locationInfo = JSON.stringify({
-      latitude: this.data.latitude || deviceInfo.latitude,
-      longitude: this.data.longitude || deviceInfo.longitude,
-    });
-
-    const mapUrl = `plugin://chooseLocation/index?key=${tencentMapKey}&referer=${tencentMapReferer}&location=${locationInfo}`;
-
     this.setData({
       title: await fresnsConfig('menu_nearby_posts'),
-      mapUrl: mapUrl,
       poi: await fresnsLang('location'),
       select: await fresnsLang('select'),
     });
-  },
-
-  /** 监听页面显示 **/
-  onShow: async function () {
-    const { tencentMapKey, tencentMapReferer } = appConfig;
-
-    const chooseLocation = requirePlugin('chooseLocation');
-    const location = chooseLocation.getLocation();
-
-    if (!location) {
-      return;
-    }
-
-    const locationInfo = JSON.stringify({
-      latitude: location.latitude,
-      longitude: location.longitude,
-    });
-
-    const mapUrl = `plugin://chooseLocation/index?key=${tencentMapKey}&referer=${tencentMapReferer}&location=${locationInfo}`;
-
-    this.setData({
-      mapUrl: mapUrl,
-      mapId: 5,
-      latitude: location.latitude,
-      longitude: location.longitude,
-      poi: location.name,
-      select: await fresnsLang('reselect'),
-    });
-
-    await this.loadFresnsPageData();
   },
 
   /** 加载列表数据 **/
@@ -155,5 +113,29 @@ Page({
   /** 监听用户上拉触底 **/
   onReachBottom: async function () {
     await this.loadFresnsPageData();
+  },
+
+  // 选择位置
+  onClickSelectLocation: function () {
+    const { latitude, longitude } = this.data;
+
+    wx.chooseLocation({
+      latitude: latitude,
+      longitude: longitude,
+      success: async (res) => {
+        this.setData({
+          latitude: res.latitude,
+          longitude: res.longitude,
+          poi: res.name,
+          select: await fresnsLang('reselect'),
+          posts: [],
+          page: 1,
+          loadingTipType: 'none',
+          isReachBottom: false,
+        });
+
+        await this.loadFresnsPageData();
+      },
+    });
   },
 });

@@ -32,7 +32,7 @@
     </view>
 
     <view class="weui-cells weui-cells_after-title">
-        <navigator url="{{ mapUrl }}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <navigator bind:tap="onClickSelectLocation" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
             <view class="weui-cell__hd">
                 <mp-icon icon="location" size="{{ 24 }}"/>
             </view>

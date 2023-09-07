@@ -19,6 +19,7 @@
                 <navigator url="/pages/posts/location?encode={{ location.encode }}">
                     <mp-icon icon="location" color="black" size="{{ 16 }}"/>
                     {{ location.poi }}
+                    <text wx:if="{{ location.distance }}">({{ location.distance + ' ' + location.unit }})</text>
                 </navigator>
             </view>
         </view>
@@ -50,6 +51,7 @@
                 <navigator url="/pages/posts/location?encode={{ location.encode }}">
                     <mp-icon icon="location" color="black" size="{{ 16 }}"/>
                     {{ location.poi }}
+                    <text wx:if="{{ location.distance }}">({{ location.distance + ' ' + location.unit }})</text>
                 </navigator>
             </view>
         </view>
@@ -104,6 +106,7 @@
                 <navigator url="/pages/posts/location?encode={{ location.encode }}">
                     <mp-icon icon="location" color="black" size="{{ 16 }}"/>
                     {{ location.poi }}
+                    <text wx:if="{{ location.distance }}">({{ location.distance + ' ' + location.unit }})</text>
                 </navigator>
             </view>
         </view>

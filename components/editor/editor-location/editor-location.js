@@ -3,7 +3,6 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import appConfig from '../../../fresns';
 import { fresnsLang } from '../../../api/tool/function';
 import { callPageFunction } from '../../../utils/fresnsUtilities';
 
@@ -26,24 +25,6 @@ Component({
     poi: '',
   },
 
-  /** 组件数据字段监听器 **/
-  observers: {
-    location: function (location) {
-      const { tencentMapKey, tencentMapReferer } = appConfig;
-      const locationInfo = JSON.stringify({
-        latitude: location?.latitude,
-        longitude: location?.longitude,
-      });
-
-      const mapUrl = `plugin://chooseLocation/index?key=${tencentMapKey}&referer=${tencentMapReferer}&location=${locationInfo}`;
-
-      this.setData({
-        mapUrl: mapUrl,
-        poi: location?.poi,
-      });
-    },
-  },
-
   /** 组件生命周期声明对象 **/
   lifetimes: {
     attached: async function () {
@@ -64,48 +45,38 @@ Component({
     },
   },
 
-  /** 组件所在页面的生命周期 **/
-  pageLifetimes: {
-    show: function () {
-      const chooseLocation = requirePlugin('chooseLocation');
-      const location = chooseLocation.getLocation();
-
-      if (!location) {
-        return;
-      }
-
-      const mapJson = {
-        mapId: 5,
-        latitude: location.latitude,
-        longitude: location.longitude,
-        scale: null,
-        continent: null,
-        continentCode: null,
-        country: null,
-        countryCode: null,
-        region: location.province,
-        regionCode: null,
-        city: location.city,
-        cityCode: null,
-        district: location.district,
-        address: location.address,
-        zip: null,
-        poi: location.name,
-        poiId: null,
-      };
-
-      callPageFunction('onLocationChange', mapJson);
-    },
-  },
-
   /** 组件功能 **/
   methods: {
-    // 添加位置
-    onClickAddLocation: function () {
-      const mapUrl = this.data.mapUrl;
+    // 选择位置
+    onClickSelectLocation: function () {
+      const location = this.data.location;
 
-      wx.navigateTo({
-        url: mapUrl,
+      wx.chooseLocation({
+        latitude: location?.latitude,
+        longitude: location?.longitude,
+        success(res) {
+          const mapJson = {
+            mapId: 5,
+            latitude: res.latitude,
+            longitude: res.longitude,
+            scale: null,
+            continent: null,
+            continentCode: null,
+            country: null,
+            countryCode: null,
+            region: null,
+            regionCode: null,
+            city: null,
+            cityCode: null,
+            district: null,
+            address: res.address,
+            zip: null,
+            poi: res.name,
+            poiId: null,
+          };
+
+          callPageFunction('onLocationChange', mapJson);
+        },
       });
     },
 
@@ -122,19 +93,12 @@ Component({
 
       // 重选
       if (action == 'reselect') {
-        const mapUrl = this.data.mapUrl;
-
-        wx.navigateTo({
-          url: mapUrl,
-        });
+        this.onClickSelectLocation();
       }
 
       // 删除
       if (action == 'delete') {
         callPageFunction('onLocationDelete');
-        this.setData({
-          poi: '',
-        });
       }
 
       this.setData({
