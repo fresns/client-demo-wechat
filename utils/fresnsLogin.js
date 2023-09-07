@@ -61,6 +61,8 @@ export class FresnsLogin {
 
   // 退出登录
   async logout() {
+    await fresnsApi.account.accountLogout();
+
     wx.removeStorageSync('aid');
     wx.removeStorageSync('aidToken');
     wx.removeStorageSync('uid');
@@ -68,8 +70,6 @@ export class FresnsLogin {
     wx.removeStorageSync('fresnsAccount');
     wx.removeStorageSync('fresnsUser');
     wx.removeStorageSync('fresnsUserPanels');
-
-    await fresnsApi.account.accountLogout();
 
     return;
   }

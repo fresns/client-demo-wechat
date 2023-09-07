@@ -56,7 +56,13 @@ export function request(options) {
         }
 
         if (code === 31502 || code === 31503 || code === 31504 || code === 31505 || code === 31602 || code === 31603) {
-          await fresnsLogin.logout();
+          wx.removeStorageSync('aid');
+          wx.removeStorageSync('aidToken');
+          wx.removeStorageSync('uid');
+          wx.removeStorageSync('uidToken');
+          wx.removeStorageSync('fresnsAccount');
+          wx.removeStorageSync('fresnsUser');
+          wx.removeStorageSync('fresnsUserPanels');
         }
 
         wx.showToast({
