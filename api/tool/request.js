@@ -5,7 +5,6 @@
  */
 import appConfig from '../../fresns';
 import { getHeaders } from './helper';
-import { fresnsLogin } from '../../utils/fresnsLogin';
 
 // 常规请求
 export function request(options) {
