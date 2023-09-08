@@ -3,6 +3,7 @@
   "enablePullDownRefresh": true,
   "usingComponents": {
     "mp-icon": "weui-miniprogram/icon/icon",
+    "privacy": "/components/commons/privacy/privacy",
     "tabbar": "/components/commons/tabbar/tabbar",
     "loading": "/components/commons/loading/loading",
     "post": "/components/post/post"
