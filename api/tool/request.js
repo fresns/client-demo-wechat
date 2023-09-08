@@ -69,6 +69,8 @@ export function request(options) {
           icon: 'none',
           duration: 2000,
         });
+
+        resolve(res.data);
       },
 
       // 请求失败

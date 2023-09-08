@@ -108,6 +108,9 @@
 
     "pages/webview"
   ],
+  "requiredPrivateInfos": [ 
+    "chooseLocation"
+  ],
   "entryPagePath": "pages/portal/index",
   "window": {
     "backgroundTextStyle": "@bgTxtStyle",
@@ -119,17 +122,6 @@
   "darkmode": true,
   "themeLocation": "theme.json",
   "sitemapLocation": "sitemap.json",
-  "plugins": {
-    "chooseLocation": {
-      "version": "1.0.10",
-      "provider": "wx76a9a06e5b4e693e"
-    }
-  },
-  "permission": {
-    "scope.userLocation": {
-      "desc": "你的位置信息可用于编辑器发表带位置的内容和附近页面查询内容。"
-    }
-  },
   "lazyCodeLoading": "requiredComponents",
   "useExtendedLib": {
     "weui": true
