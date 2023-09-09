@@ -28,6 +28,7 @@ Page({
     fresnsAccount: null,
 
     // 验证码
+    hasAccount: null,
     type: Type.Phone,
     account: null,
     verifyCode: '',
@@ -39,12 +40,27 @@ Page({
       title: await fresnsLang('accountDelete'),
     });
 
+    const countryCode = await fresnsAccount('detail.countryCode');
+    const purePhone = await fresnsAccount('detail.purePhone');
+    const email = await fresnsAccount('detail.email');
+
+    const hasAccount = !!purePhone || !!email;
+
+    let type = Type.Phone;
+    let account = '+' + countryCode + ' ' + purePhone;
+    if (!purePhone) {
+      type = Type.Email;
+      account = email;
+    }
+
     this.setData({
       title: await fresnsLang('accountDelete'),
       fresnsConfig: await fresnsConfig(),
       fresnsLang: await fresnsLang(),
       fresnsAccount: await fresnsAccount('detail'),
-      account: '+' + (await fresnsAccount('detail.countryCode')) + ' ' + (await fresnsAccount('detail.purePhone')),
+      hasAccount: hasAccount,
+      type: type,
+      account: account,
     });
   },
 
@@ -55,6 +71,12 @@ Page({
 
     this.setData({
       fresnsAccount: await fresnsAccount('detail'),
+    });
+  },
+
+  onCloseTip() {
+    this.setData({
+      hasAccount: !this.data.hasAccount,
     });
   },
 

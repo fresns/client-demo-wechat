@@ -4,6 +4,7 @@
  * Licensed under the Apache-2.0 license
  */
 import { fresnsApi } from '../../../api/api';
+import { fresnsLang } from '../../../api/tool/function';
 import { fresnsLogin } from '../../../utils/fresnsLogin';
 
 Page({
@@ -13,9 +14,11 @@ Page({
   /** 页面的初始数据 **/
   data: {
     ulid: '',
+    fresnsLang: {},
 
     loading: true,
     showSuccessTip: false,
+    btnLoading: false,
 
     failTip: '',
     showFailTip: false,
@@ -31,6 +34,7 @@ Page({
 
     this.setData({
       ulid: ulid,
+      fresnsLang: await fresnsLang(),
     });
 
     wx.showNavigationBarLoading();
@@ -104,6 +108,10 @@ Page({
 
   goToRegister: async function () {
     wx.showNavigationBarLoading();
+
+    this.setData({
+      btnLoading: true,
+    });
 
     wx.login({
       success: async (res) => {

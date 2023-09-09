@@ -4,6 +4,16 @@
     Licensed under the Apache-2.0 license
 * -->
 <view class="page" data-weui-theme="{{ theme }}">
+    <view class="weui-information-bar weui-information-bar_tips-strong" aria-role="alert" wx:if="{{ !hasAccount }}">
+        <view class="weui-information-bar__hd">
+            <text class="weui-icon-outlined-warn"></text>
+        </view>
+        <view class="weui-information-bar__bd">{{ fresnsLang.accountDeleteDesc }}</view>
+        <view class="weui-information-bar__ft">
+            <button class="weui-btn_icon" bind:tap="onCloseTip">关闭<text class="weui-icon-close-thin"></text></button>
+        </view>
+    </view>
+
 	<view class="weui-form">
         <view class="weui-form__bd">
             <view class="weui-form__text-area">

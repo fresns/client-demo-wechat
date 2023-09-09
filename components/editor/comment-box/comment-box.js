@@ -75,7 +75,7 @@ Component({
         fresnsConfig: await fresnsConfig(),
         fsLang: {
           errorNoLogin: await fresnsLang('errorNoLogin'),
-          accountLogin: await fresnsLang('accountLogin'),
+          accountLoginGoTo: await fresnsLang('accountLoginGoTo'),
           content: await fresnsLang('editorContent'),
           anonymous: await fresnsLang('editorAnonymous'),
         },
