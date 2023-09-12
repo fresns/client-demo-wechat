@@ -12,14 +12,16 @@ Page({
 
   /** 页面的初始数据 **/
   data: {
+    type: 'wechat',
     fresnsLang: {},
     showConnectTip: false,
     btnLoading: false,
   },
 
   /** 监听页面加载 **/
-  onLoad: async function () {
+  onLoad: async function (options) {
     this.setData({
+      type: options.type,
       fresnsLang: await fresnsLang(),
     });
   },
@@ -50,7 +52,12 @@ Page({
       btnLoading: true,
     });
 
-    await fresnsLogin.wechatLogin(true);
+    const type = this.data.type;
+    if (type == 'apple') {
+      await fresnsLogin.appleLogin(true);
+    } else {
+      await fresnsLogin.wechatLogin(true);
+    }
 
     wx.hideNavigationBarLoading();
   },

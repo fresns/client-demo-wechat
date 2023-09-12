@@ -82,7 +82,7 @@ export class FresnsLogin {
     //     let wechatCode = res.code
     //     if (wechatCode) {
     //       console.log('WeChat Auto Code', wechatCode);
-    //       await this.wechatLoginHandle(wechatCode, false, false);
+    //       await this.connectLoginHandle('wechat', wechatCode, false, false);
     //     }
     //   }
     // })
@@ -96,7 +96,7 @@ export class FresnsLogin {
         console.log('WeChat Code', wechatCode);
 
         if (wechatCode) {
-          await this.wechatLoginHandle(wechatCode, autoRegister);
+          await this.connectLoginHandle('wechat', wechatCode, autoRegister);
         } else {
           wx.showToast({
             title: '[10001] ' + res.errMsg,
@@ -108,21 +108,35 @@ export class FresnsLogin {
     });
   }
 
-  // 微信登录处理功能
-  async wechatLoginHandle(wechatCode, autoRegister = false, isRedirect = true) {
-    const loginRes = await fresnsApi.wechatLogin.oauth({
-      code: wechatCode,
-      autoRegister: autoRegister,
-    });
+  // 互联登录处理功能
+  async connectLoginHandle(type, code, autoRegister = false, isRedirect = true) {
+    let loginRes;
 
-    console.log('/api/wechat-login/mini-program/oauth', loginRes);
+    switch (type) {
+      case 'wechat':
+        loginRes = await fresnsApi.wechatLogin.oauth({
+          code: code,
+          autoRegister: autoRegister,
+        });
+        break;
+
+      case 'apple':
+        loginRes = await fresnsApi.wechatLogin.oauthApple({
+          code: code,
+          autoRegister: autoRegister,
+        });
+        break;
+
+      default:
+        return;
+    }
 
     if (loginRes.code != 0) {
       wx.hideNavigationBarLoading();
 
       if (loginRes.code == 31502 && isRedirect) {
         wx.redirectTo({
-          url: '/pages/account/wechat-login/check-sign',
+          url: '/pages/account/wechat-login/check-sign' + '?type=' + type,
         });
       }
 
@@ -154,6 +168,26 @@ export class FresnsLogin {
       },
       isRedirect
     );
+  }
+
+  // 苹果账号登录
+  async appleLogin(autoRegister = false) {
+    wx.appleLogin({
+      success: async (res) => {
+        let appleCode = res.code;
+        console.log('Apple Code', appleCode);
+
+        if (appleCode) {
+          await this.connectLoginHandle('apple', appleCode, autoRegister);
+        } else {
+          wx.showToast({
+            title: '[10001] ' + res.errMsg,
+            icon: 'none',
+            duration: 2000,
+          });
+        }
+      },
+    });
   }
 }
 

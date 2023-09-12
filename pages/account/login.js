@@ -40,6 +40,12 @@ Page({
 
     btnLoading: false,
 
+    // 多端配置
+    appInfo: {},
+    hasWechatInstall: true,
+    appleLoginBtnName: null,
+    appleBtnLoading: false,
+
     // 邮箱地址
     emailAddress: '',
 
@@ -60,6 +66,20 @@ Page({
     wx.setNavigationBarTitle({
       title: await fresnsConfig('menu_account_login'),
     });
+
+    // 判断微信是否有安装
+    const appInfo = wx.getStorageSync('appInfo');
+    if (appInfo.isApp) {
+      wx.miniapp.hasWechatInstall({
+        success: (res) => {
+          if (!res.hasWechatInstall) {
+            this.setData({
+              hasWechatInstall: false,
+            });
+          }
+        },
+      });
+    }
 
     // 判断隐私授权
     if (wx.canIUse('getPrivacySetting')) {
@@ -97,6 +117,13 @@ Page({
     };
     const wechatLoginBtnName = btnNameMap[storageLangTag] || 'Continue with WeChat';
 
+    const appleBtnNameMap = {
+      en: 'Continue with Apple ID',
+      'zh-Hans': '使用 Apple 账号登录',
+      'zh-Hant': '使用 Apple 賬號登錄',
+    };
+    const appleLoginBtnName = appleBtnNameMap[storageLangTag] || 'Continue with Apple ID';
+
     this.setData({
       codeLogin: Boolean((await fresnsConfig('send_email_service')) || (await fresnsConfig('send_sms_service'))),
       switchLogin: Boolean(emailLogin && phoneLogin),
@@ -105,6 +132,8 @@ Page({
       wechatLoginBtnName: wechatLoginBtnName,
       countryCodeRange,
       countryCodeIndex: countryCodeRange.indexOf(defaultCode),
+      appInfo: appInfo,
+      appleLoginBtnName: appleLoginBtnName,
     });
 
     if (options.showToast === 'true') {
@@ -169,6 +198,15 @@ Page({
     });
 
     await fresnsLogin.wechatLogin();
+  },
+
+  // 苹果账号登录
+  onAppleLogin: async function () {
+    this.setData({
+      appleBtnLoading: true,
+    });
+
+    await fresnsLogin.appleLogin();
   },
 
   // 发送验证码

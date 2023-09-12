@@ -36,10 +36,17 @@
 
     <!-- 微信登录 -->
     <block wx:if="{{ loginType === '0' }}">
-        <view class="we-login-agree">
+        <view class="we-login-agree" wx:if="{{ hasWechatInstall }}">
             <button class="weui-btn weui-btn_primary weui-btn_loading" type="primary" bind:tap="onWeChatLogin" style="width: 200px;">
                 <mp-loading type="dot-gray" show="{{ btnLoading }}" extClass="btnLoading" />
                 {{ wechatLoginBtnName }}
+            </button>
+        </view>
+
+        <view class="we-login-agree" wx:if="{{ appInfo.isApp && appInfo.platform == 'ios' }}">
+            <button class="weui-btn weui-btn_primary weui-btn_loading" type="primary" bind:tap="onAppleLogin" style="width: 250px;">
+                <mp-loading type="dot-gray" show="{{ appleBtnLoading }}" extClass="btnLoading" />
+                {{ appleLoginBtnName }}
             </button>
         </view>
     </block>
