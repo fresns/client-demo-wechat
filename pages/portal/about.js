@@ -14,15 +14,18 @@ Page({
   data: {
     fresnsVersion: '2.x',
     clientVersion: '1.x',
+    appInfo: {},
   },
 
   /** 监听页面加载 **/
   onLoad: async function () {
     const fresnsStatus = await fresnsApi.global.globalStatus();
+    const appInfo = wx.getStorageSync('appInfo');
 
     this.setData({
       fresnsVersion: fresnsStatus.version,
       clientVersion: globalInfo.clientVersion,
+      appInfo: appInfo,
     });
   },
 

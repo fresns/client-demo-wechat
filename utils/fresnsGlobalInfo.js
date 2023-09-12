@@ -85,12 +85,21 @@ export class GlobalInfo {
 
   // 初始化配置
   async init() {
+    // system info
     const systemInfo = wx.getSystemInfoSync();
-    const networkInfo = wx.getNetworkType();
-    const systemLang = systemInfo.language || 'zh_CN';
-    const getIpInfo = await fresnsApi.common.commonIpInfo();
 
+    // app info
+    const appInfo = {
+      isApp: systemInfo.host.env == 'SAAASDK',
+      isWechat: systemInfo.host.env == 'WeChat',
+      platform: systemInfo.platform,
+    };
+    wx.setStorageSync('appInfo', appInfo);
+
+    // device info
+    const getIpInfo = await fresnsApi.common.commonIpInfo();
     if (getIpInfo.code === 0) {
+      const networkInfo = wx.getNetworkType();
       const ipInfo = getIpInfo.data;
 
       const deviceInfo = {
@@ -149,6 +158,8 @@ export class GlobalInfo {
     // lang tag
     var storageLangTag = wx.getStorageSync('langTag');
     if (!storageLangTag) {
+      const systemLang = systemInfo.language || 'zh_CN';
+
       let langTag = systemLang;
       if (systemLang === 'zh_CN') {
         langTag = 'zh-Hans';
