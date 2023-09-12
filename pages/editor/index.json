@@ -20,6 +20,8 @@
     "editor-location": "/components/editor/editor-location/editor-location",
     "editor-anonymous": "/components/editor/editor-anonymous/editor-anonymous",
 
+    "editor-quote": "/components/editor/editor-quote/editor-quote",
+
     "editor-files": "/components/editor/editor-files/editor-files",
     "editor-extends": "/components/editor/editor-extends/editor-extends",
 

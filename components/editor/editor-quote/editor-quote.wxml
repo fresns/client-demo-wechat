@@ -1,0 +1,19 @@
+<!-- *
+    Fresns 微信小程序 (https://fresns.cn)
+    Copyright 2021-Present 唐杰
+    Licensed under the Apache-2.0 license
+* -->
+<view class="quote-post" wx:if="{{ quotedPid }}" bind:tap="onQuoteMenu">
+    <view class="weui-flex">
+        <view class="quote-post-avatar">
+            <image src="{{ quotedPost.author.avatar }}" mode="scaleToFill"></image>
+        </view>
+        <view class="quote-post-content weui-flex__item">
+            <rich-text nodes="{{ newContent }}" class="weui-flex__item" />
+        </view>
+    </view>
+    <view class="quote-post-group" wx:if="{{ quotedPost.group }}">{{ quotedPost.group.gname }}</view>
+</view>
+
+<!-- 菜单 -->
+<mp-actionSheet show="{{ showActionSheet }}" actions="{{ actionGroups }}" bindactiontap="clickQuoteMenu"/>

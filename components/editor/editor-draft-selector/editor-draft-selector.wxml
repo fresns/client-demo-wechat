@@ -20,5 +20,5 @@
     <loading status="{{ loadingStatus }}" tipType="{{ loadingTipType }}"></loading>
 
     <!-- 创建新草稿 -->
-    <view wx:if="{{ createBtn }}" class="weui-btn weui-btn_primary" style="width:220px;" bind:tap="onClickCreateDraft">{{ fsLang.createDraft }}</view>
+    <view wx:if="{{ createBtn }}" class="weui-btn weui-btn_primary" style="width:220px;margin-top:50px;" bind:tap="onClickCreateDraft">{{ fsLang.createDraft }}</view>
 </scroll-view>

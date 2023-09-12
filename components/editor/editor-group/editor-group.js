@@ -126,6 +126,11 @@ Component({
 
       this.setData({
         currentCategoryGid: currentCategoryGid,
+        groups: [],
+        page: 1,
+        loadingStatus: false,
+        loadingTipType: 'none',
+        isReachBottom: false,
         show: true,
       });
 

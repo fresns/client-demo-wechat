@@ -37,6 +37,8 @@
                     </view>
                 </view>
 
+                <editor-quote quotedPid="{{ draftDetail.quotedPid }}"/>
+
                 <editor-files files="{{ draftDetail.files }}"/>
 
                 <editor-extends extends="{{ draftDetail.extends }}"/>
