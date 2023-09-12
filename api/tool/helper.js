@@ -46,29 +46,11 @@ export async function makeSignature(utcTimestamp) {
  */
 export async function getHeaders() {
   const now = new Date(); // 获取设备本地时间
-
   const timezoneOffsetInHours = now.getTimezoneOffset() / -60; // 获取时区偏移的小时数
   const utcTimezone = (timezoneOffsetInHours > 0 ? '+' : '') + timezoneOffsetInHours.toString(); // 获取 UTC 时区
 
-  // 是否为夏令时
-  function isDST() {
-    const january = new Date(new Date().getFullYear(), 0, 1);
-    const july = new Date(new Date().getFullYear(), 6, 1);
-
-    return january.getTimezoneOffset() !== july.getTimezoneOffset();
-  }
-
-  let timeDiff = now.getTimezoneOffset() * 60 * 1000; // 获取时区偏移的毫秒数
-  if (isDST()) {
-    timeDiff += 60 * 60 * 1000; // 夏令时增加一个小时
-  }
-
-  const utcPositiveOffset = Math.floor(Date.now() + timeDiff); // 东区
-  const utcNegativeOffset = Math.floor(Date.now() - timeDiff); // 西区
-  let utcTimestamp = timezoneOffsetInHours > 0 ? utcPositiveOffset : utcNegativeOffset; // 获取 UTC+0 的 Unix 时间戳（毫秒级）
-  if (timezoneOffsetInHours == 0) {
-    utcTimestamp = Math.floor(Date.now() - 28800000); // 如果当前设备是 UTC+0 时区，微信写死了输出为东八区时间了
-  }
+  const utc8Timestamp = Date.now(); // UTC+8 时区的时间戳（微信固定为东八区时间）
+  const utcTimestamp = utc8Timestamp - 8 * 60 * 60 * 1000; // 获取 UTC+0 时区的 Unix 时间戳
 
   const headers = {
     'X-Fresns-App-Id': appConfig.appId,
