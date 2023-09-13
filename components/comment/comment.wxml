@@ -24,7 +24,7 @@
                     <mp-html content="{{ commentContent }}" markdown="{{ comment.isMarkdown }}" lazy-load="{{ true }}" selectable="{{ true }}" bind:linktap="onClickContentLink"/>
                 </view>
 
-                <view class="content-brief" wx:if="{{ type == 'list' && comment.isBrief }}">
+                <view class="content-brief" wx:if="{{ type != 'detail' && comment.isBrief }}">
                     <navigator class="navigator-inline" url="/pages/comments/detail?cid={{ comment.cid }}">全文</navigator>
                 </view>
             </view>

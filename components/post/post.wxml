@@ -30,7 +30,7 @@
                 <mp-html content="{{ postContent }}" markdown="{{ post.isMarkdown }}" lazy-load="{{ true }}" selectable="{{ true }}" bind:linktap="onClickContentLink"/>
             </view>
 
-            <view class="content-brief" wx:if="{{ type == 'list' && post.isBrief }}">
+            <view class="content-brief" wx:if="{{ type != 'detail' && post.isBrief }}">
                 <navigator class="navigator-inline" url="/pages/posts/detail?pid={{ post.pid }}">全文</navigator>
             </view>
         </view>

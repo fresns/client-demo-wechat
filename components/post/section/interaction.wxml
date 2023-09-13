@@ -55,7 +55,8 @@
 			</view>
 			<view class="weui-actionsheet__menu">
 				<view class="weui-actionsheet__cell" bind:tap="onShareCopyLink">{{ fresnsLang.copyLink }}</view>
-				<button class="weui-actionsheet__cell" open-type="share" data-type="post" data-fsid="{{ post.pid }}" data-title="{{ title }}" style="width:100%;font-weight:400;background-color:var(--weui-BG-2);">发送给朋友</button>
+				<button class="weui-actionsheet__cell" wx:if="{{ appInfo.isWechat }}" open-type="share" data-type="post" data-fsid="{{ post.pid }}" data-title="{{ title }}" style="width:100%;font-weight:400;background-color:var(--weui-BG-2);">{{ fresnsLang.shareMessage }}</button>
+                <view class="weui-actionsheet__cell" wx:if="{{ appInfo.isApp }}" bind:tap="onShareMiniAppMessage">{{ fresnsLang.shareMessage }}</view>
 			</view>
 			<view class="weui-actionsheet__action">
 				<view class="weui-actionsheet__cell" bind:tap="onHideShareMenus">{{ fresnsLang.cancel }}</view>
