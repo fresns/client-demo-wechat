@@ -35,7 +35,21 @@ const wechatLogin = {
   },
 
   /**
-   * 微信多端应用 Apple 账号登录
+   * 多端应用 App 微信账号登录
+   * @return {wx.RequestTask}
+   */
+  oauthApp: (options = {}) => {
+    return request({
+      url: '/api/wechat-login/open-platform/oauth',
+      data: {
+        ...options,
+      },
+      method: 'POST',
+    });
+  },
+
+  /**
+   * 多端应用 Apple 账号登录
    * @return {wx.RequestTask}
    */
   oauthApple: (options = {}) => {

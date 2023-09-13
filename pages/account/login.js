@@ -42,7 +42,6 @@ Page({
 
     // 多端配置
     appInfo: {},
-    hasWechatInstall: true,
     appleLoginBtnName: null,
     appleBtnLoading: false,
 
@@ -66,20 +65,6 @@ Page({
     wx.setNavigationBarTitle({
       title: await fresnsConfig('menu_account_login'),
     });
-
-    // 判断微信是否有安装
-    const appInfo = wx.getStorageSync('appInfo');
-    if (appInfo.isApp) {
-      wx.miniapp.hasWechatInstall({
-        success: (res) => {
-          if (!res.hasWechatInstall) {
-            this.setData({
-              hasWechatInstall: false,
-            });
-          }
-        },
-      });
-    }
 
     // 判断隐私授权
     if (wx.canIUse('getPrivacySetting')) {
@@ -132,7 +117,7 @@ Page({
       wechatLoginBtnName: wechatLoginBtnName,
       countryCodeRange,
       countryCodeIndex: countryCodeRange.indexOf(defaultCode),
-      appInfo: appInfo,
+      appInfo: wx.getStorageSync('appInfo'),
       appleLoginBtnName: appleLoginBtnName,
     });
 
@@ -198,6 +183,15 @@ Page({
     });
 
     await fresnsLogin.wechatLogin();
+  },
+
+  // App 微信登录
+  onAppWeChatLogin: async function () {
+    this.setData({
+      btnLoading: true,
+    });
+
+    await fresnsLogin.appWechatLogin();
   },
 
   // 苹果账号登录

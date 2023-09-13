@@ -92,11 +92,31 @@ export class FresnsLogin {
   async wechatLogin(autoRegister = false) {
     wx.login({
       success: async (res) => {
-        let wechatCode = res.code;
+        const wechatCode = res.code;
         console.log('WeChat Code', wechatCode);
 
         if (wechatCode) {
           await this.connectLoginHandle('wechat', wechatCode, autoRegister);
+        } else {
+          wx.showToast({
+            title: '[10001] ' + res.errMsg,
+            icon: 'none',
+            duration: 2000,
+          });
+        }
+      },
+    });
+  }
+
+  // App 微信登录
+  async appWechatLogin(autoRegister = false) {
+    wx.weixinAppLogin({
+      success: async (res) => {
+        const wechatCode = res.code;
+        console.log('App WeChat Code', wechatCode);
+
+        if (wechatCode) {
+          await this.connectLoginHandle('app', wechatCode, autoRegister);
         } else {
           wx.showToast({
             title: '[10001] ' + res.errMsg,
@@ -115,6 +135,13 @@ export class FresnsLogin {
     switch (type) {
       case 'wechat':
         loginRes = await fresnsApi.wechatLogin.oauth({
+          code: code,
+          autoRegister: autoRegister,
+        });
+        break;
+
+      case 'app':
+        loginRes = await fresnsApi.wechatLogin.oauthApp({
           code: code,
           autoRegister: autoRegister,
         });
@@ -174,7 +201,7 @@ export class FresnsLogin {
   async appleLogin(autoRegister = false) {
     wx.appleLogin({
       success: async (res) => {
-        let appleCode = res.code;
+        const appleCode = res.code;
         console.log('Apple Code', appleCode);
 
         if (appleCode) {

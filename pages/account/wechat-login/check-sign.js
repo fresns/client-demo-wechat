@@ -53,10 +53,20 @@ Page({
     });
 
     const type = this.data.type;
-    if (type == 'apple') {
-      await fresnsLogin.appleLogin(true);
-    } else {
-      await fresnsLogin.wechatLogin(true);
+    switch (type) {
+      case 'wechat':
+        await fresnsLogin.wechatLogin(true);
+        break;
+
+      case 'app':
+        await fresnsLogin.appWechatLogin(true);
+        break;
+
+      case 'apple':
+        await fresnsLogin.appleLogin(true);
+        break;
+
+      default:
     }
 
     wx.hideNavigationBarLoading();
