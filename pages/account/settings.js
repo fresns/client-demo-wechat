@@ -645,7 +645,18 @@ Page({
   },
 
   // 绑定微信小程序
-  onConnectWeChatMiniApp: async function (e) {
+  onConnectWeChatMiniProgram: async function (e) {
+    const appInfo = wx.getStorageSync('appInfo');
+
+    if (appInfo.isApp) {
+      wx.showToast({
+        title: await fresnsLang('tipConnectWeChatMiniProgram'),
+        icon: 'none',
+      });
+
+      return;
+    }
+
     wx.login({
       success: async (res) => {
         let wechatCode = res.code;
@@ -660,12 +671,48 @@ Page({
             this.reloadFresnsAccount();
           }
 
-          console.log('onConnectWeChatMiniApp', loginRes);
+          console.log('onConnectWeChatMiniProgram', loginRes);
         } else {
           wx.showToast({
             title: '[10001] ' + res.errMsg,
             icon: 'none',
             duration: 2000,
+          });
+        }
+      },
+    });
+  },
+
+  // 绑定微信 App
+  onConnectWeChatMiniApp: async function (e) {
+    const appInfo = wx.getStorageSync('appInfo');
+
+    if (appInfo.isWechat) {
+      wx.showToast({
+        title: await fresnsLang('tipConnectWeChatMiniApp'),
+        icon: 'none',
+      });
+
+      return;
+    }
+
+    wx.miniapp.login({
+      success: async (res) => {
+        const wechatCode = res.code;
+        console.log('App WeChat Code', wechatCode);
+
+        if (wechatCode) {
+          const loginRes = await fresnsApi.wechatLogin.oauthApp({
+            code: wechatCode,
+          });
+
+          if (loginRes.code === 0) {
+            this.reloadFresnsAccount();
+          }
+        } else {
+          wx.showToast({
+            title: '[10001] ' + res.errMsg,
+            icon: 'none',
           });
         }
       },

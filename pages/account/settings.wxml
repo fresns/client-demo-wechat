@@ -89,7 +89,10 @@
     <mp-cells ext-class="setting-cells" wx:if="{{ fresnsAccount.connects }}" title="{{ fresnsLang.settingConnect }}">
         <block wx:for="{{ fresnsAccount.connects }}" wx:for-item="item" wx:key="connectPlatformId">
             <block wx:if="{{ item.connectPlatformId == 25 && !item.connected }}">
-                <mp-cell icon="/assets/connects/{{ item.connectPlatformId }}.png" value="微信小程序" footer="{{ fresnsLang.settingAccountConnect }}" hover="{{ true }}" link="{{ true }}" bind:tap="onConnectWeChatMiniApp"/>
+                <mp-cell icon="/assets/connects/{{ item.connectPlatformId }}.png" value="微信小程序" footer="{{ fresnsLang.settingAccountConnect }}" hover="{{ true }}" link="{{ true }}" bind:tap="onConnectWeChatMiniProgram"/>
+            </block>
+            <block wx:elif="{{ item.connectPlatformId == 26 && !item.connected }}">
+                <mp-cell icon="/assets/connects/{{ item.connectPlatformId }}.png" value="微信 App" footer="{{ fresnsLang.settingAccountConnect }}" hover="{{ true }}" link="{{ true }}" bind:tap="onConnectWeChatMiniApp"/>
             </block>
             <block wx:else>
                 <navigator url="/pages/webview" bind:tap="fresnsExtensions"
