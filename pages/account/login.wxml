@@ -7,7 +7,7 @@
     <!-- 登录方式 -->
     <radio-group bind:change="onLoginTypeChange">
         <view class="weui-grids">
-            <label class="radio">
+            <label class="radio" wx:if="{{ !deactivateWeChatLogin }}">
                 <navigator class="weui-grid" aria-role="button" url="javascript:">
                     <view class="weui-grid__icon">
                         <radio value="0" checked="{{ loginType === '0' }}"/>

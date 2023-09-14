@@ -55,15 +55,27 @@ Page({
     const type = this.data.type;
     switch (type) {
       case 'wechat':
-        await fresnsLogin.wechatLogin(true);
+        await fresnsLogin.wechatLogin(true, () => {
+          this.setData({
+            btnLoading: false,
+          });
+        });
         break;
 
       case 'app':
-        await fresnsLogin.appWechatLogin(true);
+        await fresnsLogin.appWechatLogin(true, () => {
+          this.setData({
+            btnLoading: false,
+          });
+        });
         break;
 
       case 'apple':
-        await fresnsLogin.appleLogin(true);
+        await fresnsLogin.appleLogin(true, () => {
+          this.setData({
+            btnLoading: false,
+          });
+        });
         break;
 
       default:

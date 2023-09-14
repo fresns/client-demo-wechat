@@ -3,6 +3,7 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
+import appConfig from '../../fresns';
 import { fresnsConfig, fresnsCodeMessage, fresnsLang } from '../../api/tool/function';
 import { fresnsLogin } from '../../utils/fresnsLogin';
 import { base64_encode } from '../../libs/base64/base64';
@@ -35,6 +36,7 @@ Page({
     codeLogin: false,
     switchLogin: false,
 
+    deactivateWeChatLogin: false,
     loginType: LoginType.WeChat,
     type: Type.Phone,
 
@@ -110,6 +112,8 @@ Page({
     const appleLoginBtnName = appleBtnNameMap[storageLangTag] || 'Continue with Apple ID';
 
     this.setData({
+      deactivateWeChatLogin: appConfig?.deactivateWeChatLogin,
+      loginType: appConfig?.deactivateWeChatLogin ? LoginType.Password : LoginType.WeChat,
       codeLogin: Boolean((await fresnsConfig('send_email_service')) || (await fresnsConfig('send_sms_service'))),
       switchLogin: Boolean(emailLogin && phoneLogin),
       type: loginType,
@@ -182,7 +186,11 @@ Page({
       btnLoading: true,
     });
 
-    await fresnsLogin.wechatLogin();
+    await fresnsLogin.wechatLogin(false, () => {
+      this.setData({
+        btnLoading: false,
+      });
+    });
   },
 
   // App 微信登录
@@ -191,7 +199,11 @@ Page({
       btnLoading: true,
     });
 
-    await fresnsLogin.appWechatLogin();
+    await fresnsLogin.appWechatLogin(false, () => {
+      this.setData({
+        btnLoading: false,
+      });
+    });
   },
 
   // 苹果账号登录
@@ -200,7 +212,11 @@ Page({
       appleBtnLoading: true,
     });
 
-    await fresnsLogin.appleLogin();
+    await fresnsLogin.appleLogin(false, () => {
+      this.setData({
+        btnLoading: false,
+      });
+    });
   },
 
   // 发送验证码

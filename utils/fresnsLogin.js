@@ -89,11 +89,10 @@ export class FresnsLogin {
   }
 
   // 微信登录
-  async wechatLogin(autoRegister = false) {
+  async wechatLogin(autoRegister = false, callback) {
     wx.login({
       success: async (res) => {
         const wechatCode = res.code;
-        console.log('WeChat Code', wechatCode);
 
         if (wechatCode) {
           await this.connectLoginHandle('wechat', wechatCode, autoRegister);
@@ -101,19 +100,33 @@ export class FresnsLogin {
           wx.showToast({
             title: '[10001] ' + res.errMsg,
             icon: 'none',
-            duration: 2000,
           });
+        }
+      },
+      fail(res) {
+        wx.showToast({
+          title: '[' + res.errCode + '] ' + res.errMsg,
+          icon: 'none',
+        });
+        if (callback && typeof callback === 'function') {
+          callback();
+        }
+      },
+      complete() {
+        if (callback && typeof callback === 'function') {
+          setTimeout(() => {
+            callback();
+          }, 2000); // 延迟 2 秒
         }
       },
     });
   }
 
   // App 微信登录
-  async appWechatLogin(autoRegister = false) {
-    wx.weixinAppLogin({
+  async appWechatLogin(autoRegister = false, callback) {
+    wx.miniapp.login({
       success: async (res) => {
         const wechatCode = res.code;
-        console.log('App WeChat Code', wechatCode);
 
         if (wechatCode) {
           await this.connectLoginHandle('app', wechatCode, autoRegister);
@@ -121,8 +134,57 @@ export class FresnsLogin {
           wx.showToast({
             title: '[10001] ' + res.errMsg,
             icon: 'none',
-            duration: 2000,
           });
+        }
+      },
+      fail(res) {
+        wx.showToast({
+          title: '[' + res.errCode + '] ' + res.errMsg,
+          icon: 'none',
+        });
+        if (callback && typeof callback === 'function') {
+          callback();
+        }
+      },
+      complete() {
+        if (callback && typeof callback === 'function') {
+          setTimeout(() => {
+            callback();
+          }, 2000); // 延迟 2 秒
+        }
+      },
+    });
+  }
+
+  // 苹果账号登录
+  async appleLogin(autoRegister = false, callback) {
+    wx.appleLogin({
+      success: async (res) => {
+        const appleCode = res.code;
+
+        if (appleCode) {
+          await this.connectLoginHandle('apple', appleCode, autoRegister);
+        } else {
+          wx.showToast({
+            title: '[10001] ' + res.errMsg,
+            icon: 'none',
+          });
+        }
+      },
+      fail(res) {
+        wx.showToast({
+          title: '[' + res.errCode + '] ' + res.errMsg,
+          icon: 'none',
+        });
+        if (callback && typeof callback === 'function') {
+          callback();
+        }
+      },
+      complete() {
+        if (callback && typeof callback === 'function') {
+          setTimeout(() => {
+            callback();
+          }, 2000); // 延迟 2 秒
         }
       },
     });
@@ -195,26 +257,6 @@ export class FresnsLogin {
       },
       isRedirect
     );
-  }
-
-  // 苹果账号登录
-  async appleLogin(autoRegister = false) {
-    wx.appleLogin({
-      success: async (res) => {
-        const appleCode = res.code;
-        console.log('Apple Code', appleCode);
-
-        if (appleCode) {
-          await this.connectLoginHandle('apple', appleCode, autoRegister);
-        } else {
-          wx.showToast({
-            title: '[10001] ' + res.errMsg,
-            icon: 'none',
-            duration: 2000,
-          });
-        }
-      },
-    });
   }
 }
 
