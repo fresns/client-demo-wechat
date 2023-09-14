@@ -40,7 +40,7 @@ export function cacheGet(key) {
   const timeLeft = expiresTime - now.getTime();
 
   if (timeLeft > 0) {
-    return cacheData;
+    return cacheData?.data;
   }
 
   return null;

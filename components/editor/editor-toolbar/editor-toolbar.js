@@ -90,8 +90,7 @@ Component({
   /** 组件生命周期声明对象 **/
   lifetimes: {
     attached: async function () {
-      const fresnsStickers = cacheGet('fresnsStickers');
-      const stickerList = fresnsStickers?.data ?? [];
+      const stickerList = cacheGet('fresnsStickers') ?? [];
 
       const stickerTabs = stickerList
         ? stickerList.map((item) => ({

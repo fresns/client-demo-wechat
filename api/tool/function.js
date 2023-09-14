@@ -9,8 +9,7 @@ import { cachePut, cacheGet, callPrevPageFunction } from '../../utils/fresnsUtil
 
 // fresnsConfig
 export const fresnsConfig = async (itemKey = null, defaultValue = null) => {
-  let configs = cacheGet('fresnsConfigs');
-  let data = configs?.data;
+  let data = cacheGet('fresnsConfigs');
 
   if (!data) {
     const result = await fresnsApi.global.globalConfigs();
@@ -105,8 +104,7 @@ export const fresnsAccount = async (key = null) => {
 
 // fresnsUser
 export const fresnsUser = async (key = null) => {
-  let fresnsUser = cacheGet('fresnsUser');
-  let data = fresnsUser?.data;
+  let data = cacheGet('fresnsUser');
 
   if (!fresnsUser && globalInfo.userLogin) {
     const result = await fresnsApi.user.userDetail({
@@ -150,8 +148,7 @@ export const fresnsUserPanels = async (uid = null) => {
     return null;
   }
 
-  let fresnsUserPanels = cacheGet('fresnsUserPanels');
-  let data = fresnsUserPanels?.data;
+  let data = cacheGet('fresnsUserPanels');
 
   if (!fresnsUserPanels) {
     let items = {};
@@ -198,6 +195,7 @@ export const fresnsViewProfile = async (uidOrUsername = null) => {
   }
 
   let fresnsViewProfile = cacheGet('fresnsViewProfile');
+  console.log('fresnsViewProfile', fresnsViewProfile);
 
   if (!fresnsViewProfile || fresnsViewProfile?.detail?.fsid != uidOrUsername) {
     const result = await fresnsApi.user.userDetail({
@@ -225,9 +223,9 @@ export const fresnsViewProfile = async (uidOrUsername = null) => {
       if (followerResult.code === 0) {
         profile.followersYouKnow = followerResult.data;
       }
-
-      cachePut('fresnsViewProfile', profile);
     }
+
+    cachePut('fresnsViewProfile', profile);
 
     fresnsViewProfile = profile;
   }
