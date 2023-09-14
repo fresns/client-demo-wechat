@@ -3,9 +3,11 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
+import appConfig from '../../fresns';
 import { fresnsLogin } from '../../utils/fresnsLogin';
 import { fresnsConfig, fresnsLang, fresnsAccount, fresnsUser, fresnsUserPanel } from '../../api/tool/function';
 import { globalInfo } from '../../utils/fresnsGlobalInfo';
+import { cachePut, cacheGet } from '../../utils/fresnsUtilities';
 
 Page({
   /** 外部 mixin 引入 **/
@@ -29,6 +31,12 @@ Page({
 
     showLogoutDialog: false,
     loginButtons: [],
+
+    // 多端应用 Android 升级
+    downloadApk: false,
+    downloadProgress: 0, // 下载进度
+    downloadTotalWritten: '', // 已经下载的数据长度
+    downloadTotalExpectedToWrite: '', // 预期需要下载的数据总长度
   },
 
   /** 监听页面加载 **/
@@ -77,6 +85,48 @@ Page({
           extClass: 'warn',
         },
       ],
+    });
+  },
+
+  /** 监听页面渲染完成 **/
+  onReady: async function () {
+    const appInfo = this.data.appInfo;
+
+    if (appInfo.isWechat) {
+      return;
+    }
+
+    const timestamp = Date.now();
+
+    wx.request({
+      url: appConfig.apiHost + '/app/version.json?time=' + timestamp,
+      enableHttp2: true,
+      success: async (res) => {
+        if (res.statusCode !== 200) {
+          return;
+        }
+
+        const versionInfo = res.data[appInfo.platform];
+
+        console.log('Auto Check Version', versionInfo?.version, globalInfo.clientVersion);
+
+        if (versionInfo?.version == globalInfo.clientVersion) {
+          appInfo.hasNewVersion = false;
+          this.setData({
+            appInfo: appInfo,
+          });
+          wx.setStorageSync('appInfo', appInfo);
+
+          return;
+        }
+
+        appInfo.hasNewVersion = true;
+        appInfo.apkUrl = versionInfo?.apkUrl;
+        this.setData({
+          appInfo: appInfo,
+        });
+        wx.setStorageSync('appInfo', appInfo);
+      },
     });
   },
 
@@ -156,6 +206,178 @@ Page({
     wx.redirectTo({
       url: '/pages/account/index',
     });
+  },
+
+  /** 检测版本 **/
+  onCheckVersion: async function (e) {
+    wx.showToast({
+      title: await fresnsLang('inProgress'),
+      icon: 'none',
+    });
+
+    const timestamp = Date.now();
+
+    wx.request({
+      url: appConfig.apiHost + '/app/version.json?time=' + timestamp,
+      enableHttp2: true,
+      success: async (res) => {
+        if (res.statusCode !== 200) {
+          return;
+        }
+
+        const appInfo = this.data.appInfo;
+        const versionInfo = res.data[appInfo.platform];
+
+        console.log('onCheckVersion', versionInfo?.version, globalInfo.clientVersion);
+
+        if (versionInfo?.version == globalInfo.clientVersion) {
+          wx.showToast({
+            title: await fresnsLang('isLatestVersion'),
+            icon: 'none',
+          });
+
+          return;
+        }
+
+        appInfo.hasNewVersion = true;
+        appInfo.apkUrl = versionInfo?.apkUrl;
+        this.setData({
+          appInfo: appInfo,
+        });
+        wx.setStorageSync('appInfo', appInfo);
+      },
+    });
+  },
+
+  /** 升级 **/
+  onUpdateApp: async function (e) {
+    const updateAppFilePath = cacheGet('updateAppFilePath');
+    console.log('updateAppFilePath', updateAppFilePath);
+    if (updateAppFilePath) {
+      // 安装升级包
+      wx.miniapp.installApp({
+        filePath: updateAppFilePath,
+        success: (res) => {
+          console.log('install app success', res);
+
+          this.setData({
+            downloadApk: false,
+          });
+        },
+        fail: (res) => {
+          wx.showToast({
+            title: '[' + res.errCode + '] ' + res.errMsg,
+            icon: 'none',
+          });
+          console.log('install app fail', res);
+
+          this.setData({
+            downloadApk: false,
+          });
+        },
+      });
+
+      return;
+    }
+
+    const downloadApk = this.data.downloadApk;
+    console.log('downloadApk', downloadApk);
+    if (downloadApk) {
+      return;
+    }
+
+    const appInfo = this.data.appInfo;
+
+    switch (appInfo.platform) {
+      case 'ios':
+        wx.miniapp.jumpToAppStore({
+          success: (res) => {
+            console.log('jumpToAppStore success:', res);
+          },
+          fail: (res) => {
+            wx.showToast({
+              title: '[' + res.errCode + '] ' + res.errMsg,
+              icon: 'none',
+            });
+            console.log('jumpToAppStore fail:', res);
+          },
+        });
+        break;
+
+      case 'android':
+        console.log(appInfo.apkUrl);
+
+        const downloadTask = wx.downloadFile({
+          url: appInfo.apkUrl,
+          timeout: 600000,
+          success: (res) => {
+            console.log('download apk success', res);
+
+            this.setData({
+              downloadApk: false,
+            });
+            cachePut('updateAppFilePath', res.tempFilePath, 1);
+
+            // 安装升级包
+            wx.miniapp.installApp({
+              filePath: res.tempFilePath,
+              success: (res) => {
+                console.log('install app success', res);
+
+                this.setData({
+                  downloadApk: false,
+                });
+              },
+              fail: (res) => {
+                wx.showToast({
+                  title: '[' + res.errCode + '] ' + res.errMsg,
+                  icon: 'none',
+                });
+                console.log('install app fail', res);
+
+                this.setData({
+                  downloadApk: false,
+                });
+              },
+            });
+          },
+          fail: (res) => {
+            wx.showToast({
+              title: '[' + res.errCode + '] ' + res.errMsg,
+              icon: 'none',
+            });
+            console.log('download apk fail', res);
+
+            this.setData({
+              downloadApk: false,
+            });
+            wx.removeStorageSync('updateAppFilePath');
+          },
+        });
+
+        downloadTask.onProgressUpdate((res) => {
+          let totalWritten = res.totalBytesWritten / 1024 / 1024;
+          let totalExpectedToWrite = res.totalBytesExpectedToWrite / 1024 / 1024;
+
+          this.setData({
+            downloadApk: true,
+            downloadProgress: res.progress, // 下载进度
+            downloadTotalWritten: parseFloat(totalWritten.toFixed(2)), // 已经下载的数据长度
+            downloadTotalExpectedToWrite: parseFloat(totalExpectedToWrite.toFixed(2)), // 预期需要下载的数据总长度
+          });
+        });
+        break;
+
+      case 'devtools':
+        wx.showToast({
+          title: 'devtools',
+          icon: 'none',
+        });
+        break;
+
+      default:
+        return;
+    }
   },
 
   /** 退出登录 **/

@@ -106,6 +106,31 @@
             <view class="weui-cell__bd">{{ fresnsLang.optionLanguage }}</view>
             <view class="weui-cell__ft weui-cell__ft_in-access"></view>
         </view>
+        <block wx:if="{{ appInfo.hasNewVersion }}">
+            <view class="weui-cell weui-cell_access" wx:if="{{ appInfo.isApp }}" bind:tap="onUpdateApp">
+                <view class="weui-cell__bd">
+                    {{ fresnsLang.checkVersion }}
+                    <text class="weui-badge">1</text>
+                </view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">
+                    <view class="weui-btn weui-btn_mini weui-btn_default weui-wa-hotarea" aria-role="button" wx:if="{{ !downloadApk }}">{{ fresnsLang.upgrade }}</view>
+                    <text wx:if="{{ downloadApk }}">{{ downloadTotalWritten }}M/{{ downloadTotalExpectedToWrite }}M</text>
+                </view>
+            </view>
+            <!-- 下载进度条 -->
+            <view class="weui-progress" wx:if="{{ downloadApk }}">
+                <view class="weui-progress__bar">
+                    <view class="weui-progress__inner-bar js_progress" style="width: {{ downloadProgress }}%;"></view>
+                </view>
+                <text id="js_current" class="weui-hidden_abs" aria-role="alert">{{ downloadProgress }}%</text>
+            </view>
+        </block>
+        <block wx:else>
+            <view class="weui-cell weui-cell_access" wx:if="{{ appInfo.isApp }}" bind:tap="onCheckVersion">
+                <view class="weui-cell__bd">{{ fresnsLang.checkVersion }}</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </view>
+        </block>
         <navigator url="/pages/portal/about" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
             <view class="weui-cell__bd">{{ fresnsLang.about }}</view>
             <view class="weui-cell__ft weui-cell__ft_in-access"></view>
