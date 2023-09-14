@@ -9,4 +9,6 @@ module.exports = {
   apiHost: 'https://discuss.fresns.cn', // 你自己站点的地址
   appId: 'App ID',
   appSecret: 'App Secret',
+  deactivateWeChatLogin: 0, // 是否停用微信登录功能，停用后只支持账号密码或验证码登录
+  mpId: '', // 小程序原始 ID，编译为「多端应用」时使用，仅小程序无需配置
 };
