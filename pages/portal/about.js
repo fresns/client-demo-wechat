@@ -4,6 +4,7 @@
  * Licensed under the Apache-2.0 license
  */
 import { fresnsApi } from '../../api/api';
+import { fresnsLang } from '../../api/tool/function';
 import { globalInfo } from '../../utils/fresnsGlobalInfo';
 
 Page({
@@ -19,6 +20,10 @@ Page({
 
   /** 监听页面加载 **/
   onLoad: async function () {
+    wx.setNavigationBarTitle({
+      title: await fresnsLang('about'),
+    });
+
     const fresnsStatus = await fresnsApi.global.globalStatus();
     const appInfo = wx.getStorageSync('appInfo');
 
