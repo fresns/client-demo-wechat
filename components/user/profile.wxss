@@ -61,6 +61,19 @@
   margin-top: 6px;
 }
 
+.profile-gender {
+  margin-left: 10px;
+  margin-top: 8px;
+}
+
+.profile-gender-male {
+  color: var(--weui-BLUE);
+}
+
+.profile-gender-female {
+  color: var(--weui-RED);
+}
+
 .profile-role-icon image {
   height: 18px;
   margin: 0 4px;
@@ -106,7 +119,7 @@
 }
 
 .profile-extcredits {
-  padding: 10px 20px;
+  padding: 0px 20px;
 }
 
 .extcredits-tag {
