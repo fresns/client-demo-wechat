@@ -10,7 +10,7 @@ import { cacheGet, cachePut } from './fresnsUtilities';
 
 export class GlobalInfo {
   clientName = 'FresnsWeChat';
-  clientVersion = '2.4.0';
+  clientVersion = '2.5.0';
   theme = null;
 
   // 处理用户主页路径
@@ -93,6 +93,8 @@ export class GlobalInfo {
       isApp: systemInfo.host.env == 'SAAASDK',
       isWechat: systemInfo.host.env == 'WeChat',
       platform: systemInfo.platform,
+      hasNewVersion: false,
+      apkUrl: '',
     };
     wx.setStorageSync('appInfo', appInfo);
 
