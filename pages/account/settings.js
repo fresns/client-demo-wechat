@@ -674,7 +674,7 @@ Page({
           console.log('onConnectWeChatMiniProgram', loginRes);
         } else {
           wx.showToast({
-            title: '[10001] ' + res.errMsg,
+            title: '[' + res.errCode + '] ' + res.errMsg,
             icon: 'none',
             duration: 2000,
           });
@@ -711,7 +711,7 @@ Page({
           }
         } else {
           wx.showToast({
-            title: '[10001] ' + res.errMsg,
+            title: '[' + res.errCode + '] ' + res.errMsg,
             icon: 'none',
           });
         }

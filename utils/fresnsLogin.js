@@ -98,7 +98,7 @@ export class FresnsLogin {
           await this.connectLoginHandle('wechat', wechatCode, autoRegister);
         } else {
           wx.showToast({
-            title: '[10001] ' + res.errMsg,
+            title: '[' + res.errCode + '] ' + res.errMsg,
             icon: 'none',
           });
         }
@@ -132,7 +132,7 @@ export class FresnsLogin {
           await this.connectLoginHandle('app', wechatCode, autoRegister);
         } else {
           wx.showToast({
-            title: '[10001] ' + res.errMsg,
+            title: '[' + res.errCode + '] ' + res.errMsg,
             icon: 'none',
           });
         }
@@ -166,7 +166,7 @@ export class FresnsLogin {
           await this.connectLoginHandle('apple', appleCode, autoRegister);
         } else {
           wx.showToast({
-            title: '[10001] ' + res.errMsg,
+            title: '[' + res.errCode + '] ' + res.errMsg,
             icon: 'none',
           });
         }
