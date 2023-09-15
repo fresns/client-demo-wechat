@@ -83,7 +83,6 @@ export const fresnsCodeMessage = async (code, defaultValue = null) => {
 // fresnsAccount
 export const fresnsAccount = async (key = null) => {
   let fresnsAccount = cacheGet('fresnsAccount');
-  let data = fresnsAccount?.data;
 
   if (!fresnsAccount && globalInfo.accountLogin) {
     const result = await fresnsApi.account.accountDetail();
@@ -92,19 +91,19 @@ export const fresnsAccount = async (key = null) => {
       cachePut('fresnsAccount', result.data);
     }
 
-    data = result.data;
+    fresnsAccount = result.data;
   }
 
   if (!key) {
-    return data;
+    return fresnsAccount;
   }
 
-  return data_get(data, key);
+  return data_get(fresnsAccount, key);
 };
 
 // fresnsUser
 export const fresnsUser = async (key = null) => {
-  let data = cacheGet('fresnsUser');
+  let fresnsUser = cacheGet('fresnsUser');
 
   if (!fresnsUser && globalInfo.userLogin) {
     const result = await fresnsApi.user.userDetail({
@@ -115,14 +114,14 @@ export const fresnsUser = async (key = null) => {
       cachePut('fresnsUser', result.data);
     }
 
-    data = result.data;
+    fresnsUser = result.data;
   }
 
   if (!key) {
-    return data;
+    return fresnsUser;
   }
 
-  return data_get(data, key);
+  return data_get(fresnsUser, key);
 };
 
 // fresnsUserPanel
@@ -150,7 +149,7 @@ export const fresnsUserPanels = async (uid = null) => {
 
   let data = cacheGet('fresnsUserPanels');
 
-  if (!fresnsUserPanels) {
+  if (!data) {
     let items = {};
 
     const getUserPanels = async (users) => {
@@ -195,7 +194,6 @@ export const fresnsViewProfile = async (uidOrUsername = null) => {
   }
 
   let fresnsViewProfile = cacheGet('fresnsViewProfile');
-  console.log('fresnsViewProfile', fresnsViewProfile);
 
   if (!fresnsViewProfile || fresnsViewProfile?.detail?.fsid != uidOrUsername) {
     const result = await fresnsApi.user.userDetail({

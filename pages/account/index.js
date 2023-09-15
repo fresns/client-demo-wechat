@@ -90,7 +90,7 @@ Page({
 
   /** 监听页面渲染完成 **/
   onReady: async function () {
-    const appInfo = this.data.appInfo;
+    const appInfo = wx.getStorageSync('appInfo');
 
     if (appInfo.isWechat) {
       return;
