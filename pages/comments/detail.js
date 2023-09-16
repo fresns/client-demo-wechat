@@ -7,6 +7,8 @@ import { fresnsApi } from '../../api/api';
 import { fresnsConfig, fresnsLang } from '../../api/tool/function';
 import { truncateText, callPrevPageFunction } from '../../utils/fresnsUtilities';
 
+let isRefreshing = false;
+
 Page({
   /** 外部 mixin 引入 **/
   mixins: [
@@ -129,6 +131,14 @@ Page({
 
   /** 监听用户下拉动作 **/
   onPullDownRefresh: async function () {
+    // 防抖判断
+    if (isRefreshing) {
+      wx.stopPullDownRefresh();
+      return;
+    };
+
+    isRefreshing = true;
+
     this.setData({
       comments: [],
       page: 1,
@@ -137,7 +147,11 @@ Page({
     });
 
     await this.loadFresnsPageData();
+
     wx.stopPullDownRefresh();
+    setTimeout(() => {
+      isRefreshing = false;
+    }, 5000); // 防抖时间 5 秒
   },
 
   /** 监听用户上拉触底 **/
