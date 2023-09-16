@@ -110,7 +110,7 @@ Page({
     if (isRefreshing) {
       wx.stopPullDownRefresh();
       return;
-    };
+    }
 
     isRefreshing = true;
 
