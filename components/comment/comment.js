@@ -66,7 +66,7 @@ Component({
   methods: {
     // 进入详情页
     onClickToDetail(e) {
-      if (this.data.type != 'list') {
+      if (this.data.type == 'detail') {
         return;
       }
 
