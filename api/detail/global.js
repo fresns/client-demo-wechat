@@ -13,6 +13,9 @@ const global = {
   globalStatus: () => {
     return request({
       url: '/status.json',
+      data: {
+        timestamp: Date.now(),
+      },
     });
   },
 
