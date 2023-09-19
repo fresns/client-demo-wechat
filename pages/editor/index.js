@@ -240,14 +240,24 @@ Page({
       showTitleInput: !this.data.showTitleInput,
     });
   },
-  switchShowMentionDialog() {
+  showMentionDialog() {
     this.setData({
-      showMentionDialog: !this.data.showMentionDialog,
+      showMentionDialog: true,
     });
   },
-  switchShowHashtagDialog() {
+  showHashtagDialog() {
     this.setData({
-      showHashtagDialog: !this.data.showHashtagDialog,
+      showHashtagDialog: true,
+    });
+  },
+  closeMentionDialog() {
+    this.setData({
+      showMentionDialog: false,
+    });
+  },
+  closeHashtagDialog() {
+    this.setData({
+      showHashtagDialog: false,
     });
   },
 

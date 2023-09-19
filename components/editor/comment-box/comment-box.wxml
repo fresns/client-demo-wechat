@@ -20,23 +20,31 @@
         </view>
     </view>
 
-    <editor-mention wx:if="{{ fresnsConfig.comment_editor_mention }}" show="{{ showMentionDialog }}" bind:eventContentInsert="eventContentInsert"/>
-    <editor-hashtag wx:if="{{ fresnsConfig.comment_editor_hashtag }}" show="{{ showHashtagDialog }}" config="{{ hashtagConfig }}" bind:eventContentInsert="eventContentInsert"/>
+    <editor-mention wx:if="{{ fresnsConfig.comment_editor_mention }}" show="{{ showMentionDialog }}" bind:eventContentInsert="eventContentInsert" bind:eventCloseMentionDialog="eventCloseMentionDialog"/>
+    <editor-hashtag wx:if="{{ fresnsConfig.comment_editor_hashtag }}" show="{{ showHashtagDialog }}" config="{{ hashtagConfig }}" bind:eventContentInsert="eventContentInsert" bind:eventCloseHashtagDialog="eventCloseHashtagDialog"/>
 
     <view class="fresns-toolbar">
-        <view class="tool" wx:if="{{ fresnsConfig.comment_editor_sticker }}" data-type="sticker" bind:tap="onStickers">
+        <view class="tool" wx:if="{{ fresnsConfig.comment_editor_sticker }}" bind:tap="onStickers">
             <image src="../../../assets/toolbar/sticker.png" class="weui-tabbar__icon"/>
         </view>
 
         <block wx:if="{{ fresnsConfig.comment_editor_image }}">
-            <view class="tool" wx:if="{{ imagePath }}" data-type="image" bind:tap="onManageImage">
+            <view class="tool" wx:if="{{ imagePath }}" bind:tap="onManageImage">
                 <image src="{{ imagePath }}" class="weui-tabbar__icon"/>
             </view>
 
-            <view class="tool" wx:else data-type="image" bind:tap="onSelectImage">
+            <view class="tool" wx:else bind:tap="onSelectImage">
                 <image src="../../../assets/toolbar/image.png" class="weui-tabbar__icon"/>
             </view>
         </block>
+
+        <view class="tool" wx:if="{{ fresnsConfig.comment_editor_mention }}" bind:tap="onMention">
+            <image src="../../../assets/toolbar/mention.png" class="weui-tabbar__icon"/>
+        </view>
+
+        <view class="tool" wx:if="{{ fresnsConfig.comment_editor_hashtag }}" bind:tap="onHashtag">
+            <image src="../../../assets/toolbar/hashtag.png" class="weui-tabbar__icon"/>
+        </view>
 
         <view class="tool" wx:if="{{ fresnsConfig.comment_editor_anonymous }}">
             <label class="checkbox">

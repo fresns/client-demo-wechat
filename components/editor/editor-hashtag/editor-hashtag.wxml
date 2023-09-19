@@ -17,7 +17,6 @@
             </view>
         </view>
         <view class="weui-half-screen-dialog__bd">
-
             <!-- 搜索 -->
             <view class="weui-search-bar {{ inputShowed ? 'weui-search-bar_focusing' : '' }}" id="searchBar">
                 <form class="weui-search-bar__form" aria-role="combobox" aria-haspopup="true" aria-expanded="{{ inputVal.length > 0 ? 'true' : 'false' }}" aria-owns="searchResult">
@@ -41,7 +40,7 @@
                 <loading status="{{ loadingStatus }}" tipType="{{ loadingTipType }}"></loading>
 
                 <!-- 结果列表 -->
-                <scroll-view scroll-y="true" style="height:500px;">
+                <scroll-view scroll-y="true" style="height:400px;">
                     <view role="option" class="weui-cell weui-cell_active weui-cell_access" wx:if="{{ inputVal }}" bind:tap="onSelectHashtag" data-name="{{ inputVal }}">
                             <view class="weui-cell__hd">
                                 <mp-icon icon="add2" size="{{ 26 }}" style="margin-right: 10px;"/>
@@ -56,13 +55,14 @@
                                 <image src="{{ hashtag.image }}"></image>
                             </view>
                             <view class="weui-cell__bd weui-cell_primary">
-                                <view>{{ hashtag.name }}</view>
+                                {{ hashtag.name }}
                             </view>
                         </view>
                     </block>
                 </scroll-view>
             </view>
 
+            <view style="height:20px;"></view>
         </view>
     </view>
 </view>

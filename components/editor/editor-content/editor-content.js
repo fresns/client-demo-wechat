@@ -79,10 +79,10 @@ Component({
 
       const prevCharacter = value.charAt(cursorPosition - 1);
       if (toolMentionConfig.status && prevCharacter === '@') {
-        callPageFunction('switchShowMentionDialog');
+        callPageFunction('showMentionDialog');
       }
       if (toolHashtagConfig.status && prevCharacter === '#') {
-        callPageFunction('switchShowHashtagDialog');
+        callPageFunction('showHashtagDialog');
       }
     },
 

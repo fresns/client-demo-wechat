@@ -37,6 +37,8 @@ Component({
       this.setData({
         showDialog: show,
         hashtagConfig: config,
+        inputVal: '',
+        hashtags: [],
       });
     },
   },
@@ -60,7 +62,8 @@ Component({
         showDialog: false,
       });
 
-      callPageFunction('switchShowHashtagDialog');
+      callPageFunction('closeHashtagDialog');
+      this.triggerEvent('eventCloseHashtagDialog', { status: false });
     },
 
     // 显示输入

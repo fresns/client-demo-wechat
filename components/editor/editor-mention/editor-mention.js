@@ -33,6 +33,8 @@ Component({
     show: function (show) {
       this.setData({
         showDialog: show,
+        inputVal: '',
+        users: [],
       });
     },
   },
@@ -56,7 +58,8 @@ Component({
         showDialog: false,
       });
 
-      callPageFunction('switchShowMentionDialog');
+      callPageFunction('closeMentionDialog');
+      this.triggerEvent('eventCloseMentionDialog', { status: false });
     },
 
     // 显示输入

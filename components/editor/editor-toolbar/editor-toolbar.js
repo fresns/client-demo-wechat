@@ -254,12 +254,12 @@ Component({
 
       // 艾特
       if (tool == 'mention') {
-        return callPageFunction('switchShowMentionDialog');
+        return callPageFunction('showMentionDialog');
       }
 
       // 话题
       if (tool == 'hashtag') {
-        return callPageFunction('switchShowHashtagDialog');
+        return callPageFunction('showHashtagDialog');
       }
 
       // 扩展

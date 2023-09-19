@@ -712,6 +712,25 @@ module.exports = {
 
     const comments = this.data.comments;
     if (comments) {
+      // 涉及父级评论，父级评论总数 +1
+      if (commentCid) {
+        const commentIdx = comments.findIndex((value) => value.cid == commentCid);
+
+        if (commentIdx >= 0) {
+          comments[commentIdx].commentCount = comments[commentIdx].commentCount + 1;
+        }
+      }
+
+      const currentPagePath = getCurrentPagePath();
+      if (currentPagePath == 'pages/posts/detail' && commentCid) {
+        // 重置评论列表
+        this.setData({
+          comments: comments,
+        });
+
+        return;
+      }
+
       // 发表成功，插入新评论
       const commentDetailRes = await fresnsApi.comment.commentDetail({
         cid: newCid,
@@ -726,24 +745,10 @@ module.exports = {
         comments.unshift(detail);
       }
 
-      // 涉及父级评论，父级评论总数 +1
-      if (commentCid) {
-        const commentIdx = comments.findIndex((value) => value.cid == commentCid);
-
-        if (commentIdx >= 0) {
-          comments[commentIdx].commentCount = comments[commentIdx].commentCount + 1;
-        }
-      }
-
-      // 隐藏评论框
+      // 重置评论列表
       this.setData({
         comments: comments,
       });
     }
-
-    // 隐藏评论框
-    this.setData({
-      showCommentBox: false,
-    });
   },
 };
