@@ -51,4 +51,7 @@
     <view class="client-version">
         <text>小程序版本 v{{ clientVersion }}</text>
     </view>
+
+    <!-- 隐私授权 -->
+    <privacy showPrivacy="{{ showPrivacy }}"/>
 </view>

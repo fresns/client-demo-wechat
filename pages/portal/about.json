@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "About",
-  "usingComponents": {}
+  "usingComponents": {
+    "privacy": "/components/commons/privacy/privacy"
+  }
 }
