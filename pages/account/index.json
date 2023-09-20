@@ -5,6 +5,7 @@
     "mp-actionSheet": "weui-miniprogram/actionsheet/actionsheet",
     "mp-dialog": "weui-miniprogram/dialog/dialog",
     "loading": "/components/commons/loading/loading",
-    "tabbar": "/components/commons/tabbar/tabbar"
+    "tabbar": "/components/commons/tabbar/tabbar",
+    "privacy": "/components/commons/privacy/privacy"
   }
 }

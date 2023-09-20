@@ -17,7 +17,10 @@ Page({
 
   /** 页面的初始数据 **/
   data: {
+    showPrivacy: false,
+
     appInfo: {},
+    clientInfo: {},
 
     loadingStatus: false,
 
@@ -101,7 +104,16 @@ Page({
   onReady: async function () {
     const appInfo = wx.getStorageSync('appInfo');
 
+    // appInfo.platform = 'android'; // 测试使用，因为开发者工具里是 devtools
+
     if (appInfo.isWechat) {
+      const fresnsStatus = await fresnsApi.global.globalStatus();
+      const clientInfo = fresnsStatus?.client?.mobile[appInfo.platform];
+
+      this.setData({
+        clientInfo: clientInfo,
+      });
+
       return;
     }
 
@@ -220,6 +232,107 @@ Page({
     wx.redirectTo({
       url: '/pages/account/index',
     });
+  },
+
+  /** 下载应用 **/
+  onDownloadApp: function (e) {
+    // 判断隐私授权
+    if (wx.canIUse('getPrivacySetting')) {
+      wx.getPrivacySetting({
+        success: (res) => {
+          if (res.needAuthorization) {
+            // 需要弹出隐私协议
+            this.setData({
+              showPrivacy: true,
+            });
+          }
+        },
+      });
+    }
+
+    const fresnsLang = this.data.fresnsLang;
+    const appInfo = this.data.appInfo;
+    const clientInfo = this.data.clientInfo;
+
+    // appInfo.platform = 'android'; // 测试使用，因为开发者工具里是 devtools
+
+    let title;
+    let content;
+
+    switch (appInfo.platform) {
+      case 'ios':
+        title = 'iOS App';
+        content = clientInfo.appStore;
+        break;
+
+      case 'android':
+        title = 'Android App';
+        content = clientInfo.packages.apk;
+
+        // 处理 Google Play 选项
+        if (clientInfo.googlePlay) {
+          const downloadApk = fresnsLang.downloadApp + ' (apk)'
+          wx.showActionSheet({
+            itemList: ['Google Play', downloadApk],
+            success (res) {
+              if (res.tapIndex == 0) {
+                content = clientInfo.googlePlay;
+              }
+
+              wx.showModal({
+                title: title,
+                content: content,
+                cancelText: fresnsLang.cancel,
+                confirmText: fresnsLang.copyLink,
+                success (res) {
+                  if (res.confirm) {
+                    wx.setClipboardData({
+                      data: content,
+                      success: function (res) {
+                        wx.showToast({
+                          title: fresnsLang.copySuccess,
+                        });
+                      },
+                    });
+                  }
+                }
+              })
+
+              // 处理结束
+            },
+          })
+
+          return;
+        }
+        break;
+
+      case 'devtools':
+        title = 'devtools';
+        content = 'devtools';
+        break;
+
+      default:
+        return;
+    }
+
+    wx.showModal({
+      title: title,
+      content: content,
+      cancelText: fresnsLang.cancel,
+      confirmText: fresnsLang.copyLink,
+      success (res) {
+        if (res.confirm) {
+          wx.setClipboardData({
+            data: content,
+            success: function (res) {
+              wx.showToast({
+                title: fresnsLang.copySuccess,
+              });
+            },
+          });
+        }
+      }
+    })
   },
 
   /** 检测版本 **/
