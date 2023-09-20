@@ -25,16 +25,17 @@
 .group-extensions {
   overflow: hidden;
   background-color: var(--weui-BG-2);
+  padding-bottom: 20px;
   margin-top: 15px;
 }
 
 .extension-box {
   float: left;
-  width: 20%;
+  width: 25%;
+  padding-top: 20px;
 }
 
 .extension-box navigator {
-  padding: 15px 20px;
   text-align: center;
   font-size: 14px;
 }
