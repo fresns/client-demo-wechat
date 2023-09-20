@@ -271,10 +271,10 @@ Page({
 
         // 处理 Google Play 选项
         if (clientInfo.googlePlay) {
-          const downloadApk = fresnsLang.downloadApp + ' (apk)'
+          const downloadApk = fresnsLang.downloadApp + ' (apk)';
           wx.showActionSheet({
             itemList: ['Google Play', downloadApk],
-            success (res) {
+            success(res) {
               if (res.tapIndex == 0) {
                 content = clientInfo.googlePlay;
               }
@@ -284,7 +284,7 @@ Page({
                 content: content,
                 cancelText: fresnsLang.cancel,
                 confirmText: fresnsLang.copyLink,
-                success (res) {
+                success(res) {
                   if (res.confirm) {
                     wx.setClipboardData({
                       data: content,
@@ -295,12 +295,12 @@ Page({
                       },
                     });
                   }
-                }
-              })
+                },
+              });
 
               // 处理结束
             },
-          })
+          });
 
           return;
         }
@@ -320,7 +320,7 @@ Page({
       content: content,
       cancelText: fresnsLang.cancel,
       confirmText: fresnsLang.copyLink,
-      success (res) {
+      success(res) {
         if (res.confirm) {
           wx.setClipboardData({
             data: content,
@@ -331,8 +331,8 @@ Page({
             },
           });
         }
-      }
-    })
+      },
+    });
   },
 
   /** 检测版本 **/
