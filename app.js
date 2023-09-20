@@ -91,6 +91,7 @@ App({
     try {
       const configValue = wx.getStorageSync('fresnsConfigs');
       if (!configValue) {
+        console.log('globalConfigs', 'fresnsConfigs');
         const result = await fresnsApi.global.globalConfigs();
         const cacheMinutes = result.data.cache_minutes || 30;
 

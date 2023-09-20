@@ -12,6 +12,7 @@ export const fresnsConfig = async (itemKey = null, defaultValue = null) => {
   let data = cacheGet('fresnsConfigs');
 
   if (!data) {
+    console.log('cache', 'fresnsConfig');
     const result = await fresnsApi.global.globalConfigs();
     if (result.code === 0 && result.data) {
       const cacheMinutes = result.data.cache_minutes || 10;
