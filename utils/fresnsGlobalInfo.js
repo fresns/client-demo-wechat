@@ -7,6 +7,7 @@ import { fresnsApi } from '../api/api';
 import { fresnsConfig } from '../api/tool/function';
 import { fresnsLogin } from './fresnsLogin';
 import { cacheGet, cachePut } from './fresnsUtilities';
+import { base64_encode } from '../libs/base64/base64';
 
 export class GlobalInfo {
   clientName = 'FresnsWeChat';
@@ -54,9 +55,9 @@ export class GlobalInfo {
   }
 
   get deviceInfo() {
-    return wx.getStorageSync('deviceInfo')
-      ? JSON.stringify(wx.getStorageSync('deviceInfo'))
-      : '{"agent":"WeChat","networkIpv4":"127.0.0.1"}';
+    const deviceInfo = wx.getStorageSync('deviceInfo');
+
+    return deviceInfo || base64_encode('{"agent":"WeChat","networkIpv4":"127.0.0.1"}');
   }
 
   get aid() {
@@ -151,7 +152,11 @@ export class GlobalInfo {
       };
 
       // device info
-      wx.setStorageSync('deviceInfo', deviceInfo);
+      const base64DeviceInfo = base64_encode(JSON.stringify(deviceInfo));
+
+      console.log('deviceInfo', deviceInfo, base64DeviceInfo);
+
+      wx.setStorageSync('deviceInfo', base64DeviceInfo);
     }
 
     // theme
