@@ -8,6 +8,31 @@
   margin-bottom: 50px;
 }
 
+.we-login-agree .weui-btn {
+  width: 250px;
+}
+
+.we-login-agree .apple-btn {
+  background-color: black;
+  color: white;
+}
+
+.we-login-agree .btn-flex {
+  text-align: center;
+  display: inline-flex;
+  padding-top: 4px;
+}
+
+.we-login-agree .btn-flex view {
+  padding-top: 5px;
+  padding-right: 8px;
+}
+
+.we-login-agree .btn-flex image {
+  width: 22px;
+  height: 22px;
+}
+
 .weui-form__control-area {
   margin-top: 20px;
 }

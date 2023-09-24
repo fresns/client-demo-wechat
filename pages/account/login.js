@@ -37,7 +37,8 @@ Page({
     switchLogin: false,
 
     deactivateWeChatLogin: false,
-    loginType: LoginType.WeChat,
+    hasWechatInstall: true,
+    loginTabType: LoginType.WeChat,
     type: Type.Phone,
 
     btnLoading: false,
@@ -98,22 +99,22 @@ Page({
 
     const storageLangTag = wx.getStorageSync('langTag');
     const btnNameMap = {
-      en: 'Continue with WeChat',
-      'zh-Hans': '使用微信登录',
-      'zh-Hant': '使用 WeChat 登錄',
+      en: 'Sign in with WeChat',
+      'zh-Hans': '通过微信登录',
+      'zh-Hant': '透過 WeChat 登入',
     };
-    const wechatLoginBtnName = btnNameMap[storageLangTag] || 'Continue with WeChat';
+    const wechatLoginBtnName = btnNameMap[storageLangTag] || 'Sign in with WeChat';
 
     const appleBtnNameMap = {
-      en: 'Continue with Apple ID',
-      'zh-Hans': '使用 Apple 账号登录',
-      'zh-Hant': '使用 Apple 賬號登錄',
+      en: 'Sign in with Apple',
+      'zh-Hans': '通过 Apple 登录',
+      'zh-Hant': '透過 Apple 登入',
     };
-    const appleLoginBtnName = appleBtnNameMap[storageLangTag] || 'Continue with Apple ID';
+    const appleLoginBtnName = appleBtnNameMap[storageLangTag] || 'Sign in with Apple';
 
     this.setData({
       deactivateWeChatLogin: appConfig?.deactivateWeChatLogin,
-      loginType: appConfig?.deactivateWeChatLogin ? LoginType.Password : LoginType.WeChat,
+      loginTabType: appConfig?.deactivateWeChatLogin ? LoginType.Password : LoginType.WeChat,
       codeLogin: Boolean((await fresnsConfig('send_email_service')) || (await fresnsConfig('send_sms_service'))),
       switchLogin: Boolean(emailLogin && phoneLogin),
       type: loginType,
@@ -125,6 +126,17 @@ Page({
       appleLoginBtnName: appleLoginBtnName,
     });
 
+    const appInfo = wx.getStorageSync('appInfo');
+    if (appInfo.isApp && appInfo.platform == 'ios') {
+      wx.miniapp.hasWechatInstall({
+        success: (res) => {
+          this.setData({
+            hasWechatInstall: res.hasWechatInstall,
+          });
+        },
+      });
+    }
+
     if (options.showToast === 'true') {
       wx.showToast({
         title: (await fresnsCodeMessage('31501')) || '请先登录账号再操作',
@@ -134,12 +146,12 @@ Page({
   },
 
   // 交互操作
-  onLoginTypeChange: function (e) {
+  onLoginTabChange: function (e) {
     this.setData({
-      loginType: e.detail.value,
+      loginTabType: e.detail.value,
     });
   },
-  onTypeChange: function (e) {
+  onAccountTypeChange: function (e) {
     this.setData({
       type: e.detail.value,
       password: '',
