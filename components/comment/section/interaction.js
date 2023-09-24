@@ -49,23 +49,6 @@ Component({
     },
   },
 
-  /** 组件生命周期声明对象 **/
-  lifetimes: {
-    attached: async function () {
-      const appInfo = wx.getStorageSync('appInfo');
-
-      this.setData({
-        appInfo: appInfo,
-        fresnsLang: {
-          copyLink: await fresnsLang('copyLink'),
-          shareMessage: await fresnsLang('shareMessage'),
-          cancel: await fresnsLang('cancel'),
-          contentAuthorLiked: await fresnsLang('contentAuthorLiked'),
-        },
-      });
-    },
-  },
-
   /** 组件数据字段监听器 **/
   observers: {
     comment: async function (comment) {
@@ -176,6 +159,23 @@ Component({
           buttonIcons: buttonIcons,
         });
       }
+    },
+  },
+
+  /** 组件生命周期声明对象 **/
+  lifetimes: {
+    attached: async function () {
+      const appInfo = wx.getStorageSync('appInfo');
+
+      this.setData({
+        appInfo: appInfo,
+        fresnsLang: {
+          copyLink: await fresnsLang('copyLink'),
+          shareMessage: await fresnsLang('shareMessage'),
+          cancel: await fresnsLang('cancel'),
+          contentAuthorLiked: await fresnsLang('contentAuthorLiked'),
+        },
+      });
     },
   },
 

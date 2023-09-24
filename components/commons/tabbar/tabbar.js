@@ -93,19 +93,6 @@ Component({
     current: null,
   },
 
-  /** 组件功能 **/
-  methods: {
-    onChange(e) {
-      wx.reLaunch({
-        url: e.detail.item.pagePath,
-      });
-
-      this.setData({
-        current: e.detail.index,
-      });
-    },
-  },
-
   /** 组件生命周期声明对象 **/
   lifetimes: {
     attached: async function () {
@@ -144,6 +131,19 @@ Component({
           console.log('tabs', this.data.tabs); // 在回调函数中读取最新的 tabs 数据
         }
       );
+    },
+  },
+
+  /** 组件功能 **/
+  methods: {
+    onChange(e) {
+      wx.reLaunch({
+        url: e.detail.item.pagePath,
+      });
+
+      this.setData({
+        current: e.detail.index,
+      });
     },
   },
 });

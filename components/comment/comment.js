@@ -62,6 +62,18 @@ Component({
     },
   },
 
+  /** 组件生命周期声明对象 **/
+  lifetimes: {
+    attached: async function () {
+      this.setData({
+        userHomePath: await globalInfo.userHomePath(),
+        contentAuthor: await fresnsLang('contentAuthor'),
+        userDeactivate: await fresnsLang('userDeactivate'),
+        authorAnonymous: await fresnsLang('contentAuthorAnonymous'),
+      });
+    },
+  },
+
   /** 组件功能 **/
   methods: {
     // 进入详情页
@@ -101,18 +113,6 @@ Component({
     // 发表评论事件
     triggerComment: function () {
       this.selectComponent('#interactionComponent').onClickCreateComment();
-    },
-  },
-
-  /** 组件生命周期声明对象 **/
-  lifetimes: {
-    attached: async function () {
-      this.setData({
-        userHomePath: await globalInfo.userHomePath(),
-        contentAuthor: await fresnsLang('contentAuthor'),
-        userDeactivate: await fresnsLang('userDeactivate'),
-        authorAnonymous: await fresnsLang('contentAuthorAnonymous'),
-      });
     },
   },
 });
