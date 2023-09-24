@@ -91,6 +91,7 @@
 
 .profile-btn {
   position: absolute;
+  display: flex;
   top: 36px;
   right: 10px;
 }

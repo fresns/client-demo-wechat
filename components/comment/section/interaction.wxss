@@ -5,9 +5,12 @@
  */
 @import '/assets/styles/weui.wxss';
 
-.weui-flex__item,
-.item_more {
-  padding: 10px 0;
+.weui-flex {
+  margin-left: -15px;
+}
+
+.fs_btn {
+  padding: 10px 10px 10px 15px;
 }
 
 .card-footer-icon {

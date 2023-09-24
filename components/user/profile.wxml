@@ -31,6 +31,10 @@
 
         <view class="weui-flex__item profile-btn">
             <interaction user="{{ user }}"></interaction>
+
+            <view class="weui-btn weui-btn_mini weui-btn_default" bind:tap="onClickMore">
+                <image class="weui-btn_cell__icon" src="{{ buttonIcons.more }}" style="margin-right: -1px;"/>
+            </view>
         </view>
     </view>
 
@@ -46,10 +50,6 @@
         </view>
         <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">
             {{ user.stats.followUserCount }} {{ userFollowingName }}
-        </view>
-
-        <view class="weui-media-box__info__meta weui-media-box__info__meta_extra" wx:if="{{ actionGroups.length > 0 }}" bind:tap="onClickMore">
-            <image class="weui-btn_cell__icon" src="{{ buttonIcons.more }}"/>
         </view>
     </view>
 
