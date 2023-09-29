@@ -30,8 +30,15 @@ module.exports = {
     });
   },
 
+  /** 进入首页 **/
+  onFresnsGoHome() {
+    wx.reLaunch({
+      url: '/pages/posts/index',
+    });
+  },
+
   /** 后退页面 **/
-  navigateBack(delta = 1) {
+  onFresnsBack(delta = 1) {
     wx.navigateBack({
       delta: delta,
       fail() {

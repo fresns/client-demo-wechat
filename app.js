@@ -102,6 +102,32 @@ App({
     } catch (e) {
       console.log('fresnsConfigs', e);
     }
+
+    // 监听进入 App 的事件
+    const appInfo = wx.getStorageSync('appInfo');
+    if (appInfo.isApp) {
+      wx.miniapp.registOpenURL((param) => {
+        const paramData = param.data;
+
+        switch (param.action) {
+          case 'scheme':
+            // Android
+            break;
+
+          case 'webpageURL':
+            // iOS
+            break;
+
+          case 'opensdkOnRep':
+            // WeChat
+            break;
+
+          default:
+            console.log('registOpenURL', param);
+            return;
+        }
+      });
+    }
   },
 
   // 监听系统主题变化

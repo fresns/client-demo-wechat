@@ -57,7 +57,7 @@ Component({
         currentPagePath == 'pages/account/login' ||
         currentPagePath == 'pages/account/register'
       ) {
-        callPageFunction('navigateBack');
+        callPageFunction('onFresnsBack');
       }
     },
 
