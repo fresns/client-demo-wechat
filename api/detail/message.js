@@ -143,4 +143,4 @@ const message = {
   },
 };
 
-module.exports = message;
+export default message;

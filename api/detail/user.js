@@ -166,4 +166,4 @@ const user = {
   },
 };
 
-module.exports = user;
+export default user;

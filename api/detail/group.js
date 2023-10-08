@@ -72,4 +72,4 @@ const group = {
   },
 };
 
-module.exports = group;
+export default group;

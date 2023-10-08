@@ -125,4 +125,4 @@ const post = {
   },
 };
 
-module.exports = post;
+export default post;

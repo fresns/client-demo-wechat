@@ -46,4 +46,4 @@ const hashtag = {
   },
 };
 
-module.exports = hashtag;
+export default hashtag;

@@ -136,4 +136,4 @@ const account = {
   },
 };
 
-module.exports = account;
+export default account;

@@ -155,4 +155,4 @@ const editor = {
   },
 };
 
-module.exports = editor;
+export default editor;

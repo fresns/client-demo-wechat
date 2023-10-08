@@ -13,7 +13,7 @@ const { base64_encode } = require('../../libs/base64/base64');
 export async function makeSignature(utcTimestamp) {
   const headers = {
     'X-Fresns-App-Id': appConfig.appId,
-    'X-Fresns-Client-Platform-Id': 7, // https://docs.fresns.cn/database/dictionary/platforms.html
+    'X-Fresns-Client-Platform-Id': appConfig.platformId || 7, // https://docs.fresns.cn/database/dictionary/platforms.html
     'X-Fresns-Client-Version': globalInfo.clientVersion,
     'X-Fresns-Aid': globalInfo.aid,
     'X-Fresns-Aid-Token': globalInfo.aidToken,
@@ -54,7 +54,7 @@ export async function getHeaders() {
 
   const headers = {
     'X-Fresns-App-Id': appConfig.appId,
-    'X-Fresns-Client-Platform-Id': 7, // https://docs.fresns.cn/database/dictionary/platforms.html
+    'X-Fresns-Client-Platform-Id': appConfig.platformId || 7, // https://docs.fresns.cn/database/dictionary/platforms.html
     'X-Fresns-Client-Version': globalInfo.clientVersion,
     'X-Fresns-Client-Device-Info': globalInfo.deviceInfo,
     'X-Fresns-Client-Timezone': utcTimezone,

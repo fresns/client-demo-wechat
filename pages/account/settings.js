@@ -663,7 +663,7 @@ Page({
         console.log('WeChat Code', wechatCode);
 
         if (wechatCode) {
-          const loginRes = await fresnsApi.wechatLogin.oauth({
+          const loginRes = await fresnsApi.plugins.wechatLogin.oauth({
             code: wechatCode,
           });
 
@@ -702,7 +702,7 @@ Page({
         console.log('App WeChat Code', wechatCode);
 
         if (wechatCode) {
-          const loginRes = await fresnsApi.wechatLogin.oauthApp({
+          const loginRes = await fresnsApi.plugins.wechatLogin.oauthApp({
             code: wechatCode,
           });
 

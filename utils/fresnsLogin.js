@@ -196,21 +196,21 @@ export class FresnsLogin {
 
     switch (type) {
       case 'wechat':
-        loginRes = await fresnsApi.wechatLogin.oauth({
+        loginRes = await fresnsApi.plugins.wechatLogin.oauth({
           code: code,
           autoRegister: autoRegister,
         });
         break;
 
       case 'app':
-        loginRes = await fresnsApi.wechatLogin.oauthApp({
+        loginRes = await fresnsApi.plugins.wechatLogin.oauthApp({
           code: code,
           autoRegister: autoRegister,
         });
         break;
 
       case 'apple':
-        loginRes = await fresnsApi.wechatLogin.oauthApple({
+        loginRes = await fresnsApi.plugins.wechatLogin.oauthApple({
           code: code,
           autoRegister: autoRegister,
         });

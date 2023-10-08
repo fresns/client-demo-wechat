@@ -45,7 +45,7 @@ Page({
         console.log('[Website Auth] WeChat Code', wechatCode);
 
         if (wechatCode) {
-          const authRes = await fresnsApi.wechatLogin.oauthWebsite({
+          const authRes = await fresnsApi.plugins.wechatLogin.oauthWebsite({
             code: wechatCode,
             ulid: ulid,
           });
@@ -119,7 +119,7 @@ Page({
         console.log('[Website Auth] WeChat Code', wechatCode);
 
         if (wechatCode) {
-          const authRes = await fresnsApi.wechatLogin.oauthWebsite({
+          const authRes = await fresnsApi.plugins.wechatLogin.oauthWebsite({
             code: wechatCode,
             ulid: this.data.ulid,
             autoRegister: true,
