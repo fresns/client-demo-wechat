@@ -55,9 +55,15 @@ export class GlobalInfo {
   }
 
   get deviceInfo() {
-    const deviceInfo = wx.getStorageSync('deviceInfo');
+    const deviceInfoBase64 = wx.getStorageSync('deviceInfoBase64');
 
-    return deviceInfo || base64_encode('{"agent":"WeChat","networkIpv4":"127.0.0.1"}');
+    if (deviceInfoBase64) {
+      return deviceInfoBase64;
+    }
+
+    const defaultDeviceInfo = base64_encode('{"agent":"WeChat","networkIpv4":"127.0.0.1"}');
+
+    return defaultDeviceInfo;
   }
 
   get aid() {
@@ -152,9 +158,9 @@ export class GlobalInfo {
       };
 
       // device info
-      const base64DeviceInfo = base64_encode(JSON.stringify(deviceInfo));
+      const deviceInfoBase64 = base64_encode(JSON.stringify(deviceInfo));
 
-      wx.setStorageSync('deviceInfo', base64DeviceInfo);
+      wx.setStorageSync('deviceInfoBase64', deviceInfoBase64);
     }
 
     // theme
