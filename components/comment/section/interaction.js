@@ -172,6 +172,7 @@ Component({
         fresnsLang: {
           copyLink: await fresnsLang('copyLink'),
           shareMessage: await fresnsLang('shareMessage'),
+          sharePoster: await fresnsLang('sharePoster'),
           cancel: await fresnsLang('cancel'),
           contentAuthorLiked: await fresnsLang('contentAuthorLiked'),
         },
