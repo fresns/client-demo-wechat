@@ -170,6 +170,43 @@ module.exports = {
     };
   },
 
+  /** 生成分享海报 **/
+  onSharePoster: async function (type, fsid) {
+    wx.showLoading();
+
+    const resultRes = await fresnsApi.plugins.sharePoster.generate({
+      type: type,
+      fsid: fsid,
+    });
+
+    if (resultRes.code != 0) {
+      wx.hideLoading();
+
+      return;
+    }
+
+    const appInfo = wx.getStorageSync('appInfo');
+
+    wx.downloadFile({
+      url: resultRes.data.url,
+      success: function (res) {
+        wx.hideLoading();
+
+        if (appInfo.isApp) {
+          wx.previewImage({
+            urls: [res.tempFilePath],
+          });
+
+          return;
+        }
+
+        wx.showShareImageMenu({
+          path: res.tempFilePath,
+        });
+      },
+    });
+  },
+
   /** 添加用户 **/
   onAddUser(newUser) {
     const users = this.data.users;
