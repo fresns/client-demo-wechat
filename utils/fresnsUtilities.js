@@ -357,3 +357,27 @@ export function dfs(tree, gid, newGroup) {
 
   return tree;
 }
+
+// 比较两个语义化版本号
+export function versionCompare(clientVersion = null, remoteVersion = null) {
+  if (!clientVersion || !remoteVersion) {
+    return 0;
+  }
+
+  const clientVersions = clientVersion.split('.').map(Number);
+  const remoteVersions = remoteVersion.split('.').map(Number);
+
+  // '1.0.1', '1.0.3' = -1
+  // '1.0.1', '1.0.0' = 1
+  // '1.0.1', '1.0.1' = 0
+
+  for (let i = 0; i < clientVersions.length; i++) {
+    if (clientVersions[i] > remoteVersions[i]) {
+      return 1;
+    } else if (clientVersions[i] < remoteVersions[i]) {
+      return -1;
+    }
+  }
+
+  return 0;
+}

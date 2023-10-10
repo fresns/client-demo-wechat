@@ -7,7 +7,7 @@ import { fresnsApi } from '../../api/api';
 import { fresnsLogin } from '../../utils/fresnsLogin';
 import { fresnsConfig, fresnsLang, fresnsAccount, fresnsUser, fresnsUserPanel } from '../../api/tool/function';
 import { globalInfo } from '../../utils/fresnsGlobalInfo';
-import { cachePut, cacheGet } from '../../utils/fresnsUtilities';
+import { cachePut, cacheGet, versionCompare } from '../../utils/fresnsUtilities';
 
 let isRefreshing = false;
 
@@ -19,6 +19,8 @@ Page({
   data: {
     showPrivacy: false,
 
+    title: null,
+    logo: null,
     appInfo: {},
     clientInfo: {},
 
@@ -78,6 +80,8 @@ Page({
       });
 
     this.setData({
+      title: await fresnsConfig('menu_account'),
+      logo: await fresnsConfig('site_logo'),
       appInfo: wx.getStorageSync('appInfo'),
       accountLogin: globalInfo.accountLogin,
       userLogin: globalInfo.userLogin,
@@ -119,10 +123,11 @@ Page({
 
     const fresnsStatus = await fresnsApi.global.globalStatus();
     const clientInfo = fresnsStatus?.client?.mobile[appInfo.platform];
+    const checkVersion = versionCompare(globalInfo.clientVersion, clientInfo?.version);
 
-    console.log('Auto Check Version', clientInfo?.version, globalInfo.clientVersion);
+    console.log('Auto Check Version', globalInfo.clientVersion, clientInfo?.version, checkVersion);
 
-    if (clientInfo?.version == globalInfo.clientVersion) {
+    if (clientInfo?.version == globalInfo.clientVersion || checkVersion != -1) {
       appInfo.hasNewVersion = false;
       this.setData({
         appInfo: appInfo,
@@ -343,12 +348,16 @@ Page({
     });
 
     const appInfo = wx.getStorageSync('appInfo');
+
+    // appInfo.platform = 'android'; // 测试使用，因为开发者工具里是 devtools
+
     const fresnsStatus = await fresnsApi.global.globalStatus();
     const clientInfo = fresnsStatus?.client?.mobile[appInfo.platform];
+    const checkVersion = versionCompare(globalInfo.clientVersion, clientInfo?.version);
 
-    console.log('onCheckVersion', clientInfo?.version, globalInfo.clientVersion);
+    console.log('checkVersion', globalInfo.clientVersion, clientInfo?.version, checkVersion);
 
-    if (clientInfo?.version == globalInfo.clientVersion) {
+    if (clientInfo?.version == globalInfo.clientVersion || checkVersion != -1) {
       wx.showToast({
         title: await fresnsLang('isLatestVersion'),
         icon: 'none',
