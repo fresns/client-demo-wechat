@@ -39,7 +39,7 @@ Page({
     deactivateWeChatLogin: false,
     hasWechatInstall: true,
     loginTabType: LoginType.WeChat,
-    type: Type.Phone,
+    accountType: Type.Phone,
 
     btnLoading: false,
 
@@ -87,7 +87,7 @@ Page({
       fresnsConfig('send_sms_default_code'),
       fresnsConfig('send_sms_supported_codes'),
     ]);
-    const countryCodeRange = codeArray.length === 1 ? [defaultCode] : codeArray;
+    const countryCodeRange = codeArray.length == 1 ? [defaultCode] : codeArray;
 
     const emailLogin = Boolean(await fresnsConfig('site_email_login'));
     const phoneLogin = Boolean(await fresnsConfig('site_phone_login'));
@@ -117,7 +117,7 @@ Page({
       loginTabType: appConfig?.deactivateWeChatLogin ? LoginType.Password : LoginType.WeChat,
       codeLogin: Boolean((await fresnsConfig('send_email_service')) || (await fresnsConfig('send_sms_service'))),
       switchLogin: Boolean(emailLogin && phoneLogin),
-      type: loginType,
+      accountType: loginType,
       fresnsLang: await fresnsLang(),
       wechatLoginBtnName: wechatLoginBtnName,
       countryCodeRange,
@@ -137,7 +137,7 @@ Page({
       });
     }
 
-    if (options.showToast === 'true') {
+    if (options.showToast == 'true') {
       wx.showToast({
         title: (await fresnsCodeMessage('31501')) || '请先登录账号再操作',
         icon: 'none',
@@ -153,7 +153,7 @@ Page({
   },
   onAccountTypeChange: function (e) {
     this.setData({
-      type: e.detail.value,
+      accountType: e.detail.value,
       password: '',
     });
   },
@@ -233,10 +233,10 @@ Page({
 
   // 发送验证码
   sendVerifyCode: async function (e) {
-    const { type, emailAddress, countryCodeRange, countryCodeIndex, phoneNumber } = this.data;
+    const { accountType, emailAddress, countryCodeRange, countryCodeIndex, phoneNumber } = this.data;
 
     let params = null;
-    if (type === Type.Email) {
+    if (accountType == Type.Email) {
       params = {
         type: 'email',
         useType: 2, // 2.已存账号验证
@@ -261,19 +261,19 @@ Page({
   onSubmit: async function () {
     wx.showNavigationBarLoading();
 
-    const { loginType, type, emailAddress, countryCodeRange, countryCodeIndex, phoneNumber, password, verifyCode } =
+    const { loginTabType, accountType, emailAddress, countryCodeRange, countryCodeIndex, phoneNumber, password, verifyCode } =
       this.data;
     let params = null;
 
-    if (loginType === LoginType.Password) {
-      if (type === Type.Email) {
+    if (loginTabType == LoginType.Password) {
+      if (accountType == Type.Email) {
         params = {
           type: 'email',
           account: emailAddress,
           password: base64_encode(password),
         };
       }
-      if (type === Type.Phone) {
+      if (accountType == Type.Phone) {
         params = {
           type: 'phone',
           account: phoneNumber,
@@ -282,15 +282,15 @@ Page({
         };
       }
     }
-    if (loginType === LoginType.VerifyCode) {
-      if (type === Type.Email) {
+    if (loginTabType == LoginType.VerifyCode) {
+      if (accountType == Type.Email) {
         params = {
           type: 'email',
           account: emailAddress,
           verifyCode: verifyCode,
         };
       }
-      if (type === Type.Phone) {
+      if (accountType == Type.Phone) {
         params = {
           type: 'phone',
           account: phoneNumber,
@@ -300,6 +300,7 @@ Page({
       }
     }
 
+    console.log('loginAccount', params);
     await fresnsLogin.loginAccount(params);
 
     wx.hideNavigationBarLoading();

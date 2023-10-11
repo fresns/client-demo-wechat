@@ -24,7 +24,7 @@ Page({
   data: {
     fresnsLang: null,
 
-    type: Type.Phone,
+    accountType: Type.Phone,
 
     // 邮箱地址
     emailAddress: '',
@@ -40,6 +40,11 @@ Page({
     // 密码
     password: '',
     confirmPassword: '',
+    passwordLength: 6,
+    passwordStrengthNumber: false,
+    passwordStrengthLowercase: false,
+    passwordStrengthUppercase: false,
+    passwordStrengthSymbols: false,
   },
 
   /** 监听页面加载 **/
@@ -52,18 +57,41 @@ Page({
       fresnsConfig('send_sms_default_code'),
       fresnsConfig('send_sms_supported_codes'),
     ]);
-    const countryCodeRange = codeArray.length === 1 ? [defaultCode] : codeArray;
+    const countryCodeRange = codeArray.length == 1 ? [defaultCode] : codeArray;
+
+    const passwordStrength = await fresnsConfig('password_strength');
+    let passwordStrengthNumber = false;
+    if (passwordStrength.includes('number')) {
+      passwordStrengthNumber = true;
+    }
+    let passwordStrengthLowercase = false;
+    if (passwordStrength.includes('lowercase')) {
+      passwordStrengthLowercase = true;
+    }
+    let passwordStrengthUppercase = false;
+    if (passwordStrength.includes('uppercase')) {
+      passwordStrengthUppercase = true;
+    }
+    let passwordStrengthSymbols = false;
+    if (passwordStrength.includes('symbols')) {
+      passwordStrengthSymbols = true;
+    }
 
     this.setData({
       fresnsLang: await fresnsLang(),
       countryCodeRange,
       countryCodeIndex: countryCodeRange.indexOf(defaultCode),
+      passwordLength: await fresnsConfig('password_length'),
+      passwordStrengthNumber: passwordStrengthNumber,
+      passwordStrengthLowercase: passwordStrengthLowercase,
+      passwordStrengthUppercase: passwordStrengthUppercase,
+      passwordStrengthSymbols: passwordStrengthSymbols,
     });
   },
 
   onTypeChange: function (e) {
     this.setData({
-      type: e.detail.value,
+      accountType: e.detail.value,
       password: '',
       confirmPassword: '',
       verifyCode: '',
@@ -99,10 +127,10 @@ Page({
 
   // 发送验证码
   sendVerifyCode: async function (e) {
-    const { type, emailAddress, countryCodeRange, countryCodeIndex, phoneNumber } = this.data;
+    const { accountType, emailAddress, countryCodeRange, countryCodeIndex, phoneNumber } = this.data;
 
     let params = null;
-    if (type === Type.Email) {
+    if (accountType == Type.Email) {
       params = {
         type: 'email',
         useType: 2, // 2.已存账号验证
@@ -142,7 +170,7 @@ Page({
   onSubmit: async function () {
     const {
       fresnsLang,
-      type,
+      accountType,
       emailAddress,
       countryCodeRange,
       countryCodeIndex,
@@ -160,7 +188,14 @@ Page({
     }
 
     let params = null;
-    if (type === Type.Phone) {
+    if (accountType == Type.Email) {
+      params = {
+        type: 'email',
+        account: emailAddress,
+        verifyCode: verifyCode,
+        newPassword: base64_encode(password),
+      };
+    } else {
       params = {
         type: 'phone',
         account: phoneNumber,
@@ -169,20 +204,14 @@ Page({
         newPassword: base64_encode(password),
       };
     }
-    if (type === Type.Email) {
-      params = {
-        type: 'email',
-        account: emailAddress,
-        verifyCode: verifyCode,
-        newPassword: base64_encode(password),
-      };
-    }
 
+    console.log('accountResetPassword', params);
     const resetRes = await fresnsApi.account.accountResetPassword(params);
-    if (resetRes.code === 0) {
+    if (resetRes.code == 0) {
       wx.showToast({
         title: resetRes.message,
       });
+
       wx.redirectTo({
         url: '/pages/account/login',
       });

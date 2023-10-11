@@ -26,7 +26,8 @@ Page({
     showPrivacy: false,
     fresnsLang: null,
 
-    type: Type.Phone,
+    switchRegister: false,
+    accountType: Type.Phone,
 
     // 邮箱地址
     emailAddress: '',
@@ -42,6 +43,13 @@ Page({
     // 密码
     password: '',
     confirmPassword: '',
+    passwordLength: 6,
+    passwordStrengthNumber: false,
+    passwordStrengthLowercase: false,
+    passwordStrengthUppercase: false,
+    passwordStrengthSymbols: false,
+
+    // 阅读协议
     checkPolicies: false,
 
     // 昵称
@@ -69,23 +77,55 @@ Page({
       });
     }
 
+    const emailRegister = Boolean(await fresnsConfig('site_email_register'));
+    const phoneRegister = Boolean(await fresnsConfig('site_phone_register'));
+    let registerType = Type.Phone;
+    if (!emailRegister || !phoneRegister) {
+      registerType = phoneRegister ? Type.Phone : Type.Email;
+    }
+
     const [defaultCode, codeArray] = await Promise.all([
       fresnsConfig('send_sms_default_code'),
       fresnsConfig('send_sms_supported_codes'),
     ]);
-    const countryCodeRange = codeArray.length === 1 ? [defaultCode] : codeArray;
+    const countryCodeRange = codeArray.length == 1 ? [defaultCode] : codeArray;
+
+    const passwordStrength = await fresnsConfig('password_strength');
+    let passwordStrengthNumber = false;
+    if (passwordStrength.includes('number')) {
+      passwordStrengthNumber = true;
+    }
+    let passwordStrengthLowercase = false;
+    if (passwordStrength.includes('lowercase')) {
+      passwordStrengthLowercase = true;
+    }
+    let passwordStrengthUppercase = false;
+    if (passwordStrength.includes('uppercase')) {
+      passwordStrengthUppercase = true;
+    }
+    let passwordStrengthSymbols = false;
+    if (passwordStrength.includes('symbols')) {
+      passwordStrengthSymbols = true;
+    }
 
     this.setData({
       fresnsLang: await fresnsLang(),
       nicknameName: await fresnsConfig('user_nickname_name'),
+      switchRegister: Boolean(emailRegister && phoneRegister),
+      accountType: registerType,
       countryCodeRange,
       countryCodeIndex: countryCodeRange.indexOf(defaultCode),
+      passwordLength: await fresnsConfig('password_length'),
+      passwordStrengthNumber: passwordStrengthNumber,
+      passwordStrengthLowercase: passwordStrengthLowercase,
+      passwordStrengthUppercase: passwordStrengthUppercase,
+      passwordStrengthSymbols: passwordStrengthSymbols,
     });
   },
 
   onTypeChange: function (e) {
     this.setData({
-      type: e.detail.value,
+      accountType: e.detail.value,
       password: '',
       confirmPassword: '',
       verifyCode: '',
@@ -121,10 +161,10 @@ Page({
 
   // 发送验证码
   sendVerifyCode: async function (e) {
-    const { type, emailAddress, countryCodeRange, countryCodeIndex, phoneNumber } = this.data;
+    const { accountType, emailAddress, countryCodeRange, countryCodeIndex, phoneNumber } = this.data;
 
     let params = null;
-    if (type === Type.Email) {
+    if (accountType == Type.Email) {
       params = {
         type: 'email',
         useType: 1, // 1.新账号验证
@@ -177,7 +217,7 @@ Page({
     wx.showNavigationBarLoading();
     const {
       fresnsLang,
-      type,
+      accountType,
       emailAddress,
       countryCodeRange,
       countryCodeIndex,
@@ -208,20 +248,19 @@ Page({
     }
 
     let params = null;
-    if (type === Type.Mobile) {
+    if (accountType == Type.Email) {
       params = {
-        type: 'phone',
-        account: phoneNumber,
-        countryCode: countryCodeRange[countryCodeIndex],
+        type: 'email',
+        account: emailAddress,
         verifyCode: verifyCode,
         password: base64_encode(password),
         nickname: nickname,
       };
-    }
-    if (type === Type.Email) {
+    } else {
       params = {
-        type: 'email',
-        account: emailAddress,
+        type: 'phone',
+        account: phoneNumber,
+        countryCode: countryCodeRange[countryCodeIndex],
         verifyCode: verifyCode,
         password: base64_encode(password),
         nickname: nickname,

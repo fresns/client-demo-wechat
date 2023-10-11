@@ -10,7 +10,7 @@
             <label class="radio" wx:if="{{ !deactivateWeChatLogin }}">
                 <navigator class="weui-grid" aria-role="button" url="javascript:">
                     <view class="weui-grid__icon">
-                        <radio value="0" checked="{{ loginTabType === '0' }}"/>
+                        <radio value="0" checked="{{ loginTabType == '0' }}"/>
                     </view>
                     <view class="weui-grid__label">{{ fresnsLang.accountLoginByConnects }}</view>
                 </navigator>
@@ -18,7 +18,7 @@
             <label class="radio">
                 <navigator class="weui-grid" aria-role="button" url="javascript:">
                     <view class="weui-grid__icon">
-                        <radio value="1" checked="{{ loginTabType === '1' }}"/>
+                        <radio value="1" checked="{{ loginTabType == '1' }}"/>
                     </view>
                     <view class="weui-grid__label">{{ fresnsLang.accountLoginByPassword }}</view>
                 </navigator>
@@ -26,7 +26,7 @@
             <label class="radio" wx:if="{{ codeLogin }}">
                 <navigator class="weui-grid" aria-role="button" url="javascript:">
                     <view class="weui-grid__icon">
-                        <radio value="2" checked="{{ loginTabType === '2' }}"/>
+                        <radio value="2" checked="{{ loginTabType == '2' }}"/>
                     </view>
                     <view class="weui-grid__label">{{ fresnsLang.accountLoginByCode }}</view>
                 </navigator>
@@ -35,7 +35,7 @@
     </radio-group>
 
     <!-- 微信登录 -->
-    <block wx:if="{{ loginTabType === '0' }}">
+    <block wx:if="{{ loginTabType == '0' }}">
         <view class="we-login-agree" wx:if="{{ appInfo.isWechat }}">
             <button class="weui-btn weui-btn_primary" type="primary" bind:tap="onWeChatLogin">
                 <mp-loading type="dot-gray" show="{{ btnLoading }}" extClass="btnLoading"/>
@@ -68,7 +68,7 @@
     </block>
 
     <!-- 密码登录 -->
-    <block wx:if="{{ loginTabType === '1' }}">
+    <block wx:if="{{ loginTabType == '1' }}">
         <view class="weui-form__control-area">
             <view class="weui-cells__group weui-cells__group_form">
                 <view class="weui-cells weui-cells_form">
@@ -80,11 +80,11 @@
                             </view>
                             <view class="weui-cell__bd">
                                 <label class="radio">
-                                    <radio value="0" checked="{{ type === '0' }}"/>
+                                    <radio value="0" checked="{{ accountType == '0' }}"/>
                                     {{ fresnsLang.phone }}
                                 </label>
                                 <label class="radio" style="margin-left: 8px;">
-                                    <radio value="1" checked="{{ type === '1' }}"/>
+                                    <radio value="1" checked="{{ accountType == '1' }}"/>
                                     {{ fresnsLang.email }}
                                 </label>
                             </view>
@@ -92,7 +92,7 @@
                     </radio-group>
 
                     <!-- 登录项输入 -->
-                    <block wx:if="{{ type === '0' }}">
+                    <block wx:if="{{ accountType == '0' }}">
                         <view class="weui-cell weui-cell_active weui-cell_select weui-cell_select-before">
                             <view class="weui-cell__hd">
                                 <picker aria-role="combobox" bindchange="onCountryCodePickerChange" range="{{ countryCodeRange }}" value="{{ countryCodeIndex }}">
@@ -104,7 +104,7 @@
                             </view>
                         </view>
                     </block>
-                    <block wx:if="{{ type === '1' }}">
+                    <block wx:if="{{ accountType == '1' }}">
                         <view class="weui-cell weui-cell_active">
                             <view class="weui-cell__hd">
                                 <label class="weui-label">{{ fresnsLang.email }}</label>
@@ -135,7 +135,7 @@
     </block>
 
     <!-- 验证码登录 -->
-    <block wx:if="{{ loginTabType === '2' }}">
+    <block wx:if="{{ loginTabType == '2' }}">
         <view class="weui-form__control-area">
             <view class="weui-cells__group weui-cells__group_form">
                 <view class="weui-cells weui-cells_form">
@@ -147,11 +147,11 @@
                             </view>
                             <view class="weui-cell__bd">
                                 <label class="radio">
-                                    <radio value="0" checked="{{ type === '0' }}"/>
+                                    <radio value="0" checked="{{ accountType == '0' }}"/>
                                     {{ fresnsLang.phone }}
                                 </label>
                                 <label class="radio" style="margin-left: 8px;">
-                                    <radio value="1" checked="{{ type === '1' }}"/>
+                                    <radio value="1" checked="{{ accountType == '1' }}"/>
                                     {{ fresnsLang.email }}
                                 </label>
                             </view>
@@ -159,7 +159,7 @@
                     </radio-group>
 
                     <!-- 登录项输入 -->
-                    <block wx:if="{{ type === '0' }}">
+                    <block wx:if="{{ accountType == '0' }}">
                         <view class="weui-cell weui-cell_active weui-cell_select weui-cell_select-before">
                             <view class="weui-cell__hd">
                                 <picker aria-role="combobox" bindchange="onCountryCodePickerChange" range="{{ countryCodeRange }}" value="{{ countryCodeIndex }}">
@@ -171,7 +171,7 @@
                             </view>
                         </view>
                     </block>
-                    <block wx:if="{{ type === '1' }}">
+                    <block wx:if="{{ accountType == '1' }}">
                         <view class="weui-cell weui-cell_active">
                             <view class="weui-cell__hd">
                                 <label class="weui-label">{{ fresnsLang.email }}</label>
