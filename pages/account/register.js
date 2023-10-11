@@ -164,6 +164,7 @@ Page({
     const { accountType, emailAddress, countryCodeRange, countryCodeIndex, phoneNumber } = this.data;
 
     let params = null;
+
     if (accountType == Type.Email) {
       params = {
         type: 'email',
@@ -248,6 +249,7 @@ Page({
     }
 
     let params = null;
+
     if (accountType == Type.Email) {
       params = {
         type: 'email',
@@ -287,7 +289,6 @@ Page({
       });
     }
 
-    console.log('onSubmit register');
     return await this.loginUser({
       uidOrUsername: user.uid,
     });

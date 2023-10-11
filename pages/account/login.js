@@ -236,6 +236,7 @@ Page({
     const { accountType, emailAddress, countryCodeRange, countryCodeIndex, phoneNumber } = this.data;
 
     let params = null;
+
     if (accountType == Type.Email) {
       params = {
         type: 'email',
@@ -271,6 +272,7 @@ Page({
       password,
       verifyCode,
     } = this.data;
+
     let params = null;
 
     if (loginTabType == LoginType.Password) {
@@ -308,7 +310,6 @@ Page({
       }
     }
 
-    console.log('loginAccount', params);
     await fresnsLogin.loginAccount(params);
 
     wx.hideNavigationBarLoading();
