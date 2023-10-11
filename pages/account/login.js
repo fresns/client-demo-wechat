@@ -261,8 +261,16 @@ Page({
   onSubmit: async function () {
     wx.showNavigationBarLoading();
 
-    const { loginTabType, accountType, emailAddress, countryCodeRange, countryCodeIndex, phoneNumber, password, verifyCode } =
-      this.data;
+    const {
+      loginTabType,
+      accountType,
+      emailAddress,
+      countryCodeRange,
+      countryCodeIndex,
+      phoneNumber,
+      password,
+      verifyCode,
+    } = this.data;
     let params = null;
 
     if (loginTabType == LoginType.Password) {
