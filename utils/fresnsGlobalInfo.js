@@ -11,7 +11,7 @@ import { base64_encode } from '../libs/base64/base64';
 
 export class GlobalInfo {
   clientName = 'FresnsWeChat';
-  clientVersion = '2.6.1';
+  clientVersion = '2.6.2';
   theme = null;
 
   // 处理用户主页路径
