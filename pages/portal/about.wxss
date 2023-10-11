@@ -17,8 +17,13 @@
   padding: 20px 0;
 }
 
+.page__logo image {
+  width: 200px;
+}
+
 .page__title {
   font-size: 20px;
+  font-weight: 500;
   margin-bottom: 10px;
 }
 
@@ -30,10 +35,14 @@
   border-top: 0px solid var(--weui-FG-3);
 }
 
+.tabbar-spacing {
+  padding-bottom: 0;
+}
+
 .client-version {
   color: var(--weui-FG-1);
   font-size: 14px;
   text-align: center;
   margin-top: -20px;
-  margin-bottom: 30px;
+  height: 80px;
 }

@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "About",
   "usingComponents": {
+    "mp-html": "mp-html",
     "privacy": "/components/commons/privacy/privacy"
   }
 }

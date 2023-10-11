@@ -4,6 +4,22 @@
     Licensed under the Apache-2.0 license
 * -->
 <view class="page" data-weui-theme="{{ theme }}">
+    <block wx:if="{{ !isFresns }}">
+        <view class="page__hd">
+            <view class="page__logo">
+                <image src="{{ logo }}" mode="widthFix" alt="Fresns"></image>
+            </view>
+            <view>
+                <mp-html content="{{ intro }}" markdown="{{ true }}" lazy-load="{{ true }}"/>
+            </view>
+        </view>
+
+        <view class="weui-loadmore weui-loadmore_line weui-loadmore_dot" aria-role="option">
+            <text class="weui-loadmore__tips"></text>
+        </view>
+    </block>
+
+    <!-- Fresns 介绍开始 -->
     <view class="page__hd">
         <view class="page__logo">
             <image src="https://cdn.fresns.cn/images/logo.png" mode="widthFix" alt="Fresns"></image>
@@ -14,7 +30,6 @@
     </view>
 
     <view class="page__bd page__bd_spacing">
-        <!-- 介绍开始 -->
         <view class="weui-panel weui-panel_access">
             <view class="weui-panel__ft">
                 <navigator class="weui-cell weui-cell_active weui-cell_access weui-cell_link weui_fs" url="/pages/webview?url=https://fresns.cn">
@@ -28,7 +43,7 @@
                     <text class="weui-cell__ft">FresnsCN</text>
                 </view>
             </view>
-            <view class="weui-panel__ft" wx:if="{{ appInfo.isWechat }}">
+            <view class="weui-panel__ft" wx:if="{{ appInfo.isWechat && !isFresns }}">
                 <navigator class="weui-cell weui-cell_active weui-cell_access weui-cell_link" target="miniProgram" app-id="wxcdaa14554bd22f64">
                     <view class="weui-cell__bd">小程序</view>
                     <text class="weui-cell__ft">交流社区</text>
@@ -41,8 +56,8 @@
                 </navigator>
             </view>
         </view>
-        <!-- 介绍结束 -->
     </view>
+    <!-- Fresns 介绍结束 -->
 
     <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
         <text class="weui-loadmore__tips">Powered by Fresns</text>
