@@ -74,8 +74,7 @@ App({
       const langTag = wx.getStorageSync('langTag');
 
       if (!fresnsStatus.activate) {
-        const deactivateDescribe =
-          fresnsStatus.deactivateDescribe[langTag] || fresnsStatus.deactivateDescribe.default;
+        const deactivateDescribe = fresnsStatus.deactivateDescribe[langTag] || fresnsStatus.deactivateDescribe.default;
 
         wx.showModal({
           content: deactivateDescribe,
