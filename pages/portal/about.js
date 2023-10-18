@@ -22,6 +22,7 @@ Page({
 
     fresnsVersion: '2.x',
     clientVersion: '1.x',
+    clientName: '',
     appInfo: {},
   },
 
@@ -34,12 +35,19 @@ Page({
     const fresnsStatus = await fresnsApi.global.globalStatus();
     const appInfo = wx.getStorageSync('appInfo');
 
+    const clientNameMap = {
+      5: 'iOS',
+      6: 'Android',
+    };
+    const clientName = clientNameMap[appConfig?.platformId] || '';
+
     this.setData({
       isFresns: appConfig.isFresns || false,
       logo: await fresnsConfig('site_logo'),
       intro: await fresnsConfig('site_intro'),
       fresnsVersion: fresnsStatus.version,
       clientVersion: globalInfo.clientVersion,
+      clientName: clientName,
       appInfo: appInfo,
     });
   },

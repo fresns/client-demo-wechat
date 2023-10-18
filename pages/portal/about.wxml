@@ -64,7 +64,7 @@
     </view>
 
     <view class="client-version">
-        <text>小程序版本 v{{ clientVersion }}</text>
+        <text>客户端版本 {{ clientName }} v{{ clientVersion }}</text>
     </view>
 
     <!-- 隐私授权 -->
