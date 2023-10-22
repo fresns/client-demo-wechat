@@ -53,7 +53,7 @@
         </view>
     </view>
 
-    <view class="profile-followersYouKnow" wx:if="{{ followersYouKnow.paginate.total > 0 }}" bind:tap="onClickToFollowersYouKnow">
+    <view class="profile-followersYouKnow" wx:if="{{ followersYouKnow.pagination.total > 0 }}" bind:tap="onClickToFollowersYouKnow">
         <block wx:for="{{ followersYouKnow.list }}" wx:key="*this">
             <text>{{ item.nickname }}</text>
             <text wx:if="{{ index < followersYouKnow.list.length - 1 }}">,</text>

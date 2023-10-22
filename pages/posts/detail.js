@@ -104,8 +104,8 @@ Page({
     );
 
     if (commentsRes.code === 0) {
-      const { paginate, list } = commentsRes.data;
-      const isReachBottom = paginate.currentPage === paginate.lastPage;
+      const { pagination, list } = commentsRes.data;
+      const isReachBottom = pagination.currentPage === pagination.lastPage;
 
       const listCount = list.length + this.data.comments.length;
 

@@ -204,7 +204,7 @@ export const fresnsViewProfile = async (uidOrUsername = null) => {
     let profile = result.data;
     profile.followersYouKnow = {
       list: [],
-      paginate: {
+      pagination: {
         total: 0,
         pageSize: 15,
         currentPage: 1,

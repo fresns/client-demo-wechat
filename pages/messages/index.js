@@ -56,13 +56,13 @@ Page({
     });
 
     if (resultRes.code === 0) {
-      const { paginate, list } = resultRes.data;
-      const isReachBottom = paginate.currentPage === paginate.lastPage;
+      const { pagination, list } = resultRes.data;
+      const isReachBottom = pagination.currentPage === pagination.lastPage;
 
       const listCount = list.length + this.data.conversations.length;
 
       let tipType = 'none';
-      if (isReachBottom && paginate.lastPage > 1) {
+      if (isReachBottom && pagination.lastPage > 1) {
         tipType = listCount > 0 ? 'page' : 'empty';
       }
 

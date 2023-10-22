@@ -119,8 +119,8 @@ Page({
     );
 
     if (postsRes.code === 0) {
-      const { paginate, list } = postsRes.data;
-      const isReachBottom = paginate.currentPage === paginate.lastPage;
+      const { pagination, list } = postsRes.data;
+      const isReachBottom = pagination.currentPage === pagination.lastPage;
 
       const listCount = list.length + this.data.posts.length;
 
