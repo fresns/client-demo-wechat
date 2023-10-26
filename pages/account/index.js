@@ -141,8 +141,25 @@ Page({
     appInfo.apkUrl = clientInfo?.downloads?.apk;
     this.setData({
       appInfo: appInfo,
+      clientInfo: clientInfo,
     });
     wx.setStorageSync('appInfo', appInfo);
+
+    // 弹窗显示版本更新内容
+    const langTag = wx.getStorageSync('langTag');
+    let self = this;
+
+    wx.showModal({
+      title: '🎉 ' + clientInfo.version,
+      content: clientInfo.describe[langTag] || clientInfo.describe.default,
+      cancelText: await fresnsLang('cancel'),
+      confirmText: await fresnsLang('upgrade'),
+      success(res) {
+        if (res.confirm) {
+          self.onUpdateApp();
+        }
+      },
+    });
   },
 
   /** 监听用户下拉动作 **/
@@ -370,8 +387,25 @@ Page({
     appInfo.apkUrl = clientInfo?.downloads?.apk;
     this.setData({
       appInfo: appInfo,
+      clientInfo: clientInfo,
     });
     wx.setStorageSync('appInfo', appInfo);
+
+    // 弹窗显示版本更新内容
+    const langTag = wx.getStorageSync('langTag');
+    let self = this;
+
+    wx.showModal({
+      title: '🎉 ' + clientInfo.version,
+      content: clientInfo.describe[langTag] || clientInfo.describe.default,
+      cancelText: await fresnsLang('cancel'),
+      confirmText: await fresnsLang('upgrade'),
+      success(res) {
+        if (res.confirm) {
+          self.onUpdateApp();
+        }
+      },
+    });
   },
 
   /** 升级 **/
