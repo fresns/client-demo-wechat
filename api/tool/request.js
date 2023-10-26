@@ -64,17 +64,29 @@ export function request(options) {
           wx.removeStorageSync('fresnsUserPanels');
         }
 
-        let signErrorTip = '';
         if (code === 31303) {
           const now = new Date(); // 获取设备本地时间
           const utc8Timestamp = Date.now(); // UTC+8 时区的时间戳（微信固定为东八区时间）
           const utcTimestamp = utc8Timestamp - 8 * 60 * 60 * 1000; // 获取 UTC+0 时区的 Unix 时间戳
 
-          signErrorTip = ' | ' + now + ' | ' + utc8Timestamp + ' | ' + utcTimestamp;
+          wx.showModal({
+            title: '[' + code + '] ' + message,
+            content: now + ' | ' + utc8Timestamp + ' | ' + utcTimestamp,
+            confirmText: appConfig?.email ? '问题反馈: ' + appConfig?.email : '',
+            success(res) {
+              if (res.confirm) {
+                if (appConfig?.email) {
+                  wx.showToast({
+                    title: '复制邮箱成功',
+                  });
+                }
+              }
+            },
+          });
         }
 
         wx.showToast({
-          title: '[' + code + '] ' + message + signErrorTip,
+          title: '[' + code + '] ' + message,
           icon: 'none',
           duration: 2000,
         });
