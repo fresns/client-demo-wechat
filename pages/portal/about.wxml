@@ -66,7 +66,4 @@
     <view class="client-version">
         <text>客户端版本 {{ clientName }} v{{ clientVersion }}</text>
     </view>
-
-    <!-- 隐私授权 -->
-    <privacy showPrivacy="{{ showPrivacy }}"/>
 </view>

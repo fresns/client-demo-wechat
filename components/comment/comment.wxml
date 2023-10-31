@@ -72,7 +72,4 @@
     <view class="reply-to-post {{ (type == 'list') ? 'list-style' : '' }}" wx:if="{{ comment.replyToPost.author }}">
         <reply-to-post post="{{ comment.replyToPost }}"></reply-to-post>
     </view>
-
-    <!-- 隐私授权 -->
-    <privacy showPrivacy="{{ showPrivacy }}"/>
 </view>

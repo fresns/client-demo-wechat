@@ -18,7 +18,6 @@ Component({
 
   /** 组件的初始数据 **/
   data: {
-    showPrivacy: false,
     postContent: null,
     contentPreReadInfo: null,
   },
@@ -88,23 +87,7 @@ Component({
     onClickContentLink(e) {
       const link = e.detail.href;
 
-      if (link.startsWith('/pages/webview')) {
-        return;
-      }
-
-      // 触发复制功能，判断隐私授权
-      if (wx.canIUse('getPrivacySetting')) {
-        wx.getPrivacySetting({
-          success: (res) => {
-            if (res.needAuthorization) {
-              // 需要弹出隐私协议
-              this.setData({
-                showPrivacy: true,
-              });
-            }
-          },
-        });
-      }
+      // code
     },
 
     // 发表评论事件

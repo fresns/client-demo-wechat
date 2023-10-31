@@ -161,9 +161,6 @@
         <text class="weui-loadmore__tips">Powered by Fresns</text>
     </view>
 
-    <!-- 隐私授权 -->
-    <privacy showPrivacy="{{ showPrivacy }}"/>
-
     <!-- Tabbar -->
     <tabbar id="fresnsTabbar" activeLabel="account"></tabbar>
 </view>

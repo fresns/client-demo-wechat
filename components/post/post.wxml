@@ -109,7 +109,4 @@
     <view class="card-footer {{ (type == 'list') ? 'list-style' : '' }}">
         <interaction id="interactionComponent" type="{{ type }}" post="{{ post }}"></interaction>
     </view>
-
-    <!-- 隐私授权 -->
-    <privacy showPrivacy="{{ showPrivacy }}"/>
 </view>
