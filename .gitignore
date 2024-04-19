@@ -4,8 +4,13 @@
 .idea
 .vscode
 .DS_Store
+
+package.json
 package-lock.json
 project.private.config.json
 app.miniapp.json
 project.miniapp.json
+
 fresns.js
+fresns-dev.js
+fresns-test.js
