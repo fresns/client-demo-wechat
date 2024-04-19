@@ -97,8 +97,8 @@ Component({
             title: item.name,
             image: item.image,
             active: item.code,
-            count: item.stickers.length,
-            stickers: item.stickers,
+            count: item.stickers ? item.stickers.length : 0,
+            stickers: item.stickers ?? [],
           }))
         : [];
 
