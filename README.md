@@ -1,4 +1,4 @@
-<p align="center"><a href="https://fresns.cn" target="_blank"><img src="https://cdn.fresns.cn/images/logo.png" width="300"></a></p>
+<p align="center"><a href="https://fresns.cn" target="_blank"><img src="https://assets.fresns.cn/logos/fresns.png" width="300"></a></p>
 
 <p align="center">
 <img src="https://img.shields.io/badge/WeChat-Mini%20Program-blueviolet" alt="WeChat">
@@ -22,7 +22,7 @@ Fresns 是一款免费开源的社交网络服务软件，专为跨平台而打�
 - 支持 Donut 跨端方案，编译成 iOS 和 Android 应用也方便。
 - 可应用为社交媒体领域，同样也可以当成 Blog 或 CMS 等其他用途。
 
-![Fresns WeChat](https://files.fresns.org/wiki/previews/WeChat.png)
+![Fresns WeChat](https://assets.fresns.com/images/wikis/previews/WeChat.png)
 
 ## 技术框架
 
