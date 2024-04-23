@@ -11,11 +11,11 @@ Component({
   properties: {
     activeLabel: {
       type: String,
-      value: 'portal'
+      value: 'portal',
     },
     theme: {
       type: String,
-      value: 'light'
+      value: 'light',
     },
   },
 
