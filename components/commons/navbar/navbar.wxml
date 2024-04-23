@@ -1,0 +1,45 @@
+<!-- *
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+* -->
+<view class="weui-navigation-bar">
+  <view class="weui-navigation-bar__placeholder" style="visibility: hidden;"></view>
+  <view class="weui-navigation-bar__inner" style="color:{{color}};background:{{background}};{{displayStyle}}">
+
+    <!-- 左侧 -->
+    <view class="weui-navigation-bar__left">
+      <view class="weui-navigation-bar__buttons">
+        <!-- 后退 -->
+        <view class="weui-navigation-bar__button" bind:tap="goBack" wx:if="{{backButton}}">
+          <view aria-role="button" aria-label="返回" class="weui-navigation-bar__btn_goback {{theme}}"></view>
+        </view>
+        <!-- 首页 -->
+        <view class="weui-navigation-bar__button" bind:tap="goHome" wx:if="{{homeButton}}">
+          <view aria-role="button" aria-label="首页" class="weui-navigation-bar__btn_gohome {{theme}}"></view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 中间 -->
+    <view class="weui-navigation-bar__center">
+      <!-- 加载状态 -->
+      <view aria-role="alert" class="weui-navigation-bar__loading" wx:if="{{loading}}">
+        <view aria-role="img" aria-label="正在加载" class="weui-loading"></view>
+      </view>
+
+      <!-- 中间内容 -->
+      <block wx:if="{{title}}">
+        <text>{{title}}</text>
+      </block>
+      <block wx:else>
+        <slot name="center"></slot>
+      </block>
+    </view>
+
+    <!-- 右侧 -->
+    <view class="weui-navigation-bar__right">
+      <slot name="right"></slot>
+    </view>
+  </view>
+</view>
