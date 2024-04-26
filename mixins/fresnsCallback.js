@@ -10,39 +10,41 @@ import { fresnsLogin } from '../sdk/helpers/login';
 module.exports = {
   /** 监听页面显示 **/
   onShow: async function () {
-    this.handleCallbackMessage();
+    this.handleCallbackMessage(); // 处理回调消息
   },
 
-  // 处理回调消息
+  /** 处理回调消息 **/
   handleCallbackMessage: async function () {
+    // 读取回调消息
     const callbackMessage = wx.getStorageSync('fresnsCallbackMessage');
     console.log('callbackMessage getStorageSync', callbackMessage);
 
+    // 消息为空
     if (!callbackMessage) {
       return;
     }
 
+    // 错误码处理
     if (callbackMessage.code !== 0) {
+      // 提示
       wx.showToast({
         title: '[' + callbackMessage.code + '] ' + callbackMessage.message,
         icon: 'none',
         duration: 2000,
       });
 
-      // 处理完毕，清空回调信息
+      // 提示完毕，清空回调消息
       console.log('callbackMessage removeStorageSync', 'code != 0');
       wx.removeStorageSync('fresnsCallbackMessage');
 
       return;
     }
 
-    this.setData({
-      navbarLoading: true,
-    });
-
+    // 回调参数
     const dataHandler = callbackMessage.action.dataHandler;
     const data = callbackMessage.data;
 
+    // 分类功能
     switch (callbackMessage.action.postMessageKey) {
       case 'reload':
         // 重新载入，小程序不支持重载页面
@@ -163,12 +165,13 @@ module.exports = {
       // code
     }
 
+    // 关闭打开的窗口或 Modal
     if (callbackMessage.action.windowClose) {
-      // 关闭打开的窗口或 Modal
       // 微信小程序无法控制 web-view
       // 所有此功能在微信小程序里不起作用
     }
 
+    // 重定向页面
     if (callbackMessage.action.redirectUrl) {
       wx.navigateTo({
         url: callbackMessage.action.redirectUrl,
@@ -178,9 +181,5 @@ module.exports = {
     // 处理完毕，清空回调信息
     console.log('callbackMessage removeStorageSync', 'end');
     wx.removeStorageSync('fresnsCallbackMessage');
-
-    this.setData({
-      navbarLoading: false,
-    });
   },
 };
