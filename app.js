@@ -79,7 +79,7 @@ App({
   /** 监听系统主题改变事件 **/
   onThemeChange: function (result) {
     this.changeGlobalData({
-      theme: result.theme
+      theme: result.theme,
     });
   },
 
