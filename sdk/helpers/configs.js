@@ -27,7 +27,7 @@ async function fresnsConfig(itemKey = null, defaultValue = null) {
   }
 
   return dataGet(configData, itemKey, defaultValue);
-};
+}
 
 // fresnsLang
 async function fresnsLang(langKey = null, defaultValue = null) {
@@ -47,7 +47,7 @@ async function fresnsLang(langKey = null, defaultValue = null) {
   }
 
   return dataGet(languagePack, langKey, defaultValue);
-};
+}
 
 // fresnsChannels
 async function fresnsChannels() {
@@ -63,7 +63,7 @@ async function fresnsChannels() {
   }
 
   return channels;
-};
+}
 
 // fresnsContentTypes
 async function fresnsContentTypes(type) {
@@ -85,7 +85,7 @@ async function fresnsContentTypes(type) {
   }
 
   return contentTypes;
-};
+}
 
 // fresnsEditor
 const fresnsEditor = {

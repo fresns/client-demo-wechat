@@ -33,7 +33,7 @@ class authInfo {
   get userLogin() {
     return Boolean(this.aid && this.aidToken && this.uid && this.uidToken);
   }
-};
+}
 
 // fresnsAccount
 async function fresnsAccount(key = null) {
@@ -58,7 +58,7 @@ async function fresnsAccount(key = null) {
   }
 
   return dataGet(accountDetail, key);
-};
+}
 
 // fresnsUser
 async function fresnsUser(key = null) {
@@ -83,7 +83,7 @@ async function fresnsUser(key = null) {
   }
 
   return dataGet(userDetail, key);
-};
+}
 
 // fresnsOverview
 async function fresnsOverview(key = null, uid = null) {
@@ -115,7 +115,7 @@ async function fresnsOverview(key = null, uid = null) {
   }
 
   return dataGet(userOverview, key);
-};
+}
 
 // fresnsViewProfilePath
 async function fresnsViewProfilePath(fsid = null) {
@@ -161,7 +161,7 @@ async function fresnsViewProfilePath(fsid = null) {
   }
 
   return fresnsViewProfilePath;
-};
+}
 
 // fresnsViewProfileData
 async function fresnsViewProfileData(uidOrUsername, key = null) {
@@ -198,7 +198,7 @@ async function fresnsViewProfileData(uidOrUsername, key = null) {
   }
 
   return dataGet(profileData, key);
-};
+}
 
 export const fresnsAuth = new authInfo();
 export { fresnsAccount, fresnsUser, fresnsOverview, fresnsViewProfilePath, fresnsViewProfileData };

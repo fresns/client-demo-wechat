@@ -12,7 +12,7 @@ export function dataGet(data, key, defaultValue = null) {
   for (let i = 0, n = keys.length; i < n; i++) {
     let k = keys[i];
 
-    if ((value == null) || !(k in value)) {
+    if (value == null || !(k in value)) {
       return defaultValue;
     }
 

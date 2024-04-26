@@ -50,7 +50,7 @@ export async function makeSignature(signTimestamp) {
   const headers = {
     'X-Fresns-Space-Id': appConfig.spaceId,
     'X-Fresns-App-Id': appConfig.appId,
-    'X-Fresns-Client-Platform-Id':fresnsClient.platformId,
+    'X-Fresns-Client-Platform-Id': fresnsClient.platformId,
     'X-Fresns-Client-Version': fresnsClient.version,
     'X-Fresns-Aid': fresnsAuth.aid,
     'X-Fresns-Aid-Token': fresnsAuth.aidToken,
@@ -69,7 +69,9 @@ export async function makeSignature(signTimestamp) {
     'X-Fresns-Uid',
     'X-Fresns-Uid-Token',
     'X-Fresns-Signature-Timestamp',
-  ].filter((v) => headers[v]).sort();
+  ]
+    .filter((v) => headers[v])
+    .sort();
 
   const stringSignTemp = strA.map((key) => `${key}=${headers[key]}`).join('&') + `&AppKey=${appConfig.appKey}`;
 
