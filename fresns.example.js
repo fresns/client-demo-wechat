@@ -4,12 +4,20 @@
  * Licensed under the Apache-2.0 license
  */
 module.exports = {
-  // 应用密钥创建位置: Fresns 后台 -> 应用中心 -> 应用密钥
-  // 密钥平台选「WeChat MiniProgram」，类型选「主程 API」
+  // App ID 和 App Key 创建位置: Fresns 后台 -> 客户端 -> 应用密钥
+  // 密钥平台选「Mini Program」，类型选「主程 API」
+
   apiHost: 'https://discuss.fresns.org', // 你自己站点的地址
+
+  spaceId: '', // Fresns Space ID 没有则留空
   appId: 'App ID',
-  appSecret: 'App Secret',
+  appKey: 'App Key',
+
+  // 开启 true 停用 false
+  enableApiQuic: false, // API 是否启用 Quic
+  enableWeChatLogin: true, // 是否启用微信登录，需安装插件 https://marketplace.fresns.cn/open-source/detail/WeChatLogin
+  enableWeChatAutoLogin: false, // 是否启用微信自动登录
+
+  clientVersion: '1.0.0', // 客户端版本
   email: '', // 管理员邮箱，当程序遇到无法使用的时候，可供用户发送反馈邮件
-  deactivateWeChatLogin: 0, // 是否停用微信登录功能，停用后只支持账号密码或验证码登录
-  mpId: '', // 小程序原始 ID，编译为「多端应用」时使用，仅小程序无需配置
 };

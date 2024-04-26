@@ -1,61 +1,32 @@
 {
-  "description": "项目配置文件",
+  "compileType": "miniprogram",
+  "libVersion": "trial",
+  "packOptions": {
+    "ignore": [],
+    "include": []
+  },
   "setting": {
-    "bundle": false,
-    "userConfirmedBundleSwitch": false,
-    "urlCheck": true,
-    "scopeDataCheck": false,
     "coverView": true,
     "es6": true,
     "postcss": true,
-    "compileHotReLoad": false,
-    "lazyloadPlaceholderEnable": false,
-    "preloadBackgroundData": false,
     "minified": true,
-    "autoAudits": true,
-    "newFeature": false,
-    "uglifyFileName": true,
-    "uploadWithSourceMap": true,
-    "useIsolateContext": true,
-    "nodeModules": false,
     "enhance": true,
-    "useMultiFrameRuntime": true,
+    "skylineRenderEnable": true,
+    "compileHotReLoad": true,
     "showShadowRootInWxmlPanel": true,
-    "packNpmManually": false,
-    "enableEngineNative": false,
     "packNpmRelationList": [],
-    "minifyWXSS": true,
-    "showES6CompileOption": false,
-    "minifyWXML": true,
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
       "outputPath": ""
     },
     "ignoreUploadUnusedFiles": true,
-    "condition": true
+    "uglifyFileName": true
   },
-  "compileType": "miniprogram",
-  "appid": "wxcdaa14554bd22f64",
   "condition": {},
   "editorSetting": {
     "tabIndent": "insertSpaces",
     "tabSize": 2
   },
-  "libVersion": "3.0.1",
-  "packOptions": {
-    "ignore": [
-      {
-        "value": "miniapp/android",
-        "type": "folder"
-      },
-      {
-        "value": "miniapp/ios",
-        "type": "folder"
-      }
-    ],
-    "include": []
-  },
-  "projectArchitecture": "multiPlatform",
-  "projectname": "Fresns"
+  "appid": "wxcdaa14554bd22f64"
 }

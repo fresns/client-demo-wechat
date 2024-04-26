@@ -3,84 +3,59 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-.page {
+@import '/assets/styles/variable.wxss';
+@import '/assets/styles/weui.wxss';
+
+page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.scrollarea {
+  flex: 1;
+  overflow-y: hidden;
   background-color: var(--weui-BG-1);
 }
 
-.weui-loadmore_line .weui-loadmore__tips {
-  background-color: var(--weui-BG-1);
-}
+/* 以下 CSS 为兼容 Skyline 渲染引擎提供的 WeUI 临时方案 */
 
-.weui-cells__group_form .weui-vcode-btn {
-  color: var(--weui-LINK);
-  font-weight: 400;
-}
-
-/* Tabbar */
-.tabbar-spacing {
-  margin-top: 5rem;
-}
-
-.weui-tabbar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-
-/* Tab */
-.tab-navbar {
-  background-color: var(--weui-BG-2);
-  box-shadow: 0px 0px 5px var(--weui-BG-0);
-  position: -webkit-sticky;
-  position: sticky;
-  top: -1;
-  z-index: 2048;
-  text-align: center;
-}
-
-.weui-navbar {
-  margin: 0 auto;
-  padding-top: 0;
-}
-
-.weui-navbar:after {
-  border-bottom: none;
-}
-
-.weui-navbar__item {
-  padding: 0;
-}
-
-.weui-navbar__item navigator {
+.weui-btn_default {
   color: var(--weui-FG-0);
-  padding: 8px 0;
 }
 
-.weui-navbar__item:after {
-  border-right: none;
+.weui-btn_medium {
+  color: var(--weui-FG-0);
 }
 
-.weui-navbar__item.weui-navbar__item_on {
-  background-color: inherit;
-  border-bottom: 3px solid var(--weui-BRAND);
+.weui-badge {
+  padding: 4.8rpx 12.8rpx !important;
+  min-width: 21.33rpx !important;
 }
 
-/* Cell */
-.cell-title .weui-cell__hd {
-  color: var(--weui-INDIGO);
+.weui-footer__links {
+  flex: 1;
+  flex-direction: row;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
 }
 
-/* List */
-.user-list {
-  width: 100%;
-  overflow: hidden;
-  margin: 10px 0;
-  background-color: var(--weui-BG-2);
+.weui-cell_access .weui-cell__ft::after {
+  background: transparent url("data:image/svg+xml,%3Csvg%20width%3D%2212%22%20height%3D%2224%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M2.454%206.58l1.06-1.06%205.78%205.779a.996.996%200%20010%201.413l-5.78%205.779-1.06-1.061%205.425-5.425-5.425-5.424z%22%20fill%3D%22%23B2B2B2%22%20fill-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E") no-repeat 50% 50%;
 }
 
-/* tabs */
-.weui-tabs-bar__title {
-  margin: 0px 10px;
-  padding-bottom: 5px;
+.weui-media-box__info {
+  flex-direction: row;
+  display: flex;
+  line-height: 32rpx !important;
+}
+
+.weui-media-box__info__meta {
+  padding-right: 32rpx !important;
+}
+
+.weui-media-box__info__meta_extra {
+  padding-left: 32rpx !important;
 }

@@ -27,10 +27,16 @@
     "pages/hashtags/blocking",
     "pages/hashtags/detail",
 
+    "pages/geotags/index",
+    "pages/geotags/list",
+    "pages/geotags/likes",
+    "pages/geotags/dislikes",
+    "pages/geotags/following",
+    "pages/geotags/blocking",
+    "pages/geotags/detail",
+
     "pages/posts/index",
     "pages/posts/list",
-    "pages/posts/nearby",
-    "pages/posts/location",
     "pages/posts/likes",
     "pages/posts/dislikes",
     "pages/posts/following",
@@ -39,44 +45,47 @@
 
     "pages/comments/index",
     "pages/comments/list",
-    "pages/comments/nearby",
-    "pages/comments/location",
     "pages/comments/likes",
     "pages/comments/dislikes",
     "pages/comments/following",
     "pages/comments/blocking",
     "pages/comments/detail",
 
-    "pages/follows/all-posts",
-    "pages/follows/all-comments",
-    "pages/follows/user-posts",
-    "pages/follows/user-comments",
-    "pages/follows/group-posts",
-    "pages/follows/group-comments",
-    "pages/follows/hashtag-posts",
-    "pages/follows/hashtag-comments",
+    "pages/timelines/index",
+    "pages/timelines/posts",
+    "pages/timelines/comments",
+    "pages/timelines/user-posts",
+    "pages/timelines/user-comments",
+    "pages/timelines/group-posts",
+    "pages/timelines/group-comments",
+    "pages/timelines/hashtag-posts",
+    "pages/timelines/hashtag-comments",
+    "pages/timelines/geotag-posts",
+    "pages/timelines/geotag-comments",
+
+    "pages/nearby/index",
+    "pages/nearby/posts",
+    "pages/nearby/comments",
 
     "pages/notifications/index",
 
-    "pages/messages/index",
-    "pages/messages/conversation",
+    "pages/conversations/index",
+    "pages/conversations/messages",
 
     "pages/search/index",
 
-    "pages/editor/draft-box",
-    "pages/editor/index",
+    "pages/me/index",
+    "pages/me/login",
+    "pages/me/drafts",
+    "pages/me/wallet",
+    "pages/me/user-extcredits",
+    "pages/me/users",
+    "pages/me/settings",
 
-    "pages/account/index",
-    "pages/account/register",
-    "pages/account/login",
-    "pages/account/wechat-login/check-sign",
-    "pages/account/wechat-login/website-oauth",
-    "pages/account/reset-password",
-    "pages/account/wallet",
-    "pages/account/users",
-    "pages/account/user-extcredits",
-    "pages/account/settings",
-    "pages/account/delete-account",
+    "pages/me/wechat-login/check-sign",
+    "pages/me/wechat-login/website-oauth",
+
+    "pages/editor/index",
 
     "pages/profile/posts",
     "pages/profile/comments",
@@ -88,42 +97,55 @@
     "pages/profile/likes/users",
     "pages/profile/likes/groups",
     "pages/profile/likes/hashtags",
+    "pages/profile/likes/geotags",
     "pages/profile/likes/posts",
     "pages/profile/likes/comments",
     "pages/profile/dislikes/users",
     "pages/profile/dislikes/groups",
     "pages/profile/dislikes/hashtags",
+    "pages/profile/dislikes/geotags",
     "pages/profile/dislikes/posts",
     "pages/profile/dislikes/comments",
     "pages/profile/following/users",
     "pages/profile/following/groups",
     "pages/profile/following/hashtags",
+    "pages/profile/following/geotags",
     "pages/profile/following/posts",
     "pages/profile/following/comments",
     "pages/profile/blocking/users",
     "pages/profile/blocking/groups",
     "pages/profile/blocking/hashtags",
+    "pages/profile/blocking/geotags",
     "pages/profile/blocking/posts",
     "pages/profile/blocking/comments",
 
-    "pages/webview"
-  ],
-  "requiredPrivateInfos": [ 
-    "chooseLocation"
+    "sdk/extensions/webview"
   ],
   "entryPagePath": "pages/portal/index",
   "window": {
-    "backgroundTextStyle": "@bgTxtStyle",
+    "navigationStyle": "custom",
     "navigationBarBackgroundColor": "@navBgColor",
-    "navigationBarTitleText": "Fresns",
-    "navigationBarTextStyle": "@navTxtStyle"
+    "navigationBarTextStyle": "@navTxtStyle",
+    "backgroundColor": "@bgColor",
+    "backgroundTextStyle": "@bgTxtStyle",
+    "backgroundColorTop": "@bgColorTop",
+    "backgroundColorBottom": "@bgColorBottom"
   },
   "style": "v2",
-  "darkmode": true,
-  "themeLocation": "theme.json",
+  "renderer": "skyline",
+  "rendererOptions": {
+    "skyline": {
+      "defaultDisplayBlock": true,
+      "defaultContentBox": true,
+      "disableABTest": true
+    }
+  },
+  "componentFramework": "glass-easel",
   "sitemapLocation": "sitemap.json",
   "lazyCodeLoading": "requiredComponents",
-  "useExtendedLib": {
-    "weui": true
-  }
+  "darkmode": true,
+  "themeLocation": "theme.json",
+  "requiredPrivateInfos": [
+    "chooseLocation"
+  ]
 }
