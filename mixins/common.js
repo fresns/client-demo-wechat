@@ -74,10 +74,10 @@ module.exports = {
 
     const whitelistRoutes = [
       'sdk/extensions/webview',
-      "pages/portal/about",
-      "pages/portal/policies",
-      "pages/me/index",
-      "pages/me/login",
+      'pages/portal/about',
+      'pages/portal/policies',
+      'pages/me/index',
+      'pages/me/login',
       'pages/me/wechat-login/check-sign',
       'pages/me/wechat-login/website-oauth',
     ];

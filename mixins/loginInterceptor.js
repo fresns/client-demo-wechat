@@ -11,25 +11,18 @@ module.exports = {
   onLoad: function () {
     const route = getCurrentPageRoute();
 
-    const accountRoutes = [
-      "pages/me/index",
-      "pages/me/login",
-    ];
+    const accountRoutes = ['pages/me/index', 'pages/me/login'];
 
-  // 未登录账号，跳转到登录页
+    // 未登录账号，跳转到登录页
     if (!fresnsAuth.accountLogin && !accountRoutes.includes(route)) {
       wx.redirectTo({
         url: '/pages/me/login?showToast=true',
       });
     }
 
-    const userRoutes = [
-      "pages/me/index",
-      "pages/me/login",
-      "pages/me/users",
-    ];
+    const userRoutes = ['pages/me/index', 'pages/me/login', 'pages/me/users'];
 
-  // 未登录用户，跳转到用户选择页
+    // 未登录用户，跳转到用户选择页
     if (!fresnsAuth.userLogin && !userRoutes.includes(route)) {
       wx.redirectTo({
         url: '/pages/me/users?showToast=true',
