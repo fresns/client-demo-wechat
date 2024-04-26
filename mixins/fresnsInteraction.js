@@ -3,21 +3,21 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import { fresnsApi } from '../api/api';
-import { globalInfo } from '../utils/fresnsGlobalInfo';
-import { getCurrentPagePath, dfs, callPrevPageFunction } from '../utils/fresnsUtilities';
+import { fresnsApi } from '../sdk/api/api';
+import { fresnsViewProfilePath } from '../sdk/helpers/profiles';
+import { getCurrentPageRoute, replaceGroupTreeInfo, callPrevPageFunction } from '../sdk/utilities/toolkit';
 
 module.exports = {
   /** 右上角菜单-发送给朋友 **/
   onShareAppMessage: async function (res) {
     console.log('onShareAppMessage res', res);
 
-    const currentPagePath = getCurrentPagePath();
+    const currentPageRoute = getCurrentPageRoute();
     let type = '';
     let fsid = '';
 
     let shareTitle = this.data.title;
-    let sharePath = currentPagePath;
+    let sharePath = currentPageRoute;
 
     if (res.from == 'button') {
       type = res.target.dataset.type;
@@ -27,7 +27,7 @@ module.exports = {
     }
 
     if (res.from == 'menu') {
-      switch (currentPagePath) {
+      switch (currentPageRoute) {
         case 'pages/groups/detail':
           type = 'group';
           fsid = this.data.group.gid;
@@ -53,19 +53,17 @@ module.exports = {
           break;
 
         default:
-          if (currentPagePath.startsWith('pages/profile')) {
-            const userHomePath = await globalInfo.userHomePath();
+          if (currentPageRoute.startsWith('pages/profile')) {
             type = 'user';
             fsid = this.data.profile.detail.fsid;
-            sharePath = userHomePath + fsid;
+            sharePath = await fresnsViewProfilePath(fsid);
           }
       }
     }
 
     switch (type) {
       case 'user':
-        const userHomePath = await globalInfo.userHomePath();
-        sharePath = userHomePath + fsid;
+        sharePath = await fresnsViewProfilePath(fsid);
         break;
 
       case 'group':
@@ -98,11 +96,11 @@ module.exports = {
 
   /** 右上角菜单-分享到朋友圈 **/
   onShareTimeline: function () {
-    const currentPagePath = getCurrentPagePath();
+    const currentPageRoute = getCurrentPageRoute();
 
     let shareQuery = '';
 
-    switch (currentPagePath) {
+    switch (currentPageRoute) {
       case 'pages/groups/detail':
         shareQuery = 'gid=' + this.data.group.gid;
         break;
@@ -120,7 +118,7 @@ module.exports = {
         break;
 
       default:
-        if (currentPagePath.startsWith('pages/profile')) {
+        if (currentPageRoute.startsWith('pages/profile')) {
           shareQuery = 'fsid=' + this.data.profile.detail.fsid;
         }
     }
@@ -135,11 +133,11 @@ module.exports = {
 
   /** 右上角菜单-收藏 **/
   onAddToFavorites: function () {
-    const currentPagePath = getCurrentPagePath();
+    const currentPageRoute = getCurrentPageRoute();
 
     let shareQuery = '';
 
-    switch (currentPagePath) {
+    switch (currentPageRoute) {
       case 'pages/groups/detail':
         shareQuery = 'gid=' + this.data.group.gid;
         break;
@@ -157,7 +155,7 @@ module.exports = {
         break;
 
       default:
-        if (currentPagePath.startsWith('pages/profile')) {
+        if (currentPageRoute.startsWith('pages/profile')) {
           shareQuery = 'fsid=' + this.data.profile.detail.fsid;
         }
     }
@@ -370,7 +368,7 @@ module.exports = {
       return;
     }
 
-    const newGroupTree = groupTree.map((tree) => dfs(tree, newGroup.gid, newGroup));
+    const newGroupTree = groupTree.map((tree) => replaceGroupTreeInfo(tree, newGroup.gid, newGroup));
 
     this.setData({
       groupTree: newGroupTree,
@@ -758,8 +756,8 @@ module.exports = {
         }
       }
 
-      const currentPagePath = getCurrentPagePath();
-      if (currentPagePath == 'pages/posts/detail' && commentCid) {
+      const currentPageRoute = getCurrentPageRoute();
+      if (currentPageRoute == 'pages/posts/detail' && commentCid) {
         // 重置评论列表
         this.setData({
           comments: comments,

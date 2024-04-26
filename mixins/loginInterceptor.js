@@ -3,17 +3,37 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import { globalInfo } from '../utils/fresnsGlobalInfo';
-import { navigateToAccountLogin, navigateToUserLogin } from '../utils/fresnsUtilities';
+import { fresnsAuth } from '../sdk/helpers/profiles';
+import { getCurrentPageRoute } from '../sdk/utilities/toolkit';
 
 module.exports = {
+  /** 监听页面加载 **/
   onLoad: function () {
-    if (!globalInfo.accountLogin) {
-      navigateToAccountLogin();
+    const route = getCurrentPageRoute();
+
+    const accountRoutes = [
+      "pages/me/index",
+      "pages/me/login",
+    ];
+
+  // 未登录账号，跳转到登录页
+    if (!fresnsAuth.accountLogin && !accountRoutes.includes(route)) {
+      wx.redirectTo({
+        url: '/pages/me/login?showToast=true',
+      });
     }
 
-    if (!globalInfo.userLogin) {
-      navigateToUserLogin();
+    const userRoutes = [
+      "pages/me/index",
+      "pages/me/login",
+      "pages/me/users",
+    ];
+
+  // 未登录用户，跳转到用户选择页
+    if (!fresnsAuth.userLogin && !userRoutes.includes(route)) {
+      wx.redirectTo({
+        url: '/pages/me/users?showToast=true',
+      });
     }
   },
 };
