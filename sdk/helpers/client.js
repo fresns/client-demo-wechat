@@ -126,6 +126,6 @@ class clientInfo {
   get enableWeChatAutoLogin() {
     return appConfig?.enableWeChatAutoLogin || false;
   }
-};
+}
 
 export const fresnsClient = new clientInfo();

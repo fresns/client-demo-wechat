@@ -12,7 +12,7 @@ import { cachePut, clearCache } from './cache';
 class login {
   // 登录
   async login(loginToken) {
-    const loginRes = await fresnsApi.account.login({loginToken});
+    const loginRes = await fresnsApi.account.login({ loginToken });
 
     if (loginRes.code != 0) {
       return loginRes;
@@ -91,8 +91,8 @@ class login {
         if (wechatCode) {
           await this.connectLoginHandle('wechat', wechatCode, false, false);
         }
-      }
-    })
+      },
+    });
   }
 
   // 微信登录

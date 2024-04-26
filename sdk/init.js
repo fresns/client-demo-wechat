@@ -48,7 +48,7 @@ export async function fresnsInit() {
     };
 
     wx.setStorageSync('appBaseInfo', appBaseInfoArr);
-  };
+  }
 
   // 主题
   const app = getApp();
@@ -73,7 +73,7 @@ export async function fresnsInit() {
       langTag = 'zh-Hant';
     }
     wx.setStorageSync('langTag', langTag);
-  };
+  }
 
   // 设备信息
   const getIpInfo = await fresnsApi.common.ipInfo();
@@ -159,4 +159,4 @@ export async function fresnsInit() {
 
   // 微信自动登录
   await fresnsLogin.wechatAutoLogin();
-};
+}

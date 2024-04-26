@@ -71,7 +71,7 @@ export function clearCache(tag) {
 
   if (cacheKeys && Array.isArray(cacheKeys)) {
     // 循环遍历每个 key，并删除对应的存储项
-    cacheKeys.forEach(key => {
+    cacheKeys.forEach((key) => {
       wx.removeStorageSync(key);
     });
 
