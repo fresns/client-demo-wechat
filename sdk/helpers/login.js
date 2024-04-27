@@ -3,7 +3,7 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import { fresnsApi } from '../api/api';
+import { fresnsApi } from '../services';
 import { fresnsClient } from './client';
 import { fresnsLang } from './configs';
 import { fresnsAuth } from './profiles';
@@ -98,9 +98,8 @@ class login {
   // 微信登录
   async wechatLogin(autoRegister = false) {
     // 登录状态
-    const loggingIn = await fresnsLang('accountLoggingIn');
     wx.showLoading({
-      title: loggingIn,
+      title: await fresnsLang('accountLoggingIn'), // 登录中
     });
 
     // 登录处理
@@ -131,9 +130,8 @@ class login {
   // App 微信登录
   async appWechatLogin(autoRegister = false) {
     // 登录状态
-    const loggingIn = await fresnsLang('accountLoggingIn');
     wx.showLoading({
-      title: loggingIn,
+      title: await fresnsLang('accountLoggingIn'), // 登录中
     });
 
     // 登录处理
@@ -164,9 +162,8 @@ class login {
   // 苹果账号登录
   async appleLogin(autoRegister = false) {
     // 登录状态
-    const loggingIn = await fresnsLang('accountLoggingIn');
     wx.showLoading({
-      title: loggingIn,
+      title: await fresnsLang('accountLoggingIn'), // 登录中
     });
 
     // 登录处理
@@ -232,7 +229,7 @@ class login {
         return;
       }
 
-      // 授权成功，但是本站并未查询到对应的账号
+      // 网页授权成功，但是本站并未查询到对应的账号
       if (resultRes.code == 31502) {
         wx.redirectTo({
           url: '/pages/me/wechat-login/check-sign?type=' + type,
@@ -276,6 +273,7 @@ class login {
 
     wx.navigateBack({
       fail() {
+        // 后退失败，直接进入个人中心
         wx.reLaunch({
           url: '/pages/me/index',
         });

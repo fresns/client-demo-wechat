@@ -3,7 +3,7 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import { fresnsApi } from '../api/api';
+import { fresnsApi } from '../services';
 import { fresnsConfig } from '../helpers/configs';
 import { cachePut, cacheGet } from '../helpers/cache';
 import { dataGet } from '../utilities/toolkit';

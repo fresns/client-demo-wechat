@@ -5,7 +5,7 @@
  */
 require('./libs/Mixins.js');
 
-import { fresnsInit } from './sdk/init';
+import { fresnsInit } from './sdk/services';
 
 const listeners = []; // 监听事件
 

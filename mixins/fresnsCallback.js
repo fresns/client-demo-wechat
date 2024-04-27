@@ -3,7 +3,7 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import { fresnsApi } from '../sdk/api/api';
+import { fresnsApi } from '../sdk/services';
 import { fresnsLang } from '../sdk/helpers/configs';
 import { fresnsLogin } from '../sdk/helpers/login';
 
@@ -52,14 +52,14 @@ module.exports = {
 
       // 登录
       case 'fresnsAccountSign':
-        const loggingIn = await fresnsLang('accountLoggingIn');
         wx.showLoading({
-          title: loggingIn,
+          title: await fresnsLang('accountLoggingIn'), // 登录中
         });
 
         const loginRes = await fresnsLogin.login(data.loginToken);
 
         if (loginRes.code) {
+          // 登录失败
           wx.hideLoading();
 
           wx.showToast({
@@ -68,8 +68,10 @@ module.exports = {
             duration: 3000,
           });
         } else {
+          // 登录成功
           wx.navigateBack({
             fail() {
+              // 后退失败，直接进入个人中心
               wx.reLaunch({
                 url: '/pages/me/index',
               });
@@ -158,7 +160,12 @@ module.exports = {
 
       // 设置页操作账号互联
       case 'fresnsConnect':
-        this.reloadFresnsAccount();
+        this.reloadAccountData(); // 重载账号信息
+        break;
+
+      // 设置页操作扩展资料
+      case 'fresnsProfileExtension':
+        this.reloadUserData(); // 重载用户信息
         break;
 
       default:
