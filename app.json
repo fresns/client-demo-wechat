@@ -136,8 +136,7 @@
   "rendererOptions": {
     "skyline": {
       "defaultDisplayBlock": true,
-      "defaultContentBox": true,
-      "disableABTest": true
+      "defaultContentBox": true
     }
   },
   "componentFramework": "glass-easel",

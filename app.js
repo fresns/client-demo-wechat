@@ -14,7 +14,6 @@ App({
   globalData: {
     theme: 'light', // dark
     mode: '', // 模式(care：关怀模式)
-    cssVariable: 'lightVariable',
   },
 
   /** 监听小程序初始化 **/

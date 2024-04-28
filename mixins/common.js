@@ -12,7 +12,6 @@ module.exports = {
   data: {
     theme: '',
     mode: '', // 模式(care：关怀模式)
-    cssVariable: '',
 
     navbarBackButton: false,
     navbarHomeButton: false,
@@ -23,11 +22,9 @@ module.exports = {
 
   // 更新全局数据
   onGlobalDataChanged(globalData) {
-    const cssVariableName = globalData.theme + 'Variable';
     this.setData({
       theme: globalData.theme,
       mode: globalData.mode,
-      cssVariable: cssVariableName,
     });
   },
 
@@ -36,13 +33,10 @@ module.exports = {
     this.checkFresnsSiteMode();
 
     const app = getApp();
-    const theme = app.globalData.theme;
-    const cssVariableName = theme + 'Variable';
 
     this.setData({
-      theme: theme,
+      theme: app.globalData.theme,
       mode: app.globalData.mode,
-      cssVariable: cssVariableName,
     });
 
     // 监听全局数据变化
