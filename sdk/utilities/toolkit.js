@@ -44,8 +44,8 @@ export function getCurrentPageUrl() {
   let newUrl = currentUrl;
   const paramsArray = Object.keys(currentParams);
   if (paramsArray.length > 0) {
-      const queryString = paramsArray.map(key => `${key}=${currentParams[key]}`).join('&');
-      newUrl += `?${queryString}`;
+    const queryString = paramsArray.map((key) => `${key}=${currentParams[key]}`).join('&');
+    newUrl += `?${queryString}`;
   }
 
   return newUrl;
