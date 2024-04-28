@@ -31,7 +31,12 @@ Page({
     wx.setNavigationBarTitle({
       title: await fresnsLang('loading'),
     });
+
     wx.showNavigationBarLoading();
+
+    wx.showLoading({
+      title: await fresnsLang('loading'),
+    });
 
     if (!url) {
       return;
@@ -88,8 +93,9 @@ Page({
   eventLoadPage: function () {
     wx.hideNavigationBarLoading();
 
+    wx.hideLoading();
+
     const title = this.data.title;
-    console.log('eventLoadPage title', title);
 
     if (title) {
       wx.setNavigationBarTitle({

@@ -30,6 +30,27 @@ export function getCurrentPageRoute() {
   return currentPage.route;
 }
 
+// 获取当前页面附带参数的 URL
+export function getCurrentPageUrl() {
+  const pages = getCurrentPages();
+  const currentPage = pages[pages.length - 1];
+
+  const currentUrl = `/${currentPage.route}`;
+
+  // 获取当前页面的参数
+  const currentParams = currentPage.options;
+
+  // 构建带有原有参数的新 URL
+  let newUrl = currentUrl;
+  const paramsArray = Object.keys(currentParams);
+  if (paramsArray.length > 0) {
+      const queryString = paramsArray.map(key => `${key}=${currentParams[key]}`).join('&');
+      newUrl += `?${queryString}`;
+  }
+
+  return newUrl;
+}
+
 // 在组件中回调当前页面的功能
 export function callPageFunction(functionName, ...args) {
   const pages = getCurrentPages();

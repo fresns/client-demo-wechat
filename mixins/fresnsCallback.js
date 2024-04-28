@@ -6,6 +6,7 @@
 import { fresnsApi } from '../sdk/services';
 import { fresnsLang } from '../sdk/helpers/configs';
 import { fresnsLogin } from '../sdk/helpers/login';
+import { getCurrentPageUrl } from '../sdk/utilities/toolkit';
 
 module.exports = {
   /** 监听页面显示 **/
@@ -46,8 +47,15 @@ module.exports = {
 
     // 分类功能
     switch (callbackMessage.action.postMessageKey) {
+      // 重载（回调后只刷新当前页面）
       case 'reload':
-        // 重新载入，小程序不支持重载页面
+        const currentPageUrl = getCurrentPageUrl();
+        wx.redirectTo({
+          url: currentPageUrl,
+          fail: function(res) {
+            console.error("刷新失败", res);
+          }
+        });
         break;
 
       // 登录
@@ -58,7 +66,7 @@ module.exports = {
 
         const loginRes = await fresnsLogin.login(data.loginToken);
 
-        if (loginRes.code) {
+        if (loginRes.code != 0) {
           // 登录失败
           wx.hideLoading();
 
@@ -67,17 +75,20 @@ module.exports = {
             icon: 'none',
             duration: 3000,
           });
-        } else {
-          // 登录成功
-          wx.navigateBack({
-            fail() {
-              // 后退失败，直接进入个人中心
-              wx.reLaunch({
-                url: '/pages/me/index',
-              });
-            },
-          });
+
+          return;
         }
+
+        // 登录成功
+        wx.navigateBack({
+          // 从登录页后退
+          fail() {
+            // 后退失败，直接进入个人中心
+            wx.reLaunch({
+              url: '/pages/me/index',
+            });
+          },
+        });
         break;
 
       // 用户管理
@@ -174,13 +185,13 @@ module.exports = {
 
     // 关闭打开的窗口或 Modal
     if (callbackMessage.action.windowClose) {
-      // 微信小程序无法控制 web-view
-      // 所有此功能在微信小程序里不起作用
+      // 小程序发送消息必须要后退一页才能成功接收。
+      // 后退一页已经完成关闭窗口，所以这一步不需要处理关闭窗口。
     }
 
     // 重定向页面
     if (callbackMessage.action.redirectUrl) {
-      wx.navigateTo({
+      wx.redirectTo({
         url: callbackMessage.action.redirectUrl,
       });
     }

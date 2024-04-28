@@ -88,111 +88,102 @@ class login {
         const wechatCode = res.code;
 
         console.log('WeChat Auto Login', '微信 Code', wechatCode);
-        if (wechatCode) {
-          await this.connectLoginHandle('wechat', wechatCode, false, false);
-        }
+
+        await this.connectLoginHandle('wechat', wechatCode, false);
       },
     });
   }
 
   // 微信登录
   async wechatLogin(autoRegister = false) {
-    // 登录状态
-    wx.showLoading({
-      title: await fresnsLang('accountLoggingIn'), // 登录中
-    });
-
-    // 登录处理
-    wx.login({
-      success: async (res) => {
-        const wechatCode = res.code;
-
-        if (wechatCode) {
-          await this.connectLoginHandle('wechat', wechatCode, autoRegister);
-        } else {
-          wx.hideLoading();
-          wx.showToast({
-            title: '[' + res.errCode + '] ' + res.errMsg,
-            icon: 'none',
+    return new Promise((resolve, reject) => {
+      wx.login({
+        success: async (res) => {
+          try {
+            const result = await this.connectLoginHandle('wechat', res.code, autoRegister);
+            resolve(result);
+          } catch (error) {
+            reject(error);
+          }
+        },
+        fail: (res) => {
+          reject({
+            code: 30008,
+            message: '[' + res.errCode + '] ' + res.errMsg,
           });
-        }
-      },
-      fail(res) {
-        wx.hideLoading();
-        wx.showToast({
-          title: '[' + res.errCode + '] ' + res.errMsg,
-          icon: 'none',
-        });
-      },
+        },
+      });
     });
   }
 
   // App 微信登录
   async appWechatLogin(autoRegister = false) {
-    // 登录状态
-    wx.showLoading({
-      title: await fresnsLang('accountLoggingIn'), // 登录中
-    });
-
-    // 登录处理
-    wx.miniapp.login({
-      success: async (res) => {
-        const wechatCode = res.code;
-
-        if (wechatCode) {
-          await this.connectLoginHandle('app', wechatCode, autoRegister);
-        } else {
-          wx.hideLoading();
-          wx.showToast({
-            title: '[' + res.errCode + '] ' + res.errMsg,
-            icon: 'none',
+    return new Promise((resolve, reject) => {
+      wx.miniapp.login({
+        success: async (res) => {
+          try {
+            const result = await this.connectLoginHandle('app', res.code, autoRegister);
+            resolve(result);
+          } catch (error) {
+            reject(error);
+          }
+        },
+        fail: (res) => {
+          reject({
+            code: 30008,
+            message: '[' + res.errCode + '] ' + res.errMsg,
           });
-        }
-      },
-      fail(res) {
-        wx.hideLoading();
-        wx.showToast({
-          title: '[' + res.errCode + '] ' + res.errMsg,
-          icon: 'none',
-        });
-      },
+        },
+      });
+    });
+  }
+
+  // App 微信小程序登录
+  async appWechatMiniProgramLogin(autoRegister = false) {
+    return new Promise((resolve, reject) => {
+      wx.getMiniProgramCode({
+        success: async (res) => {
+          try {
+            const result = await this.connectLoginHandle('appMiniProgram', res.code, autoRegister);
+            resolve(result);
+          } catch (error) {
+            reject(error);
+          }
+        },
+        fail: (res) => {
+          reject({
+            code: 30008,
+            message: '[' + res.errCode + '] ' + res.errMsg,
+          });
+        },
+      });
     });
   }
 
   // 苹果账号登录
   async appleLogin(autoRegister = false) {
-    // 登录状态
-    wx.showLoading({
-      title: await fresnsLang('accountLoggingIn'), // 登录中
-    });
-
-    // 登录处理
-    wx.appleLogin({
-      success: async (res) => {
-        const appleCode = res.code;
-
-        if (appleCode) {
-          await this.connectLoginHandle('apple', appleCode, autoRegister);
-        } else {
-          wx.hideLoading();
-          wx.showToast({
-            title: '[' + res.errCode + '] ' + res.errMsg,
-            icon: 'none',
+    return new Promise((resolve, reject) => {
+      wx.appleLogin({
+        success: async (res) => {
+          try {
+            const result = await this.connectLoginHandle('apple', res.code, autoRegister);
+            resolve(result);
+          } catch (error) {
+            reject(error);
+          }
+        },
+        fail: (res) => {
+          reject({
+            code: 30008,
+            message: '[' + res.errCode + '] ' + res.errMsg,
           });
-        }
-      },
-      fail(res) {
-        wx.hideLoading();
-        wx.showToast({
-          title: '[' + res.errCode + '] ' + res.errMsg,
-          icon: 'none',
-        });
-      },
+        },
+      });
     });
   }
 
   // 互联登录处理功能
-  async connectLoginHandle(type, code, autoRegister = false, isRedirect = true) {
+  async connectLoginHandle(type, code, autoRegister = false) {
     let resultRes;
 
     switch (type) {
@@ -210,6 +201,13 @@ class login {
         });
         break;
 
+      case 'appMiniProgram':
+        resultRes = await fresnsApi.plugins.wechatLogin.oauth({
+          code: code,
+          autoRegister: autoRegister,
+        });
+        break;
+
       case 'apple':
         resultRes = await fresnsApi.plugins.wechatLogin.oauthApple({
           code: code,
@@ -221,66 +219,33 @@ class login {
         return;
     }
 
+    // 当前账户有多个用户
+    if (resultRes.code == 31508 || resultRes.code == 31604) {
+      // 扩展 Web-View 数据
+      const navigatorData = {
+        title: await fresnsLang('accountLogin'),
+        url: resultRes.data.userAuthUrl,
+        parameter: resultRes.data.loginToken,
+        postMessageKey: 'fresnsAccountSign',
+      };
+
+      // 将链接数据赋予到全局数据中
+      const app = getApp();
+      app.globalData.navigatorData = navigatorData;
+
+      // 访问扩展页面选择用户
+      wx.navigateTo({
+        url: '/sdk/extensions/webview',
+      });
+    }
+
     if (resultRes.code != 0) {
-      wx.hideLoading();
-
-      // isRedirect 参数为自动登录准备，当是自动登录时，则不跳转，登录失败也无任何提示
-      if (!isRedirect) {
-        return;
-      }
-
-      // 网页授权成功，但是本站并未查询到对应的账号
-      if (resultRes.code == 31502) {
-        wx.redirectTo({
-          url: '/pages/me/wechat-login/check-sign?type=' + type,
-        });
-      }
-
-      // 当前账户有多个用户
-      if (resultRes.code == 31508 || resultRes.code == 31604) {
-        const navigatorData = {
-          title: await fresnsLang('accountLogin'),
-          url: resultRes.data.userAuthUrl,
-          parameter: resultRes.data.loginToken,
-          postMessageKey: 'fresnsAccountSign',
-        };
-
-        // 将链接数据赋予到全局数据中
-        const app = getApp();
-        app.globalData.navigatorData = navigatorData;
-
-        // 访问扩展页面
-        wx.navigateTo({
-          url: '/sdk/extensions/webview',
-        });
-      }
-
-      return;
+      return resultRes;
     }
 
     const loginRes = await this.login(resultRes.data.loginToken);
 
-    if (loginRes.code != 0) {
-      wx.hideLoading();
-      wx.showToast({
-        title: '[' + loginRes.code + '] ' + loginRes.message,
-        icon: 'none',
-        duration: 3000,
-      });
-
-      return;
-    }
-
-    wx.navigateBack({
-      fail() {
-        // 后退失败，直接进入个人中心
-        wx.reLaunch({
-          url: '/pages/me/index',
-        });
-      },
-    });
-
-    wx.hideLoading();
+    return loginRes;
   }
 }
 
