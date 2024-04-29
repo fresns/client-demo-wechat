@@ -52,9 +52,6 @@ module.exports = {
         const currentPageUrl = getCurrentPageUrl();
         wx.redirectTo({
           url: currentPageUrl,
-          fail: function (res) {
-            console.error('刷新失败', res);
-          },
         });
         break;
 
