@@ -18,8 +18,8 @@ Component({
       value: '',
       observer: function (newVal) {
         this.renderMarkdown(newVal);
-      }
-    }
+      },
+    },
   },
 
   /** 组件的初始数据 **/
@@ -56,6 +56,6 @@ Component({
           return `<pre><code>${code}</code></pre>`;
         }
       });
-    }
-  }
-})
+    },
+  },
+});
