@@ -3,20 +3,19 @@
   Copyright 2021-Present 唐杰
   Licensed under the Apache-2.0 license
 * -->
-<view class="weui-navigation-bar">
-  <view class="weui-navigation-bar__placeholder" style="visibility: hidden;"></view>
-  <view class="weui-navigation-bar__inner" style="color:{{color}};background:{{background}};{{displayStyle}}">
+<view class="weui-navigation-bar {{customRoute ? 'weui-navigation-bar__customRoute' : 'weui-navigation-bar__page'}}">
+  <view class="weui-navigation-bar__inner" style="opacity:1;transition:opacity 0.5s;color:{{color}};">
 
     <!-- 左侧 -->
     <view class="weui-navigation-bar__left">
       <view class="weui-navigation-bar__buttons">
         <!-- 后退 -->
         <view class="weui-navigation-bar__button" bind:tap="goBack" wx:if="{{backButton}}">
-          <view aria-role="button" aria-label="返回" class="weui-navigation-bar__btn_goback {{theme}}"></view>
+          <view aria-role="button" aria-label="返回" class="weui-navigation-bar__btn_goback"></view>
         </view>
         <!-- 首页 -->
         <view class="weui-navigation-bar__button" bind:tap="goHome" wx:if="{{homeButton}}">
-          <view aria-role="button" aria-label="首页" class="weui-navigation-bar__btn_gohome {{theme}}"></view>
+          <view aria-role="button" aria-label="首页" class="weui-navigation-bar__btn_gohome"></view>
         </view>
       </view>
     </view>

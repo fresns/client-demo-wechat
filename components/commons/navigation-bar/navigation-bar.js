@@ -6,19 +6,15 @@ Component({
 
   /** 组件的属性列表 **/
   properties: {
-    title: {
-      type: String,
-      value: '',
-    },
-    theme: {
-      type: String,
-      value: 'light',
-    },
     background: {
       type: String,
       value: '',
     },
     color: {
+      type: String,
+      value: '',
+    },
+    title: {
       type: String,
       value: '',
     },
@@ -30,19 +26,13 @@ Component({
       type: Boolean,
       value: false,
     },
-    loading: {
+    customRoute: {
       type: Boolean,
       value: false,
     },
-    animated: {
-      // 显示隐藏的时候 opacity 动画效果
+    loading: {
       type: Boolean,
-      value: true,
-    },
-    show: {
-      // 显示隐藏导航，隐藏的时候 navigation-bar 的高度占位还在
-      type: Boolean,
-      value: true,
+      value: false,
     },
     // back 为 true 的时候，返回的页面深度
     delta: {
@@ -52,24 +42,11 @@ Component({
   },
 
   /** 组件的初始数据 **/
-  data: {
-    displayStyle: '',
-  },
+  data: {},
 
   /** 组件生命周期声明对象 **/
   lifetimes: {
     attached() {
-      const animated = this.data.animated;
-      const show = this.data.show;
-      let displayStyle = '';
-      if (animated) {
-        displayStyle = `opacity: ${show ? '1' : '0'};transition:opacity 0.5s;`;
-      } else {
-        displayStyle = `display: ${show ? '' : 'none'}`;
-      }
-      this.setData({
-        displayStyle,
-      });
     },
   },
 

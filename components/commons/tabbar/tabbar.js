@@ -13,10 +13,6 @@ Component({
       type: String,
       value: 'portal',
     },
-    theme: {
-      type: String,
-      value: 'light',
-    },
   },
 
   /** 组件的初始数据 **/
@@ -79,6 +75,24 @@ Component({
         selectedIconPath: 'https://assets.fresns.cn/communities/tabbar/comments-active.png',
       },
       {
+        label: 'timelines',
+        text: '关注',
+        textKey: 'channel_timeline_name',
+        pagePath: '/pages/timelines/index',
+        iconPath: 'https://assets.fresns.cn/communities/tabbar/timelines.png',
+        selectedIconPath: 'https://assets.fresns.cn/communities/tabbar/timelines-active.png',
+        badge: 0,
+      },
+      {
+        label: 'nearby',
+        text: '附近',
+        textKey: 'channel_nearby_name',
+        pagePath: '/pages/nearby/index',
+        iconPath: 'https://assets.fresns.cn/communities/tabbar/nearby.png',
+        selectedIconPath: 'https://assets.fresns.cn/communities/tabbar/nearby-active.png',
+        badge: 0,
+      },
+      {
         label: 'notifications',
         text: '消息',
         textKey: 'channel_notifications_name',
@@ -106,7 +120,6 @@ Component({
       },
     ],
     current: null,
-    cssVariable: '',
   },
 
   /** 组件生命周期声明对象 **/
@@ -146,18 +159,6 @@ Component({
       this.setData({
         tabs: tabs,
         current: activeLabel,
-      });
-    },
-  },
-
-  /** 组件数据字段监听器 **/
-  observers: {
-    theme: function (theme) {
-      /* 微信 Skyline 渲染引擎无法支持深色模式的 WeUI 变量，暂时使用自写代码解决方案 */
-      const cssVariableName = theme + 'Variable';
-
-      this.setData({
-        cssVariable: cssVariableName,
       });
     },
   },
