@@ -46,8 +46,7 @@ Component({
 
   /** 组件生命周期声明对象 **/
   lifetimes: {
-    attached() {
-    },
+    attached() {},
   },
 
   /** 组件功能 **/
