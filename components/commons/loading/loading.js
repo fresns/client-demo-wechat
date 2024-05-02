@@ -3,18 +3,24 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import { fresnsLang } from '../../../api/tool/function';
+import { fresnsLang } from '../../../sdk/helpers/configs';
 
 Component({
   /** 组件的属性列表 **/
   properties: {
-    status: Boolean,
-    tipType: String, // none, page, empty
+    status: {
+      type: Boolean,
+      value: true,
+    },
+    tipType: {
+      type: String,
+      value: 'none', // none, page, empty
+    },
   },
 
   /** 组件的初始数据 **/
   data: {
-    loading: '',
+    loading: '正在加载',
     tipStatus: false,
     tipText: '',
   },
