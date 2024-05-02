@@ -7,9 +7,7 @@ import { fresnsConfig } from '../../sdk/helpers/configs';
 
 Page({
   /** 外部 mixin 引入 **/
-  mixins: [
-    require('../../mixins/common'),
-  ],
+  mixins: [require('../../mixins/common')],
 
   /** 页面的初始数据 **/
   data: {
