@@ -3,25 +3,25 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import appConfig from '../../fresns';
-import { fresnsApi } from '../../api/api';
-import { fresnsConfig, fresnsLang } from '../../api/tool/function';
-import { globalInfo } from '../../utils/fresnsGlobalInfo';
+import { fresnsApi } from '../../sdk/services';
+import { fresnsClient } from '../../sdk/helpers/client';
+import { fresnsConfig, fresnsLang } from '../../sdk/helpers/configs';
 
 Page({
   /** 外部 mixin 引入 **/
-  mixins: [require('../../mixins/globalConfig')],
+  mixins: [
+    require('../../mixins/common'),
+  ],
 
   /** 页面的初始数据 **/
   data: {
-    isFresns: false,
     logo: null,
     intro: null,
 
-    fresnsVersion: '2.x',
-    clientVersion: '1.x',
+    fresnsVersion: '3.x',
+    clientVersion: '3.x',
     clientName: '',
-    appInfo: {},
+    appBaseInfo: {},
   },
 
   /** 监听页面加载 **/
@@ -30,23 +30,21 @@ Page({
       title: await fresnsLang('about'),
     });
 
-    const fresnsStatus = await fresnsApi.global.globalStatus();
-    const appInfo = wx.getStorageSync('appInfo');
+    const fresnsStatus = await fresnsApi.global.status();
 
     const clientNameMap = {
       5: 'iOS',
       6: 'Android',
     };
-    const clientName = clientNameMap[appConfig?.platformId] || '';
+    const clientName = clientNameMap[fresnsClient.platformId] || '';
 
     this.setData({
-      isFresns: appConfig.isFresns || false,
       logo: await fresnsConfig('site_logo'),
       intro: await fresnsConfig('site_intro'),
       fresnsVersion: fresnsStatus.version,
-      clientVersion: globalInfo.clientVersion,
+      clientVersion: fresnsClient.version,
       clientName: clientName,
-      appInfo: appInfo,
+      appBaseInfo: fresnsClient.appBaseInfo,
     });
   },
 

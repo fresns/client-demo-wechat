@@ -3,11 +3,13 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import { fresnsConfig } from '../../api/tool/function';
+import { fresnsConfig } from '../../sdk/helpers/configs';
 
 Page({
   /** 外部 mixin 引入 **/
-  mixins: [require('../../mixins/globalConfig'), require('../../mixins/checkSiteMode')],
+  mixins: [
+    require('../../mixins/common'),
+  ],
 
   /** 页面的初始数据 **/
   data: {
@@ -17,15 +19,9 @@ Page({
 
   /** 监听页面加载 **/
   onLoad: async function () {
-    wx.setNavigationBarTitle({
-      title: await fresnsConfig('menu_portal_title'),
-    });
-
-    const value = (await fresnsConfig('portal_7')) || 'null';
-
     this.setData({
-      title: await fresnsConfig('menu_portal_title'),
-      content: value,
+      title: await fresnsConfig('channel_portal_name', '门户'),
+      content: await fresnsConfig('portal_7', 'null'),
     });
   },
 

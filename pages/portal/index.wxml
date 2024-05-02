@@ -3,14 +3,12 @@
     Copyright 2021-Present 唐杰
     Licensed under the Apache-2.0 license
 * -->
-<view class="page" data-weui-theme="{{ theme }}">
-    <view class="portal">
-        {{ content }}
-    </view>
+<page-meta root-font-size="system"/>
 
-    <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
-        <text class="weui-loadmore__tips">Powered by Fresns</text>
-    </view>
+<navigation-bar title="{{title}}" backButton="{{navbarBackButton}}" homeButton="{{navbarHomeButton}}" loading="{{navbarLoading}}"></navigation-bar>
 
-    <tabbar id="fresnsTabbar" activeLabel="portal"></tabbar>
-</view>
+<scroll-view class="scrollarea" type="list" scroll-y="{{true}}" enable-back-to-top="{{true}}">
+  <view>{{content}}</view>
+</scroll-view>
+
+<tabbar activeLabel="portal"></tabbar>

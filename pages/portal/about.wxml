@@ -3,67 +3,61 @@
     Copyright 2021-Present 唐杰
     Licensed under the Apache-2.0 license
 * -->
-<view class="page" data-weui-theme="{{ theme }}">
-    <block wx:if="{{ !isFresns }}">
-        <view class="page__hd">
-            <view class="page__logo">
-                <image src="{{ logo }}" mode="widthFix" alt="Fresns"></image>
-            </view>
-            <view>
-                <mp-html content="{{ intro }}" markdown="{{ true }}" lazy-load="{{ true }}"/>
-            </view>
-        </view>
+<page-meta root-font-size="system"/>
 
-        <view class="weui-loadmore weui-loadmore_line weui-loadmore_dot" aria-role="option">
-            <text class="weui-loadmore__tips"></text>
-        </view>
-    </block>
+<navigation-bar title="{{title}}" backButton="{{true}}"></navigation-bar>
 
-    <!-- Fresns 介绍开始 -->
+<scroll-view class="scrollarea" type="list" scroll-y="{{true}}" enable-back-to-top="{{true}}">
+  <view class="page" data-weui-theme="{{theme}}">
     <view class="page__hd">
-        <view class="page__logo">
-            <image src="https://assets.fresns.cn/logos/fresns.png" mode="widthFix" alt="Fresns"></image>
-        </view>
-        <view class="page__title">认识 Fresns</view>
-        <view class="page__desc">Fresns 是一款免费开源的社交网络服务软件，专为跨平台而打造的通用型社区产品，支持灵活多样的内容形态，可以满足多种运营场景，符合时代潮流，更开放且更易于二次开发。</view>
-        <view class="page__desc">Fresns 没有私有库，无需商业授权，完全免费开源，自由使用。全端产品解决方案覆盖网站、小程序、iOS、Android 等各端，并且全部采用原生语言开发。</view>
+      <view class="page__logo">
+        <image src="{{logo}}" mode="widthFix" alt="Fresns"></image>
+      </view>
+      <view>
+        <markdown-viewer content="{{intro}}"/>
+      </view>
+    </view>
+
+    <view class="weui-loadmore weui-loadmore_line weui-loadmore_dot" aria-role="option">
+      <text class="weui-loadmore__tips"></text>
+    </view>
+
+    <!-- Fresns 介绍 -->
+    <view class="page__hd">
+      <view class="page__logo">
+        <image src="https://assets.fresns.cn/logos/fresns.png" mode="widthFix" alt="Fresns"></image>
+      </view>
+      <view class="page__title">认识 Fresns</view>
+      <view class="page__desc">Fresns 是一款免费开源的社交网络服务软件，专为跨平台而打造的通用型社区产品，支持灵活多样的内容形态，可以满足多种运营场景，符合时代潮流，更开放且更易于二次开发。</view>
+      <view class="page__desc">Fresns 没有私有库，无需商业授权，完全免费开源，自由使用。全端产品解决方案覆盖网站、小程序、iOS、Android 等各端，并且全部采用原生语言开发。</view>
     </view>
 
     <view class="page__bd page__bd_spacing">
-        <view class="weui-panel weui-panel_access">
-            <view class="weui-panel__ft">
-                <navigator class="weui-cell weui-cell_active weui-cell_access weui-cell_link weui_fs" url="/pages/webview?url=https://fresns.cn">
-                    <view class="weui-cell__bd">官网</view>
-                    <text class="weui-cell__ft">https://fresns.cn</text>
-                </navigator>
-            </view>
-            <view class="weui-panel__ft">
-                <view class="weui-cell weui-cell_active weui-cell_access weui-cell_link" bind:tap="tapCopyMP">
-                    <view class="weui-cell__bd">公众号</view>
-                    <text class="weui-cell__ft">FresnsCN</text>
-                </view>
-            </view>
-            <view class="weui-panel__ft" wx:if="{{ appInfo.isWechat && !isFresns }}">
-                <navigator class="weui-cell weui-cell_active weui-cell_access weui-cell_link" target="miniProgram" app-id="wxcdaa14554bd22f64">
-                    <view class="weui-cell__bd">小程序</view>
-                    <text class="weui-cell__ft">交流社区</text>
-                </navigator>
-            </view>
-            <view class="weui-panel__ft">
-                <navigator class="weui-cell weui-cell_active weui-cell_access weui-cell_link" url="/pages/webview?url=https://fresns.cn/intro/changelog.html">
-                    <view class="weui-cell__bd">当前版本</view>
-                    <text class="weui-cell__ft">v{{ fresnsVersion }}</text>
-                </navigator>
-            </view>
+      <view class="weui-panel weui-panel_access">
+        <view class="weui-panel__ft">
+          <navigator class="weui-cell weui-cell_active weui-cell_access weui-cell_link weui_fs" url="/sdk/extensions/webview?url=https://fresns.cn">
+            <view class="weui-cell__bd">官网</view>
+            <text class="weui-cell__ft">https://fresns.cn</text>
+          </navigator>
         </view>
+        <view class="weui-panel__ft">
+          <view class="weui-cell weui-cell_active weui-cell_access weui-cell_link" bind:tap="tapCopyMP">
+            <view class="weui-cell__bd">公众号</view>
+            <text class="weui-cell__ft">FresnsCN</text>
+          </view>
+        </view>
+        <view class="weui-panel__ft" wx:if="{{appInfo.isWechat && !isFresns}}">
+          <navigator class="weui-cell weui-cell_active weui-cell_access weui-cell_link" target="miniProgram" app-id="wxcdaa14554bd22f64">
+            <view class="weui-cell__bd">小程序</view>
+            <text class="weui-cell__ft">交流社区</text>
+          </navigator>
+        </view>
+      </view>
     </view>
-    <!-- Fresns 介绍结束 -->
 
-    <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
-        <text class="weui-loadmore__tips">Powered by Fresns</text>
-    </view>
-
-    <view class="client-version">
-        <text>客户端版本 {{ clientName }} v{{ clientVersion }}</text>
-    </view>
-</view>
+		<view class="weui-footer">
+			<view class="weui-footer__text">客户端版本 {{clientName}} v{{clientVersion}}</view>
+			<!-- <navigator class="page_copyright" url="//beian.miit.gov.cn/">备案号：粤B2-20090059</navigator> -->
+		</view>
+  </view>
+</scroll-view>

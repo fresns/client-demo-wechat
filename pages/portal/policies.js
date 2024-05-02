@@ -3,67 +3,80 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import { fresnsConfig, fresnsLang } from '../../api/tool/function';
+import { fresnsConfig, fresnsLang } from '../../sdk/helpers/configs';
 
 Page({
   /** 外部 mixin 引入 **/
-  mixins: [require('../../mixins/globalConfig')],
+  mixins: [
+    require('../../mixins/common'),
+  ],
 
   /** 页面的初始数据 **/
   data: {
+    title: null,
     tabs: [],
-    activeTab: 0,
-    content: null,
+    selectedTab: 0,
+    content: '',
   },
 
   /** 监听页面加载 **/
   onLoad: async function (options) {
-    wx.setNavigationBarTitle({
-      title: await fresnsLang('accountPolicies'),
-    });
-
     let tabs = [];
     if (await fresnsConfig('account_terms_status')) {
       tabs.push({
         title: await fresnsLang('accountPoliciesTerms'),
         active: 'terms',
-        content: (await fresnsConfig('account_terms')) || '',
+        content: await fresnsConfig('account_terms_policy'),
       });
     }
     if (await fresnsConfig('account_privacy_status')) {
       tabs.push({
         title: await fresnsLang('accountPoliciesPrivacy'),
         active: 'privacy',
-        content: (await fresnsConfig('account_privacy')) || '',
+        content: await fresnsConfig('account_privacy_policy'),
       });
     }
-    if (await fresnsConfig('account_cookies_status')) {
+    if (await fresnsConfig('account_cookie_status')) {
       tabs.push({
-        title: await fresnsLang('accountPoliciesCookies'),
-        active: 'cookies',
-        content: (await fresnsConfig('account_cookies')) || '',
+        title: await fresnsLang('accountPoliciesCookie'),
+        active: 'cookie',
+        content: await fresnsConfig('account_cookie_policy'),
       });
     }
     if (await fresnsConfig('account_delete_status')) {
       tabs.push({
         title: await fresnsLang('accountPoliciesDelete'),
         active: 'accountDelete',
-        content: (await fresnsConfig('account_delete')) || '',
+        content: await fresnsConfig('account_delete_policy'),
       });
     }
 
-    const index = tabs.findIndex((tab) => tab.active == options.active);
+    let index = 0;
+    let content = '';
+
+    if (options.active) {
+      index = tabs.findIndex((tab) => tab.active == options.active);
+
+      content = tabs[index].content;
+    } else {
+      content = tabs[0].content;
+    }
+
 
     this.setData({
+      title: await fresnsLang('accountPolicies'),
       tabs: tabs,
-      activeTab: index,
-      content: tabs[index].content,
+      selectedTab: index,
+      content: content,
     });
   },
 
-  onClickTab: async function (e) {
+  onTapTab: async function (e) {
+    const index = e.currentTarget.dataset.tab;
+
     this.setData({
-      content: this.data.tabs[e.detail.index].content,
+      selectedTab: index,
+      content: this.data.tabs[index].content,
     });
   },
 });

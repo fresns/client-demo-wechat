@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "About",
   "usingComponents": {
-    "mp-html": "mp-html"
+    "navigation-bar": "/components/commons/navigation-bar/navigation-bar",
+    "markdown-viewer": "/sdk/components/markdown-viewer/markdown-viewer"
   }
 }
