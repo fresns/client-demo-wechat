@@ -25,8 +25,17 @@ Page({
     console.log('web-view options', options);
     console.log('web-view navigatorData', navigatorData);
 
-    const title = options.title || navigatorData.title || '';
-    const url = options.url || navigatorData.url || '';
+    let url = options.url || navigatorData?.url || '';
+
+    if (!url) {
+      wx.setNavigationBarTitle({
+        title: await fresnsLang('errorUnavailable'),
+      });
+
+      return;
+    }
+
+    const title = navigatorData?.title || '';
 
     wx.setNavigationBarTitle({
       title: await fresnsLang('loading'),
@@ -38,44 +47,42 @@ Page({
       title: await fresnsLang('loading'),
     });
 
-    if (!url) {
-      return;
-    }
-
     // callback variables
     // https://docs.fresns.com/zh-Hans/clients/reference/callback/variables.html
-    const urlParams = {
-      accessToken: await makeAccessToken(), // 访问令牌
-      postMessageKey: navigatorData.postMessageKey || '', // 回调标识
-      redirectUrl: navigatorData.redirectUrl || '', // 重定向页面
-      connectPlatformId: navigatorData.connectPlatformId || '', // 互联 IP
-      aid: navigatorData.aid || '', // 账户 ID
-      uid: navigatorData.uid || '', // 用户 ID
-      rid: navigatorData.rid || '', // 角色 ID
-      gid: navigatorData.gid || '', // 小组 ID
-      htid: navigatorData.htid || '', // 话题 ID
-      gtid: navigatorData.gtid || '', // 地理 ID
-      pid: navigatorData.pid || '', // 帖子 ID
-      cid: navigatorData.cid || '', // 评论 ID
-      fid: navigatorData.fid || '', // 文件 ID
-      eid: navigatorData.eid || '', // 内容扩展 ID
-      hpid: navigatorData.hpid || '', // 历史帖子 ID
-      hcid: navigatorData.hcid || '', // 历史评论 ID
-      viewType: navigatorData.viewType || '', // 视图类型
-      did: navigatorData.did || '', // 草稿 ID
-      draftType: navigatorData.draftType || '', // 草稿类型
-      uploadInfo: navigatorData.uploadInfo || '', // 上传参数信息
-      mapInfo: navigatorData.mapInfo || '', // 地图信息
-      parameter: navigatorData.parameter || '', // 自定义信息
-    };
+    if (navigatorData) {
+      const urlParams = {
+        accessToken: await makeAccessToken(), // 访问令牌
+        postMessageKey: navigatorData.postMessageKey || '', // 回调标识
+        redirectUrl: navigatorData.redirectUrl || '', // 重定向页面
+        connectPlatformId: navigatorData.connectPlatformId || '', // 互联 IP
+        aid: navigatorData.aid || '', // 账户 ID
+        uid: navigatorData.uid || '', // 用户 ID
+        rid: navigatorData.rid || '', // 角色 ID
+        gid: navigatorData.gid || '', // 小组 ID
+        htid: navigatorData.htid || '', // 话题 ID
+        gtid: navigatorData.gtid || '', // 地理 ID
+        pid: navigatorData.pid || '', // 帖子 ID
+        cid: navigatorData.cid || '', // 评论 ID
+        fid: navigatorData.fid || '', // 文件 ID
+        eid: navigatorData.eid || '', // 内容扩展 ID
+        hpid: navigatorData.hpid || '', // 历史帖子 ID
+        hcid: navigatorData.hcid || '', // 历史评论 ID
+        viewType: navigatorData.viewType || '', // 视图类型
+        did: navigatorData.did || '', // 草稿 ID
+        draftType: navigatorData.draftType || '', // 草稿类型
+        uploadInfo: navigatorData.uploadInfo || '', // 上传参数信息
+        mapInfo: navigatorData.mapInfo || '', // 地图信息
+        parameter: navigatorData.parameter || '', // 自定义信息
+      };
 
-    const newUrl = repAppUrl(url, urlParams);
+      url = repAppUrl(url, urlParams);
+    }
 
     this.setData({
       theme: app.globalData.theme,
       mode: app.globalData.mode,
       title: title,
-      url: newUrl,
+      url: url,
     });
   },
 
