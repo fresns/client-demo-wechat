@@ -35,6 +35,7 @@ App({
               },
             });
           });
+
           updateManager.onUpdateFailed(function () {
             wx.showModal({
               title: '已经有新版本了哟~',
@@ -44,13 +45,6 @@ App({
             });
           });
         }
-      });
-    } else {
-      wx.showModal({
-        title: '提示',
-        content: '当前微信版本过低，无法使用本小程序，请升级到最新版微信。',
-        showCancel: false,
-        confirmText: false,
       });
     }
   },

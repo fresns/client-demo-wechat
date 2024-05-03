@@ -76,9 +76,9 @@
 
     "pages/me/index",
     "pages/me/login",
-    "pages/me/drafts",
+    "pages/me/extcredits",
     "pages/me/wallet",
-    "pages/me/user-extcredits",
+    "pages/me/drafts",
     "pages/me/users",
     "pages/me/settings",
 
@@ -136,7 +136,8 @@
   "rendererOptions": {
     "skyline": {
       "defaultDisplayBlock": true,
-      "defaultContentBox": true
+      "defaultContentBox": true,
+      "disableABTest": true
     }
   },
   "componentFramework": "glass-easel",

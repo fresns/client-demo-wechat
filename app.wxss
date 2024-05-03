@@ -20,6 +20,8 @@ page {
 
 /* 以下 CSS 为兼容 Skyline 渲染引擎提供的 WeUI 临时方案 */
 
+/* button */
+
 .weui-btn_default {
   color: var(--weui-FG-0);
 }
@@ -28,10 +30,14 @@ page {
   color: var(--weui-FG-0);
 }
 
+/* badge */
+
 .weui-badge {
   padding: 4.8rpx 12.8rpx !important;
   min-width: 21.33rpx !important;
 }
+
+/* footer */
 
 .weui-footer__links {
   flex: 1;
@@ -42,11 +48,15 @@ page {
   justify-content: center;
 }
 
+/* list */
+
 .weui-cell_access .weui-cell__ft::after {
   background: transparent
     url('data:image/svg+xml,%3Csvg%20width%3D%2212%22%20height%3D%2224%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M2.454%206.58l1.06-1.06%205.78%205.779a.996.996%200%20010%201.413l-5.78%205.779-1.06-1.061%205.425-5.425-5.425-5.424z%22%20fill%3D%22%23B2B2B2%22%20fill-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E')
     no-repeat 50% 50%;
 }
+
+/* panel */
 
 .weui-media-box__info {
   flex-direction: row;
@@ -60,4 +70,26 @@ page {
 
 .weui-media-box__info__meta_extra {
   padding-left: 32rpx !important;
+}
+
+/* loadmore */
+
+.weui-loadmore_line .weui-loadmore__tips {
+  top: -28.8rpx !important;
+}
+
+/* half-screen-dialog */
+
+.weui-btn_icon {
+  width: 30rpx !important;
+  height: 30rpx !important;
+  background: transparent
+    url('data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M12.25%2010.693L6.057%204.5%205%205.557l6.193%206.193L5%2017.943%206.057%2019l6.193-6.193L18.443%2019l1.057-1.057-6.193-6.193L19.5%205.557%2018.443%204.5z%22%20fill-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E')
+    no-repeat 50% 50% !important;
+}
+
+/* form */
+
+.weui-textarea {
+  font-size: 32rpx !important;
 }
