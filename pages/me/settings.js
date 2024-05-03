@@ -69,11 +69,7 @@ Page({
       fsLang.settingGenderPronounOptionHe,
       fsLang.settingGenderPronounOptionThey,
     ];
-    const genderPronouns = [
-      fsLang.she,
-      fsLang.he,
-      fsLang.they,
-    ];
+    const genderPronouns = [fsLang.she, fsLang.he, fsLang.they];
 
     const policyOptions = [
       fsLang.optionEveryone,
@@ -242,7 +238,7 @@ Page({
     }
 
     if (modifyDialogType == 'genderCustom') {
-      modifyDialogTitle = await fresnsLang('userGender') + ': ' + await fresnsLang('settingGenderCustom');
+      modifyDialogTitle = (await fresnsLang('userGender')) + ': ' + (await fresnsLang('settingGenderCustom'));
       modifyDialogValue = await fresnsUser('detail.genderCustom');
     }
 

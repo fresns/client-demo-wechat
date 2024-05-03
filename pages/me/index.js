@@ -7,7 +7,13 @@ import { fresnsApi } from '../../sdk/services';
 import { switchLangTag, fresnsClient } from '../../sdk/helpers/client';
 import { fresnsConfig, fresnsLang } from '../../sdk/helpers/configs';
 import { fresnsLogin } from '../../sdk/helpers/login';
-import { fresnsAuth, fresnsAccount, fresnsUser, fresnsOverview, fresnsViewProfilePath } from '../../sdk/helpers/profiles';
+import {
+  fresnsAuth,
+  fresnsAccount,
+  fresnsUser,
+  fresnsOverview,
+  fresnsViewProfilePath,
+} from '../../sdk/helpers/profiles';
 import { cachePut, cacheGet, clearCache } from '../../sdk/helpers/cache';
 import { versionCompare } from '../../sdk/utilities/toolkit';
 
@@ -68,23 +74,25 @@ Page({
     // 多语言菜单
     const langMenusArr = await fresnsConfig('language_menus');
 
-    const langMenus = langMenusArr.filter((item) => item.isEnabled).map((item) => {
-      let text = item.langName;
-      if (item.areaName) {
-        text = item.langName + ' (' + item.areaName + ')';
-      }
+    const langMenus = langMenusArr
+      .filter((item) => item.isEnabled)
+      .map((item) => {
+        let text = item.langName;
+        if (item.areaName) {
+          text = item.langName + ' (' + item.areaName + ')';
+        }
 
-      const newItem = {
-        text: text,
-        value: item.langTag,
-      };
+        const newItem = {
+          text: text,
+          value: item.langTag,
+        };
 
-      if (item.langTag === fresnsClient.langTag) {
-        newItem.type = 'warn';
-      }
+        if (item.langTag === fresnsClient.langTag) {
+          newItem.type = 'warn';
+        }
 
-      return newItem;
-    });
+        return newItem;
+      });
 
     this.setData({
       title: await fresnsConfig('channel_me_name'),
@@ -111,7 +119,7 @@ Page({
   },
 
   /** 监听页面显示 **/
-  onShow: async function() {
+  onShow: async function () {
     this.setData({
       accountLogin: fresnsAuth.accountLogin,
       userLogin: fresnsAuth.userLogin,
@@ -262,13 +270,13 @@ Page({
     wx.navigateTo({
       url: '/pages/me/login',
       routeType: 'wx://cupertino-modal-inside',
-    })
+    });
   },
 
   /** 切换语言菜单 **/
   switchLanguage: async function () {
     const langMenus = this.data.langMenus;
-    const itemList = langMenus.map(item => item.text);
+    const itemList = langMenus.map((item) => item.text);
 
     wx.showActionSheet({
       itemList: itemList,
@@ -293,7 +301,7 @@ Page({
       fail: (res) => {
         console.log(res.errMsg);
       },
-    })
+    });
   },
 
   /** 退出登录 **/
@@ -305,7 +313,7 @@ Page({
       confirmColor: '#fa5151',
       success: async (res) => {
         if (res.confirm) {
-          console.log('用户点击确定')
+          console.log('用户点击确定');
           await fresnsLogin.logout();
 
           this.setData({
@@ -317,10 +325,10 @@ Page({
             fresnsOverview: null,
           });
         } else if (res.cancel) {
-          console.log('用户点击取消')
+          console.log('用户点击取消');
         }
-      }
-    })
+      },
+    });
   },
 
   /** 多端应用: 下载应用 **/

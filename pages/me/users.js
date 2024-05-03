@@ -78,7 +78,7 @@ Page({
               url: '/pages/me/index',
             });
           }
-        }
+        },
       });
 
       return;

@@ -39,19 +39,19 @@ Page({
         title: await fresnsLang('errorNoLogin', '请先登录账号再操作'),
         icon: 'none',
       });
-    };
+    }
 
     const langTag = fresnsClient.langTag;
 
     const btnNameMap = {
-      'en': 'Sign in with WeChat',
+      en: 'Sign in with WeChat',
       'zh-Hans': '通过微信登录',
       'zh-Hant': '透過 WeChat 登入',
     };
     const wechatLoginBtnName = btnNameMap[langTag] || 'Sign in with WeChat';
 
     const appleBtnNameMap = {
-      'en': 'Sign in with Apple',
+      en: 'Sign in with Apple',
       'zh-Hans': '通过 Apple 登录',
       'zh-Hant': '透過 Apple 登入',
     };
@@ -121,7 +121,7 @@ Page({
       wx.navigateTo({
         url: '/pages/me/wechat-login/check-sign?type=' + type,
         routeType: 'wx://bottom-sheet',
-      })
+      });
 
       return;
     }

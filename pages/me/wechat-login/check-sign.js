@@ -8,10 +8,7 @@ import { fresnsLogin } from '../../../sdk/helpers/login';
 
 Page({
   /** 外部 mixin 引入 **/
-  mixins: [
-    require('../../../mixins/common'),
-    require('../../../mixins/fresnsCallback'),
-  ],
+  mixins: [require('../../../mixins/common'), require('../../../mixins/fresnsCallback')],
 
   /** 页面的初始数据 **/
   data: {
@@ -52,7 +49,7 @@ Page({
             url: '/sdk/extensions/webview',
           });
         }
-      }
+      },
     });
   },
 
