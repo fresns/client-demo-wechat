@@ -71,9 +71,9 @@ const user = {
    * @param {Object} options
    * @return {wx.RequestTask}
    */
-  updateSettings: (options = {}) => {
+  updateSetting: (options = {}) => {
     return request({
-      path: '/api/fresns/v1/user/settings',
+      path: '/api/fresns/v1/user/setting',
       method: 'PATCH',
       data: {
         ...options,
