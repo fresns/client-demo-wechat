@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "个人中心",
+  "usingComponents": {
+    "navigation-bar": "/components/commons/navigation-bar/navigation-bar",
+    "tabbar": "/components/commons/tabbar/tabbar"
+  }
+}

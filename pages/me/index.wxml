@@ -1,0 +1,200 @@
+<!-- *
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+* -->
+<page-meta root-font-size="system"/>
+
+<navigation-bar title="{{title}}" backButton="{{navbarBackButton}}" homeButton="{{navbarHomeButton}}" loading="{{navbarLoading}}"></navigation-bar>
+
+<scroll-view class="scrollarea" type="list" scroll-y="{{true}}" enable-back-to-top="{{true}}" refresher-enabled="{{userLogin}}" refresher-triggered="{{refresherStatus}}" bindrefresherrefresh="onRefresherRefresh">
+  <view class="profile-header {{userLogin ? '' : 'login-box'}}">
+    <!-- 已登录 -->
+    <block wx:if="{{userLogin}}">
+      <view class="weui-flex">
+        <view class="profile-info">
+          <view class="profile-avatar">
+            <image wx:if="{{fresnsUser.decorate}}" src="{{fresnsUser.decorate}}" class="avatar-decorate" mode="scaleToFill"></image>
+            <image src="{{fresnsUser.avatar}}" class="avatar-img" mode="scaleToFill"></image>
+          </view>
+          <view class="profile-name weui-flex">
+            <text class="profile-nickname">{{fresnsUser.nickname}}</text>
+
+            <view wx:if="{{fresnsUser.verifiedStatus}}" class="profile-verified">
+              <image src="{{fresnsUser.verifiedIcon ? fresnsUser.verifiedIcon : '/assets/images/icon-verified.png'}}" mode="heightFix"></image>
+            </view>
+
+            <text class="profile-username">{{'@' + fresnsUser.username}}</text>
+
+            <view wx:if="{{fresnsUser.roleIcon}}" class="profile-role-icon">
+              <image src="{{fresnsUser.roleIcon}}" mode="heightFix"></image>
+            </view>
+
+            <view wx:if="{{fresnsUser.roleName}}" class="profile-role-name">
+              <text class="weui-badge">{{fresnsUser.roleName}}</text>
+            </view>
+          </view>
+        </view>
+        <view class="weui-flex__item profile-settings-btn">
+          <navigator url="/pages/me/settings" class="weui-btn weui-btn_mini weui-btn_default">
+            {{fresnsConfig.channel_me_settings_name}}
+          </navigator>
+        </view>
+      </view>
+      <view class="profile-bio" wx-if="{{fresnsUser.bio}}">{{fresnsUser.bio}}</view>
+      <view class="weui-media-box__info">
+        <view class="weui-media-box__info__meta">
+          {{fresnsUser.stats.followUserCount}} {{fresnsLang.userFollowing}}
+        </view>
+        <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">
+          {{fresnsUser.stats.followerCount}} {{fresnsUser.interaction.followUserTitle}}
+        </view>
+      </view>
+    </block>
+
+    <!-- 未登录 -->
+    <block wx:else>
+      <!-- 支持微信登录，前入登录页 -->
+      <block wx:if="{{enableWeChatLogin}}">
+        <view class="login-btn">
+          <view class="weui-btn weui-btn_primary" bind:tap="toLoginPage">
+            {{loginBtnText}}
+          </view>
+        </view>
+      </block>
+      <!-- 不支持微信登录，直接前往扩展页 -->
+      <block wx:else>
+        <view class="login-navigator">
+          <navigator class="weui-btn weui-btn_primary" url="/sdk/extensions/webview"
+            bind:tap="handleExtensionTap"
+            data-title="{{fresnsLang.accountLogin}}"
+            data-url="{{accountLoginService}}"
+            data-post-message-key="fresnsAccountSign">
+            {{loginBtnText}}
+          </navigator>
+        </view>
+      </block>
+    </block>
+  </view>
+
+  <!-- 搜索 -->
+  <view class="weui-cells weui-cells_after-title">
+    <navigator url="/pages/search/index" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <view class="weui-cell__bd">{{fresnsConfig.channel_search_name}}</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </navigator>
+  </view>
+
+  <view class="weui-cells weui-cells_after-title" wx:if="{{userLogin}}">
+    <!-- 发表 -->
+    <navigator url="/pages/editor/index?type=post" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <view class="weui-cell__bd">{{fresnsConfig.publish_post_name}}</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </navigator>
+
+    <!-- 积分 -->
+    <navigator url="/pages/me/extcredits" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <view class="weui-cell__bd">{{fresnsConfig.channel_me_extcredits_name}}</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </navigator>
+
+    <!-- 钱包 -->
+    <navigator url="/pages/me/wallet" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <view class="weui-cell__bd">{{fresnsConfig.channel_me_wallet_name}}</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access">{{fresnsAccount.wallet.currencyCode}} {{fresnsAccount.wallet.balance}} {{fresnsAccount.wallet.currencyUnit}}</view>
+    </navigator>
+
+    <!-- 草稿箱 -->
+    <navigator url="/pages/me/drafts?type=post" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <view class="weui-cell__bd">{{fresnsConfig.channel_me_drafts_name}}</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access">{{fresnsOverview.draftCount.posts}}</view>
+    </navigator>
+  </view>
+
+  <!-- 用户功能扩展 -->
+  <view class="user-extensions" wx:if="{{fresnsOverview.features.length > 0}}">
+    <view class="extension-box">
+      <block wx:for="{{fresnsOverview.features}}" wx:for-item="item" wx:key="fskey">
+        <navigator url="/sdk/extensions/webview" bind:tap="handleExtensionTap"
+          data-title="{{item.name}}"
+          data-url="{{item.appUrl}}"
+          data-post-message-key="fresnsFeatureExtension">
+          <view class="extension-icon">
+            <image src="{{item.icon}}"></image>
+          </view>
+          <view class="extension-label">{{item.name}}</view>
+        </navigator>
+      </block>
+    </view>
+  </view>
+
+  <view class="weui-cells weui-cells_after-title">
+    <!-- 名下用户 -->
+    <navigator wx:if="{{fresnsAccount.users.length > 1}}" url="/pages/me/users" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <view class="weui-cell__bd">{{fresnsLang.switchUser}}</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access">{{fresnsAccount.users.length}}</view>
+    </navigator>
+
+    <!-- 切换语言 -->
+    <view class="weui-cell weui-cell_access" wx:if="{{fresnsConfig.language_status}}" bind:tap="switchLanguage">
+      <view class="weui-cell__bd">{{fresnsLang.switchLanguage}}</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </view>
+
+    <!-- 多端应用: 有新版本 -->
+    <block wx:if="{{appBaseInfo.hasNewVersion}}">
+      <view class="weui-cell weui-cell_access" wx:if="{{appBaseInfo.isApp}}" bind:tap="onUpdateApp">
+        <view class="weui-cell__bd">
+          {{fresnsLang.checkVersion}}
+          <text class="weui-badge">1</text>
+        </view>
+        <view class="weui-cell__ft weui-cell__ft_in-access">
+          <view class="weui-btn weui-btn_mini weui-btn_default weui-wa-hotarea" aria-role="button" wx:if="{{!downloadApk}}">{{fresnsLang.upgrade}}</view>
+          <text wx:if="{{downloadApk}}">{{downloadTotalWritten}}M/{{downloadTotalExpectedToWrite}}M</text>
+        </view>
+      </view>
+      <!-- 下载进度条 -->
+      <view class="weui-progress" wx:if="{{downloadApk}}">
+        <view class="weui-progress__bar">
+          <view class="weui-progress__inner-bar js_progress" style="width: {{downloadProgress}}%;"></view>
+        </view>
+        <text id="js_current" class="weui-hidden_abs" aria-role="alert">{{downloadProgress}}%</text>
+      </view>
+    </block>
+    <!-- 多端应用: 检测版本 -->
+    <block wx:else>
+      <view class="weui-cell weui-cell_access" wx:if="{{appBaseInfo.isApp}}" bind:tap="onCheckVersion">
+        <view class="weui-cell__bd">{{fresnsLang.checkVersion}}</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </view>
+    </block>
+
+    <!-- 是否有独立 App -->
+    <view class="weui-cell weui-cell_access" wx:if="{{appBaseInfo.isWechat && clientInfo.version}}" bind:tap="onDownloadApp">
+      <view class="weui-cell__bd">{{fresnsLang.useApp}}</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access" style="font-size:28rpx;">{{fresnsLang.downloadApp}}</view>
+    </view>
+
+    <!-- 关于 -->
+    <navigator url="/pages/portal/about" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <view class="weui-cell__bd">{{fresnsLang.about}}</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </navigator>
+  </view>
+
+  <view class="logout" wx:if="{{accountLogin}}">
+    <button type="warn" bind:tap="onClickLogout">{{fresnsLang.accountLogout}}</button>
+  </view>
+
+  <!-- 隐私权政策和服务条款 -->
+  <view class="weui-footer">
+    <view class="weui-footer__links">
+      <navigator class="weui-footer__link weui-wa-hotarea" url="/pages/portal/policies?active=terms" wx:if="{{fresnsConfig.account_terms_status}}">{{fresnsLang.accountPoliciesTerms}}</navigator>
+      <navigator class="weui-footer__link weui-wa-hotarea" url="/pages/portal/policies?active=privacy" wx:if="{{fresnsConfig.account_privacy_status}}">{{fresnsLang.accountPoliciesPrivacy}}</navigator>
+      <navigator class="weui-footer__link weui-wa-hotarea" url="/pages/portal/policies?active=cookie" wx:if="{{fresnsConfig.account_cookie_status}}">{{fresnsLang.accountPoliciesCookie}}</navigator>
+      <navigator class="weui-footer__link weui-wa-hotarea" url="/pages/portal/policies?active=accountDelete" wx:if="{{fresnsConfig.account_delete_status}}">{{fresnsLang.accountPoliciesDelete}}</navigator>
+    </view>
+  </view>
+</scroll-view>
+
+<tabbar activeLabel="me"></tabbar>

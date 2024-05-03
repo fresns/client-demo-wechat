@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "选择用户",
-  "usingComponents": {
-    "mp-half-screen-dialog": "weui-miniprogram/half-screen-dialog/half-screen-dialog"
-  }
-}

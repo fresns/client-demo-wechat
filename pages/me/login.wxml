@@ -1,0 +1,62 @@
+<!-- *
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+* -->
+<page-meta root-font-size="system"/>
+
+<navigation-bar title="{{title}}" customRoute="{{true}}"></navigation-bar>
+
+<scroll-view class="scrollarea" type="list" scroll-y="{{true}}">
+  <!-- 微信小程序登录 -->
+  <view class="we-login-agree" wx:if="{{appBaseInfo.isWechat && enableWeChatLogin}}">
+    <button class="weui-btn weui-btn_primary" type="primary" bind:tap="onWeChatLogin">
+      <view class="btn-flex">
+        <view><image src="/assets/images/wechat.png" mode="heightFix"/></view>
+        <text>{{wechatLoginBtnName}}</text>
+      </view>
+    </button>
+  </view>
+
+  <!-- 多端应用: 微信登录 -->
+  <view class="we-login-agree" wx:if="{{appBaseInfo.isApp}}">
+    <button class="weui-btn weui-btn_primary" type="primary" bind:tap="onAppWeChatLogin">
+      <view class="btn-flex">
+        <view><image src="/assets/images/wechat.png" mode="heightFix"/></view>
+        <text>{{wechatLoginBtnName}}</text>
+      </view>
+    </button>
+  </view>
+
+  <!-- 多端应用: 苹果账户登录 -->
+  <view class="we-login-agree" wx:if="{{appBaseInfo.isApp && appBaseInfo.platform == 'ios'}}">
+    <button class="weui-btn apple-btn" type="primary" bind:tap="onAppleLogin">
+      <view class="btn-flex">
+        <view><image src="/assets/images/apple.png" mode="heightFix"/></view>
+        <text>{{appleLoginBtnName}}</text>
+      </view>
+    </button>
+  </view>
+
+  <!-- 账户和密码登录 -->
+  <view class="we-login-agree pw-login">
+    <navigator class="weui-btn weui-btn_default weui-btn_medium" url="/sdk/extensions/webview"
+      bind:tap="handleExtensionTap"
+      data-title="{{fresnsLang.accountLogin}}"
+      data-url="{{accountLoginService}}"
+      data-post-message-key="fresnsAccountSign">
+      {{fresnsLang.emailOrPhone}}
+    </navigator>
+  </view>
+</scroll-view>
+
+<!-- 注册 -->
+<view class="register-btn-box" wx:if="{{accountRegisterStatus}}">
+  <navigator url="/sdk/extensions/webview"
+    bind:tap="handleExtensionTap"
+    data-title="{{fresnsLang.accountRegister}}"
+    data-url="{{accountRegisterService}}"
+    data-post-message-key="fresnsAccountSign">
+    {{fresnsLang.accountRegister}}
+  </navigator>
+</view>

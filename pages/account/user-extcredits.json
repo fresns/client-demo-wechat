@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "用户积分",
-  "usingComponents": {
-    "loading": "/components/commons/loading/loading"
-  }
-}

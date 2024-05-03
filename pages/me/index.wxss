@@ -1,0 +1,136 @@
+/*!
+ * Fresns 微信小程序 (https://fresns.cn)
+ * Copyright 2021-Present 唐杰
+ * Licensed under the Apache-2.0 license
+ */
+.profile-header {
+  padding-bottom: 30rpx;
+  background-color: var(--weui-BG-2);
+  margin-bottom: 14rpx;
+}
+
+.login-box {
+  padding-top: 120rpx;
+  padding-bottom: 120rpx;
+}
+
+.profile-avatar {
+  width: 200rpx;
+  height: 160rpx;
+  margin-left: 10rpx;
+}
+
+.profile-avatar .avatar-img {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  margin: 40rpx;
+  margin-bottom: -14rpx;
+  margin-left: 30rpx;
+}
+
+.profile-avatar .avatar-decorate {
+  position: absolute;
+  width: 200rpx;
+  height: 200rpx;
+  margin-top: -40rpx;
+  z-index: 500;
+}
+
+.profile-name {
+  margin-left: 40rpx;
+  margin-top: -20rpx;
+}
+
+.profile-nickname {
+  font-size: 40rpx;
+  color: var(--weui-FG-0);
+}
+
+.profile-username {
+  font-size: 28rpx;
+  color: var(--weui-FG-1);
+  margin-left: 20rpx;
+  margin-top: 10rpx;
+}
+
+.profile-verified {
+  margin-right: -12rpx;
+}
+
+.profile-verified image {
+  height: 40rpx;
+  margin: 0 8rpx;
+  margin-top: 12rpx;
+}
+
+.profile-role-icon image {
+  height: 18px;
+  margin: 0 8rpx;
+  margin-top: 8rpx;
+}
+
+.profile-role-name .weui-badge {
+  font-weight: 400;
+  font-size: 20rpx;
+  color: var(--weui-FG-2);
+  margin-left: 20rpx;
+  margin-top: 16rpx;
+  background-color: var(--weui-BG-0);
+}
+
+.profile-settings-btn {
+  margin-top: 70rpx;
+  margin-right: 40rpx;
+  text-align: right;
+}
+
+.profile-bio {
+  padding: 0 40rpx;
+  margin-top: 10rpx;
+  color: var(--weui-FG-1);
+}
+
+.weui-media-box__info {
+  padding: 0 40rpx;
+}
+
+.weui-cells {
+  margin-bottom: 14rpx;
+}
+
+.user-extensions {
+  overflow: hidden;
+  background-color: var(--weui-BG-2);
+  padding-bottom: 40rpx;
+  margin-bottom: 30rpx;
+}
+
+.extension-box {
+  float: left;
+  width: 25%;
+  padding-top: 40rpx;
+}
+
+.extension-box navigator {
+  text-align: center;
+  font-size: 28rpx;
+}
+
+.extension-box .extension-icon image {
+  width: 60rpx;
+  height: 60rpx;
+}
+
+.extension-box .extension-label {
+  color: var(--weui-FG-0);
+}
+
+.logout {
+  margin-top: 60rpx;
+}
+
+.weui-footer {
+  margin-top: 60rpx;
+  margin-bottom: 60rpx;
+}

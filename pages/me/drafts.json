@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "草稿",
+  "usingComponents": {
+    "navigation-bar": "/components/commons/navigation-bar/navigation-bar",
+    "loading": "/components/commons/loading/loading"
+  }
+}

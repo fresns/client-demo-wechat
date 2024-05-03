@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "选择用户",
+  "usingComponents": {
+    "navigation-bar": "/components/commons/navigation-bar/navigation-bar"
+  }
+}

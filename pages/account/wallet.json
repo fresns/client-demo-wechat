@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "钱包",
-  "usingComponents": {
-    "loading": "/components/commons/loading/loading"
-  }
-}

@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "设置",
+  "usingComponents": {
+    "navigation-bar": "/components/commons/navigation-bar/navigation-bar"
+  }
+}

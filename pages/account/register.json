@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "注册新账号",
-  "usingComponents": {
-    "privacy": "/components/commons/privacy/privacy"
-  }
-}

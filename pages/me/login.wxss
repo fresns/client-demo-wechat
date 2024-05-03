@@ -1,0 +1,40 @@
+/*!
+ * Fresns 微信小程序 (https://fresns.cn)
+ * Copyright 2021-Present 唐杰
+ * Licensed under the Apache-2.0 license
+ */
+.we-login-agree {
+  margin-top: 40rpx;
+}
+
+.we-login-agree .weui-btn {
+  width: 400rpx;
+}
+
+.we-login-agree .apple-btn {
+  background-color: black;
+  color: white;
+}
+
+.we-login-agree .btn-flex {
+  display: inline-flex;
+}
+
+.we-login-agree .btn-flex image {
+  width: 44rpx;
+  height: 44rpx;
+  margin-right: 10rpx;
+  margin-top: 4rpx;
+}
+
+.pw-login {
+  margin-bottom: 40rpx;
+}
+
+.register-btn-box {
+  background-color: var(--weui-BG-0);
+  padding-top: 30rpx;
+  padding-bottom: calc(30rpx + constant(safe-area-inset-bottom));
+  padding-bottom: calc(30rpx + env(safe-area-inset-bottom));
+  text-align: center;
+}

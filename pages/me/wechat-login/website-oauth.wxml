@@ -1,0 +1,21 @@
+<!-- *
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+* -->
+<page-meta root-font-size="system"/>
+
+<navigation-bar title="{{fresnsLang.accountLogin}}" backButton="{{false}}" homeButton="{{true}}"></navigation-bar>
+
+<scroll-view class="scrollarea" type="list" scroll-y="{{true}}">
+  <!-- 未查询到账号 -->
+  <block wx:if="{{showOptionsTip}}">
+    <view class="tip">{{fresnsLang.accountConnectEmpty}}</view>
+
+    <view class="buttons">
+      <button class="weui-btn weui-btn_primary" bind:tap="onConnectTip">{{fresnsLang.accountConnectLinked}}</button>
+
+      <button class="weui-btn weui-btn_primary" bindtap="goToRegister">{{fresnsLang.accountConnectCreateNew}}</button>
+    </view>
+  </block>
+</scroll-view>

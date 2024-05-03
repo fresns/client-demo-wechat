@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "微信登录",
-  "usingComponents": {
-    "mp-loading": "weui-miniprogram/loading/loading"
-  }
-}

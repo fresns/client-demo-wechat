@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "微信登录",
+  "usingComponents": {
+    "navigation-bar": "/components/commons/navigation-bar/navigation-bar"
+  }
+}
