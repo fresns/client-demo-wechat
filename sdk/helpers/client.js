@@ -4,7 +4,9 @@
  * Licensed under the Apache-2.0 license
  */
 import appConfig from '../../fresns';
+import { fresnsApi } from '../services';
 import { base64_encode } from '../utilities/base64';
+import { versionCompare } from '../utilities/toolkit';
 
 // 切换语言
 export async function switchLangTag(langTag) {
@@ -28,6 +30,50 @@ export async function switchTheme(theme) {
   }
 
   wx.setStorageSync('theme', theme);
+}
+
+// 检测版本
+export async function checkVersion() {
+  const appBaseInfo = fresnsClient.appBaseInfo;
+
+  const fresnsStatus = await fresnsApi.global.status();
+
+  const clientInfo = fresnsStatus?.client?.mobile[appBaseInfo.platform];
+
+  if (clientInfo?.version) {
+    appBaseInfo.hasApp = true;
+    appBaseInfo.appUrl = clientInfo?.appStore || clientInfo?.googlePlay;
+    appBaseInfo.downloadUrl = clientInfo?.downloads?.apk;
+  }
+
+  if (appBaseInfo.isWechat) {
+    // 是微信小程序
+    return appBaseInfo;
+  }
+
+  const checkVersion = versionCompare(fresnsClient.version, clientInfo?.version);
+
+  console.log('Auto Check Version', fresnsClient.version, clientInfo?.version, checkVersion);
+
+  if (clientInfo?.version == fresnsClient.version || checkVersion != -1) {
+    appBaseInfo.hasNewVersion = false;
+    appBaseInfo.newVersion = '';
+    appBaseInfo.newVersionDescribe = '';
+
+    wx.setStorageSync('appBaseInfo', appBaseInfo);
+
+    return appBaseInfo;
+  }
+
+  const langTag = fresnsClient.langTag;
+
+  appBaseInfo.hasNewVersion = true;
+  appBaseInfo.newVersion = clientInfo.version;
+  appBaseInfo.newVersionDescribe = clientInfo.describe[langTag] || clientInfo.describe.default;
+
+  wx.setStorageSync('appBaseInfo', appBaseInfo);
+
+  return appBaseInfo;
 }
 
 // fresnsClient
@@ -102,14 +148,37 @@ class clientInfo {
 
   // appBaseInfo
   get appBaseInfo() {
-    // {
-    //   isApp = false,
-    //   isWechat = true,
-    //   platform = "devtools",
-    //   hasNewVersion = false,
-    //   apkUrl = ""
-    // }
-    return wx.getStorageSync('appBaseInfo');
+    const appBaseInfoStorage = wx.getStorageSync('appBaseInfo');
+
+    if (appBaseInfoStorage) {
+      return appBaseInfoStorage;
+    }
+
+    const appBaseInfo = wx.getAppBaseInfo();
+
+    let appDeviceInfo;
+    if (appBaseInfo.host.env == 'WeChat') {
+      appDeviceInfo = wx.getDeviceInfo();
+    } else {
+      appDeviceInfo = wx.getSystemInfoSync();
+    }
+
+    const appBaseInfoArr = {
+      isWeb: false,
+      isApp: appBaseInfo.host.env == 'SAAASDK',
+      isWechat: appBaseInfo.host.env == 'WeChat',
+      platform: appDeviceInfo.platform,
+      hasApp: false,
+      appUrl: '',
+      downloadUrl: '',
+      hasNewVersion: false,
+      newVersion: '',
+      newVersionDescribe: ''
+    };
+
+    wx.setStorageSync('appBaseInfo', appBaseInfoArr);
+
+    return appBaseInfoArr;
   }
 
   // enableApiQuic

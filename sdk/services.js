@@ -18,6 +18,7 @@ import editor from './api/definitions/editor';
 import search from './api/definitions/search';
 import { plugins } from './api/plugins';
 
+import { fresnsClient } from './helpers/client';
 import { fresnsLogin } from './helpers/login';
 import { cachePut, cacheGet } from './helpers/cache';
 import { base64_encode } from './utilities/base64';
@@ -61,26 +62,8 @@ export async function fresnsInit() {
   }
 
   // app base info
+  const fresnsAppBaseInfo = fresnsClient.appBaseInfo;
   const appBaseInfo = wx.getAppBaseInfo();
-  let appDeviceInfo;
-  if (appBaseInfo.host.env == 'WeChat') {
-    appDeviceInfo = wx.getDeviceInfo();
-  } else {
-    appDeviceInfo = wx.getSystemInfoSync();
-  }
-
-  const appBaseInfoStorage = wx.getStorageSync('appBaseInfo');
-  if (!appBaseInfoStorage) {
-    const appBaseInfoArr = {
-      isApp: appBaseInfo.host.env == 'SAAASDK',
-      isWechat: appBaseInfo.host.env == 'WeChat',
-      platform: appDeviceInfo.platform,
-      hasNewVersion: false,
-      apkUrl: '',
-    };
-
-    wx.setStorageSync('appBaseInfo', appBaseInfoArr);
-  }
 
   // 主题
   const app = getApp();
@@ -112,6 +95,13 @@ export async function fresnsInit() {
   if (getIpInfo.code == 0) {
     const networkInfo = wx.getNetworkType();
     const ipInfo = getIpInfo.data;
+
+    let appDeviceInfo;
+    if (appBaseInfo.host.env == 'WeChat') {
+      appDeviceInfo = wx.getDeviceInfo();
+    } else {
+      appDeviceInfo = wx.getSystemInfoSync();
+    }
 
     let deviceType = 'Mobile';
     if (appDeviceInfo.platform == 'windows' || appDeviceInfo.platform == 'mac') {
