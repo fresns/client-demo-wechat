@@ -75,15 +75,15 @@
     "pages/search/index",
 
     "pages/me/index",
-    "pages/me/login",
     "pages/me/extcredits",
     "pages/me/wallet",
     "pages/me/drafts",
     "pages/me/users",
     "pages/me/settings",
 
-    "pages/me/wechat-login/check-sign",
-    "pages/me/wechat-login/website-oauth",
+    "pages/me/login/index",
+    "pages/me/login/check-sign",
+    "pages/me/login/oauth-website",
 
     "pages/editor/index",
 

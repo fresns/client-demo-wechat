@@ -69,9 +69,9 @@ module.exports = {
       'pages/portal/about',
       'pages/portal/policies',
       'pages/me/index',
-      'pages/me/login',
-      'pages/me/wechat-login/check-sign',
-      'pages/me/wechat-login/website-oauth',
+      'pages/me/login/index',
+      'pages/me/login/check-sign',
+      'pages/me/login/oauth-website',
     ];
     const route = getCurrentPageRoute();
 

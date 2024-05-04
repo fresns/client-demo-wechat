@@ -225,7 +225,6 @@ class login {
       const navigatorData = {
         title: await fresnsLang('accountLogin'),
         url: resultRes.data.userAuthUrl,
-        parameter: resultRes.data.loginToken,
         postMessageKey: 'fresnsAccountSign',
       };
 

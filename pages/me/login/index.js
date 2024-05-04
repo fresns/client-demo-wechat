@@ -3,16 +3,16 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import { fresnsConfig, fresnsLang } from '../../sdk/helpers/configs';
-import { fresnsClient } from '../../sdk/helpers/client';
-import { fresnsLogin } from '../../sdk/helpers/login';
+import { fresnsClient } from '../../../sdk/helpers/client';
+import { fresnsConfig, fresnsLang } from '../../../sdk/helpers/configs';
+import { fresnsLogin } from '../../../sdk/helpers/login';
 
 Page({
   /** 外部 mixin 引入 **/
   mixins: [
-    require('../../mixins/common'),
-    require('../../mixins/fresnsCallback'),
-    require('../../sdk/extensions/functions'),
+    require('../../../mixins/common'),
+    require('../../../mixins/fresnsCallback'),
+    require('../../../sdk/extensions/functions'),
   ],
 
   /** 页面的初始数据 **/
