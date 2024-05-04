@@ -17,7 +17,7 @@
 .profile-avatar {
   width: 200rpx;
   height: 160rpx;
-  margin-left: 10rpx;
+  margin-left: 40rpx;
 }
 
 .profile-avatar .avatar-img {
@@ -26,7 +26,7 @@
   border-radius: 50%;
   margin: 40rpx;
   margin-bottom: -14rpx;
-  margin-left: 30rpx;
+  margin-left: 0;
 }
 
 .profile-avatar .avatar-decorate {
@@ -34,6 +34,7 @@
   width: 200rpx;
   height: 200rpx;
   margin-top: -40rpx;
+  margin-left: -40rpx;
   z-index: 500;
 }
 
@@ -80,9 +81,9 @@
 }
 
 .profile-settings-btn {
+  right: 40rpx;
+  position: absolute;
   margin-top: 70rpx;
-  margin-right: 40rpx;
-  text-align: right;
 }
 
 .profile-bio {

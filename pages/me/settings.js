@@ -7,6 +7,7 @@ import { fresnsApi } from '../../sdk/services';
 import { fresnsClient } from '../../sdk/helpers/client';
 import { fresnsConfig, fresnsLang } from '../../sdk/helpers/configs';
 import { fresnsAccount, fresnsUser, fresnsOverview } from '../../sdk/helpers/profiles';
+import { fresnsLogin } from '../../sdk/helpers/login';
 
 Page({
   /** 外部 mixin 引入 **/
@@ -50,6 +51,7 @@ Page({
     modifyDialogHeight: 0,
 
     // 互联信息
+    connects: {},
     wechatMiniProgramLoginName: null,
     wechatLoginName: null,
     appleLoginName: null,
@@ -109,6 +111,13 @@ Page({
     };
     const appleLoginName = appleLoginNameMap[langTag] || appleLoginNameMap[en];
 
+    const resultRes = await fresnsApi.plugins.wechatLogin.connects();
+
+    let connects = [];
+    if (resultRes.code == 0) {
+      connects = resultRes.data;
+    }
+
     this.setData({
       title: await fresnsConfig('channel_me_settings_name'),
       logo: await fresnsConfig('site_logo'),
@@ -123,6 +132,8 @@ Page({
       genderPronounOptions: genderPronounOptions,
       genderPronouns: genderPronouns,
       policyOptions: policyOptions,
+      enableWeChatLogin: fresnsClient.enableWeChatLogin,
+      connects: connects,
       wechatMiniProgramLoginName: wechatMiniProgramLoginName,
       wechatLoginName: wechatLoginName,
       appleLoginName: appleLoginName,
@@ -346,10 +357,21 @@ Page({
   },
 
   // 绑定微信小程序
-  onConnectWeChatMiniProgram: async function (e) {
-    const appInfo = wx.getStorageSync('appInfo');
+  onWeChatConnectMiniProgram: async function () {
+    const connects = this.data.connects;
 
-    if (appInfo.isApp) {
+    if (connects.wechatMiniProgram) {
+      wx.showToast({
+        title: await fresnsLang('accountCenterTip'),
+        icon: 'none',
+      });
+
+      return;
+    }
+
+    const appBaseInfo = this.data.connects;
+
+    if (appBaseInfo.isApp) {
       wx.showToast({
         title: await fresnsLang('tipConnectWeChatMiniProgram'),
         icon: 'none',
@@ -358,37 +380,29 @@ Page({
       return;
     }
 
-    wx.login({
-      success: async (res) => {
-        let wechatCode = res.code;
-        console.log('WeChat Code', wechatCode);
-
-        if (wechatCode) {
-          const loginRes = await fresnsApi.plugins.wechatLogin.oauth({
-            code: wechatCode,
-          });
-
-          if (loginRes.code === 0) {
-            this.reloadFresnsAccount();
-          }
-
-          console.log('onConnectWeChatMiniProgram', loginRes);
-        } else {
-          wx.showToast({
-            title: '[' + res.errCode + '] ' + res.errMsg,
-            icon: 'none',
-            duration: 2000,
-          });
-        }
-      },
-    });
+    // 已登录状态请求则是绑定关联
+    const loginRes = await fresnsLogin.wechatLogin();
+    if (loginRes.code === 0) {
+      this.reloadFresnsUser();
+    }
   },
 
   // 绑定微信 App
-  onConnectWeChatMiniApp: async function (e) {
-    const appInfo = wx.getStorageSync('appInfo');
+  onAppConnectWeChat: async function () {
+    const connects = this.data.connects;
 
-    if (appInfo.isWechat) {
+    if (connects.wechatMobileApp) {
+      wx.showToast({
+        title: await fresnsLang('accountCenterTip'),
+        icon: 'none',
+      });
+
+      return;
+    }
+
+    const appBaseInfo = this.data.appBaseInfo;
+
+    if (appBaseInfo.isWechat) {
       wx.showToast({
         title: await fresnsLang('tipConnectWeChatMiniApp'),
         icon: 'none',
@@ -397,26 +411,41 @@ Page({
       return;
     }
 
-    wx.miniapp.login({
-      success: async (res) => {
-        const wechatCode = res.code;
-        console.log('App WeChat Code', wechatCode);
+    // 已登录状态请求则是绑定关联
+    const loginRes = await fresnsLogin.appWechatLogin();
+    if (loginRes.code === 0) {
+      this.reloadFresnsUser();
+    }
+  },
 
-        if (wechatCode) {
-          const loginRes = await fresnsApi.plugins.wechatLogin.oauthApp({
-            code: wechatCode,
-          });
+  // 绑定苹果账户 App
+  onAppConnectApple: async function () {
+    const connects = this.data.appBaseInfo;
 
-          if (loginRes.code === 0) {
-            this.reloadFresnsAccount();
-          }
-        } else {
-          wx.showToast({
-            title: '[' + res.errCode + '] ' + res.errMsg,
-            icon: 'none',
-          });
-        }
-      },
-    });
+    if (connects.apple) {
+      wx.showToast({
+        title: await fresnsLang('accountCenterTip'),
+        icon: 'none',
+      });
+
+      return;
+    }
+
+    const appBaseInfo = this.data.appBaseInfo;
+
+    if (appBaseInfo.isWechat) {
+      wx.showToast({
+        title: await fresnsLang('tipConnectWeChatMiniApp'),
+        icon: 'none',
+      });
+
+      return;
+    }
+
+    // 已登录状态请求则是绑定关联
+    const loginRes = await fresnsLogin.appleLogin();
+    if (loginRes.code === 0) {
+      this.reloadFresnsUser();
+    }
   },
 });

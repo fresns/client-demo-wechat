@@ -106,26 +106,33 @@
   </view>
 
   <!-- 互联信息 -->
-  <view class="weui-cells__title">{{fresnsLang.settingConnects}}</view>
-  <view class="weui-cells weui-cells_after-title">
-    <!-- 微信小程序 -->
-    <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bind:tap="onWeChatConnectMiniProgram">
-      <view class="weui-cell__bd">{{wechatMiniProgramLoginName}}</view>
-      <view class="weui-cell__ft weui-cell__ft_in-access">{{fresnsLang.settingAccountConnect}}</view>
-    </view>
+  <block wx:if="{{enableWeChatLogin}}">
+    <!-- 由于微信的授权方式不支持 Web-View，所以只能单独列出操作 -->
+    <view class="weui-cells__title">{{fresnsLang.settingConnects}}</view>
+    <view class="weui-cells weui-cells_after-title">
+      <!-- 微信小程序 -->
+      <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bind:tap="onWeChatConnectMiniProgram">
+        <view class="weui-cell__bd">{{wechatMiniProgramLoginName}}</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access {{connects.wechatMiniProgram ? 'settingAccountDisconnect' : ''}}">{{connects.wechatMiniProgram ? fresnsLang.settingAccountDisconnect : fresnsLang.settingAccountConnect}}</view>
+      </view>
 
-    <!-- App: 微信 -->
-    <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bind:tap="onAppConnectWeChat">
-      <view class="weui-cell__bd">{{wechatLoginName}}</view>
-      <view class="weui-cell__ft weui-cell__ft_in-access">{{fresnsLang.settingAccountConnect}}</view>
-    </view>
+      <!-- 多端应用: 微信 -->
+      <block wx:if="{{appBaseInfo.isApp}}">
+        <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bind:tap="onAppConnectWeChat">
+          <view class="weui-cell__bd">{{wechatLoginName}}</view>
+          <view class="weui-cell__ft weui-cell__ft_in-access {{connects.wechatMiniProgram ? 'settingAccountDisconnect' : ''}}">{{connects.wechatMobileApp ? fresnsLang.settingAccountDisconnect : fresnsLang.settingAccountConnect}}</view>
+        </view>
+      </block>
 
-    <!-- App: 苹果账户 -->
-    <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bind:tap="onAppConnectApple">
-      <view class="weui-cell__bd">{{appleLoginName}}</view>
-      <view class="weui-cell__ft weui-cell__ft_in-access">{{fresnsLang.settingAccountConnect}}</view>
+      <!-- 多端应用: 苹果账户 -->
+      <block wx:if="{{appBaseInfo.isApp && appBaseInfo.platform == 'ios'}}">
+        <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bind:tap="onAppConnectApple">
+          <view class="weui-cell__bd">{{appleLoginName}}</view>
+          <view class="weui-cell__ft weui-cell__ft_in-access {{connects.wechatMiniProgram ? 'settingAccountDisconnect' : ''}}">{{connects.apple ? fresnsLang.settingAccountDisconnect : fresnsLang.settingAccountConnect}}</view>
+        </view>
+      </block>
     </view>
-  </view>
+  </block>
 
   <view class="account-center">
     <view class="account-logo">

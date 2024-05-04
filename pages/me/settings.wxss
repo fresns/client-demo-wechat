@@ -23,6 +23,10 @@
   border-bottom: 1rpx solid var(--weui-FG-3);
 }
 
+.settingAccountDisconnect {
+  color: var(--weui-RED-100);
+}
+
 /* 账户中心样式 */
 .account-center {
   border-radius: 10rpx;

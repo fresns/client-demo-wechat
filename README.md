@@ -33,7 +33,6 @@ Fresns 是一款免费开源的社交网络服务软件，专为跨平台而打�
 | --- | --- | --- |
 | [Fresns](https://github.com/fresns/fresns) | 3.x | 后端 API |
 | [WeUI](https://github.com/Tencent/weui-wxss) | 2.x | 小程序 UI 框架 |
-| [mp-html](https://github.com/jin-yufeng/mp-html) | 2.x | 小程序富文本组件 |
 
 ## 使用说明
 
@@ -50,7 +49,7 @@ Fresns 是一款免费开源的社交网络服务软件，专为跨平台而打�
     - 公众平台->开发->开发管理->接口设置
     - 申请开通 `wx.chooseLocation` 打开地图选择位置
     - 申请时，可使用编辑器页面截图作为使用场景
-- 6、安装配套插件「[微信登录](https://marketplace.fresns.org/open-source/detail/WeChatLogin)」，配置小程序密钥信息；
+- 6、安装配套插件「[微信登录](https://marketplace.fresns.com/open-source/detail/WeChatLogin)」，配置小程序密钥信息；
 - 7、自定义开发
     - 修改风格样式，或者使用第三方开发的风格样式覆盖原文件
     - 导航栏位置 `components/commons/tabbar/`
