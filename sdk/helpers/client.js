@@ -173,7 +173,7 @@ class clientInfo {
       downloadUrl: '',
       hasNewVersion: false,
       newVersion: '',
-      newVersionDescribe: ''
+      newVersionDescribe: '',
     };
 
     wx.setStorageSync('appBaseInfo', appBaseInfoArr);
