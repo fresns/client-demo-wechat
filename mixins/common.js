@@ -16,8 +16,6 @@ module.exports = {
     navbarBackButton: false,
     navbarHomeButton: false,
     navbarLoading: false,
-
-    refresherStatus: false,
   },
 
   // 更新全局数据

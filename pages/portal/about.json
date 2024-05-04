@@ -2,6 +2,6 @@
   "navigationBarTitleText": "About",
   "usingComponents": {
     "navigation-bar": "/components/commons/navigation-bar/navigation-bar",
-    "markdown-viewer": "/sdk/components/markdown-viewer/markdown-viewer"
+    "markdown-viewer": "/components/commons/markdown-viewer/markdown-viewer"
   }
 }

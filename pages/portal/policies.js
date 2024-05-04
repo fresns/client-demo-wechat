@@ -68,7 +68,7 @@ Page({
     });
   },
 
-  onTapTab: async function (e) {
+  onTapTab: function (e) {
     const index = e.currentTarget.dataset.tab;
 
     this.setData({
