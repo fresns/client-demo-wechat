@@ -467,7 +467,7 @@ Page({
 
         if (!androidApkUrl) {
           wx.showToast({
-            title:  'Android APK: ' + await fresnsLang('errorNotExist'),
+            title: 'Android APK: ' + (await fresnsLang('errorNotExist')),
             icon: 'none',
           });
 
