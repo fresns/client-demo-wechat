@@ -95,6 +95,10 @@
   padding: 0 40rpx;
 }
 
+.weui-media-box__info navigator {
+  color: var(--weui-LINK-100);
+}
+
 .weui-cells {
   margin-bottom: 14rpx;
 }

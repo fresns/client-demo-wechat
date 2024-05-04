@@ -106,27 +106,26 @@
   </view>
 
   <!-- 互联信息 -->
-  <mp-cells ext-class="setting-cells" wx:if="{{fresnsAccount.connects}}" title="{{fresnsLang.settingConnect}}">
-      <block wx:for="{{fresnsAccount.connects}}" wx:for-item="item" wx:key="connectPlatformId">
-          <block wx:if="{{item.connectPlatformId == 25 && !item.connected}}">
-              <mp-cell icon="/assets/connects/{{item.connectPlatformId}}.png" value="微信小程序" footer="{{fresnsLang.settingAccountConnect}}" hover="{{true}}" link="{{true}}" bind:tap="onConnectWeChatMiniProgram"/>
-          </block>
-          <block wx:elif="{{item.connectPlatformId == 26 && !item.connected}}">
-              <mp-cell icon="/assets/connects/{{item.connectPlatformId}}.png" value="微信 App" footer="{{fresnsLang.settingAccountConnect}}" hover="{{true}}" link="{{true}}" bind:tap="onConnectWeChatMiniApp"/>
-          </block>
-          <block wx:else>
-              <navigator url="/sdk/extensions/webview" bind:tap="fresnsExtensions"
-                  data-type="account"
-                  data-scene="connect"
-                  data-post-message-key="fresnsConnect"
-                  data-connect-platform-id="{{item.connectPlatformId}}"
-                  data-url="{{item.service}}"
-                  data-title="{{item.connected ? item.nickname : item.connectPlatformId}}">
-                  <mp-cell icon="/assets/connects/{{item.connectPlatformId}}.png" value="{{item.connectPlatformId == 24 ? '微信' : (item.connectPlatformId == 25 ? '微信小程序' : item.connectName)}}" footer="{{item.connected ? (item.nickname || '✅') : fresnsLang.settingAccountConnect}}" hover="{{true}}" link="{{true}}"/>
-              </navigator>
-          </block>
-      </block>
-  </mp-cells>
+  <view class="weui-cells__title">{{fresnsLang.settingConnects}}</view>
+  <view class="weui-cells weui-cells_after-title">
+    <!-- 微信小程序 -->
+    <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bind:tap="onWeChatConnectMiniProgram">
+      <view class="weui-cell__bd">{{wechatMiniProgramLoginName}}</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access">{{fresnsLang.settingAccountConnect}}</view>
+    </view>
+
+    <!-- App: 微信 -->
+    <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bind:tap="onAppConnectWeChat">
+      <view class="weui-cell__bd">{{wechatLoginName}}</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access">{{fresnsLang.settingAccountConnect}}</view>
+    </view>
+
+    <!-- App: 苹果账户 -->
+    <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bind:tap="onAppConnectApple">
+      <view class="weui-cell__bd">{{appleLoginName}}</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access">{{fresnsLang.settingAccountConnect}}</view>
+    </view>
+  </view>
 
   <view class="account-center">
     <view class="account-logo">

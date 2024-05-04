@@ -4,6 +4,7 @@
  * Licensed under the Apache-2.0 license
  */
 import { fresnsApi } from '../../sdk/services';
+import { fresnsClient } from '../../sdk/helpers/client';
 import { fresnsConfig, fresnsLang } from '../../sdk/helpers/configs';
 import { fresnsAccount, fresnsUser, fresnsOverview } from '../../sdk/helpers/profiles';
 
@@ -20,6 +21,8 @@ Page({
   data: {
     title: null,
     logo: null,
+    appBaseInfo: {},
+
     fresnsConfig: null,
     fresnsLang: null,
     fresnsAccount: null,
@@ -45,6 +48,11 @@ Page({
 
     modifyDialogNewValue: null,
     modifyDialogHeight: 0,
+
+    // 互联信息
+    wechatMiniProgramLoginName: null,
+    wechatLoginName: null,
+    appleLoginName: null,
   },
 
   /** 监听页面加载 **/
@@ -78,9 +86,33 @@ Page({
       fsLang.optionNoOneIsAllowed,
     ];
 
+    const langTag = fresnsClient.langTag;
+
+    const wechatMiniProgramLoginNameMap = {
+      en: 'Sign in with WeChat Mini Program',
+      'zh-Hans': '通过微信小程序登录',
+      'zh-Hant': '透過 WeChat 小程式登入',
+    };
+    const wechatMiniProgramLoginName = wechatMiniProgramLoginNameMap[langTag] || wechatMiniProgramLoginNameMap[en];
+
+    const wechatLoginNameMap = {
+      en: 'Sign in with WeChat',
+      'zh-Hans': '通过微信登录',
+      'zh-Hant': '透過 WeChat 登入',
+    };
+    const wechatLoginName = wechatLoginNameMap[langTag] || wechatLoginNameMap[en];
+
+    const appleLoginNameMap = {
+      en: 'Sign in with Apple',
+      'zh-Hans': '通过 Apple 登录',
+      'zh-Hant': '透過 Apple 登入',
+    };
+    const appleLoginName = appleLoginNameMap[langTag] || appleLoginNameMap[en];
+
     this.setData({
       title: await fresnsConfig('channel_me_settings_name'),
       logo: await fresnsConfig('site_logo'),
+      appBaseInfo: fresnsClient.appBaseInfo,
       fresnsConfig: await fresnsConfig(),
       fresnsLang: fsLang,
       fresnsAccount: await fresnsAccount('detail'),
@@ -91,6 +123,9 @@ Page({
       genderPronounOptions: genderPronounOptions,
       genderPronouns: genderPronouns,
       policyOptions: policyOptions,
+      wechatMiniProgramLoginName: wechatMiniProgramLoginName,
+      wechatLoginName: wechatLoginName,
+      appleLoginName: appleLoginName,
     });
   },
 

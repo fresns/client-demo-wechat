@@ -3,8 +3,7 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import { fresnsApi } from '../../sdk/services';
-import { switchLangTag, fresnsClient } from '../../sdk/helpers/client';
+import { switchLangTag, checkVersion, fresnsClient } from '../../sdk/helpers/client';
 import { fresnsConfig, fresnsLang } from '../../sdk/helpers/configs';
 import { fresnsLogin } from '../../sdk/helpers/login';
 import {
@@ -15,7 +14,6 @@ import {
   fresnsViewProfilePath,
 } from '../../sdk/helpers/profiles';
 import { cachePut, cacheGet, clearCache } from '../../sdk/helpers/cache';
-import { versionCompare } from '../../sdk/utilities/toolkit';
 
 let isRefreshing = false; // 下拉刷新防抖参数
 
@@ -48,12 +46,8 @@ Page({
     refresherStatus: false, // scroll-view 视图容器下拉刷新状态
 
     appBaseInfo: {},
-    clientInfo: {},
 
     langMenus: [],
-
-    userProfilePath: '',
-    userExtcredits: false,
 
     // 多端应用 Android 升级
     downloadApk: false,
@@ -112,7 +106,6 @@ Page({
       fresnsAccount: await fresnsAccount('detail'),
       fresnsUser: await fresnsUser('detail'),
       fresnsOverview: await fresnsOverview(),
-      userProfilePath: await fresnsViewProfilePath(),
 
       langMenus: langMenus,
     });
@@ -131,57 +124,25 @@ Page({
 
   /** 监听页面渲染完成 **/
   onReady: async function () {
-    const appBaseInfo = fresnsClient.appBaseInfo;
+    const appBaseInfo = await checkVersion();
 
-    appBaseInfo.platform = 'android'; // 测试使用，因为开发者工具里是 devtools
-
-    if (appBaseInfo.isWechat) {
-      const fresnsStatus = await fresnsApi.global.status();
-      const clientInfo = fresnsStatus?.client?.mobile[appBaseInfo.platform];
-
-      this.setData({
-        clientInfo: clientInfo,
-      });
-
-      return;
-    }
-
-    const fresnsStatus = await fresnsApi.global.status();
-    const clientInfo = fresnsStatus?.client?.mobile[appBaseInfo.platform];
-    const checkVersion = versionCompare(fresnsClient.version, clientInfo?.version);
-
-    console.log('Auto Check Version', fresnsClient.version, clientInfo?.version, checkVersion);
-
-    if (clientInfo?.version == fresnsClient.version || checkVersion != -1) {
-      appBaseInfo.hasNewVersion = false;
-      this.setData({
-        appBaseInfo: appBaseInfo,
-      });
-      wx.setStorageSync('appBaseInfo', appBaseInfo);
-
-      return;
-    }
-
-    appBaseInfo.hasNewVersion = true;
-    appBaseInfo.apkUrl = clientInfo?.downloads?.apk;
     this.setData({
       appBaseInfo: appBaseInfo,
-      clientInfo: clientInfo,
     });
-    wx.setStorageSync('appBaseInfo', appBaseInfo);
+
+    if (!appBaseInfo.hasNewVersion) {
+      return;
+    }
 
     // 弹窗显示版本更新内容
-    const langTag = wx.getStorageSync('langTag');
-    let self = this;
-
     wx.showModal({
-      title: '🎉 ' + clientInfo.version,
-      content: clientInfo.describe[langTag] || clientInfo.describe.default,
+      title: '🎉 ' + appBaseInfo.newVersion,
+      content: appBaseInfo.newVersionDescribe,
       cancelText: await fresnsLang('cancel'),
       confirmText: await fresnsLang('upgrade'),
       success(res) {
         if (res.confirm) {
-          self.onUpdateApp();
+          this.onUpdateApp();
         }
       },
     });
@@ -258,17 +219,22 @@ Page({
     });
   },
 
-  // 展开用户积分
-  onClickExtcredits: function () {
-    this.setData({
-      userExtcredits: !this.data.userExtcredits,
+  // 用户主页
+  toProfilePage: async function () {
+    const fresnsUser = this.data.fresnsUser;
+    const fsid = fresnsUser.fsid;
+
+    const userProfilePath = await fresnsViewProfilePath(fsid);
+
+    wx.navigateTo({
+      url: userProfilePath,
     });
   },
 
   // 登录
   toLoginPage: function () {
     wx.navigateTo({
-      url: '/pages/me/login',
+      url: '/pages/me/login/index',
       routeType: 'wx://cupertino-modal-inside',
     });
   },
@@ -331,71 +297,56 @@ Page({
     });
   },
 
-  /** 多端应用: 下载应用 **/
+  /** 有应用，微信小程序里提示下载 **/
   onDownloadApp: function (e) {
     const fresnsLang = this.data.fresnsLang;
-    const appBaseInfo = this.data.appBaseInfo;
-    const clientInfo = this.data.clientInfo;
-
-    // appBaseInfo.platform = 'android'; // 测试使用，因为开发者工具里是 devtools
+    const appBaseInfo = fresnsClient.appBaseInfo;
 
     let title;
-    let content;
+    let content = appBaseInfo.appUrl || appBaseInfo.downloadUrl;
 
-    switch (appBaseInfo.platform) {
-      case 'ios':
-        title = 'iOS App';
-        content = clientInfo.appStore;
-        break;
+    // Android App
+    if (appBaseInfo.platform == 'android') {
+      title = 'Android App';
+    }
 
-      case 'android':
-        title = 'Android App';
-        content = clientInfo.downloads.apk;
+    if (appBaseInfo.platform == 'android' && appBaseInfo.appUrl) {
+      const downloadApk = fresnsLang.downloadApp + ' (apk)';
 
-        // 处理 Google Play 选项
-        if (clientInfo.googlePlay) {
-          const downloadApk = fresnsLang.downloadApp + ' (apk)';
-          wx.showActionSheet({
-            itemList: ['Google Play', downloadApk],
+      wx.showActionSheet({
+        itemList: ['Google Play', downloadApk],
+        success(res) {
+          if (res.tapIndex == 1) {
+            content = appBaseInfo.downloadUrl;
+          }
+
+          wx.showModal({
+            title: title,
+            content: content,
+            cancelText: fresnsLang.cancel,
+            confirmText: fresnsLang.copyLink,
             success(res) {
-              if (res.tapIndex == 0) {
-                content = clientInfo.googlePlay;
-              }
-
-              wx.showModal({
-                title: title,
-                content: content,
-                cancelText: fresnsLang.cancel,
-                confirmText: fresnsLang.copyLink,
-                success(res) {
-                  if (res.confirm) {
-                    wx.setClipboardData({
-                      data: content,
-                      success: function (res) {
-                        wx.showToast({
-                          title: fresnsLang.copySuccess,
-                        });
-                      },
+              if (res.confirm) {
+                wx.setClipboardData({
+                  data: content,
+                  success: function (res) {
+                    wx.showToast({
+                      title: fresnsLang.copySuccess,
                     });
-                  }
-                },
-              });
-
-              // 处理结束
+                  },
+                });
+              }
             },
           });
 
-          return;
-        }
-        break;
+          // 处理结束
+        },
+      });
+    }
 
-      case 'devtools':
-        title = 'devtools';
-        content = 'devtools';
-        break;
-
-      default:
-        return;
+    // iOS App
+    if (appBaseInfo.platform == 'ios') {
+      title = 'iOS App';
     }
 
     wx.showModal({
@@ -420,22 +371,14 @@ Page({
 
   /** 多端应用: 检测版本 **/
   onCheckVersion: async function (e) {
-    wx.showToast({
+    wx.showLoading({
       title: await fresnsLang('inProgress'),
-      icon: 'none',
     });
 
-    const appBaseInfo = fresnsClient.appBaseInfo;
+    const appBaseInfo = await checkVersion();
 
-    // appBaseInfo.platform = 'android'; // 测试使用，因为开发者工具里是 devtools
-
-    const fresnsStatus = await fresnsApi.global.status();
-    const clientInfo = fresnsStatus?.client?.mobile[appBaseInfo.platform];
-    const checkVersion = versionCompare(fresnsClient.version, clientInfo?.version);
-
-    console.log('checkVersion', fresnsClient.version, clientInfo?.version, checkVersion);
-
-    if (clientInfo?.version == fresnsClient.version || checkVersion != -1) {
+    if (!appBaseInfo.hasNewVersion) {
+      wx.hideLoading();
       wx.showToast({
         title: await fresnsLang('isLatestVersion'),
         icon: 'none',
@@ -444,26 +387,21 @@ Page({
       return;
     }
 
-    appBaseInfo.hasNewVersion = true;
-    appBaseInfo.apkUrl = clientInfo?.downloads?.apk;
     this.setData({
       appBaseInfo: appBaseInfo,
-      clientInfo: clientInfo,
     });
-    wx.setStorageSync('appBaseInfo', appBaseInfo);
+
+    wx.hideLoading();
 
     // 弹窗显示版本更新内容
-    const langTag = wx.getStorageSync('langTag');
-    let self = this;
-
     wx.showModal({
-      title: '🎉 ' + clientInfo.version,
-      content: clientInfo.describe[langTag] || clientInfo.describe.default,
+      title: '🎉 ' + appBaseInfo.newVersion,
+      content: appBaseInfo.newVersionDescribe,
       cancelText: await fresnsLang('cancel'),
       confirmText: await fresnsLang('upgrade'),
       success(res) {
         if (res.confirm) {
-          self.onUpdateApp();
+          this.onUpdateApp();
         }
       },
     });
@@ -473,6 +411,7 @@ Page({
   onUpdateApp: async function (e) {
     const updateAppFilePath = cacheGet('updateAppFilePath');
     console.log('updateAppFilePath', updateAppFilePath);
+
     if (updateAppFilePath) {
       // 安装升级包
       wx.miniapp.installApp({
@@ -501,7 +440,6 @@ Page({
     }
 
     const downloadApk = this.data.downloadApk;
-    console.log('downloadApk', downloadApk);
     if (downloadApk) {
       return;
     }
@@ -525,10 +463,19 @@ Page({
         break;
 
       case 'android':
-        console.log(appBaseInfo.apkUrl);
+        const androidApkUrl = appBaseInfo.downloadUrl;
+
+        if (!androidApkUrl) {
+          wx.showToast({
+            title:  'Android APK: ' + await fresnsLang('errorNotExist'),
+            icon: 'none',
+          });
+
+          return;
+        }
 
         const downloadTask = wx.downloadFile({
-          url: appBaseInfo.apkUrl,
+          url: androidApkUrl,
           timeout: 600000,
           success: (res) => {
             console.log('download apk success', res);
@@ -594,9 +541,6 @@ Page({
           icon: 'none',
         });
         break;
-
-      default:
-        return;
     }
   },
 });

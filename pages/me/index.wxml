@@ -12,7 +12,7 @@
     <!-- 已登录 -->
     <block wx:if="{{userLogin}}">
       <view class="weui-flex">
-        <view class="profile-info">
+        <view class="profile-info" bind:tap="toProfilePage">
           <view class="profile-avatar">
             <image wx:if="{{fresnsUser.decorate}}" src="{{fresnsUser.decorate}}" class="avatar-decorate" mode="scaleToFill"></image>
             <image src="{{fresnsUser.avatar}}" class="avatar-img" mode="scaleToFill"></image>
@@ -43,11 +43,14 @@
       </view>
       <view class="profile-bio" wx-if="{{fresnsUser.bio}}">{{fresnsUser.bio}}</view>
       <view class="weui-media-box__info">
+        <!-- 正在关注 -->
         <view class="weui-media-box__info__meta">
-          {{fresnsUser.stats.followUserCount}} {{fresnsLang.userFollowing}}
+          <navigator url="/pages/profile/following/users?fsid={{fresnsUser.fsid}}">{{fresnsUser.stats.followUserCount}} {{fresnsLang.userFollowing}}</navigator>
         </view>
+
+        <!-- 关注者 -->
         <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">
-          {{fresnsUser.stats.followerCount}} {{fresnsUser.interaction.followUserTitle}}
+          <navigator url="/pages/profile/interactions/followers?fsid={{fresnsUser.fsid}}">{{fresnsUser.stats.followerCount}} {{fresnsUser.interaction.followUserTitle}}</navigator>
         </view>
       </view>
     </block>
@@ -170,7 +173,7 @@
     </block>
 
     <!-- 是否有独立 App -->
-    <view class="weui-cell weui-cell_access" wx:if="{{appBaseInfo.isWechat && clientInfo.version}}" bind:tap="onDownloadApp">
+    <view class="weui-cell weui-cell_access" wx:if="{{appBaseInfo.isWechat && appBaseInfo.hasApp}}" bind:tap="onDownloadApp">
       <view class="weui-cell__bd">{{fresnsLang.useApp}}</view>
       <view class="weui-cell__ft weui-cell__ft_in-access" style="font-size:28rpx;">{{fresnsLang.downloadApp}}</view>
     </view>
