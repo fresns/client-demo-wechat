@@ -13,6 +13,7 @@ Page({
 
   /** 页面的初始数据 **/
   data: {
+    title: null,
     logo: null,
     intro: null,
 
@@ -24,10 +25,6 @@ Page({
 
   /** 监听页面加载 **/
   onLoad: async function () {
-    wx.setNavigationBarTitle({
-      title: await fresnsLang('about'),
-    });
-
     const fresnsStatus = await fresnsApi.global.status();
 
     const clientNameMap = {
@@ -37,6 +34,7 @@ Page({
     const clientName = clientNameMap[fresnsClient.platformId] || '';
 
     this.setData({
+      title: await fresnsLang('about'),
       logo: await fresnsConfig('site_logo'),
       intro: await fresnsConfig('site_intro'),
       fresnsVersion: fresnsStatus.version,
