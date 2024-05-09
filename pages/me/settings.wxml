@@ -156,10 +156,10 @@
   </view>
 </scroll-view>
 
-<view wx:if="{{dialog || dialogShow}}" aria-role="dialog" aria-modal="true">
-  <view class="weui-mask {{dialog ? 'weui-animate_fade-in' : 'weui-animate_fade-out'}}" bind:tap="dialogClose" aria-role="button" aria-label="关闭"></view>
+<view wx:if="{{dialogShow}}" aria-role="dialog" aria-modal="true">
+  <view class="weui-mask {{dialogShow ? 'weui-animate_fade-in' : 'weui-animate_fade-out'}}" bind:tap="dialogClose" aria-role="button" aria-label="关闭"></view>
 
-  <view class="weui-half-screen-dialog {{dialog ? 'weui-animate_slide-up' : 'weui-animate_slide-down'}} {{dialogWrap ? 'weui-half-screen-dialog_btn-wrap' : ''}}">
+  <view class="weui-half-screen-dialog {{dialogShow ? 'weui-animate_slide-up' : 'weui-animate_slide-down'}} {{dialogWrap ? 'weui-half-screen-dialog_btn-wrap' : ''}}">
     <view class="weui-half-screen-dialog__hd">
       <view class="weui-half-screen-dialog__hd__side" bind:tap="dialogClose">
         <view aria-role="button" class="weui-btn_icon">关闭</view>
@@ -224,7 +224,7 @@
 
     <view class="weui-half-screen-dialog__ft">
       <view class="weui-half-screen-dialog__btn-area">
-        <view aria-role="button" class="weui-btn weui-btn_primary" bind:tap="submitChange">{{fresnsLang.saveChanges}}</view>
+        <button size="default" type="primary" bind:tap="submitChange">{{fresnsLang.saveChanges}}</button>
       </view>
     </view>
 

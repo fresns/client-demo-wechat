@@ -167,7 +167,7 @@ Page({
       refresherStatus: true,
     });
 
-    await this.reloadUserData(); // 重载用户数据
+    this.reloadUserData(); // 重载用户数据
 
     this.setData({
       navbarLoading: false,

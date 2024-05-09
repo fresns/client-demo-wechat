@@ -62,7 +62,7 @@ Page({
       extcredits5Name: await fresnsConfig('extcredits5_name'),
     });
 
-    await this.loadFresnsPageData();
+    this.loadFresnsPageData();
   },
 
   /** 加载列表数据 **/
@@ -87,7 +87,7 @@ Page({
       const listCount = list.length + this.data.logs.length;
 
       let tipType = 'none';
-      if (isReachBottom) {
+      if (isReachBottom && this.data.page > 1) {
         tipType = listCount > 0 ? 'page' : 'empty';
       }
 
@@ -127,7 +127,7 @@ Page({
       loadingTipType: 'none',
     });
 
-    await this.loadFresnsPageData();
+    this.loadFresnsPageData();
 
     setTimeout(() => {
       isRefreshing = false;
@@ -137,6 +137,6 @@ Page({
   /** 监听用户上拉触底 **/
   onScrollToLower: async function () {
     console.log('滚动到底部');
-    await this.loadFresnsPageData();
+    this.loadFresnsPageData();
   },
 });

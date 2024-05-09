@@ -55,7 +55,7 @@ Page({
       tabs: tabs,
     });
 
-    await this.loadFresnsPageData();
+    this.loadFresnsPageData();
   },
 
   /** 加载列表数据 **/
@@ -81,7 +81,7 @@ Page({
       const listCount = list.length + this.data.drafts.length;
 
       let tipType = 'none';
-      if (isReachBottom) {
+      if (isReachBottom && this.data.page > 1) {
         tipType = listCount > 0 ? 'page' : 'empty';
       }
 
@@ -120,7 +120,7 @@ Page({
       loadingTipType: 'none',
     });
 
-    await this.loadFresnsPageData();
+    this.loadFresnsPageData();
 
     setTimeout(() => {
       isRefreshing = false;
@@ -130,9 +130,10 @@ Page({
   /** 监听用户上拉触底 **/
   onScrollToLower: async function () {
     console.log('滚动到底部');
-    await this.loadFresnsPageData();
+    this.loadFresnsPageData();
   },
 
+  // 切换类型
   onTapTab: async function (e) {
     const type = e.currentTarget.dataset.type;
 
@@ -151,22 +152,21 @@ Page({
       loadingTipType: 'none', // loading 组件提示文案
     });
 
-    await this.loadFresnsPageData();
+    this.loadFresnsPageData();
   },
 
+  // 菜单
   onEditMenus: async function (e) {
     const items = [await fresnsLang('edit'), await fresnsLang('delete')];
 
     const type = this.data.type;
     const did = e.currentTarget.dataset.did;
-    console.log(e);
+    console.log('onEditMenus', did);
 
     wx.showActionSheet({
       alertText: did,
       itemList: items,
       success: async (res) => {
-        console.log(res.tapIndex);
-
         // 编辑
         if (res.tapIndex === 0) {
           wx.navigateTo({

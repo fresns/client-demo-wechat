@@ -38,7 +38,6 @@ Page({
     policyOptions: [],
 
     // dialog
-    dialog: false,
     dialogShow: false,
     dialogWrap: false,
 
@@ -289,19 +288,17 @@ Page({
     }
 
     this.setData({
-      dialog: true,
       dialogShow: true,
       dialogWrap: true,
       modifyDialogType: modifyDialogType,
       modifyDialogTitle: modifyDialogTitle,
       modifyDialogValue: modifyDialogValue,
-      modifyDialogNewValue: null,
+      modifyDialogNewValue: modifyDialogValue,
     });
   },
 
   dialogClose() {
     this.setData({
-      dialog: false,
       dialogShow: false,
       dialogWrap: false,
     });
@@ -344,7 +341,6 @@ Page({
       this.reloadFresnsUser();
 
       this.setData({
-        dialog: false,
         dialogShow: false,
         dialogWrap: false,
       });

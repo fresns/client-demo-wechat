@@ -186,7 +186,7 @@
   </view>
 
   <view class="logout" wx:if="{{accountLogin}}">
-    <button type="warn" bind:tap="onClickLogout">{{fresnsLang.accountLogout}}</button>
+    <button size="default" type="warn" bind:tap="onClickLogout">{{fresnsLang.accountLogout}}</button>
   </view>
 
   <!-- 隐私权政策和服务条款 -->

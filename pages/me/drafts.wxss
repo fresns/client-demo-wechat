@@ -14,3 +14,7 @@
 .weui-bar__item_on {
   background-color: var(--weui-BG-COLOR-ACTIVE);
 }
+
+.empty-content {
+  color: var(--weui-FG-1);
+}
