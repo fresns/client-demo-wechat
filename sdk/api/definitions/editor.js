@@ -124,7 +124,7 @@ const editor = {
       data: {
         ...options,
       },
-      editorUpdate: true,
+      draftUpdate: true,
     });
   },
 

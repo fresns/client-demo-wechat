@@ -89,7 +89,7 @@ export function callSpecificPageFunction(route, functionName, ...args) {
 }
 
 // 回调上一个页面组件中的功能
-export function callPrevPageComponentFunction(componentSelector, functionName, ...args) {
+export function callPrevPageComponentMethod(componentSelector, functionName, ...args) {
   const pages = getCurrentPages();
   const prevPage = pages[pages.length - 2];
   if (!prevPage) return;
@@ -104,7 +104,7 @@ export function callPrevPageComponentFunction(componentSelector, functionName, .
 }
 
 // 回调指定页面组件中的功能
-export function callSpecificPageComponentFunction(route, componentSelector, functionName, ...args) {
+export function callSpecificPageComponentMethod(route, componentSelector, functionName, ...args) {
   const pages = getCurrentPages();
   const targetPage = pages.find((page) => page.route == route);
 
@@ -186,6 +186,20 @@ export function generateRandomString(length = 8) {
   }
 
   return result;
+}
+
+// 判断是否为空值（包括是否为空对象或空数组）
+export function isEmpty(value = null) {
+  // 判断是否为 null, undefined 或空字符串
+  if (value == null || value === '') return true;
+
+  // 判断是否为空数组
+  if (Array.isArray(value) && value.length === 0) return true;
+
+  // 判断是否为空对象
+  if (typeof value === 'object' && !Array.isArray(value) && Object.keys(value).length === 0) return true;
+
+  return false;
 }
 
 // 比较两个语义化版本号

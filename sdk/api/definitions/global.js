@@ -3,7 +3,7 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import appConfig from '../../../fresns';
+import envConfig from '../../../env';
 import { request } from '../tool/request';
 
 const global = {
@@ -12,7 +12,7 @@ const global = {
    * @return {wx.RequestTask}
    */
   status: () => {
-    const spaceId = appConfig.spaceId || '';
+    const spaceId = envConfig.spaceId || '';
 
     if (spaceId) {
       return request({

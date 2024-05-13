@@ -3,6 +3,7 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
+/** API import **/
 import global from './api/definitions/global';
 import common from './api/definitions/common';
 import account from './api/definitions/account';
@@ -17,11 +18,6 @@ import comment from './api/definitions/comment';
 import editor from './api/definitions/editor';
 import search from './api/definitions/search';
 import { plugins } from './api/plugins';
-
-import { fresnsClient } from './helpers/client';
-import { fresnsLogin } from './helpers/login';
-import { cachePut, cacheGet } from './helpers/cache';
-import { base64_encode } from './utilities/base64';
 
 // API
 export const fresnsApi = {
@@ -40,6 +36,12 @@ export const fresnsApi = {
   search,
   plugins,
 };
+
+/** 小程序初始化 import **/
+import { fresnsClient } from './helpers/client';
+import { fresnsLogin } from './helpers/login';
+import { cachePut, cacheGet } from './helpers/cache';
+import { base64_encode } from './utilities/base64';
 
 // 小程序初始化
 export async function fresnsInit() {

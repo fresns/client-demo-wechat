@@ -3,29 +3,33 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import appConfig from '../../../fresns';
+import envConfig from '../../../env';
 import { getHeaders } from './header';
 import { clearCache } from '../../helpers/cache';
+import { isEmpty } from '../../utilities/toolkit';
 
 // 常规请求
 export function request(params) {
   return new Promise(async (resolve, reject) => {
-    const { path, method, data = {} } = params;
+    const { path, method, data = {}, draftUpdate } = params;
 
-    // 删除空值健值对
-    Object.getOwnPropertyNames(data).forEach((dataKey) => {
-      if (data[dataKey] == null || data[dataKey] == undefined) {
-        delete data[dataKey];
-      }
-    });
+    // 不是更新草稿接口
+    if (!draftUpdate) {
+      // 删除空的健值对
+      Object.getOwnPropertyNames(data).forEach((key) => {
+        if (isEmpty(data[key])) {
+          delete data[key];
+        }
+      });
+    }
 
     wx.request({
-      url: appConfig.apiHost + path,
+      url: envConfig.apiHost + path,
       data: data,
       header: await getHeaders(),
       method: method || 'GET',
       enableHttp2: true,
-      enableQuic: appConfig.enableApiQuic || false,
+      enableQuic: envConfig.enableApiQuic || false,
 
       // 请求成功
       success: async (res) => {
@@ -73,10 +77,10 @@ export function request(params) {
           wx.showModal({
             title: '[' + code + '] ' + message,
             content: now + ' | ' + utc8Timestamp + ' | ' + utcTimestamp,
-            confirmText: appConfig?.email ? '问题反馈: ' + appConfig?.email : '',
+            confirmText: envConfig?.email ? '问题反馈: ' + envConfig?.email : '',
             success(res) {
               if (res.confirm) {
-                if (appConfig?.email) {
+                if (envConfig?.email) {
                   wx.showToast({
                     title: '复制邮箱成功',
                   });
@@ -114,10 +118,10 @@ export function uploadFile(params) {
   return new Promise(async (resolve, reject) => {
     const { path, method, filePath, data = {} } = params;
 
-    // 删除空值健值对
-    Object.getOwnPropertyNames(data).forEach((dataKey) => {
-      if (data[dataKey] == null || data[dataKey] == undefined || data[dataKey] == '') {
-        delete data[dataKey];
+    // 删除空的健值对
+    Object.getOwnPropertyNames(data).forEach((key) => {
+      if (isEmpty(data[key])) {
+        delete data[key];
       }
     });
 
@@ -127,11 +131,12 @@ export function uploadFile(params) {
     }
 
     wx.uploadFile({
-      url: appConfig.apiHost + path,
+      url: envConfig.apiHost + path,
       filePath: filePath,
       name: name,
       header: await getHeaders(),
       formData: data,
+      enableHttp2: true,
 
       // 请求成功
       success: (res) => {

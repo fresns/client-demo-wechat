@@ -11,6 +11,17 @@ import { request } from '../tool/request';
  */
 
 const wechatLogin = {
+  // 微信互联信息
+  connects: (options = {}) => {
+    return request({
+      path: '/api/wechat-login/connects',
+      method: 'GET',
+      data: {
+        ...options,
+      },
+    });
+  },
+
   // 微信小程序登录
   oauth: (options = {}) => {
     return request({

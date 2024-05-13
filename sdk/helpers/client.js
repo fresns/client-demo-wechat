@@ -3,7 +3,7 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import appConfig from '../../fresns';
+import envConfig from '../../env';
 import { fresnsApi } from '../services';
 import { base64_encode } from '../utilities/base64';
 import { versionCompare } from '../utilities/toolkit';
@@ -100,12 +100,12 @@ class clientInfo {
 
   // platformId
   get platformId() {
-    return appConfig?.clientPlatformId || 11; // https://docs.fresns.com/zh-Hans/clients/reference/dictionary/platforms.html
+    return envConfig?.clientPlatformId || 11; // https://docs.fresns.com/zh-Hans/clients/reference/dictionary/platforms.html
   }
 
   // version
   get version() {
-    return appConfig?.clientVersion || '3.0.0';
+    return envConfig?.clientVersion || '3.0.0';
   }
 
   // langTag
@@ -183,17 +183,17 @@ class clientInfo {
 
   // enableApiQuic
   get enableApiQuic() {
-    return appConfig?.enableApiQuic || false;
+    return envConfig?.enableApiQuic || false;
   }
 
   // enableWeChatLogin
   get enableWeChatLogin() {
-    return appConfig?.enableWeChatLogin || false;
+    return envConfig?.enableWeChatLogin || false;
   }
 
   // enableWeChatAutoLogin
   get enableWeChatAutoLogin() {
-    return appConfig?.enableWeChatAutoLogin || false;
+    return envConfig?.enableWeChatAutoLogin || false;
   }
 }
 

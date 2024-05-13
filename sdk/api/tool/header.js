@@ -3,7 +3,7 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import appConfig from '../../../fresns';
+import envConfig from '../../../env';
 import { fresnsClient } from '../../helpers/client';
 import { fresnsAuth } from '../../helpers/profiles';
 import { hash_sha256 } from '../../utilities/sha256';
@@ -20,8 +20,8 @@ export async function getHeaders() {
   const signTimestamp = String(Date.now()); // 获取 UTC+0 时区的 Unix 时间戳
 
   const headers = {
-    'X-Fresns-Space-Id': appConfig.spaceId,
-    'X-Fresns-App-Id': appConfig.appId,
+    'X-Fresns-Space-Id': envConfig.spaceId,
+    'X-Fresns-App-Id': envConfig.appId,
     'X-Fresns-Client-Platform-Id': fresnsClient.platformId,
     'X-Fresns-Client-Version': fresnsClient.version,
     'X-Fresns-Client-Device-Info': fresnsClient.deviceInfo,
@@ -48,8 +48,8 @@ export async function getHeaders() {
 /** 生成签名 **/
 export async function makeSignature(signTimestamp) {
   const headers = {
-    'X-Fresns-Space-Id': appConfig.spaceId,
-    'X-Fresns-App-Id': appConfig.appId,
+    'X-Fresns-Space-Id': envConfig.spaceId,
+    'X-Fresns-App-Id': envConfig.appId,
     'X-Fresns-Client-Platform-Id': fresnsClient.platformId,
     'X-Fresns-Client-Version': fresnsClient.version,
     'X-Fresns-Aid': fresnsAuth.aid,
@@ -73,7 +73,7 @@ export async function makeSignature(signTimestamp) {
     .filter((v) => headers[v])
     .sort();
 
-  const stringSignTemp = strA.map((key) => `${key}=${headers[key]}`).join('&') + `&AppKey=${appConfig.appKey}`;
+  const stringSignTemp = strA.map((key) => `${key}=${headers[key]}`).join('&') + `&AppKey=${envConfig.appKey}`;
 
   const signature = hash_sha256(stringSignTemp);
 
