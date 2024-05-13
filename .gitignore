@@ -11,6 +11,6 @@ project.private.config.json
 app.miniapp.json
 project.miniapp.json
 
-fresns.js
-fresns-dev.js
-fresns-test.js
+env.js
+env-dev.js
+env-test.js
