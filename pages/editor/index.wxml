@@ -1,67 +1,12 @@
 <!-- *
-    Fresns 微信小程序 (https://fresns.cn)
-    Copyright 2021-Present 唐杰
-    Licensed under the Apache-2.0 license
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
 * -->
-<view class="page" data-weui-theme="{{ theme }}">
-    <!-- 提示条 -->
-    <mp-toptips msg="{{ tipError }}" type="error" show="{{ tipError }}" delay="{{ tipDelay }}"></mp-toptips>
+<page-meta root-font-size="system"/>
 
-    <!-- 草稿选择器 -->
-    <editor-draft-selector wx:if="{{ draftSelector }}" options="{{ options }}"/>
+<navigation-bar title="{{title}}" backButton="{{true}}"></navigation-bar>
 
-    <!-- 编辑器 -->
-    <block wx:if="{{ editorStatus }}">
-        <!-- 编辑器提示 -->
-        <editor-tip-publish wx:if="{{ editorConfig.publish.limit.status && editorConfig.publish.limit.isInTime }}" publish="{{ editorConfig.publish }}" />
-        <editor-tip-edit wx:if="{{ draftEdit.isEditDraft }}" editInfo="{{ draftEdit }}" />
-
-        <!-- 编辑器内容区 -->
-        <view class="editor-form">
-            <!-- 编辑器输入项 -->
-            <view class="weui-cells">
-                <editor-group wx:if="{{ editorConfig.editor.features.group.status }}" value="{{ draftDetail.group }}" config="{{ editorConfig.editor.features.group }}" />
-
-                <editor-title wx:if="{{ showTitleInput }}" value="{{ draftDetail.title }}" config="{{ editorConfig.editor.toolbar.title }}" />
-
-                <editor-content content="{{ draftDetail.content }}" contentLength="{{ editorConfig.editor.features.contentLength }}" mentionConfig="{{ editorConfig.editor.toolbar.mention }}" hashtagConfig="{{ editorConfig.editor.toolbar.hashtag }}"/>
-                <editor-mention wx:if="{{ editorConfig.editor.toolbar.mention.status }}" show="{{ showMentionDialog }}"/>
-                <editor-hashtag wx:if="{{ editorConfig.editor.toolbar.hashtag.status }}" show="{{ showHashtagDialog }}" config="{{ editorConfig.editor.toolbar.hashtag }}"/>
-
-                <view class="editor-features">
-                    <view class="float-left">
-                        <editor-location wx:if="{{ editorConfig.editor.features.location.status }}" location="{{ draftDetail.mapJson }}" config="{{ editorConfig.editor.features.location }}" />
-                    </view>
-                    <view class="float-end">
-                        <editor-anonymous wx:if="{{ editorConfig.editor.features.anonymous }}" isAnonymous="{{ draftDetail.isAnonymous }}" />
-                    </view>
-                </view>
-
-                <editor-quote quotedPid="{{ draftDetail.quotedPid }}"/>
-
-                <editor-files files="{{ draftDetail.files }}"/>
-
-                <editor-extends extends="{{ draftDetail.extends }}"/>
-
-                <editor-read wx:if="{{ draftDetail.readJson.isReadLocked }}" readJson="{{ draftDetail.readJson }}"/>
-                <editor-comment-btn wx:if="{{ draftDetail.commentBtnJson.isCommentBtn }}" commentBtnJson="{{ draftDetail.commentBtnJson }}"/>
-                <editor-user-list wx:if="{{ draftDetail.userListJson.isUserList }}" userListJson="{{ draftDetail.userListJson }}"/>
-            </view>
-
-            <!-- 发表按钮 -->
-            <view class="weui-form__opr-area" style="margin-top:30px;">
-                <view class="weui-btn weui-btn_primary" aria-role="button" bind:tap="submitDraft">{{ submitBtnName }}</view>
-            </view>
-        </view>
-
-        <!-- 编辑器工具栏 -->
-        <editor-toolbar type="{{ type }}" draftId="{{ draftDetail.id }}" config="{{ editorConfig.editor.toolbar }}"/>
-    </block>
-
-    <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
-        <text class="weui-loadmore__tips">Powered by Fresns</text>
-    </view>
-
-    <!-- 隐私授权 -->
-    <privacy showPrivacy="{{ showPrivacy }}"/>
-</view>
+<scroll-view class="scrollarea" type="list" scroll-y="{{true}}">
+  <editor type="{{type}}" did="{{did}}" fsid="{{fsid}}"></editor>
+</scroll-view>

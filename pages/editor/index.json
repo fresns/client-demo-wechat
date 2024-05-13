@@ -1,32 +1,7 @@
 {
-  "navigationBarTitleText": "选择草稿",
+  "navigationBarTitleText": "编辑器",
   "usingComponents": {
-    "mp-toptips": "weui-miniprogram/toptips/toptips",
-    "privacy": "/components/commons/privacy/privacy",
-
-    "editor-draft-selector": "/components/editor/editor-draft-selector/editor-draft-selector",
-
-    "editor-tip-publish": "/components/editor/editor-tip-publish/editor-tip-publish",
-    "editor-tip-edit": "/components/editor/editor-tip-edit/editor-tip-edit",
-
-    "editor-toolbar": "/components/editor/editor-toolbar/editor-toolbar",
-
-    "editor-group": "/components/editor/editor-group/editor-group",
-    "editor-title": "/components/editor/editor-title/editor-title",
-    "editor-content": "/components/editor/editor-content/editor-content",
-    "editor-mention": "/components/editor/editor-mention/editor-mention",
-    "editor-hashtag": "/components/editor/editor-hashtag/editor-hashtag",
-
-    "editor-location": "/components/editor/editor-location/editor-location",
-    "editor-anonymous": "/components/editor/editor-anonymous/editor-anonymous",
-
-    "editor-quote": "/components/editor/editor-quote/editor-quote",
-
-    "editor-files": "/components/editor/editor-files/editor-files",
-    "editor-extends": "/components/editor/editor-extends/editor-extends",
-
-    "editor-read": "/components/editor/editor-read/editor-read",
-    "editor-comment-btn": "/components/editor/editor-comment-btn/editor-comment-btn",
-    "editor-user-list": "/components/editor/editor-user-list/editor-user-list"
+    "navigation-bar": "/components/commons/navigation-bar/navigation-bar",
+    "editor": "/sdk/editor/editor"
   }
 }
