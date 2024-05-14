@@ -1,0 +1,70 @@
+<!-- *
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+* -->
+<view class="weui-cells weui-cells_after-title">
+  <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bind:tap="onClickSelect">
+    <view class="weui-cell__bd">{{groupName}}</view>
+    <view class="weui-cell__hd" wx:if="{{currentGroupCover}}">
+      <image src="{{currentGroupCover}}"></image>
+    </view>
+    <view class="weui-cell__ft weui-cell__ft_in-access">{{currentGroupName}}</view>
+  </view>
+</view>
+
+<!-- 小组选择 Dialog -->
+<view wx:if="{{selectDialog}}" aria-role="dialog" aria-modal="true">
+  <view class="weui-mask {{selectDialog ? 'weui-animate_fade-in' : 'weui-animate_fade-out'}}" bind:tap="close" aria-role="button" aria-label="关闭"></view>
+  <view class="weui-half-screen-dialog weui-half-screen-dialog_large {{selectDialog ? 'weui-animate_slide-up' : 'weui-animate_slide-down'}}">
+    <view class="weui-half-screen-dialog__hd">
+      <view class="weui-half-screen-dialog__hd__side" bind:tap="close">
+        <view aria-role="button" class="weui-btn_icon">关闭<i class="weui-icon-close-thin"></i></view>
+      </view>
+      <view class="weui-half-screen-dialog__hd__main">
+        <strong class="weui-half-screen-dialog__title">{{groupName}}</strong>
+      </view>
+    </view>
+    <view class="weui-half-screen-dialog__bd">
+      <!-- 不发到小组 -->
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:if="{{!groupRequired}}">
+          <view class="weui-cell__hd">
+            <view class="group-slash"></view>
+          </view>
+          <view class="weui-cell__bd">{{fresnsLang.editorNoGroup}}</view>
+          <view>
+            <button size="mini" type="primary" bind:tap="onClickNoGroup">{{fresnsLang.select}}</button>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:if="{{currentParentInfo.gid}}" bind:tap="onClickGoBack" data-gid="{{currentParentInfo.gid}}">
+          <view class="weui-cell__hd">
+            <view class="weui-navigation-bar__buttons">
+              <view aria-role="button" aria-label="返回" class="weui-btn_icon_goback"></view>
+            </view>
+          </view>
+          <view class="weui-cell__bd">{{currentParentInfo.name}}</view>
+        </view>
+      </view>
+      <!-- 小组列表 -->
+      <scroll-view class="group-list" type="list" scroll-y="{{true}}" enable-back-to-top="{{true}}" bindscrolltolower="onScrollToLower">
+        <view class="weui-cells weui-cells_after-title">
+          <!-- 小组列表 -->
+          <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:for="{{currentGroups}}" wx:key="gid" bind:tap="onLoadSubgroups" data-gid="{{item.gid}}" data-name="{{item.name}}" data-subgroup-count="{{item.subgroupCount}}" data-parent-gid="{{item.parentInfo.gid}}" data-parent-name="{{item.parentInfo.name}}">
+            <view class="weui-cell__hd" wx:if="{{item.cover}}">
+              <image src="{{item.cover}}" wx:lazy-load="true"></image>
+            </view>
+            <view class="weui-cell__bd">{{item.name}}</view>
+            <view class="{{item.subgroupCount ? 'weui-cell__ft weui-cell__ft_in-access' : ''}}">
+              <button size="mini" type="primary" wx:if="{{item.publishRule.canPublish}}" disabled="{{!item.publishRule.allowPost}}" bind:tap="onClickGroup" data-gid="{{item.gid}}" data-name="{{item.name}}" data-cover="{{item.cover}}">{{fresnsLang.select}}</button>
+            </view>
+          </view>
+        </view>
+
+        <!-- 加载动效 -->
+        <loading status="{{loadingStatus}}" tipType="{{loadingTipType}}"></loading>
+      </scroll-view>
+    <!-- 小组列表结束 -->
+    </view>
+  </view>
+</view>

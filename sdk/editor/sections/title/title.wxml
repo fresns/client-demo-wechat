@@ -1,0 +1,12 @@
+<!-- *
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+* -->
+<view class="editor-title">
+  <view class="weui-cell">
+    <view class="weui-cell__bd">
+      <textarea class="weui-input" placeholder="{{placeholder}}" value="{{title}}" auto-height="{{true}}" maxlength="{{config.length}}" confirm-type="done" bindblur="onUpdate" bindconfirm="onUpdate" style="{{title ? 'font-weight:bold;': ''}}"/>
+    </view>
+  </view>
+</view>

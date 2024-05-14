@@ -1,0 +1,18 @@
+{
+  "component": true,
+  "usingComponents": {
+    "draft-selector": "/sdk/editor/sections/draft-selector/draft-selector",
+    "tip-publish": "/sdk/editor/sections/tip-publish/tip-publish",
+    "tip-edit": "/sdk/editor/sections/tip-edit/tip-edit",
+    "group": "/sdk/editor/sections/group/group",
+    "title": "/sdk/editor/sections/title/title",
+    "content": "/sdk/editor/sections/content/content",
+    "anonymous": "/sdk/editor/sections/anonymous/anonymous",
+    "location": "/sdk/editor/sections/location/location",
+    "quoted-post": "/sdk/editor/sections/quoted-post/quoted-post",
+    "files": "/sdk/editor/sections/files/files",
+    "mention": "/sdk/editor/sections/mention/mention",
+    "hashtag": "/sdk/editor/sections/hashtag/hashtag",
+    "toolbar": "/sdk/editor/sections/toolbar/toolbar"
+  }
+}

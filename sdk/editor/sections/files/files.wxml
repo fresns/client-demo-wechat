@@ -1,0 +1,75 @@
+<!-- *
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+* -->
+<view class="file-box" wx:if="{{images.length > 0 || videos.length > 0 || audios.length > 0 || documents.length > 0}}">
+  <!-- 图片 -->
+  <view class="weui-cell weui-cell_uploader" wx:if="{{images.length > 0}}">
+    <view class="weui-uploader">
+      <view class="weui-uploader__files">
+        <block wx:for="{{images}}" wx:key="fid">
+          <view class="weui-uploader__file {{item.newChoice ? 'weui-uploader__file_status' : ''}}" bind:tap="handleFiles" data-type="image" data-fid="{{item.fid}}" data-file-path="{{item.filePath}}" data-url="{{item.imageBigUrl}}">
+            <image class="weui-uploader__img" src="{{item.imageSquareUrl}}" mode="aspectFill" />
+
+            <view aria-role="alert" class="weui-uploader__file-content" wx:if="{{item.newChoice && item.waitingUpload}}">
+              <icon aria-label="等待上传" type="waiting" size="23"></icon>
+            </view>
+
+            <view aria-role="alert" class="weui-uploader__file-content" wx:if="{{item.newChoice && !item.waitingUpload}}">
+              <view aria-label="正在上传" class="weui-loading"></view>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+
+  <!-- 视频 -->
+  <view class="weui-cell weui-cell_uploader" wx:if="{{videos.length > 0}}">
+    <view class="weui-uploader">
+      <view class="weui-uploader__files">
+        <block wx:for="{{videos}}" wx:key="fid">
+          <view class="weui-uploader__file {{(item.newChoice || !item.videoPosterUrl) ? 'weui-uploader__file_status' : ''}}" bind:tap="handleFiles" data-type="video" data-fid="{{item.fid}}" data-file-path="{{item.filePath}}">
+            <image class="weui-uploader__img" src="{{item.videoPosterUrl}}" mode="aspectFill" />
+            <view aria-role="alert" class="weui-uploader__file-content" wx:if="{{!item.newChoice && !item.waitingUpload}}">
+              <view class="icon-play"></view>
+            </view>
+
+            <view aria-role="alert" class="weui-uploader__file-content" wx:if="{{item.newChoice && item.waitingUpload}}">
+              <icon aria-label="等待上传" type="waiting" size="23"></icon>
+            </view>
+
+            <view aria-role="alert" class="weui-uploader__file-content" wx:if="{{item.newChoice && !item.waitingUpload}}">
+              <view aria-label="正在上传" class="weui-loading"></view>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+
+  <!-- 音频 -->
+  <view class="weui-cell weui-cell_uploader file-block" wx:if="{{audios.length > 0}}">
+    <block wx:for="{{audios}}" wx:key="fid">
+      <view class="file-audio" bind:tap="handleFiles" data-type="audio" data-fid="{{item.fid}}" data-file-path="{{item.filePath}}">
+        <view class="audio-icon">
+          <view class="icon-music"></view>
+        </view>
+        <view class="audio-name">{{item.name}}</view>
+      </view>
+    </block>
+  </view>
+
+  <!-- 文档 -->
+  <view class="weui-cell weui-cell_uploader file-block" wx:if="{{documents.length > 0}}">
+    <block wx:for="{{documents}}" wx:key="fid">
+      <view class="file-document" bind:tap="handleFiles" data-type="video" data-fid="{{item.fid}}" data-file-path="{{item.filePath}}">
+        <view class="doc-icon">
+          <view class="icon-folder"></view>
+        </view>
+        <view class="doc-name">{{item.name}}</view>
+      </view>
+    </block>
+  </view>
+</view>

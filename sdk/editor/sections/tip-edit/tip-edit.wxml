@@ -1,0 +1,15 @@
+<!-- *
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+* -->
+<view class="editor-edit-tip">
+  <block wx:if="{{editInfo.editableStatus}}">
+    <view class="tip-title">{{fresnsLang.editorEditTimeTitle}}</view>
+    <view class="tip-desc">{{fresnsLang.editorEditTimeDesc}}: {{editInfo.editableTime}} ({{editInfo.deadlineTime}})</view>
+  </block>
+  <block wx:else>
+    <view class="tip-title">{{fresnsLang.errorTimeout}}</view>
+    <view class="tip-desc">{{fresnsLang.editorEditTimeTitle}}</view>
+  </block>
+</view>

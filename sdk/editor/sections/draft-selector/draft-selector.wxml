@@ -1,0 +1,33 @@
+<!-- *
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+* -->
+<view class="draft-selector" wx:if="{{selector}}">
+  <!-- 创建新草稿 -->
+  <view class="create-draft">
+    <view class="button-sp-area">
+      <button size="default" type="primary" bind:tap="onClickCreateDraft">{{fresnsLang.createDraft}}</button>
+    </view>
+
+    <view class="weui-loadmore weui-loadmore_line">
+      <text class="weui-loadmore__tips">{{fresnsLang.modifierOr}}</text>
+    </view>
+  </view>
+
+  <!-- 草稿列表 -->
+  <view class="weui-cells__title">{{fresnsLang.selectDraft}}</view>
+  <scroll-view class="draft-list" type="list" scroll-y="{{true}}" enable-back-to-top="{{true}}" bindscrolltolower="onScrollToLower">
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:for="{{drafts}}" wx:for-item="draft" wx:key="did" data-did="{{draft.did}}" bind:tap="onClickChooseDraft">
+        <view class="weui-cell__bd" wx:if="{{draft.title}}">{{draft.title}}</view>
+        <view class="weui-cell__bd" wx:elif="{{draft.contentLength}}">{{draft.contentLength > 40 ? draft.content.slice(0, 40) + '...' : draft.content}}</view>
+        <view class="weui-cell__bd empty-content" wx:else>empty</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </view>
+    </view>
+
+    <!-- 加载动效 -->
+    <loading status="{{loadingStatus}}" tipType="{{loadingTipType}}"></loading>
+  </scroll-view>
+</view>
