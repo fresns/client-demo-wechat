@@ -5,9 +5,10 @@
 * -->
 <view class="editor">
   <!-- 编辑器提示 -->
-  <view class="editor-tip" wx:if="{{editorTip}}">
-    <tip-publish publish="{{editorConfig.publish}}"/>
-    <tip-edit editInfo="{{draftEdit}}"/>
+  <view class="editor-tip">
+    <tip-publish-perm wx:if="{{!publishPerm.draft || !publishPerm.publish}}" publishPerm="{{publishPerm}}"/>
+    <tip-publish-limit wx:if="{{publishLimit.status && publishLimit.isInTime}}" publishLimit="{{publishLimit}}"/>
+    <tip-edit-controls wx:if="{{editControls.isEditDraft}}" editControls="{{editControls}}"/>
   </view>
 
   <!-- 草稿选择器 -->
@@ -17,26 +18,28 @@
 
   <!-- 编辑器 -->
   <view class="editor-form" wx:if="{{editorForm}}">
-    <!-- 小组 -->
-    <group type="{{type}}" did="{{did}}" group="{{draftDetail.group}}" wx:if="{{editorConfig.editor.group.status}}"/>
+    <view class="editor-items">
+      <!-- 小组 -->
+      <group type="{{type}}" did="{{did}}" group="{{draftDetail.group}}" wx:if="{{editorConfig.group.status}}"/>
 
-    <!-- 标题 -->
-    <title type="{{type}}" did="{{did}}" title="{{draftDetail.title}}" wx:if="{{titleInputShow}}"/>
+      <!-- 标题 -->
+      <title type="{{type}}" did="{{did}}" title="{{draftDetail.title}}" wx:if="{{titleInputShow}}"/>
 
-    <!-- 内容 -->
-    <content type="{{type}}" did="{{did}}" content="{{draftDetail.content}}" id="content" bind:eventDialogShow="eventDialogShow"/>
+      <!-- 内容 -->
+      <content type="{{type}}" did="{{did}}" content="{{draftDetail.content}}" id="content" bind:eventDialogShow="eventDialogShow"/>
 
-    <!-- 匿名和位置 -->
-    <view class="editor-label">
-      <anonymous type="{{type}}" did="{{did}}" isAnonymous="{{draftDetail.isAnonymous}}"/>
-      <location type="{{type}}" did="{{did}}" locationInfo="{{draftDetail.locationInfo}}" geotag="{{draftDetail.geotag}}"/>
+      <!-- 匿名和位置 -->
+      <view class="editor-label" wx:if="{{editorConfig.anonymous || editorConfig.location.status}}">
+        <anonymous type="{{type}}" did="{{did}}" wx:if="{{editorConfig.anonymous}}" isAnonymous="{{draftDetail.isAnonymous}}"/>
+        <location type="{{type}}" did="{{did}}" wx:if="{{editorConfig.location.status}}" locationInfo="{{draftDetail.locationInfo}}" geotag="{{draftDetail.geotag}}"/>
+      </view>
+
+      <!-- 引用 -->
+      <quoted-post type="{{type}}" did="{{did}}" quotedPid="{{draftDetail.quotedPid}}" wx:if="{{draftDetail.quotedPid}}"/>
+
+      <!-- 文件 -->
+      <files type="{{type}}" did="{{did}}" files="{{draftDetail.files}}"/>
     </view>
-
-    <!-- 引用 -->
-    <quoted-post type="{{type}}" did="{{did}}" quotedPid="{{draftDetail.quotedPid}}" wx:if="{{draftDetail.quotedPid}}"/>
-
-    <!-- 文件 -->
-    <files type="{{type}}" did="{{did}}" files="{{draftDetail.files}}"/>
 
     <!-- 发表按钮 -->
     <view class="publish-btn">

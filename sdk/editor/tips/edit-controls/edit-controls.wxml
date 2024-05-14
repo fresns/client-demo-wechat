@@ -4,9 +4,9 @@
   Licensed under the Apache-2.0 license
 * -->
 <view class="editor-edit-tip">
-  <block wx:if="{{editInfo.editableStatus}}">
+  <block wx:if="{{editControls.editableStatus}}">
     <view class="tip-title">{{fresnsLang.editorEditTimeTitle}}</view>
-    <view class="tip-desc">{{fresnsLang.editorEditTimeDesc}}: {{editInfo.editableTime}} ({{editInfo.deadlineTime}})</view>
+    <view class="tip-desc">{{fresnsLang.editorEditTimeDesc}}: {{editControls.editableTime}} ({{editControls.deadlineTime}})</view>
   </block>
   <block wx:else>
     <view class="tip-title">{{fresnsLang.errorTimeout}}</view>

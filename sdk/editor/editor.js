@@ -45,8 +45,12 @@ Component({
   /** 组件的初始数据 **/
   data: {
     editorConfig: {},
-    editorTip: false,
-    draftSelector: true,
+
+    publishPerm: null,
+    publishLimit: null,
+
+    draftSelector: false,
+
     editorForm: false,
     editControls: {},
     draftDetail: {},
@@ -63,12 +67,24 @@ Component({
     attached: async function () {
       const type = this.data.type;
 
-      let editorConfig = await fresnsEditor[type]();
+      let config = await fresnsEditor[type]();
 
-      const titleConfig = editorConfig.editor.title;
+      const titleConfig = config.editor.title;
+      const publishPerm = config.publish.perm;
+      const publishLimit = config.publish.limit;
+
+      // 无法创建草稿，不显示草稿选择器
+      let draftSelector = false;
+      if (publishPerm.draft) {
+        // 可以创建草稿，显示草稿选择器
+        draftSelector = true;
+      }
 
       this.setData({
-        editorConfig: editorConfig,
+        editorConfig: config.editor,
+        publishPerm: publishPerm,
+        publishLimit: publishLimit,
+        draftSelector: draftSelector,
         titleInputShow: titleConfig.required ? true : titleConfig.show,
         publishBtnName: await fresnsConfig(`publish_${type}_name`),
       });
@@ -89,13 +105,7 @@ Component({
       const draftData = e.detail.draftData;
       console.log('eventDraftChoose', draftData);
 
-      let editorTip = false;
-      if (draftData.editControls.isEditDraft) {
-        editorTip = false;
-      }
-
       this.setData({
-        editorTip: editorTip,
         draftSelector: false,
         editorForm: true,
         editControls: draftData.editControls,
@@ -155,7 +165,7 @@ Component({
       const type = e.detail.fileType + 's';
       const tempFiles = e.detail.tempFiles;
 
-      const updatedTempFiles = tempFiles.map((file) => ({
+      const updatedTempFiles = tempFiles.map(file => ({
         ...file,
         duration: file.duration,
 

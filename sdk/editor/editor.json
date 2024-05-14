@@ -1,9 +1,10 @@
 {
   "component": true,
   "usingComponents": {
+    "tip-publish-perm": "/sdk/editor/tips/publish-perm/publish-perm",
+    "tip-publish-limit": "/sdk/editor/tips/publish-limit/publish-limit",
+    "tip-edit-controls": "/sdk/editor/tips/edit-controls/edit-controls",
     "draft-selector": "/sdk/editor/sections/draft-selector/draft-selector",
-    "tip-publish": "/sdk/editor/sections/tip-publish/tip-publish",
-    "tip-edit": "/sdk/editor/sections/tip-edit/tip-edit",
     "group": "/sdk/editor/sections/group/group",
     "title": "/sdk/editor/sections/title/title",
     "content": "/sdk/editor/sections/content/content",

@@ -13,5 +13,5 @@
 }
 
 .editor-edit-tip .tip-desc {
-  margin-top: 30rpx;
+  margin-top: 10rpx;
 }

@@ -1,0 +1,50 @@
+<!-- *
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+* -->
+<view class="weui-panel">
+  <view class="weui-panel__hd tip-title">{{fresnsLang.editorLimitTitle}}:</view>
+  <view class="weui-panel__bd">
+    <view class="weui-media-box weui-media-box_small-appmsg">
+      <view class="weui-cells">
+        <!-- 列表 -->
+        <view class="weui-cell weui-cell_active weui-cell_example">
+          <view class="weui-cell__bd weui-cell_primary">
+            <view>{{fresnsLang.editorLimitTypeName}}</view>
+          </view>
+          <view class="weui-cell__ft">{{publishLimit.type == 1 ? fresnsLang.editorLimitType1Desc : fresnsLang.editorLimitType2Desc}}</view>
+        </view>
+
+        <view class="weui-cell weui-cell_active weui-cell_example" wx:if="{{publishLimit.type == 1}}">
+          <view class="weui-cell__bd weui-cell_primary">
+            <view>{{fresnsLang.editorLimitDateName}}</view>
+          </view>
+          <view class="weui-cell__ft">{{publishLimit.periodStart}} - {{publishLimit.periodEnd}}</view>
+        </view>
+
+        <view class="weui-cell weui-cell_active weui-cell_example" wx:if="{{publishLimit.type == 2}}">
+          <view class="weui-cell__bd weui-cell_primary">
+            <view>{{fresnsLang.editorLimitCycleName}}</view>
+          </view>
+          <view class="weui-cell__ft">{{publishLimit.cycleStart}} - {{publishLimit.cycleEnd}}</view>
+        </view>
+
+        <view class="weui-cell weui-cell_active weui-cell_example">
+          <view class="weui-cell__bd weui-cell_primary">
+            <view>{{fresnsLang.editorLimitRuleName}}</view>
+          </view>
+          <view class="weui-cell__ft">{{publishLimit.rule == 1 ? fresnsLang.editorLimitRule1Desc : fresnsLang.editorLimitRule2Desc}}</view>
+        </view>
+
+        <view class="weui-cell weui-cell_active weui-cell_example" wx:if="{{publishLimit.tip}}">
+          <view class="weui-cell__bd weui-cell_primary">
+            <view>{{fresnsLang.editorLimitPromptName}}</view>
+          </view>
+          <view class="weui-cell__ft" style="width: 70%;">{{publishLimit.tip}}</view>
+        </view>
+        <!-- 列表结束 -->
+      </view>
+    </view>
+  </view>
+</view>

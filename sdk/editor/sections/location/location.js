@@ -137,10 +137,7 @@ Component({
             moreInfo: null,
           };
 
-          const resultRes = await fresnsApi.editor.draftUpdate(draftType, did, {
-            locationInfo: locationInfo,
-            gtid: '',
-          });
+          const resultRes = await fresnsApi.editor.draftUpdate(draftType, did, { locationInfo: locationInfo, gtid: '' });
 
           if (resultRes.code == 0) {
             self.setData({

@@ -7,8 +7,12 @@
   padding-bottom: calc(160rpx + env(safe-area-inset-bottom));
 }
 
-.editor-label {
+.editor-items {
   background-color: var(--weui-BG-2);
+  padding-bottom: 30rpx;
+}
+
+.editor-label {
   padding: 0 32rpx;
   display: flex;
 }

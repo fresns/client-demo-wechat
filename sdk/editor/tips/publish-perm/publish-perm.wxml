@@ -1,0 +1,11 @@
+<!-- *
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+* -->
+<view class="weui-information-bar weui-information-bar_warn-strong" aria-role="alert" wx:for="{{publishPerm.tips}}">
+  <view class="weui-information-bar__hd">
+    <text class="weui-icon-outlined-warn"></text>
+  </view>
+  <view class="weui-information-bar__bd">{{item}}</view>
+</view>

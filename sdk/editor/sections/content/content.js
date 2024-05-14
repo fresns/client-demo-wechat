@@ -118,7 +118,7 @@ Component({
     },
 
     // 插入内容
-    onInsertContent: function (text) {
+    onInsertContent: function(text) {
       const content = this.data.content || '';
       const cursorPosition = this.data.cursorPosition;
 
