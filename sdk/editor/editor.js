@@ -165,7 +165,7 @@ Component({
       const type = e.detail.fileType + 's';
       const tempFiles = e.detail.tempFiles;
 
-      const updatedTempFiles = tempFiles.map(file => ({
+      const updatedTempFiles = tempFiles.map((file) => ({
         ...file,
         duration: file.duration,
 
