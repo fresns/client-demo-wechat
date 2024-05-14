@@ -138,6 +138,6 @@ Component({
 
       this.triggerEvent('eventInsertContent', { value: text });
       this.close();
-    }
+    },
   },
 });
