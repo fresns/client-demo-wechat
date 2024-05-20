@@ -40,7 +40,7 @@ Fresns 是一款免费开源的社交网络服务软件，专为跨平台而打�
 
 - 1、下载[代码包](https://github.com/fresns/wechat/releases)；
 - 2、解压后使用[微信开发者工具](https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html)导入项目，项目名称和 AppID 填写你的小程序信息；
-- 3、将根目录的 `fresns.example.js` 文件名修改为 `fresns.js`，然后根据里面的描述填写你的配置信息（[公共密钥](https://docs.fresns.com/zh-Hans/clients/sdk/#%E5%85%AC%E5%85%B1%E5%AF%86%E9%92%A5)）；
+- 3、从 `/sdk/` 文件夹复制 `env.example.js` 文件到根目录，并重命名为 `env.js`，然后根据里面的描述填写你的配置信息（[公共密钥](https://docs.fresns.com/zh-Hans/clients/sdk/#%E5%85%AC%E5%85%B1%E5%AF%86%E9%92%A5)）；
 - 4、将你的 `apiHost` 录入到微信配置：公众平台->开发->开发管理->开发设置
     - 服务器域名 `request合法域名` 和 `uploadFile合法域名`
     - 业务域名
