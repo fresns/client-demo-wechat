@@ -105,21 +105,32 @@
 }
 
 .user-extensions {
-  overflow: hidden;
   background-color: var(--weui-BG-2);
   padding-bottom: 40rpx;
-  margin-bottom: 30rpx;
+  margin: 14rpx 0;
+  border-top: 1rpx solid var(--weui-BG-0);
+  border-bottom: 1rpx solid var(--weui-BG-0);
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .extension-box {
-  float: left;
   width: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding-top: 40rpx;
 }
 
 .extension-box navigator {
   text-align: center;
   font-size: 28rpx;
+}
+
+.extension-box .extension-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .extension-box .extension-icon image {

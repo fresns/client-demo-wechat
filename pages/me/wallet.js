@@ -26,7 +26,7 @@ Page({
     withdraws: [],
 
     // 当前分页数据
-    walletLogs: [],
+    walletRecords: [],
 
     // 分页配置
     page: 1, // 下次请求时候的页码，初始值为 1
@@ -67,7 +67,7 @@ Page({
       const { pagination, list } = resultRes.data;
       const isReachBottom = pagination.currentPage === pagination.lastPage;
 
-      const listCount = list.length + this.data.walletLogs.length;
+      const listCount = list.length + this.data.walletRecords.length;
 
       let tipType = 'none';
       if (isReachBottom && this.data.page > 1) {
@@ -75,7 +75,7 @@ Page({
       }
 
       this.setData({
-        walletLogs: this.data.walletLogs.concat(list),
+        walletRecords: this.data.walletRecords.concat(list),
         page: this.data.page + 1,
         isReachBottom: isReachBottom,
         loadingTipType: tipType,
@@ -103,7 +103,7 @@ Page({
     isRefreshing = true;
 
     this.setData({
-      walletLogs: [],
+      walletRecords: [],
       page: 1,
       isReachBottom: false,
       refresherStatus: true,

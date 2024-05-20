@@ -29,6 +29,13 @@ Page({
     fresnsUser: null,
     fresnsOverview: null,
 
+    userArchives: [],
+    archivesMap: null,
+    archiveDialog: false,
+    archiveWrap: false,
+    currentArchiveConfig: null,
+    currentArchive: null,
+
     // 选项
     birthdayDisplayOptions: [],
     genderOptions: [],
@@ -86,6 +93,19 @@ Page({
       fsLang.optionNoOneIsAllowed,
     ];
 
+    const archiveRes = await fresnsApi.global.archives('user');
+
+    let userArchives = [];
+    let archivesMap = null;
+    if (archiveRes.code == 0) {
+      userArchives = archiveRes.data;
+
+      archivesMap = userArchives.reduce((acc, item) => {
+        acc[item.code] = item;
+        return acc;
+      }, {});
+    }
+
     const langTag = fresnsClient.langTag;
 
     const wechatMiniProgramLoginNameMap = {
@@ -125,6 +145,8 @@ Page({
       fresnsAccount: await fresnsAccount('detail'),
       fresnsUser: await fresnsUser('detail'),
       fresnsOverview: await fresnsOverview(),
+      userArchives: userArchives,
+      archivesMap: archivesMap,
       birthdayDisplayOptions: birthdayDisplayOptions,
       genderOptions: genderOptions,
       genderPronounOptions: genderPronounOptions,
@@ -349,6 +371,33 @@ Page({
         icon: 'none',
       });
     }
+  },
+
+  // 扩展资料编辑窗口关闭
+  archiveDialogClose() {
+    this.setData({
+      archiveDialog: false,
+      archiveWrap: false,
+      currentArchiveConfig: null,
+      currentArchive: null,
+    });
+  },
+
+  // 扩展资料编辑窗口
+  onClickArchiveEdit(e) {
+    const code = e.currentTarget.dataset.code;
+
+    const archiveConfigs = this.data.userArchives;
+
+    const currentArchiveConfig = archiveConfigs.find(item => item.code === code);
+    const currentArchive = this.data.archivesMap[code];
+
+    this.setData({
+      archiveDialog: true,
+      archiveWrap: true,
+      currentArchiveConfig: currentArchiveConfig,
+      currentArchive: currentArchive,
+    });
   },
 
   // 绑定微信小程序

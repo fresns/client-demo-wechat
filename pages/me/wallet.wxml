@@ -9,23 +9,23 @@
 
 <scroll-view class="scrollarea" type="list" scroll-y="{{true}}" enable-back-to-top="{{true}}" refresher-enabled="{{true}}" refresher-triggered="{{refresherStatus}}" bindrefresherrefresh="onRefresherRefresh" bindscrolltolower="onScrollToLower">
   <view class="weui-cells weui-cells_after-title">
-    <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:for="{{walletLogs}}" wx:for-item="log" wx:key="timeAgo">
+    <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:for="{{walletRecords}}" wx:key="timeAgo">
       <view class="weui-cell__bd">
         <view>
-          <text wx:if="{{log.type == 1}}">{{fresnsLang.walletLogType1}}</text>
-          <text wx:if="{{log.type == 2}}">{{fresnsLang.walletLogType2}}</text>
-          <text wx:if="{{log.type == 3}}">{{fresnsLang.walletLogType3}}</text>
-          <text wx:if="{{log.type == 4}}">{{fresnsLang.walletLogType4}}</text>
-          <text wx:if="{{log.type == 5}}">{{fresnsLang.walletLogType5}}</text>
-          <text wx:if="{{log.type == 6}}">{{fresnsLang.walletLogType6}}</text>
-          <text wx:if="{{log.type == 7}}">{{fresnsLang.walletLogType7}}</text>
-          <text wx:if="{{log.type == 8}}">{{fresnsLang.walletLogType8}}</text>
-          {{log.amountTotal}}
+          <text wx:if="{{item.type == 1}}">{{fresnsLang.walletRecordType1}}</text>
+          <text wx:if="{{item.type == 2}}">{{fresnsLang.walletRecordType2}}</text>
+          <text wx:if="{{item.type == 3}}">{{fresnsLang.walletRecordType3}}</text>
+          <text wx:if="{{item.type == 4}}">{{fresnsLang.walletRecordType4}}</text>
+          <text wx:if="{{item.type == 5}}">{{fresnsLang.walletRecordType5}}</text>
+          <text wx:if="{{item.type == 6}}">{{fresnsLang.walletRecordType6}}</text>
+          <text wx:if="{{item.type == 7}}">{{fresnsLang.walletRecordType7}}</text>
+          <text wx:if="{{item.type == 8}}">{{fresnsLang.walletRecordType8}}</text>
+          {{item.amountTotal}}
         </view>
-        <view class="weui-cell__desc desc_info">{{fresnsLang.walletLogAmount + ': ' +log.transactionAmount}} | {{fresnsLang.walletLogSystemFee + ': ' +log.systemFee}}</view>
-        <view class="weui-cell__desc desc_info">{{fresnsLang.walletLogOpeningBalance + ': ' +log.openingBalance}} | {{fresnsLang.walletLogClosingBalance + ': ' +log.closingBalance}}</view>
+        <view class="weui-cell__desc desc_info">{{fresnsLang.walletRecordAmount + ': ' +item.transactionAmount}} | {{fresnsLang.walletRecordSystemFee + ': ' +item.systemFee}}</view>
+        <view class="weui-cell__desc desc_info">{{fresnsLang.walletRecordOpeningBalance + ': ' +item.openingBalance}} | {{fresnsLang.walletRecordClosingBalance + ': ' +item.closingBalance}}</view>
       </view>
-      <view class="desc_info">{{log.timeAgo}}</view>
+      <view class="desc_info">{{item.timeAgo}}</view>
     </view>
   </view>
 

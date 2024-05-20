@@ -116,18 +116,16 @@
 
   <!-- 用户功能扩展 -->
   <view class="user-extensions" wx:if="{{fresnsOverview.features.length > 0}}">
-    <view class="extension-box">
-      <block wx:for="{{fresnsOverview.features}}" wx:for-item="item" wx:key="fskey">
-        <navigator url="/sdk/extensions/webview" bind:tap="handleExtensionTap"
-          data-title="{{item.name}}"
-          data-url="{{item.appUrl}}"
-          data-post-message-key="fresnsFeatureExtension">
-          <view class="extension-icon">
-            <image src="{{item.icon}}"></image>
-          </view>
-          <view class="extension-label">{{item.name}}</view>
-        </navigator>
-      </block>
+    <view class="extension-box" wx:for="{{fresnsOverview.features}}" wx:key="fskey">
+      <navigator url="/sdk/extensions/webview" bind:tap="handleExtensionTap"
+        data-title="{{item.name}}"
+        data-url="{{item.appUrl}}"
+        data-post-message-key="fresnsFeatureExtension">
+        <view class="extension-icon">
+          <image src="{{item.icon}}"></image>
+        </view>
+        <view class="extension-label">{{item.name}}</view>
+      </navigator>
     </view>
   </view>
 

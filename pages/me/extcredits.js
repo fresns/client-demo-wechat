@@ -5,6 +5,7 @@
  */
 import { fresnsApi } from '../../sdk/services';
 import { fresnsConfig, fresnsLang } from '../../sdk/helpers/configs';
+import { fresnsUser } from '../../sdk/helpers/profiles';
 
 let isRefreshing = false;
 
@@ -21,15 +22,9 @@ Page({
     title: null,
     fresnsLang: null,
     id: null,
-    // 当前页面数据
-    extcredits1Name: null,
-    extcredits2Name: null,
-    extcredits3Name: null,
-    extcredits4Name: null,
-    extcredits5Name: null,
 
     // 当前分页数据
-    logs: [],
+    records: [],
 
     // 分页配置
     page: 1, // 下次请求时候的页码，初始值为 1
@@ -45,20 +40,15 @@ Page({
 
     let title = await fresnsConfig('channel_me_extcredits_name');
     if (id) {
-      const titleKey = `extcredits${id}_name`;
+      const titleKey = `extcredits${id}Name`;
 
-      title = await fresnsConfig(titleKey);
+      title = await fresnsUser(`detail.stats.${titleKey}`);
     }
 
     this.setData({
       title: title,
       fresnsLang: await fresnsLang(),
       id: id,
-      extcredits1Name: await fresnsConfig('extcredits1_name'),
-      extcredits2Name: await fresnsConfig('extcredits2_name'),
-      extcredits3Name: await fresnsConfig('extcredits3_name'),
-      extcredits4Name: await fresnsConfig('extcredits4_name'),
-      extcredits5Name: await fresnsConfig('extcredits5_name'),
     });
 
     this.loadFresnsPageData();
@@ -83,7 +73,7 @@ Page({
       const { pagination, list } = resultRes.data;
       const isReachBottom = pagination.currentPage === pagination.lastPage;
 
-      const listCount = list.length + this.data.logs.length;
+      const listCount = list.length + this.data.records.length;
 
       let tipType = 'none';
       if (isReachBottom && this.data.page > 1) {
@@ -91,7 +81,7 @@ Page({
       }
 
       this.setData({
-        logs: this.data.logs.concat(list),
+        records: this.data.records.concat(list),
         page: this.data.page + 1,
         isReachBottom: isReachBottom,
         loadingTipType: tipType,
@@ -119,7 +109,7 @@ Page({
     isRefreshing = true;
 
     this.setData({
-      logs: [],
+      records: [],
       page: 1,
       isReachBottom: false,
       refresherStatus: true,

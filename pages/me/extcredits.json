@@ -2,6 +2,6 @@
   "navigationBarTitleText": "用户积分",
   "usingComponents": {
     "navigation-bar": "/components/commons/navigation-bar/navigation-bar",
-    "loading": "/components/commons/loading/loading"
+    "loading": "/sdk/components/loading/loading"
   }
 }

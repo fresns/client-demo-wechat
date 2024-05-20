@@ -74,6 +74,61 @@
     </block>
   </view>
 
+  <!-- 扩展资料 -->
+  <view class="weui-cells weui-cells_after-title" wx:if="{{userArchives.length > 0}}">
+    <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bind:tap="onClickArchiveEdit" wx:for="{{userArchives}}" data-code="{{item.code}}">
+      <view class="weui-cell__bd">
+        <view>{{item.name}}</view>
+      </view>
+      <view class="weui-cell__ft weui-cell__ft_in-access" style="width: 50%;">
+        <block wx:if="{{archivesMap[item.code]}}">
+          <!-- 文件信息 -->
+          <block wx:if="{{archivesMap[item.code].valueType == 'file'}}">
+            <!-- 图片 -->
+            <image wx:if="{{archivesMap[item.code].value.fileType == 1}}" src="{{archivesMap[item.code].value.imageSquareUrl}}"></image>
+            <!-- 视频 -->
+            <image wx:if="{{archivesMap[item.code].value.fileType == 2 && archivesMap[item.code].value}}" src="{{archivesMap[item.code].value.videoPosterUrl}}"></image>
+            <view wx:if="{{archivesMap[item.code].value.fileType == 2 && !archivesMap[item.code].value}}">[{{fresnsLang.video}}]</view>
+            <!-- 音频 -->
+            <view wx:if="{{archivesMap[item.code].value.fileType == 3}}">{{archivesMap[item.code].value ? '[' + fresnsLang.audio + ']' : ''}}</view>
+            <!-- 文档 -->
+            <view wx:if="{{archivesMap[item.code].value.fileType == 4}}">{{archivesMap[item.code].value ? '[' + fresnsLang.document + ']' : ''}}</view>
+          </block>
+
+          <!-- 选项信息 -->
+          <block wx:elif="{{archivesMap[item.code].valueType == 'option'}}">
+            {{archivesMap[item.code].value.name}}
+          </block>
+
+          <block wx:elif="{{archivesMap[item.code].valueType == 'options'}}">
+            <view class="element-options">
+              <text class="weui-badge" wx:for="{{archivesMap[item.code].value}}" wx:for-item="option">{{option.name}}</text>
+            </view>
+          </block>
+
+          <!-- 标签信息 -->
+          <block wx:elif="{{archivesMap[item.code].valueType == 'tags'}}">
+            <view class="element-options">
+              <text class="weui-badge" wx:for="{{archivesMap[item.code].value}}" wx:for-item="tag">{{tag}}</text>
+            </view>
+          </block>
+
+          <!-- 颜色值 -->
+          <block wx:elif="{{archivesMap[item.code].valueType == 'color'}}">
+            <view class="element-options" wx:if="{{archivesMap[item.code].value}}">
+              <text class="color-block" style="background-color:{{archivesMap[item.code].value}}"></text>
+            </view>
+          </block>
+
+          <!-- 字符串 -->
+          <block wx:else>
+            {{archivesMap[item.code].value}}
+          </block>
+        </block>
+      </view>
+    </view>
+  </view>
+
   <!-- 互动设置 -->
   <view class="weui-cells__title">{{fresnsLang.settingInteraction}}</view>
   <view class="weui-cells weui-cells_after-title">
@@ -94,7 +149,7 @@
     </picker>
 
     <!-- 扩展资料 -->
-    <block wx:for="{{fresnsOverview.features}}" wx:for-item="item" wx:key="fskey">
+    <block wx:for="{{fresnsOverview.profiles}}" wx:key="fskey">
       <navigator class="weui-cell weui-cell_access" hover-class="weui-cell_active" url="/sdk/extensions/webview" bind:tap="handleExtensionTap"
         data-title="{{item.name}}"
         data-url="{{item.appUrl}}"
@@ -156,6 +211,7 @@
   </view>
 </scroll-view>
 
+<!-- 基础资料编辑窗口 -->
 <view wx:if="{{dialogShow}}" aria-role="dialog" aria-modal="true">
   <view class="weui-mask {{dialogShow ? 'weui-animate_fade-in' : 'weui-animate_fade-out'}}" bind:tap="dialogClose" aria-role="button" aria-label="关闭"></view>
 
@@ -229,5 +285,25 @@
     </view>
 
     <view style="height:{{modifyDialogHeight + 'rpx'}}"></view>
+  </view>
+</view>
+
+<!-- 扩展资料编辑窗口 -->
+<view wx:if="{{archiveDialog}}" aria-role="dialog" aria-modal="true">
+  <view class="weui-mask {{archiveDialog ? 'weui-animate_fade-in' : 'weui-animate_fade-out'}}" bind:tap="archiveDialogClose" aria-role="button" aria-label="关闭"></view>
+  <view class="weui-half-screen-dialog {{archiveDialog ? 'weui-animate_slide-up' : 'weui-animate_slide-down'}}  {{archiveWrap ? 'weui-half-screen-dialog_btn-wrap' : ''}}">
+    <view class="weui-half-screen-dialog__hd">
+      <view class="weui-half-screen-dialog__hd__side" bind:tap="archiveDialogClose">
+        <view aria-role="button" class="weui-btn_icon weui-wa-hotarea">关闭<i class="weui-icon-slide-down"></i></view>
+      </view>
+      <view class="weui-half-screen-dialog__hd__main">
+        <strong class="weui-half-screen-dialog__title">{{currentArchiveConfig.name}}</strong>
+        <view class="weui-half-screen-dialog__subtitle" wx:if="{{currentArchiveConfig.description}}">{{currentArchiveConfig.description}}</view>
+      </view>
+    </view>
+    <view class="weui-half-screen-dialog__bd">
+      <!-- 表单开始 -->
+      <!-- 表单结束 -->
+    </view>
   </view>
 </view>

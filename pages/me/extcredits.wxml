@@ -9,12 +9,12 @@
 
 <scroll-view class="scrollarea" type="list" scroll-y="{{true}}" enable-back-to-top="{{true}}" refresher-enabled="{{true}}" refresher-triggered="{{refresherStatus}}" bindrefresherrefresh="onRefresherRefresh" bindscrolltolower="onScrollToLower">
   <view class="weui-cells weui-cells_after-title">
-    <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:for="{{logs}}" wx:for-item="log" wx:key="timeAgo">
+    <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:for="{{records}}" wx:key="timeAgo">
       <view class="weui-cell__bd">
-        <view>{{log.type == 'increment' ? '+' : '-'}}{{log.amount}}</view>
-        <view class="weui-cell__desc desc_info">{{fresnsLang.userExtcreditsLogOpeningAmount + ': ' +log.openingAmount}} | {{fresnsLang.userExtcreditsLogClosingAmount + ': ' +log.closingAmount}}</view>
+        <view>{{item.type == 'increment' ? '+' : '-'}}{{item.amount}}</view>
+        <view class="weui-cell__desc desc_info">{{fresnsLang.userExtcreditsRecordOpeningAmount + ': ' +item.openingAmount}} | {{fresnsLang.userExtcreditsRecordClosingAmount + ': ' +item.closingAmount}}</view>
       </view>
-      <view class="desc_info">{{log.timeAgo}}</view>
+      <view class="desc_info">{{item.timeAgo}}</view>
     </view>
   </view>
 
