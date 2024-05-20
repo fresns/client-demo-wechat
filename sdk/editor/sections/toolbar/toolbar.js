@@ -5,7 +5,6 @@
  */
 import { fresnsApi } from '../../../services';
 import { fresnsLang, fresnsEditor } from '../../../helpers/configs';
-import { callPageFunction } from '../../../utilities/toolkit';
 
 Component({
   /** 组件的属性列表 **/
@@ -392,7 +391,7 @@ Component({
         url: url,
         draftType: type,
         did: did,
-        postMessageKey: 'reload',
+        postMessageKey: 'expandEdit',
       };
 
       // 将链接数据赋予到全局数据中

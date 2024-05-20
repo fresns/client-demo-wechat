@@ -15,6 +15,7 @@
 .editor-label {
   padding: 0 32rpx;
   display: flex;
+  margin-top: -50rpx;
 }
 
 .publish-btn {

@@ -4,7 +4,9 @@
     "tip-publish-perm": "/sdk/editor/tips/publish-perm/publish-perm",
     "tip-publish-limit": "/sdk/editor/tips/publish-limit/publish-limit",
     "tip-edit-controls": "/sdk/editor/tips/edit-controls/edit-controls",
+
     "draft-selector": "/sdk/editor/sections/draft-selector/draft-selector",
+
     "group": "/sdk/editor/sections/group/group",
     "title": "/sdk/editor/sections/title/title",
     "content": "/sdk/editor/sections/content/content",
@@ -14,6 +16,12 @@
     "files": "/sdk/editor/sections/files/files",
     "mention": "/sdk/editor/sections/mention/mention",
     "hashtag": "/sdk/editor/sections/hashtag/hashtag",
-    "toolbar": "/sdk/editor/sections/toolbar/toolbar"
+
+    "toolbar": "/sdk/editor/sections/toolbar/toolbar",
+
+    "text-box": "/sdk/editor/expands/content/text-box",
+    "info-box": "/sdk/editor/expands/content/info-box",
+    "archives": "/sdk/editor/expands/archives/archives",
+    "read-config": "/sdk/editor/expands/read-config/read-config"
   }
 }

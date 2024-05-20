@@ -2,6 +2,6 @@
   "component": true,
   "styleIsolation": "apply-shared",
   "usingComponents": {
-    "loading": "/sdk/components/loading/loading"
+    "markdown-viewer": "/sdk/components/markdown-viewer/markdown-viewer"
   }
 }

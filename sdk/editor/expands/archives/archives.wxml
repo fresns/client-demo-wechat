@@ -1,0 +1,132 @@
+<!-- *
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+* -->
+<view class="weui-cells weui-cells_after-title">
+  <!-- 全部内容配置 -->
+  <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bind:tap="onClickEdit" wx:for="{{archiveAllConfigs}}" data-archive-type="all" data-code="{{item.code}}">
+    <view class="weui-cell__bd">
+      <view>{{item.name}}</view>
+    </view>
+    <view class="weui-cell__ft weui-cell__ft_in-access" style="width: 50%;">
+      <block wx:if="{{archivesMap[item.code]}}">
+        <!-- 文件信息 -->
+        <block wx:if="{{archivesMap[item.code].valueType == 'file'}}">
+          <!-- 图片 -->
+          <image wx:if="{{archivesMap[item.code].value.fileType == 1}}" src="{{archivesMap[item.code].value.imageSquareUrl}}"></image>
+          <!-- 视频 -->
+          <image wx:if="{{archivesMap[item.code].value.fileType == 2 && archivesMap[item.code].value}}" src="{{archivesMap[item.code].value.videoPosterUrl}}"></image>
+          <view wx:if="{{archivesMap[item.code].value.fileType == 2 && !archivesMap[item.code].value}}">[{{langVideo}}]</view>
+          <!-- 音频 -->
+          <view wx:if="{{archivesMap[item.code].value.fileType == 3}}">{{archivesMap[item.code].value ? '[' + langAudio + ']' : ''}}</view>
+          <!-- 文档 -->
+          <view wx:if="{{archivesMap[item.code].value.fileType == 4}}">{{archivesMap[item.code].value ? '[' + langDocument + ']' : ''}}</view>
+        </block>
+
+        <!-- 选项信息 -->
+        <block wx:elif="{{archivesMap[item.code].valueType == 'option'}}">
+          {{archivesMap[item.code].value.name}}
+        </block>
+
+        <block wx:elif="{{archivesMap[item.code].valueType == 'options'}}">
+          <view class="element-options">
+            <text class="weui-badge" wx:for="{{archivesMap[item.code].value}}" wx:for-item="option">{{option.name}}</text>
+          </view>
+        </block>
+
+        <!-- 标签信息 -->
+        <block wx:elif="{{archivesMap[item.code].valueType == 'tags'}}">
+          <view class="element-options">
+            <text class="weui-badge" wx:for="{{archivesMap[item.code].value}}" wx:for-item="tag">{{tag}}</text>
+          </view>
+        </block>
+
+        <!-- 颜色值 -->
+        <block wx:elif="{{archivesMap[item.code].valueType == 'color'}}">
+          <view class="element-options" wx:if="{{archivesMap[item.code].value}}">
+            <text class="color-block" style="background-color:{{archivesMap[item.code].value}}"></text>
+          </view>
+        </block>
+
+        <!-- 字符串 -->
+        <block wx:else>
+          {{archivesMap[item.code].value}}
+        </block>
+      </block>
+    </view>
+  </view>
+
+  <!-- 指定小组配置 -->
+  <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bind:tap="onClickEdit" wx:for="{{archiveGroupConfigs}}" data-archive-type="group" data-code="{{item.code}}">
+    <view class="weui-cell__bd">
+      <view>{{item.name}}</view>
+    </view>
+    <view class="weui-cell__ft weui-cell__ft_in-access" style="width: 50%;">
+      <block wx:if="{{archivesMap[item.code]}}">
+        <!-- 文件信息 -->
+        <block wx:if="{{archivesMap[item.code].valueType == 'file'}}">
+          <!-- 图片 -->
+          <image wx:if="{{archivesMap[item.code].value.fileType == 1}}" src="{{archivesMap[item.code].value.imageSquareUrl}}"></image>
+          <!-- 视频 -->
+          <image wx:if="{{archivesMap[item.code].value.fileType == 2 && archivesMap[item.code].value}}" src="{{archivesMap[item.code].value.videoPosterUrl}}"></image>
+          <view wx:if="{{archivesMap[item.code].value.fileType == 2 && !archivesMap[item.code].value}}">[{{langVideo}}]</view>
+          <!-- 音频 -->
+          <view wx:if="{{archivesMap[item.code].value.fileType == 3}}">{{archivesMap[item.code].value ? '[' + langAudio + ']' : ''}}</view>
+          <!-- 文档 -->
+          <view wx:if="{{archivesMap[item.code].value.fileType == 4}}">{{archivesMap[item.code].value ? '[' + langDocument + ']' : ''}}</view>
+        </block>
+
+        <!-- 选项信息 -->
+        <block wx:elif="{{archivesMap[item.code].valueType == 'option'}}">
+          {{archivesMap[item.code].value.name}}
+        </block>
+
+        <block wx:elif="{{archivesMap[item.code].valueType == 'options'}}">
+          <view class="element-options">
+            <text class="weui-badge" wx:for="{{archivesMap[item.code].value}}" wx:for-item="option">{{option.name}}</text>
+          </view>
+        </block>
+
+        <!-- 标签信息 -->
+        <block wx:elif="{{archivesMap[item.code].valueType == 'tags'}}">
+          <view class="element-options">
+            <text class="weui-badge" wx:for="{{archivesMap[item.code].value}}" wx:for-item="tag">{{tag}}</text>
+          </view>
+        </block>
+
+        <!-- 颜色值 -->
+        <block wx:elif="{{archivesMap[item.code].valueType == 'color'}}">
+          <view class="element-options" wx:if="{{archivesMap[item.code].value}}">
+            <text class="color-block" style="background-color:{{archivesMap[item.code].value}}"></text>
+          </view>
+        </block>
+
+        <!-- 字符串 -->
+        <block wx:else>
+          {{archivesMap[item.code].value}}
+        </block>
+      </block>
+    </view>
+  </view>
+</view>
+
+<!-- 编辑框 -->
+<view wx:if="{{dialog}}" aria-role="dialog" aria-modal="true">
+  <view class="weui-mask {{dialog ? 'weui-animate_fade-in' : 'weui-animate_fade-out'}}" bind:tap="close" aria-role="button" aria-label="关闭"></view>
+  <view class="weui-half-screen-dialog {{dialog ? 'weui-animate_slide-up' : 'weui-animate_slide-down'}}  {{wrap ? 'weui-half-screen-dialog_btn-wrap' : ''}}">
+    <view class="weui-half-screen-dialog__hd">
+      <view class="weui-half-screen-dialog__hd__side" bind:tap="close">
+        <view aria-role="button" class="weui-btn_icon weui-wa-hotarea">关闭<i class="weui-icon-slide-down"></i></view>
+      </view>
+      <view class="weui-half-screen-dialog__hd__main">
+        <strong class="weui-half-screen-dialog__title">{{currentArchiveConfig.name}}</strong>
+        <view class="weui-half-screen-dialog__subtitle" wx:if="{{currentArchiveConfig.description}}">{{currentArchiveConfig.description}}</view>
+      </view>
+    </view>
+    <view class="weui-half-screen-dialog__bd">
+      <!-- 表单开始 -->
+      <!-- 表单结束 -->
+    </view>
+  </view>
+</view>

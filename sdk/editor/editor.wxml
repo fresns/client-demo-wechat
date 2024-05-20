@@ -20,7 +20,7 @@
   <view class="editor-form" wx:if="{{editorForm}}">
     <view class="editor-items">
       <!-- 小组 -->
-      <group type="{{type}}" did="{{did}}" group="{{draftDetail.group}}" wx:if="{{editorConfig.group.status}}"/>
+      <group type="{{type}}" did="{{did}}" group="{{draftDetail.group}}" wx:if="{{editorConfig.group.status}}" bind:eventGroupChange="eventGroupChange"/>
 
       <!-- 标题 -->
       <title type="{{type}}" did="{{did}}" title="{{draftDetail.title}}" wx:if="{{titleInputShow}}"/>
@@ -39,11 +39,23 @@
 
       <!-- 文件 -->
       <files type="{{type}}" did="{{did}}" files="{{draftDetail.files}}"/>
+
+      <!-- 扩展内容 -->
+      <text-box type="{{type}}" did="{{did}}" texts="{{draftDetail.extends.texts}}" wx:if="{{draftDetail.extends.texts.length > 0}}"/>
+      <info-box type="{{type}}" did="{{did}}" infos="{{draftDetail.extends.infos}}" wx:if="{{draftDetail.extends.infos.length > 0}}"/>
     </view>
+
+    <!-- 扩展资料 -->
+    <archives type="{{type}}" did="{{did}}" archives="{{draftDetail.archives}}" archiveGroupConfigs="{{archiveGroupConfigs}}"/>
+
+    <!-- 扩展功能 -->
+    <block wx:if="{{type == 'post'}}">
+      <read-config type="{{type}}" did="{{did}}" readConfig="{{draftDetail.permissions.readConfig}}" wx:if="{{draftDetail.permissions.readConfig.isReadLocked}}"/>
+    </block>
 
     <!-- 发表按钮 -->
     <view class="publish-btn">
-      <button size="default" type="primary" bind:tap="onPublish">{{publishBtnName}}</button>
+      <button size="default" type="primary" bind:tap="onSubmitPublish">{{publishBtnName}}</button>
     </view>
 
     <!-- @艾特 #话题 -->

@@ -6,5 +6,5 @@
 .checkbox {
   display: flex;
   margin-right: 100rpx;
-  margin-top: 5rpx;
+  margin-top: 8rpx;
 }

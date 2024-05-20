@@ -1,0 +1,56 @@
+<!-- *
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+* -->
+<view class="weui-panel">
+  <view class="weui-panel__hd">
+    <view class="panel-title">{{fresnsLang.editorReadConfigTitle}}:</view>
+    <view class="panel-button">
+      <button size="mini" type="default" bind:tap="onClickModify">{{fresnsLang.modify}}</button>
+    </view>
+  </view>
+  <view class="weui-panel__bd">
+    <view class="weui-media-box weui-media-box_small-appmsg">
+      <view class="weui-cells">
+        <!-- 列表 -->
+        <view class="weui-cell weui-cell_active weui-cell_example" wx:if="{{readConfig.whitelist.roles.length > 0}}">
+          <view class="weui-cell__bd weui-cell_primary">
+            <view>{{fresnsLang.editorReadConfigRoleName}}</view>
+          </view>
+          <view class="weui-cell__ft" style="width: 50%;">
+            <view class="whitelist">
+					    <text class="weui-badge" wx:for="{{readConfig.whitelist.roles}}">{{item.name}}</text>
+            </view>
+          </view>
+        </view>
+
+        <view class="weui-cell weui-cell_active weui-cell_example" wx:if="{{readConfig.whitelist.users.length > 0}}">
+          <view class="weui-cell__bd weui-cell_primary">
+            <view>{{fresnsLang.editorReadConfigUserName}}</view>
+          </view>
+          <view class="weui-cell__ft" style="width: 50%;">
+            <view class="whitelist">
+					    <text class="weui-badge" wx:for="{{readConfig.whitelist.users}}">{{item.nickname}}</text>
+            </view>
+          </view>
+        </view>
+
+        <view class="weui-cell weui-cell_active weui-cell_example">
+          <view class="weui-cell__bd weui-cell_primary">
+            <view>{{fresnsLang.editorReadConfigPercentageName}}</view>
+          </view>
+          <view class="weui-cell__ft">{{readConfig.previewPercentage}}%</view>
+        </view>
+
+        <view class="weui-cell weui-cell_active weui-cell_example">
+          <view class="weui-cell__bd weui-cell_primary">
+            <view>{{fresnsLang.editorReadConfigButtonName}}</view>
+          </view>
+          <view class="weui-cell__ft">{{readConfig.buttonName}}</view>
+        </view>
+        <!-- 列表结束 -->
+      </view>
+    </view>
+  </view>
+</view>

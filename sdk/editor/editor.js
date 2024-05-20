@@ -4,7 +4,7 @@
  * Licensed under the Apache-2.0 license
  */
 import { fresnsApi } from '../services';
-import { fresnsConfig, fresnsEditor } from '../helpers/configs';
+import { fresnsConfig, fresnsLang, fresnsEditor } from '../helpers/configs';
 
 Component({
   /** 组件的属性列表 **/
@@ -54,6 +54,8 @@ Component({
     editorForm: false,
     editControls: {},
     draftDetail: {},
+
+    archiveGroupConfigs: [],
 
     titleInputShow: false,
     mentionDialogShow: false,
@@ -151,6 +153,33 @@ Component({
       }
     },
 
+    // 监听小组变更
+    eventGroupChange: async function (e) {
+      const gid = e.detail.gid;
+
+      console.log('eventGroupChange', gid);
+
+      if (!gid) {
+        this.setData({
+          archiveGroupConfigs: [],
+        });
+
+        return;
+      }
+
+      const type = this.data.type;
+
+      const resultRes = await fresnsApi.global.archives(type, {
+        gid: gid,
+      });
+
+      if (resultRes.code == 0) {
+        this.setData({
+          archiveGroupConfigs: resultRes.data,
+        });
+      }
+    },
+
     // 监听插入内容
     eventInsertContent(e) {
       const value = e.detail.value;
@@ -238,6 +267,61 @@ Component({
       });
     },
 
+    // 提交发表
+    onSubmitPublish: async function () {
+      const draftType = this.data.type;
+      const did = this.data.did;
+
+      const resultRes = await fresnsApi.editor.draftPublish(draftType, did);
+
+      // 禁止发表
+      if (resultRes.code == 36104) {
+        wx.showModal({
+          title: resultRes.message,
+          content: resultRes.data.join(' | '),
+          confirmText: await fresnsConfig('channel_me_settings_name'),
+          success(res) {
+            if (res.confirm) {
+              // 去设置页
+              wx.redirectTo({
+                url: '/pages/me/settings',
+              });
+            }
+          },
+        });
+      }
+
+      // 发表成功，待审核
+      if (resultRes.code == 38200) {
+        wx.showModal({
+          title: resultRes.message,
+          cancelText: await fresnsConfig('channel_me_drafts_name'), // 草稿箱
+          confirmText: await fresnsLang('know'), // 知道了
+          success(res) {
+            if (res.confirm) {
+              // 后退
+              wx.navigateBack();
+            } else if (res.cancel) {
+              // 去草稿箱
+              wx.redirectTo({
+                url: '/pages/me/drafts?type=' + draftType,
+              });
+            }
+          },
+        });
+      }
+
+      // 发表成功
+      if (resultRes.code == 0) {
+        wx.showToast({
+          title: resultRes.message,
+          icon: 'success',
+        });
+
+        wx.navigateBack();
+      }
+    },
+
     // 处理回调消息
     handleCallbackMessage: async function () {
       // 读取回调消息
@@ -272,7 +356,7 @@ Component({
       // 分类功能
       switch (callbackMessage.action.postMessageKey) {
         // 重载草稿
-        case 'reload':
+        case 'expandEdit':
           const detailRes = await fresnsApi.editor.draftDetail(type, did);
 
           if (detailRes.code == 0) {

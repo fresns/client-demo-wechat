@@ -115,6 +115,8 @@ Component({
         currentGroupName: await fresnsLang('editorNoGroup'),
       });
 
+      this.triggerEvent('eventGroupChange', { gid: null });
+
       this.close();
     },
 
@@ -135,6 +137,8 @@ Component({
         currentGroupCover: cover,
         currentGroupName: name,
       });
+
+      this.triggerEvent('eventGroupChange', { gid: gid });
 
       this.close();
     },

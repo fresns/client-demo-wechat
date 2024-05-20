@@ -62,7 +62,7 @@
     </view>
 
     <block wx:if="{{config.extend.status && config.extend.list.length > 0}}">
-      <view class="weui-flex__item" wx:for="{{config.extend.list}}" wx:if="{{item.editorToolbar}}" bind:tap="goToExtendPage" data-name="{{item.name}}" data-url="{{item.appUrl}}">
+      <view class="weui-flex__item" wx:for="{{config.extend.list}}" wx:if="{{item.isInToolbar}}" bind:tap="goToExtendPage" data-name="{{item.name}}" data-url="{{item.appUrl}}">
         <view class="tabbar_icon">
           <image src="{{item.icon}}" class="weui-tabbar__icon"></image>
         </view>
@@ -101,7 +101,7 @@
   <view class="weui-mask" aria-role="button" aria-label="关闭" bind:tap="closeExtendDialog"></view>
   <view class="weui-actionsheet weui-actionsheet_toggle">
     <view class="weui-actionsheet__menu">
-      <view aria-role="button" class="weui-actionsheet__cell" wx:for="{{config.extend.list}}" wx:if="{{!item.editorToolbar}}" bind:tap="goToExtendPage" data-name="{{item.name}}" data-url="{{item.appUrl}}">
+      <view aria-role="button" class="weui-actionsheet__cell" wx:for="{{config.extend.list}}" wx:if="{{!item.isInToolbar}}" bind:tap="goToExtendPage" data-name="{{item.name}}" data-url="{{item.appUrl}}">
         <image wx:if="{{item.icon}}" src="{{item.icon}}"></image>
         {{item.name}}
       </view>

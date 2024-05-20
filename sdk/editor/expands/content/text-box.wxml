@@ -1,0 +1,18 @@
+<!-- *
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+* -->
+<view class="box-list" wx:for="{{texts}}">
+  <navigator class="frame-box-text"
+    url="/sdk/extensions/webview"
+    bind:tap="handleExtensionTap"
+    data-draft-type="{{type}}"
+    data-did="{{did}}"
+    data-eid="{{item.eid}}"
+    data-post-message-key="expandEdit"
+    data-url="{{item.appUrl}}">
+    <markdown-viewer wx:if="{{item.isMarkdown}}" content="{{item.content}}"/>
+    <rich-text wx:if="{{!item.isMarkdown}}" nodes="{{item.content}}"/>
+  </navigator>
+</view>

@@ -6,18 +6,18 @@
 <view class="editor-content">
   <view class="weui-cell">
     <view class="weui-cell__bd">
-        <textarea class="weui-textarea"
-            value="{{content}}"
-            maxlength="{{config.contentLength}}"
-            cursor-spacing="10"
-            cursor="{{cursorPosition}}"
-            bindinput="handleInput"
-            bindlinechange="handleLineChange"
-            bindblur="onUpdate"
-            bindconfirm="onUpdate"
-            placeholder="{{placeholder}}"
-            auto-height="{{autoHeight}}"
-            style="{{autoHeight ? '' : 'height:400rpx;'}}"/>
+      <textarea class="weui-textarea"
+        value="{{content}}"
+        maxlength="{{config.contentLength}}"
+        cursor-spacing="10"
+        cursor="{{cursorPosition}}"
+        bindinput="handleInput"
+        bindlinechange="handleLineChange"
+        bindblur="onUpdate"
+        bindconfirm="onUpdate"
+        placeholder="{{placeholder}}"
+        auto-height="{{autoHeight}}"
+        style="{{autoHeight ? '' : 'height:400rpx;'}}"/>
       <view class="weui-textarea-counter">{{currentContentLength}}/{{config.contentLength}}</view>
     </view>
   </view>
