@@ -93,7 +93,7 @@ Component({
         archiveConfigs = this.data.archiveGroupConfigs;
       }
 
-      const currentArchiveConfig = archiveConfigs.find(item => item.code === code);
+      const currentArchiveConfig = archiveConfigs.find((item) => item.code === code);
       const currentArchive = this.data.archivesMap[code];
 
       this.setData({
