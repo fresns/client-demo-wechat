@@ -29,12 +29,20 @@ Component({
     anonymousText: '是否匿名',
   },
 
+  /** 组件生命周期声明对象 **/
+  lifetimes: {
+    attached: async function () {
+      this.setData({
+        anonymousText: await fresnsLang('editorAnonymous'),
+      });
+    },
+  },
+
   /** 组件数据字段监听器 **/
   observers: {
     isAnonymous: async function (isAnonymous) {
       this.setData({
         isEnableAnonymous: !!isAnonymous,
-        anonymousText: await fresnsLang('editorAnonymous'),
       });
     },
   },

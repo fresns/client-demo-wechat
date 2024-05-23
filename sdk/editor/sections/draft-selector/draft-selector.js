@@ -205,25 +205,30 @@ Component({
       if (detailRes.code === 0) {
         const options = this.data.options;
 
-        // 是帖子，有指定的参数值，除内容外，其余可替换为指定值
-        if (type == 'post') {
-          options.content = null;
+        // 除内容外，其余可替换为指定值
+        options.content = null;
 
-          // 删除空的健值对
-          Object.getOwnPropertyNames(options).forEach((key) => {
-            if (isEmpty(options[key])) {
-              delete options[key];
-            }
-          });
+        // 删除空的健值对
+        Object.getOwnPropertyNames(options).forEach((key) => {
+          if (isEmpty(options[key])) {
+            delete options[key];
+          }
+        });
 
+        let draftData = detailRes.data;
+
+        if (!isEmpty(options)) {
           console.log('loadDraftDetail', 'draftUpdate', options);
 
-          if (!isEmpty(options)) {
-            await fresnsApi.editor.draftUpdate(type, did, options);
+          await fresnsApi.editor.draftUpdate(type, did, options);
+
+          const newDetailRes = await fresnsApi.editor.draftDetail(type, did);
+          if (newDetailRes.code === 0) {
+            draftData = newDetailRes.data;
           }
         }
 
-        this.enterEditor(detailRes.data);
+        this.enterEditor(draftData);
       }
 
       wx.hideLoading();

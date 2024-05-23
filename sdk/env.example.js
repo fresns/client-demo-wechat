@@ -18,6 +18,8 @@ module.exports = {
   enableWeChatLogin: true, // 是否启用微信登录，需安装插件 https://marketplace.fresns.cn/open-source/detail/WeChatLogin
   enableWeChatAutoLogin: false, // 是否启用微信自动登录
 
+  enableSharePoster: false, // 分享支持生成海报图，需安装插件 https://marketplace.fresns.cn/open-source/detail/SharePoster
+
   clientPlatformId: 11, // 客户端平台编号 https://docs.fresns.com/zh-Hans/clients/reference/dictionary/platforms.html
   clientVersion: '1.0.0', // 客户端版本
   email: '', // 管理员邮箱，当程序遇到无法使用的时候，可供用户发送反馈邮件

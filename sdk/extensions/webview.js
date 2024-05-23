@@ -68,8 +68,9 @@ Page({
         hpid: navigatorData.hpid || '', // 历史帖子 ID
         hcid: navigatorData.hcid || '', // 历史评论 ID
         viewType: navigatorData.viewType || '', // 视图类型
-        did: navigatorData.did || '', // 草稿 ID
         draftType: navigatorData.draftType || '', // 草稿类型
+        draftOptions: navigatorData.draftOptions || '', // 草稿选项
+        did: navigatorData.did || '', // 草稿 ID
         uploadInfo: navigatorData.uploadInfo || '', // 上传参数信息
         mapInfo: navigatorData.mapInfo || '', // 地图信息
         parameter: navigatorData.parameter || '', // 自定义信息

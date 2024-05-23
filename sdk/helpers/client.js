@@ -195,6 +195,11 @@ class clientInfo {
   get enableWeChatAutoLogin() {
     return envConfig?.enableWeChatAutoLogin || false;
   }
+
+  // enableSharePoster
+  get enableSharePoster() {
+    return envConfig?.enableSharePoster || false;
+  }
 }
 
 export const fresnsClient = new clientInfo();
