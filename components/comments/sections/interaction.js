@@ -71,19 +71,37 @@ Component({
 
         const buttonIcons = {
           like: likeItem ? likeItem.imageUrl : 'https://assets.fresns.cn/communities/interaction/content-like.png',
-          likeActive: likeItem ? likeItem.imageActiveUrl : 'https://assets.fresns.cn/communities/interaction/content-like-active.png',
-          dislike: dislikeItem ? dislikeItem.imageUrl : 'https://assets.fresns.cn/communities/interaction/content-dislike.png',
-          dislikeActive: dislikeItem ? dislikeItem.imageActiveUrl : 'https://assets.fresns.cn/communities/interaction/content-dislike-active.png',
+          likeActive: likeItem
+            ? likeItem.imageActiveUrl
+            : 'https://assets.fresns.cn/communities/interaction/content-like-active.png',
+          dislike: dislikeItem
+            ? dislikeItem.imageUrl
+            : 'https://assets.fresns.cn/communities/interaction/content-dislike.png',
+          dislikeActive: dislikeItem
+            ? dislikeItem.imageActiveUrl
+            : 'https://assets.fresns.cn/communities/interaction/content-dislike-active.png',
           follow: followItem ? followItem.imageUrl : 'https://assets.fresns.cn/communities/interaction/follow.png',
-          followActive: followItem ? followItem.imageActiveUrl : 'https://assets.fresns.cn/communities/interaction/follow-active.png',
+          followActive: followItem
+            ? followItem.imageActiveUrl
+            : 'https://assets.fresns.cn/communities/interaction/follow-active.png',
           block: blockItem ? blockItem.imageUrl : 'https://assets.fresns.cn/communities/interaction/block.png',
-          blockActive: blockItem ? blockItem.imageActiveUrl : 'https://assets.fresns.cn/communities/interaction/block-active.png',
-          comment: commentItem ? commentItem.imageUrl : 'https://assets.fresns.cn/communities/interaction/content-comment.png',
-          commentActive: commentItem ? commentItem.imageActiveUrl : 'https://assets.fresns.cn/communities/interaction/content-comment.png',
+          blockActive: blockItem
+            ? blockItem.imageActiveUrl
+            : 'https://assets.fresns.cn/communities/interaction/block-active.png',
+          comment: commentItem
+            ? commentItem.imageUrl
+            : 'https://assets.fresns.cn/communities/interaction/content-comment.png',
+          commentActive: commentItem
+            ? commentItem.imageActiveUrl
+            : 'https://assets.fresns.cn/communities/interaction/content-comment.png',
           share: shareItem ? shareItem.imageUrl : 'https://assets.fresns.cn/communities/interaction/content-share.png',
-          shareActive: shareItem ? shareItem.imageActiveUrl : 'https://assets.fresns.cn/communities/interaction/content-share.png',
+          shareActive: shareItem
+            ? shareItem.imageActiveUrl
+            : 'https://assets.fresns.cn/communities/interaction/content-share.png',
           more: moreItem ? moreItem.imageUrl : 'https://assets.fresns.cn/communities/interaction/content-more.png',
-          moreActive: moreItem ? moreItem.imageActiveUrl : 'https://assets.fresns.cn/communities/interaction/content-more.png',
+          moreActive: moreItem
+            ? moreItem.imageActiveUrl
+            : 'https://assets.fresns.cn/communities/interaction/content-more.png',
         };
 
         this.setData({
