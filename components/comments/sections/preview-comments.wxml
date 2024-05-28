@@ -1,0 +1,17 @@
+<!-- *
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+* -->
+<view class="preview-box">
+  <!-- 多条评论预览 -->
+  <navigator class="comments" url="/pages/comments/detail?cid={{cid}}" wx:if="{{processedComments.length > 1}}">
+    <view class="list-box">
+      <view class="preview-list" wx:for="{{processedComments}}" wx:for-item="comment" wx:key="cid">
+        <rich-text class="content" nodes="{{comment.processedContent}}"/>
+      </view>
+
+      <view class="preview-count">{{modifierCount}} {{commentCount}} {{contentCommentCountDesc}}</view>
+    </view>
+  </navigator>
+</view>

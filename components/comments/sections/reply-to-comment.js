@@ -3,13 +3,15 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import { fresnsApi } from '../../../api/api';
-import { fresnsConfig, fresnsLang } from '../../../api/tool/function';
+import { fresnsConfig, fresnsLang } from '../../../sdk/helpers/configs';
 
 Component({
   /** 组件的属性列表 **/
   properties: {
-    comment: Object,
+    comment: {
+      type: Object,
+      value: null,
+    },
   },
 
   /** 组件的初始数据 **/

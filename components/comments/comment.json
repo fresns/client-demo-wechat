@@ -1,0 +1,14 @@
+{
+  "component": true,
+  "usingComponents": {
+    "markdown-viewer": "/sdk/components/markdown-viewer/markdown-viewer",
+    "author": "/components/posts/sections/author",
+    "files": "/components/posts/sections/files",
+    "extend-text": "/components/posts/sections/extend-text",
+    "extend-info": "/components/posts/sections/extend-info",
+    "quoted-post": "/components/posts/sections/quoted-post",
+    "preview-comments": "/components/comments/sections/preview-comments",
+    "reply-to-comment": "/components/comments/sections/reply-to-comment",
+    "interaction": "/components/comments/sections/interaction"
+  }
+}

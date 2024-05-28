@@ -1,0 +1,33 @@
+/*!
+ * Fresns 微信小程序 (https://fresns.cn)
+ * Copyright 2021-Present 唐杰
+ * Licensed under the Apache-2.0 license
+ */
+.fs-reply-to-comment {
+  border: 1rpx dotted var(--weui-BG-4);
+  background-color: #fffcf1;
+  color: var(--weui-FG-1);
+}
+
+.header {
+  display: flex;
+  font-size: 26rpx;
+  padding: 10rpx 20rpx;
+}
+
+.body {
+  padding: 0 20rpx 10rpx 20rpx;
+}
+
+.content {
+  font-size: 26rpx;
+}
+
+.content .fresns_sticker {
+  display: inline-block; /* 保持图片在同一行 */
+  transform: scale(0.5); /* 将图片缩小为原尺寸的一半 */
+  transform-origin: 0 0; /* 确保缩放从左上角开始 */
+  width: auto; /* 确保宽度按比例缩放 */
+  height: auto; /* 确保高度按比例缩放 */
+  vertical-align: middle; /* 图片与文本垂直对齐 */
+}

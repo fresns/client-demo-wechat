@@ -3,22 +3,28 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import { fresnsApi } from '../../../api/api';
-import { fresnsLang } from '../../../api/tool/function';
-import { callPageFunction, truncateText } from '../../../utils/fresnsUtilities';
-
-const app = getApp();
+import { fresnsApi } from '../../../sdk/services';
+import { fresnsClient } from '../../../sdk/helpers/client';
+import { fresnsLang } from '../../../sdk/helpers/configs';
+import { callPageFunction, truncateText } from '../../../sdk/utilities/toolkit';
 
 Component({
   /** 组件的属性列表 **/
   properties: {
-    type: String,
-    comment: Object,
+    viewType: {
+      type: String,
+      value: 'list', // list or detail
+    },
+    comment: {
+      type: Object,
+      value: null,
+    },
   },
 
   /** 组件的初始数据 **/
   data: {
-    appInfo: {},
+    appBaseInfo: {},
+    enableSharePoster: false,
     fresnsLang: {},
     title: null,
 
@@ -26,110 +32,35 @@ Component({
     commentDialogFullScreen: false,
     nickname: null,
 
-    showShareActionSheet: false,
-
-    actionGroups: [],
-    showActionSheet: false,
+    showShareSheet: false,
+    showMoreSheet: false,
 
     buttonIcons: {
-      like: '/assets/interaction/content-like.png',
-      likeActive: '/assets/interaction/content-like-active.png',
-      dislike: '/assets/interaction/content-dislike.png',
-      dislikeActive: '/assets/interaction/content-dislike-active.png',
-      follow: '/assets/interaction/follow.png',
-      followActive: '/assets/interaction/follow-active.png',
-      block: '/assets/interaction/block.png',
-      blockActive: '/assets/interaction/block-active.png',
-      comment: '/assets/interaction/content-comment.png',
-      commentActive: '/assets/interaction/content-comment.png',
-      share: '/assets/interaction/content-share.png',
-      shareActive: '/assets/interaction/content-share.png',
-      more: '/assets/interaction/content-more.png',
-      moreActive: '/assets/interaction/content-more.png',
+      like: 'https://assets.fresns.cn/communities/interaction/content-like.png',
+      likeActive: 'https://assets.fresns.cn/communities/interaction/content-like-active.png',
+      dislike: 'https://assets.fresns.cn/communities/interaction/content-dislike.png',
+      dislikeActive: 'https://assets.fresns.cn/communities/interaction/content-dislike-active.png',
+      follow: 'https://assets.fresns.cn/communities/interaction/follow.png',
+      followActive: 'https://assets.fresns.cn/communities/interaction/follow-active.png',
+      block: 'https://assets.fresns.cn/communities/interaction/block.png',
+      blockActive: 'https://assets.fresns.cn/communities/interaction/block-active.png',
+      comment: 'https://assets.fresns.cn/communities/interaction/content-comment.png',
+      commentActive: 'https://assets.fresns.cn/communities/interaction/content-comment.png',
+      share: 'https://assets.fresns.cn/communities/interaction/content-share.png',
+      shareActive: 'https://assets.fresns.cn/communities/interaction/content-share.png',
+      more: 'https://assets.fresns.cn/communities/interaction/content-more.png',
+      moreActive: 'https://assets.fresns.cn/communities/interaction/content-more.png',
     },
   },
 
-  /** 组件数据字段监听器 **/
-  observers: {
-    comment: async function (comment) {
-      if (!comment) {
-        return;
-      }
-      const userDeactivate = await fresnsLang('userDeactivate');
-      const authorAnonymous = await fresnsLang('contentAuthorAnonymous');
-      const fsEdit = await fresnsLang('edit');
-      const fsDelete = await fresnsLang('delete');
-
-      let nickname = comment.author.nickname;
-
-      if (!comment.author.status) {
-        nickname = userDeactivate;
-      } else if (comment.isAnonymous) {
-        nickname = authorAnonymous;
-      }
-
-      let items = [];
-
-      // 编辑
-      if (comment.editControls.isMe && comment.editControls.canEdit) {
-        items.push({
-          text: fsEdit,
-          type: 'default',
-          value: 'edit',
-        });
-      }
-
-      // 删除
-      if (comment.editControls.isMe && comment.editControls.canDelete) {
-        items.push({
-          text: fsDelete,
-          type: 'warn',
-          value: 'delete',
-        });
-      }
-
-      // 关注
-      if (comment.interaction.followSetting) {
-        items.push({
-          text: comment.interaction.followStatus
-            ? '✔ ' + comment.interaction.followName
-            : comment.interaction.followName,
-          type: 'default',
-          value: 'follow',
-        });
-      }
-
-      // 屏蔽
-      if (comment.interaction.blockSetting) {
-        items.push({
-          text: comment.interaction.blockStatus ? '✔ ' + comment.interaction.blockName : comment.interaction.blockName,
-          type: 'warn',
-          value: 'block',
-        });
-      }
-
-      // 管理扩展
-      if (comment.manages && comment.manages.length > 0) {
-        for (let i = 0; i < comment.manages.length; i++) {
-          const plugin = comment.manages[i];
-          items.push({
-            text: plugin.name,
-            type: 'default',
-            value: plugin.url,
-          });
-        }
-      }
-
-      this.setData({
-        title: nickname + ': ' + truncateText(comment.content, 20),
-        nickname: nickname,
-        actionGroups: items,
-      });
+  /** 组件生命周期声明对象 **/
+  lifetimes: {
+    attached: async function () {
+      const comment = this.data.comment;
 
       // buttonIcons
-      const checkButtonIcons = comment.operations && comment.operations.buttonIcons;
-      if (checkButtonIcons) {
-        const ButtonIconsArr = comment.operations.buttonIcons;
+      const ButtonIconsArr = comment.operations.buttonIcons;
+      if (ButtonIconsArr.length > 0) {
         const likeItem = ButtonIconsArr.find((item) => item.code === 'like');
         const dislikeItem = ButtonIconsArr.find((item) => item.code === 'dislike');
         const followItem = ButtonIconsArr.find((item) => item.code === 'follow');
@@ -139,43 +70,52 @@ Component({
         const moreItem = ButtonIconsArr.find((item) => item.code === 'more');
 
         const buttonIcons = {
-          like: likeItem ? likeItem.imageUrl : '/assets/interaction/content-like.png',
-          likeActive: likeItem ? likeItem.imageActiveUrl : '/assets/interaction/content-like-active.png',
-          dislike: dislikeItem ? dislikeItem.imageUrl : '/assets/interaction/content-dislike.png',
-          dislikeActive: dislikeItem ? dislikeItem.imageActiveUrl : '/assets/interaction/content-dislike-active.png',
-          follow: followItem ? followItem.imageUrl : '/assets/interaction/follow.png',
-          followActive: followItem ? followItem.imageActiveUrl : '/assets/interaction/follow-active.png',
-          block: blockItem ? blockItem.imageUrl : '/assets/interaction/block.png',
-          blockActive: blockItem ? blockItem.imageActiveUrl : '/assets/interaction/block-active.png',
-          comment: commentItem ? commentItem.imageUrl : '/assets/interaction/content-comment.png',
-          commentActive: commentItem ? commentItem.imageActiveUrl : '/assets/interaction/content-comment.png',
-          share: shareItem ? shareItem.imageUrl : '/assets/interaction/content-share.png',
-          shareActive: shareItem ? shareItem.imageActiveUrl : '/assets/interaction/content-share.png',
-          more: moreItem ? moreItem.imageUrl : '/assets/interaction/content-more.png',
-          moreActive: moreItem ? moreItem.imageActiveUrl : '/assets/interaction/content-more.png',
+          like: likeItem ? likeItem.imageUrl : 'https://assets.fresns.cn/communities/interaction/content-like.png',
+          likeActive: likeItem ? likeItem.imageActiveUrl : 'https://assets.fresns.cn/communities/interaction/content-like-active.png',
+          dislike: dislikeItem ? dislikeItem.imageUrl : 'https://assets.fresns.cn/communities/interaction/content-dislike.png',
+          dislikeActive: dislikeItem ? dislikeItem.imageActiveUrl : 'https://assets.fresns.cn/communities/interaction/content-dislike-active.png',
+          follow: followItem ? followItem.imageUrl : 'https://assets.fresns.cn/communities/interaction/follow.png',
+          followActive: followItem ? followItem.imageActiveUrl : 'https://assets.fresns.cn/communities/interaction/follow-active.png',
+          block: blockItem ? blockItem.imageUrl : 'https://assets.fresns.cn/communities/interaction/block.png',
+          blockActive: blockItem ? blockItem.imageActiveUrl : 'https://assets.fresns.cn/communities/interaction/block-active.png',
+          comment: commentItem ? commentItem.imageUrl : 'https://assets.fresns.cn/communities/interaction/content-comment.png',
+          commentActive: commentItem ? commentItem.imageActiveUrl : 'https://assets.fresns.cn/communities/interaction/content-comment.png',
+          share: shareItem ? shareItem.imageUrl : 'https://assets.fresns.cn/communities/interaction/content-share.png',
+          shareActive: shareItem ? shareItem.imageActiveUrl : 'https://assets.fresns.cn/communities/interaction/content-share.png',
+          more: moreItem ? moreItem.imageUrl : 'https://assets.fresns.cn/communities/interaction/content-more.png',
+          moreActive: moreItem ? moreItem.imageActiveUrl : 'https://assets.fresns.cn/communities/interaction/content-more.png',
         };
 
         this.setData({
           buttonIcons: buttonIcons,
         });
       }
-    },
-  },
 
-  /** 组件生命周期声明对象 **/
-  lifetimes: {
-    attached: async function () {
-      const appInfo = wx.getStorageSync('appInfo');
+      let nickname = comment.author.nickname;
+
+      if (!comment.author.status) {
+        nickname = await fresnsLang('userDeactivate');
+      } else if (comment.isAnonymous) {
+        nickname = await fresnsLang('contentAuthorAnonymous');
+      }
+
+      const content = truncateText(comment.content, 20);
 
       this.setData({
-        appInfo: appInfo,
+        appBaseInfo: fresnsClient.appBaseInfo,
+        enableSharePoster: fresnsClient.enableSharePoster,
         fresnsLang: {
           copyLink: await fresnsLang('copyLink'),
           shareMessage: await fresnsLang('shareMessage'),
           sharePoster: await fresnsLang('sharePoster'),
+          edit: await fresnsLang('edit'),
+          delete: await fresnsLang('delete'),
           cancel: await fresnsLang('cancel'),
+          modifierCompleted: await fresnsLang('modifierCompleted'),
           contentAuthorLiked: await fresnsLang('contentAuthorLiked'),
         },
+        title: nickname + ': ' + content,
+        nickname: nickname,
       });
     },
   },
@@ -218,20 +158,30 @@ Component({
       });
     },
 
-    // 分享
+    // 显示分享菜单
     onShowShareMenus() {
       this.setData({
-        showShareActionSheet: true,
-      });
-    },
-    onHideShareMenus() {
-      this.setData({
-        showShareActionSheet: false,
+        showShareSheet: true,
       });
     },
 
-    // 分享功能
-    onShareCopyLink() {
+    // 显示更多菜单
+    onShowMoreMenus() {
+      this.setData({
+        showMoreSheet: true,
+      });
+    },
+
+    // 隐藏分享和更多菜单
+    onHideMenus() {
+      this.setData({
+        showShareSheet: false,
+        showMoreSheet: false,
+      });
+    },
+
+    // 分享菜单: 复制链接
+    onClickCopyShareLink() {
       const comment = this.data.comment;
       const copySuccess = this.data.fresnsLang.copySuccess;
 
@@ -245,75 +195,53 @@ Component({
       });
 
       this.setData({
-        showShareActionSheet: true,
+        showShareSheet: true,
       });
     },
 
-    // 多端应用分享给好友
-    onShareMiniAppMessage() {
+    // 分享菜单: 多端应用分享给好友
+    onClickShareAppMessage() {
+      const comment = this.data.comment;
+      const title = this.data.title;
+
       // wx.miniapp.shareMiniProgramMessage
       // wx.miniapp.shareWebPageMessage
-    },
-
-    // 更多菜单
-    onClickContentMore() {
-      this.setData({
-        showActionSheet: true,
+      wx.miniapp.shareMiniProgramMessage({
+        userName: fresnsClient.mpId,
+        path: '/pages/comments/detail?cid=' + comment.cid,
+        title: title,
+        imagePath: '/assets/images/share.png',
+        webpageUrl: comment.url,
+        withShareTicket: true,
+        miniprogramType: 0,
+        scene: 0,
+        fail(res) {
+          wx.showToast({
+            title: '[' + res.errCode + '] ' + res.errMsg,
+            icon: 'none',
+          });
+        },
       });
     },
-    actionClickMore(e) {
-      const value = e.detail.value;
+
+    // 分享菜单: 生成海报
+    onClickSharePoster: async function () {
       const comment = this.data.comment;
 
-      // 编辑
-      if (value === 'edit') {
-        wx.navigateTo({
-          url: '/pages/editor/index?type=comment&fsid=' + comment.cid,
-        });
+      // mixins/fresnsInteraction.js
+      callPageFunction('onSharePoster', 'comment', comment.cid);
+    },
 
-        this.setData({
-          showActionSheet: false,
-        });
-      }
+    // 删除帖子
+    onClickDelete() {
+      const comment = this.data.comment;
 
-      // 删除
-      if (value === 'delete') {
-        // mixins/fresnsInteraction.js
-        callPageFunction('onDeleteComment', comment.cid);
+      // mixins/fresnsInteraction.js
+      callPageFunction('onDeleteComment', comment.cid);
 
-        this.setData({
-          showActionSheet: false,
-        });
-      }
-
-      // 关注
-      if (value === 'follow') {
-        this.onClickCommentFollow();
-      }
-
-      // 屏蔽
-      if (value === 'block') {
-        this.onClickCommentBlock();
-      }
-
-      // 扩展插件
-      if (value.startsWith('http')) {
-        const fresnsExtensions = {
-          type: 'comment',
-          scene: 'manage',
-          postMessageKey: 'fresnsCommentManage',
-          cid: comment.cid,
-          uid: comment.author.uid,
-          title: 'Fresns Manage',
-          url: value,
-        };
-
-        app.globalData.fresnsExtensions = fresnsExtensions;
-
-        wx.navigateTo({
-          url: '/pages/webview',
-        });
-      }
+      this.setData({
+        showMoreSheet: false,
+      });
     },
 
     /** 以下是互动功能 **/
@@ -328,7 +256,7 @@ Component({
         comment.likeCount = comment.likeCount ? comment.likeCount - 1 : comment.likeCount; // 计数减一
       } else {
         comment.interaction.likeStatus = true; // 赞
-        comment.likeCount = comment.likeCount + 1; // 计数加一
+        comment.likeCount = comment.likeCount ? comment.likeCount + 1 : comment.likeCount; // 计数加一
 
         if (comment.interaction.dislikeStatus) {
           comment.interaction.dislikeStatus = false; // 取消踩
@@ -339,9 +267,9 @@ Component({
       // mixins/fresnsInteraction.js
       callPageFunction('onChangeComment', comment);
 
-      const resultRes = await fresnsApi.user.userMark({
-        interactionType: 'like',
-        markType: 'comment',
+      const resultRes = await fresnsApi.user.mark({
+        markType: 'like',
+        type: 'comment',
         fsid: comment.cid,
       });
 
@@ -361,7 +289,7 @@ Component({
         comment.dislikeCount = comment.dislikeCount ? comment.dislikeCount - 1 : comment.dislikeCount; // 计数减一
       } else {
         comment.interaction.dislikeStatus = true; // 踩
-        comment.dislikeCount = comment.dislikeCount + 1; // 计数加一
+        comment.dislikeCount = comment.dislikeCount ? comment.dislikeCount + 1 : comment.dislikeCount; // 计数加一
 
         if (comment.interaction.likeStatus) {
           comment.interaction.likeStatus = false; // 取消赞
@@ -372,9 +300,9 @@ Component({
       // mixins/fresnsInteraction.js
       callPageFunction('onChangeComment', comment);
 
-      const resultRes = await fresnsApi.user.userMark({
-        interactionType: 'dislike',
-        markType: 'comment',
+      const resultRes = await fresnsApi.user.mark({
+        markType: 'dislike',
+        type: 'comment',
         fsid: comment.cid,
       });
 
@@ -394,7 +322,7 @@ Component({
         comment.followCount = comment.followCount ? comment.followCount - 1 : comment.followCount; // 计数减一
       } else {
         comment.interaction.followStatus = true; // 关注
-        comment.followCount = comment.followCount + 1; // 计数加一
+        comment.followCount = comment.followCount ? comment.followCount + 1 : comment.followCount; // 计数加一
 
         if (comment.interaction.blockStatus) {
           comment.interaction.blockStatus = false; // 取消屏蔽
@@ -405,9 +333,9 @@ Component({
       // mixins/fresnsInteraction.js
       callPageFunction('onChangeComment', comment);
 
-      const resultRes = await fresnsApi.user.userMark({
-        interactionType: 'follow',
-        markType: 'comment',
+      const resultRes = await fresnsApi.user.mark({
+        markType: 'follow',
+        type: 'comment',
         fsid: comment.cid,
       });
 
@@ -415,6 +343,13 @@ Component({
       if (resultRes.code != 0) {
         callPageFunction('onChangeComment', initialComment);
       }
+
+      // 由于「更多」菜单触发后会自动隐藏，所以操作成功后显示消息提示框
+      wx.showToast({
+        title: resultRes.message,
+        icon: 'none',
+        duration: 2000,
+      });
     },
 
     // 屏蔽
@@ -430,9 +365,9 @@ Component({
         // mixins/fresnsInteraction.js
         callPageFunction('onChangeComment', comment);
 
-        const resultRes = await fresnsApi.user.userMark({
-          interactionType: 'block',
-          markType: 'comment',
+        const resultRes = await fresnsApi.user.mark({
+          markType: 'block',
+          type: 'comment',
           fsid: comment.cid,
         });
 
@@ -440,6 +375,13 @@ Component({
         if (resultRes.code != 0) {
           callPageFunction('onChangeComment', initialComment);
         }
+
+        // 由于「更多」菜单触发后会自动隐藏，所以操作成功后显示消息提示框
+        wx.showToast({
+          title: resultRes.message,
+          icon: 'none',
+          duration: 2000,
+        });
 
         return;
       }
@@ -454,7 +396,7 @@ Component({
           // 确认
           if (res.confirm) {
             comment.interaction.blockStatus = true; // 屏蔽
-            comment.blockCount = comment.blockCount + 1; // 计数加一
+            comment.blockCount = comment.blockCount ? comment.blockCount + 1 : comment.blockCount; // 计数加一
 
             if (comment.interaction.followStatus) {
               comment.interaction.followStatus = false; // 取消关注
@@ -464,9 +406,9 @@ Component({
             // mixins/fresnsInteraction.js
             callPageFunction('onChangeComment', comment);
 
-            const resultRes = await fresnsApi.user.userMark({
-              interactionType: 'block',
-              markType: 'comment',
+            const resultRes = await fresnsApi.user.mark({
+              markType: 'block',
+              type: 'comment',
               fsid: comment.cid,
             });
 
@@ -474,6 +416,13 @@ Component({
             if (resultRes.code != 0) {
               callPageFunction('onChangeComment', initialComment);
             }
+
+            // 由于「更多」菜单触发后会自动隐藏，所以操作成功后显示消息提示框
+            wx.showToast({
+              title: resultRes.message,
+              icon: 'none',
+              duration: 2000,
+            });
           }
         },
       });

@@ -1,0 +1,76 @@
+<!-- *
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+* -->
+<view class="card">
+  <view class="card-header">
+    <!-- 用户信息 -->
+    <author author="{{comment.author}}" isAnonymous="{{comment.isAnonymous}}" createdTimeAgo="{{comment.createdTimeAgo}}" geotag="{{comment.geotag}}">
+      <view wx:if="{{comment.author.isPostAuthor}}" class="post-author">{{contentAuthor}}</view>
+    </author>
+  </view>
+
+  <!-- 角标 -->
+  <view class="card-label" wx:if="{{comment.operations.diversifyImages.length > 0}}">
+    <block wx:for="{{comment.operations.diversifyImages}}" wx:for-item="iconItem" wx:key="code">
+      <image wx:if="{{iconItem.code == 'label'}}" src="{{iconItem.imageUrl}}" mode="aspectFit"></image>
+    </block>
+  </view>
+
+  <!-- 评论回复: 对方的文本 -->
+  <view class="reply-to-comment {{viewType == 'list' ? 'list-style' : ''}}" wx:if="{{comment.replyToComment}}">
+    <reply-to-comment comment="{{comment.replyToComment}}"/>
+  </view>
+
+  <view class="card-body {{viewType == 'list' ? 'list-style' : ''}}">
+    <!-- 内容 -->
+    <view class="fresns-content" bind:tap="onClickToDetail">
+      <view class="content-title">
+        <block wx:for="{{comment.operations.diversifyImages}}" wx:for-item="iconItem" wx:key="code">
+          <image wx:if="{{iconItem.code == 'title'}}" src="{{iconItem.imageUrl}}" mode="heightFix"></image>
+        </block>
+      </view>
+
+      <view class="content-text">
+        <markdown-viewer content="{{commentContent}}"/>
+      </view>
+
+      <view class="content-brief" wx:if="{{viewType == 'list' && comment.isBrief}}">
+        <navigator class="navigator-inline" url="/pages/comments/detail?cid={{comment.cid}}">全文</navigator>
+      </view>
+    </view>
+
+    <!-- 附件文件 -->
+    <view bind:tap="onClickToDetail">
+      <files files="{{comment.files}}"/>
+    </view>
+
+    <!-- 扩展内容: 文本框 -->
+    <view class="extend-bottom" wx:if="{{comment.extends.texts.length > 0}}">
+      <extend-text type="comment" fsid="{{comment.cid}}" texts="{{comment.extends.texts}}"/>
+    </view>
+
+    <!-- 扩展内容: 信息框 -->
+    <view class="extend-bottom" wx:if="{{comment.extends.infos.length > 0}}">
+      <extend-info type="comment" fsid="{{comment.cid}}" infos="{{comment.extends.infos}}"/>
+    </view>
+
+    <!-- 评论预览 -->
+    <view wx:if="{{viewType == 'list' && comment.commentCount}}">
+      <preview-comments cid="{{comment.cid}}" commentCount="{{comment.commentCount}}" previewComments="{{comment.previewComments}}"/>
+    </view>
+  </view>
+
+  <!-- 功能按钮 -->
+  <view class="card-footer {{viewType == 'list' ? 'list-style' : ''}}">
+    <interaction viewType="{{viewType}}" comment="{{comment}}"/>
+  </view>
+
+  <!-- 所属帖子 -->
+  <view class="{{viewType == 'list' ? 'list-style' : ''}}" wx:if="{{comment.replyToPost}}">
+    <view class="reply-to-post">
+      <quoted-post post="{{comment.replyToPost}}"/>
+    </view>
+  </view>
+</view>
