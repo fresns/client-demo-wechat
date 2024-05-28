@@ -128,6 +128,26 @@ module.exports = {
         }
         break;
 
+      // 帖子授权
+      case 'fresnsPostAuth':
+        switch (dataHandler) {
+          case 'add':
+            this.onAddPost(data);
+            break;
+
+          case 'remove':
+            this.onRemovePost(data.pid);
+            break;
+
+          case 'reload':
+            this.onChangePost(data);
+            break;
+
+          default:
+          // code
+        }
+        break;
+
       // 评论管理
       case 'fresnsCommentManage':
         switch (dataHandler) {

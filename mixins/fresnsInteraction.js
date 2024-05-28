@@ -4,6 +4,7 @@
  * Licensed under the Apache-2.0 license
  */
 import { fresnsApi } from '../sdk/services';
+import { fresnsClient } from '../sdk/helpers/client';
 import { fresnsViewProfilePath } from '../sdk/helpers/profiles';
 import { getCurrentPageRoute, replaceGroupTreeInfo, callPrevPageFunction } from '../sdk/utilities/toolkit';
 
@@ -36,8 +37,14 @@ module.exports = {
 
         case 'pages/hashtags/detail':
           type = 'hashtag';
-          fsid = this.data.hashtag.hid;
-          sharePath = '/pages/hashtags/detail?hid=' + fsid;
+          fsid = this.data.hashtag.htid;
+          sharePath = '/pages/hashtags/detail?htid=' + fsid;
+          break;
+
+        case 'pages/geotags/detail':
+          type = 'geotag';
+          fsid = this.data.geotag.gtid;
+          sharePath = '/pages/geotags/detail?gtid=' + fsid;
           break;
 
         case 'pages/posts/detail':
@@ -106,7 +113,11 @@ module.exports = {
         break;
 
       case 'pages/hashtags/detail':
-        shareQuery = 'hid=' + this.data.hashtag.hid;
+        shareQuery = 'htid=' + this.data.hashtag.htid;
+        break;
+
+      case 'pages/geotags/detail':
+        shareQuery = 'gtid=' + this.data.geotag.gtid;
         break;
 
       case 'pages/posts/detail':
@@ -143,7 +154,11 @@ module.exports = {
         break;
 
       case 'pages/hashtags/detail':
-        shareQuery = 'hid=' + this.data.hashtag.hid;
+        shareQuery = 'htid=' + this.data.hashtag.htid;
+        break;
+
+      case 'pages/geotags/detail':
+        shareQuery = 'gtid=' + this.data.post.gtid;
         break;
 
       case 'pages/posts/detail':
@@ -183,14 +198,14 @@ module.exports = {
       return;
     }
 
-    const appInfo = wx.getStorageSync('appInfo');
+    const appBaseInfo = fresnsClient.appBaseInfo;
 
     wx.downloadFile({
       url: resultRes.data.url,
       success: function (res) {
         wx.hideLoading();
 
-        if (appInfo.isApp) {
+        if (appBaseInfo.isApp) {
           wx.previewImage({
             urls: [res.tempFilePath],
           });
@@ -247,6 +262,21 @@ module.exports = {
 
     this.setData({
       hashtags: hashtags,
+    });
+  },
+
+  /** 添加地理 **/
+  onAddGeotag(newGeotag) {
+    const geotags = this.data.geotags;
+
+    if (!geotags) {
+      return;
+    }
+
+    geotags.unshift(newGeotag);
+
+    this.setData({
+      geotags: geotags,
     });
   },
 
@@ -381,7 +411,7 @@ module.exports = {
     const hashtag = this.data.hashtag;
 
     if (hashtag) {
-      if (hashtag.hid != newHashtag.hid) {
+      if (hashtag.htid != newHashtag.htid) {
         return;
       }
 
@@ -401,7 +431,7 @@ module.exports = {
       return;
     }
 
-    const idx = hashtags.findIndex((value) => value.hid == newHashtag.hid);
+    const idx = hashtags.findIndex((value) => value.htid == newHashtag.htid);
 
     if (idx == -1) {
       // 未找到记录
@@ -412,6 +442,46 @@ module.exports = {
 
     this.setData({
       hashtags: hashtags,
+    });
+  },
+
+  /** 更改地理 **/
+  onChangeGeotag(newGeotag) {
+    // 详情页
+    const geotag = this.data.geotag;
+
+    if (geotag) {
+      if (geotag.gtid != newGeotag.gtid) {
+        return;
+      }
+
+      this.setData({
+        geotag: newGeotag,
+      });
+
+      // 同步更改上一页话题
+      callPrevPageFunction('onChangeGeotag', newGeotag);
+
+      return;
+    }
+
+    // 列表页
+    const geotags = this.data.geotags;
+    if (!geotags) {
+      return;
+    }
+
+    const idx = geotags.findIndex((value) => value.gtid == newGeotag.gtid);
+
+    if (idx == -1) {
+      // 未找到记录
+      return;
+    }
+
+    geotags[idx] = newGeotag;
+
+    this.setData({
+      geotags: geotags,
     });
   },
 
@@ -574,17 +644,17 @@ module.exports = {
   },
 
   /** 移除话题 **/
-  onRemoveHashtag(removeHid) {
+  onRemoveHashtag(removeHtid) {
     // 详情页
     const hashtag = this.data.hashtag;
 
     if (hashtag) {
-      if (hashtag.hid != removeHid) {
+      if (hashtag.htid != removeHtid) {
         return;
       }
 
       // 移除上一页话题
-      callPrevPageFunction('onRemoveHashtag', removeHid);
+      callPrevPageFunction('onRemoveHashtag', removeHtid);
 
       // 后退上一页
       wx.navigateBack();
@@ -598,7 +668,7 @@ module.exports = {
       return;
     }
 
-    const idx = hashtags.findIndex((value) => value.hid == removeHid);
+    const idx = hashtags.findIndex((value) => value.htid == removeHtid);
 
     if (idx == -1) {
       // 未找到记录
@@ -609,6 +679,45 @@ module.exports = {
 
     this.setData({
       hashtags: hashtags,
+    });
+  },
+
+  /** 移除话题 **/
+  onRemoveGeotag(removeGtid) {
+    // 详情页
+    const geotag = this.data.geotag;
+
+    if (geotag) {
+      if (geotag.gtid != removeGtid) {
+        return;
+      }
+
+      // 移除上一页话题
+      callPrevPageFunction('onRemoveGeotag', removeGtid);
+
+      // 后退上一页
+      wx.navigateBack();
+
+      return;
+    }
+
+    // 列表页
+    const geotags = this.data.geotags;
+    if (!geotags) {
+      return;
+    }
+
+    const idx = geotags.findIndex((value) => value.gtid == removeGtid);
+
+    if (idx == -1) {
+      // 未找到记录
+      return;
+    }
+
+    geotags.splice(idx, 1);
+
+    this.setData({
+      geotags: geotags,
     });
   },
 
@@ -692,9 +801,7 @@ module.exports = {
 
   /** 删除帖子 **/
   onDeletePost: async function (deletePid) {
-    const resultRes = await fresnsApi.post.postDelete({
-      pid: deletePid,
-    });
+    const resultRes = await fresnsApi.post.delete(deletePid);
 
     if (resultRes.code === 0) {
       this.onRemovePost(deletePid);
@@ -703,9 +810,7 @@ module.exports = {
 
   /** 删除评论 **/
   onDeleteComment: async function (deleteCid) {
-    const resultRes = await fresnsApi.comment.commentDelete({
-      cid: deleteCid,
-    });
+    const resultRes = await fresnsApi.comment.delete(deleteCid);
 
     if (resultRes.code === 0) {
       this.onRemoveComment(deleteCid);
