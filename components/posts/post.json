@@ -1,0 +1,14 @@
+{
+  "component": true,
+  "styleIsolation": "apply-shared",
+  "usingComponents": {
+    "markdown-viewer": "/sdk/components/markdown-viewer/markdown-viewer",
+    "author": "/components/posts/sections/author",
+    "files": "/components/posts/sections/files",
+    "extend-text": "/components/posts/sections/extend-text",
+    "extend-info": "/components/posts/sections/extend-info",
+    "quoted-post": "/components/posts/sections/quoted-post",
+    "preview-comments": "/components/posts/sections/preview-comments",
+    "interaction": "/components/posts/sections/interaction"
+  }
+}

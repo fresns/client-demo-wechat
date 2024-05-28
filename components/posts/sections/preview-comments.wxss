@@ -1,0 +1,65 @@
+/*!
+ * Fresns 微信小程序 (https://fresns.cn)
+ * Copyright 2021-Present 唐杰
+ * Licensed under the Apache-2.0 license
+ */
+.preview-box {
+  margin-top: 30rpx;
+}
+
+.hot-comment, .comments {
+  font-size: 28rpx;
+  background-color: var(--weui-BG-0);
+  border-radius: 12rpx;
+  padding: 20rpx 30rpx;
+  box-sizing: border-box;
+}
+
+.hot-comment .hot-title {
+  margin-bottom: 10rpx;
+  display: flex;
+  justify-content: space-between;
+}
+
+.hot-comment .hot-title .count {
+  color: var(--weui-FG-1);
+}
+
+.hot-container {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.list-box {
+  padding: 10rpx 30rpx 20rpx 30rpx;
+}
+
+.comments .preview-list {
+  margin-top: 10rpx;
+}
+
+.comments .preview-count {
+  color: var(--weui-BLUE);
+}
+
+.content .nickname-link {
+  color: var(--weui-BLUE);
+  text-decoration: none;
+  margin-right: 5rpx;
+  z-index: 99;
+}
+
+.content .nickname-text {
+  margin-right: 5rpx;
+  font-weight: bold;
+}
+
+.content .fresns_sticker {
+  display: inline-block; /* 保持图片在同一行 */
+  transform: scale(0.5); /* 将图片缩小为原尺寸的一半 */
+  transform-origin: 0 0; /* 确保缩放从左上角开始 */
+  width: auto; /* 确保宽度按比例缩放 */
+  height: auto; /* 确保高度按比例缩放 */
+  vertical-align: middle; /* 图片与文本垂直对齐 */
+}

@@ -1,8 +1,0 @@
-{
-  "component": true,
-  "usingComponents": {
-    "mp-icon": "weui-miniprogram/icon/icon",
-    "mp-actionSheet": "weui-miniprogram/actionsheet/actionsheet",
-    "comment-box": "/components/editor/comment-box/comment-box"
-  }
-}

@@ -1,0 +1,40 @@
+<!-- *
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+* -->
+<view class="preview-box">
+  <!-- 热评 -->
+  <view class="hot-comment" wx:if="{{processedComments.length == 1}}">
+    <!-- 热评-标头 -->
+    <view class="hot-title">
+      <view class="title">
+        <text class="weui-badge">{{contentTopComment}}</text>
+      </view>
+      <view class="count">
+        {{processedComments[0].likeCount}} {{processedComments[0].interaction.likeName}}
+      </view>
+    </view>
+
+    <!-- 热评-正文 -->
+    <navigator class="hot-container" url="/pages/posts/detail?pid={{pid}}">
+      <rich-text class="content" nodes="{{processedComments[0].processedContent}}"/>
+    </navigator>
+
+    <!-- 热评-附带图片 -->
+    <view class="comment-image-{{processedComments[0].files.images.length}}" wx:if="{{processedComments[0].files.images.length > 0}}">
+      <image wx:for="{{processedComments[0].files.images}}" wx:for-item="imageItem" wx:key="fid" src="{{imageItem.imageSquareUrl}}" mode="widthFix"></image>
+    </view>
+  </view>
+
+  <!-- 多条评论预览 -->
+  <navigator class="comments" url="/pages/posts/detail?pid={{pid}}" wx:if="{{processedComments.length > 1}}">
+    <view class="list-box">
+      <view class="preview-list" wx:for="{{processedComments}}" wx:for-item="comment" wx:key="cid">
+        <rich-text class="content" nodes="{{comment.processedContent}}"/>
+      </view>
+
+      <view class="preview-count">{{modifierCount}} {{commentCount}} {{contentCommentCountDesc}}</view>
+    </view>
+  </navigator>
+</view>

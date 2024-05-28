@@ -3,17 +3,20 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import { globalInfo } from '../../utils/fresnsGlobalInfo';
-import { fresnsLang } from '../../api/tool/function';
+import { fresnsLang } from '../../sdk/helpers/configs';
+import { fresnsViewProfilePath } from '../../sdk/helpers/profiles';
 
 Component({
-  /** 外部 mixin 引入 **/
-  mixins: [require('../../mixins/fresnsExtensions')],
-
   /** 组件的属性列表 **/
   properties: {
-    type: String,
-    post: Object,
+    viewType: {
+      type: String,
+      value: 'list', // list or detail
+    },
+    post: {
+      type: Object,
+      value: null,
+    },
   },
 
   /** 组件的初始数据 **/
@@ -45,14 +48,15 @@ Component({
         );
 
         // 替换用户默认首页
-        const userHomePath = await globalInfo.userHomePath();
-        newContent = newContent.replace('/pages/profile/posts?fsid=', userHomePath);
+        const userProfilePath = await fresnsViewProfilePath();
+        newContent = newContent.replace('/pages/profile/posts?fsid=', userProfilePath);
 
         // 增加表情图样式
         newContent = newContent.replace(
           /<img\s+src="([^"]+)"\s+class="fresns_sticker"\s+alt="([\s\S]*?)"\s*\/?>/gi,
-          '<img src="$1" style="zoom: 0.5" alt="$2"/>'
+          '<img src="$1" alt="$2" class="fresns_sticker" style="display:inline-block;transform:scale(0.5);transform-origin:0 0;width:auto;height:auto;vertical-align:middle;"/>'
         );
+        // 表情图尺寸推荐使用 style="zoom:0.5" 缩小一半尺寸，但是 Skyline 不支持该样式
       }
 
       this.setData({
@@ -74,25 +78,13 @@ Component({
   methods: {
     // 进入详情页
     onClickToDetail(e) {
-      if (this.data.type == 'detail') {
+      if (this.data.viewType == 'detail') {
         return;
       }
 
       wx.navigateTo({
         url: '/pages/posts/detail?pid=' + this.data.post.pid,
       });
-    },
-
-    // 用户点击链接
-    onClickContentLink(e) {
-      const link = e.detail.href;
-
-      // code
-    },
-
-    // 发表评论事件
-    triggerComment: function () {
-      this.selectComponent('#interactionComponent').onClickCreateComment();
     },
   },
 });

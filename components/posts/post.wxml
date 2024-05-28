@@ -1,0 +1,103 @@
+<!-- *
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+* -->
+<view class="card">
+  <view class="card-header">
+    <!-- 用户信息 -->
+    <author author="{{post.author}}" isAnonymous="{{post.isAnonymous}}" createdTimeAgo="{{post.createdTimeAgo}}" geotag="{{post.geotag}}"/>
+  </view>
+
+  <!-- 角标 -->
+  <view class="card-label" wx:if="{{post.operations.diversifyImages.length > 0}}">
+    <block wx:for="{{post.operations.diversifyImages}}" wx:for-item="iconItem" wx:key="code">
+      <image wx:if="{{iconItem.code == 'label'}}" src="{{iconItem.imageUrl}}" mode="aspectFit"></image>
+    </block>
+  </view>
+
+  <view class="card-body {{viewType == 'list' ? 'list-style' : ''}}">
+    <!-- 内容 -->
+    <view class="fresns-content" bind:tap="onClickToDetail">
+      <view class="content-title">
+        <block wx:for="{{post.operations.diversifyImages}}" wx:for-item="iconItem" wx:key="code">
+          <image wx:if="{{iconItem.code == 'title'}}" src="{{iconItem.imageUrl}}" mode="heightFix"></image>
+        </block>
+        <text wx:if="{{post.title}}">{{post.title}}</text>
+      </view>
+
+      <view class="content-text">
+        <markdown-viewer content="{{postContent}}"/>
+      </view>
+
+      <view class="content-brief" wx:if="{{viewType == 'list' && post.isBrief}}">
+        <navigator class="navigator-inline" url="/pages/posts/detail?pid={{post.pid}}">全文</navigator>
+      </view>
+    </view>
+
+    <!-- 权限信息 -->
+    <view class="content-allow" wx:if="{{post.readConfig.isReadLocked}}">
+      <view class="allow_mask_static"></view>
+      <view class="allow-info">
+        <view class="allow-text">{{contentPreReadInfo}} {{post.readConfig.previewPercentage}}%</view>
+
+        <navigator class="weui-btn weui-btn_primary" url="/sdk/extensions/webview" bind:tap="handleExtensionTap"
+          data-title="{{post.readConfig.buttonName}}"
+          data-url="{{post.readConfig.buttonUrl}}"
+          data-pid="{{post.pid}}"
+          data-post-message-key="fresnsPostAuth">
+          {{post.readConfig.userListName}}购买
+        </navigator>
+      </view>
+    </view>
+
+    <!-- 附件文件 -->
+    <view bind:tap="onClickToDetail">
+      <files files="{{post.files}}"/>
+    </view>
+
+    <!-- 扩展内容: 文本框 -->
+    <view class="extend-bottom" wx:if="{{post.extends.texts.length > 0}}">
+      <extend-text type="post" fsid="{{post.pid}}" texts="{{post.extends.texts}}"/>
+    </view>
+
+    <!-- 扩展内容: 信息框 -->
+    <view class="extend-bottom" wx:if="{{post.extends.infos.length > 0}}">
+      <extend-info type="post" fsid="{{post.pid}}" infos="{{post.extends.infos}}"/>
+    </view>
+
+    <!-- 引用帖子 -->
+    <view wx:if="{{post.quotedPost}}">
+      <quoted-post post="{{post.quotedPost}}"/>
+    </view>
+
+    <!-- 附属信息 -->
+    <view class="content-append">
+      <!-- 小组信息 -->
+      <navigator wx:if="{{post.group.gid}}" url="/pages/groups/detail?gid={{post.group.gid}}">
+        <image wx:if="{{post.group.cover}}" src="{{post.group.cover}}" class="group-icon" mode="aspectFit"></image>
+        <text>{{post.group.name}}</text>
+      </navigator>
+
+      <!-- 特殊用户 -->
+      <navigator wx:if="{{post.associatedUserListConfig.hasUserList}}" url="/sdk/extensions/webview" bind:tap="handleExtensionTap"
+        data-title="{{post.associatedUserListConfig.userListName}}"
+        data-url="{{post.associatedUserListConfig.userListUrl}}"
+        data-pid="{{post.pid}}"
+        data-post-message-key="fresnsPostUserList">
+        <text>{{post.associatedUserListConfig.userListName}}</text>
+        <text wx:if="{{post.associatedUserListConfig.userListCount}}" class="weui-badge">{{post.associatedUserListConfig.userListCount}}</text>
+      </navigator>
+    </view>
+
+    <!-- 评论预览 -->
+    <view wx:if="{{viewType == 'list' && post.commentCount}}">
+      <preview-comments pid="{{post.pid}}" commentCount="{{post.commentCount}}" previewComments="{{post.previewComments}}"/>
+    </view>
+  </view>
+
+  <!-- 功能按钮 -->
+  <view class="card-footer list-style" wx:if="{{viewType == 'list'}}">
+    <interaction viewType="{{viewType}}" post="{{post}}"/>
+  </view>
+</view>

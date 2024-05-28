@@ -3,20 +3,33 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import { fresnsLang } from '../../../api/tool/function';
-import { globalInfo } from '../../../utils/fresnsGlobalInfo';
+import { fresnsLang } from '../../../sdk/helpers/configs';
+import { fresnsViewProfilePath } from '../../../sdk/helpers/profiles';
 
 Component({
   /** 组件的属性列表 **/
   properties: {
-    pid: String,
-    commentCount: Number,
-    previewComments: Object,
+    author: {
+      type: Object,
+      value: null,
+    },
+    isAnonymous: {
+      type: Boolean,
+      value: false,
+    },
+    createdTimeAgo: {
+      type: String,
+      value: null,
+    },
+    geotag: {
+      type: Object,
+      value: true,
+    },
   },
 
   /** 组件的初始数据 **/
   data: {
-    userHomePath: '',
+    userProfilePath: '',
     userDeactivate: null,
     authorAnonymous: null,
   },
@@ -24,8 +37,10 @@ Component({
   /** 组件生命周期声明对象 **/
   lifetimes: {
     attached: async function () {
+      const author = this.data.author;
+
       this.setData({
-        userHomePath: await globalInfo.userHomePath(),
+        userProfilePath: await fresnsViewProfilePath(author.fsid),
         userDeactivate: await fresnsLang('userDeactivate'),
         authorAnonymous: await fresnsLang('contentAuthorAnonymous'),
       });

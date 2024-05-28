@@ -1,0 +1,107 @@
+/*!
+ * Fresns 微信小程序 (https://fresns.cn)
+ * Copyright 2021-Present 唐杰
+ * Licensed under the Apache-2.0 license
+ */
+.box-list {
+  margin-top: 30rpx;
+}
+
+.frame-box-info {
+  position: relative;
+  background: #e9ecef;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.box-content {
+  padding: 0 24rpx;
+  font-size: 28rpx;
+  line-height: 1.15;
+  flex: 1;
+}
+
+.box-title {
+  font-size: 30rpx;
+}
+
+.box-desc {
+  margin-top: 10rpx;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.box-button {
+  padding-right: 28rpx;
+}
+
+/* 正方形信息框架 */
+.frame-basic {
+  height: 100rpx;
+}
+
+.frame-basic .box-cover {
+  width: 100rpx;
+  height: 100rpx;
+}
+
+.frame-basic .box-content {
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* 大号正方形信息框架 */
+.frame-big {
+  height: 200rpx;
+}
+
+.frame-big .box-cover {
+  width: 200rpx;
+  height: 200rpx;
+}
+
+.frame-big .box-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+/* 纵图信息框架 */
+.frame-portrait {
+  height: 200rpx;
+}
+
+.frame-portrait .box-cover {
+  width: 180rpx;
+  height: 200rpx;
+}
+
+.frame-portrait .box-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+}
+
+/* 横图信息框架 */
+.frame-landscape {
+  height: 160rpx;
+}
+
+.frame-landscape .box-cover {
+  width: 220rpx;
+  height: 160rpx;
+}
+
+.frame-landscape .box-content {
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
