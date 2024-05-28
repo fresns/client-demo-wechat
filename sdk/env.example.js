@@ -20,6 +20,8 @@ module.exports = {
 
   enableSharePoster: false, // 分享支持生成海报图，需安装插件 https://marketplace.fresns.cn/open-source/detail/SharePoster
 
+  mpId: '', // 小程序原始ID，多端应用使用，小程序后台 -> 设置 -> 基本设置 -> 账号信息
+
   clientPlatformId: 11, // 客户端平台编号 https://docs.fresns.com/zh-Hans/clients/reference/dictionary/platforms.html
   clientVersion: '1.0.0', // 客户端版本
   email: '', // 管理员邮箱，当程序遇到无法使用的时候，可供用户发送反馈邮件

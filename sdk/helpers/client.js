@@ -200,6 +200,11 @@ class clientInfo {
   get enableSharePoster() {
     return envConfig?.enableSharePoster || false;
   }
+
+  // mpId
+  get mpId() {
+    return envConfig?.mpId || '';
+  }
 }
 
 export const fresnsClient = new clientInfo();

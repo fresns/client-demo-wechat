@@ -166,7 +166,6 @@ Component({
       const options = this.data.options;
 
       const draftRes = await fresnsApi.editor.draftCreate(type, {
-        createType: 2, // 编辑器创建
         commentPid: options.commentPid,
         commentCid: options.commentCid,
         quotePid: options.quotePid,

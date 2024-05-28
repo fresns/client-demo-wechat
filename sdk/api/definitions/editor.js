@@ -55,9 +55,6 @@ const editor = {
     return request({
       path: '/api/fresns/v1/editor/' + type + '/edit/' + fsid,
       method: 'POST',
-      data: {
-        ...options,
-      },
     });
   },
 
