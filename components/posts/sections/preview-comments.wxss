@@ -7,7 +7,8 @@
   margin-top: 30rpx;
 }
 
-.hot-comment, .comments {
+.hot-comment,
+.comments {
   font-size: 28rpx;
   background-color: var(--weui-BG-0);
   border-radius: 12rpx;
