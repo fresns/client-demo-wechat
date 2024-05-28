@@ -3,14 +3,10 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-@import '/assets/styles/weui.wxss';
-
 .hashtag-box {
   position: relative;
-}
-
-.weui-cell:first-child:before {
-  display: block;
+  background-color: var(--weui-BG-2);
+  margin-top: 20rpx;
 }
 
 .weui-cell__hd image {

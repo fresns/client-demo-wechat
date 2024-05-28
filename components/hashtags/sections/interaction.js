@@ -3,36 +3,37 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import { fresnsApi } from '../../../api/api';
-import { callPageFunction } from '../../../utils/fresnsUtilities';
-import { fresnsLang } from '../../../api/tool/function';
+import { fresnsApi } from '../../../sdk/services';
+import { fresnsLang } from '../../../sdk/helpers/configs';
+import { callPageFunction } from '../../../sdk/utilities/toolkit';
 
 Component({
   /** 组件的属性列表 **/
   properties: {
-    hashtag: Object,
+    hashtag: {
+      type: Object,
+      value: null,
+    },
   },
 
   /** 组件的初始数据 **/
   data: {
     buttonIcons: {
-      like: '/assets/interaction/like.png',
-      likeActive: '/assets/interaction/like-active.png',
-      dislike: '/assets/interaction/dislike.png',
-      dislikeActive: '/assets/interaction/dislike-active.png',
-      follow: '/assets/interaction/follow.png',
-      followActive: '/assets/interaction/follow-active.png',
-      block: '/assets/interaction/block.png',
-      blockActive: '/assets/interaction/block-active.png',
+      like: 'https://assets.fresns.cn/communities/interaction/like.png',
+      likeActive: 'https://assets.fresns.cn/communities/interaction/like-active.png',
+      dislike: 'https://assets.fresns.cn/communities/interaction/dislike.png',
+      dislikeActive: 'https://assets.fresns.cn/communities/interaction/dislike-active.png',
+      follow: 'https://assets.fresns.cn/communities/interaction/follow.png',
+      followActive: 'https://assets.fresns.cn/communities/interaction/follow-active.png',
+      block: 'https://assets.fresns.cn/communities/interaction/block.png',
+      blockActive: 'https://assets.fresns.cn/communities/interaction/block-active.png',
     },
   },
 
-  /** 组件数据字段监听器 **/
-  observers: {
-    hashtag: async function (hashtag) {
-      if (!hashtag) {
-        return;
-      }
+  /** 组件生命周期声明对象 **/
+  lifetimes: {
+    attached: async function () {
+      const hashtag = this.data.hashtag;
 
       // buttonIcons
       const checkButtonIcons = hashtag.operations && hashtag.operations.buttonIcons;
@@ -47,14 +48,14 @@ Component({
       const blockItem = ButtonIconsArr.find((item) => item.code === 'block');
 
       const buttonIcons = {
-        like: likeItem ? likeItem.imageUrl : '/assets/interaction/like.png',
-        likeActive: likeItem ? likeItem.imageActiveUrl : '/assets/interaction/like-active.png',
-        dislike: dislikeItem ? dislikeItem.imageUrl : '/assets/interaction/dislike.png',
-        dislikeActive: dislikeItem ? dislikeItem.imageActiveUrl : '/assets/interaction/dislike-active.png',
-        follow: followItem ? followItem.imageUrl : '/assets/interaction/follow.png',
-        followActive: followItem ? followItem.imageActiveUrl : '/assets/interaction/follow-active.png',
-        block: blockItem ? blockItem.imageUrl : '/assets/interaction/block.png',
-        blockActive: blockItem ? blockItem.imageActiveUrl : '/assets/interaction/block-active.png',
+        like: likeItem ? likeItem.imageUrl : 'https://assets.fresns.cn/communities/interaction/like.png',
+        likeActive: likeItem ? likeItem.imageActiveUrl : 'https://assets.fresns.cn/communities/interaction/like-active.png',
+        dislike: dislikeItem ? dislikeItem.imageUrl : 'https://assets.fresns.cn/communities/interaction/dislike.png',
+        dislikeActive: dislikeItem ? dislikeItem.imageActiveUrl : 'https://assets.fresns.cn/communities/interaction/dislike-active.png',
+        follow: followItem ? followItem.imageUrl : 'https://assets.fresns.cn/communities/interaction/follow.png',
+        followActive: followItem ? followItem.imageActiveUrl : 'https://assets.fresns.cn/communities/interaction/follow-active.png',
+        block: blockItem ? blockItem.imageUrl : 'https://assets.fresns.cn/communities/interaction/block.png',
+        blockActive: blockItem ? blockItem.imageActiveUrl : 'https://assets.fresns.cn/communities/interaction/block-active.png',
       };
 
       this.setData({
@@ -75,7 +76,7 @@ Component({
         hashtag.likeCount = hashtag.likeCount ? hashtag.likeCount - 1 : hashtag.likeCount; // 计数减一
       } else {
         hashtag.interaction.likeStatus = true; // 赞
-        hashtag.likeCount = hashtag.likeCount + 1; // 计数加一
+        hashtag.likeCount = hashtag.likeCount ? hashtag.likeCount + 1 : hashtag.likeCount; // 计数加一
 
         if (hashtag.interaction.dislikeStatus) {
           hashtag.interaction.dislikeStatus = false; // 取消踩
@@ -86,10 +87,10 @@ Component({
       // mixins/fresnsInteraction.js
       callPageFunction('onChangeHashtag', hashtag);
 
-      const resultRes = await fresnsApi.user.userMark({
-        interactionType: 'like',
-        markType: 'hashtag',
-        fsid: hashtag.hid,
+      const resultRes = await fresnsApi.user.mark({
+        markType: 'like',
+        type: 'hashtag',
+        fsid: hashtag.htid,
       });
 
       // 接口请求失败，数据还原
@@ -108,7 +109,7 @@ Component({
         hashtag.dislikeCount = hashtag.dislikeCount ? hashtag.dislikeCount - 1 : hashtag.dislikeCount; // 计数减一
       } else {
         hashtag.interaction.dislikeStatus = true; // 踩
-        hashtag.dislikeCount = hashtag.dislikeCount + 1; // 计数加一
+        hashtag.dislikeCount = hashtag.dislikeCount ? hashtag.dislikeCount + 1 : hashtag.dislikeCount; // 计数加一
 
         if (hashtag.interaction.likeStatus) {
           hashtag.interaction.likeStatus = false; // 取消赞
@@ -119,10 +120,10 @@ Component({
       // mixins/fresnsInteraction.js
       callPageFunction('onChangeHashtag', hashtag);
 
-      const resultRes = await fresnsApi.user.userMark({
-        interactionType: 'dislike',
-        markType: 'hashtag',
-        fsid: hashtag.hid,
+      const resultRes = await fresnsApi.user.mark({
+        markType: 'dislike',
+        type: 'hashtag',
+        fsid: hashtag.htid,
       });
 
       // 接口请求失败，数据还原
@@ -141,7 +142,7 @@ Component({
         hashtag.followCount = hashtag.followCount ? hashtag.followCount - 1 : hashtag.followCount; // 计数减一
       } else {
         hashtag.interaction.followStatus = true; // 关注
-        hashtag.followCount = hashtag.followCount + 1; // 计数加一
+        hashtag.followCount = hashtag.followCount ? hashtag.followCount + 1 : hashtag.followCount; // 计数加一
 
         if (hashtag.interaction.blockStatus) {
           hashtag.interaction.blockStatus = false; // 取消屏蔽
@@ -152,10 +153,10 @@ Component({
       // mixins/fresnsInteraction.js
       callPageFunction('onChangeHashtag', hashtag);
 
-      const resultRes = await fresnsApi.user.userMark({
-        interactionType: 'follow',
-        markType: 'hashtag',
-        fsid: hashtag.hid,
+      const resultRes = await fresnsApi.user.mark({
+        markType: 'follow',
+        type: 'hashtag',
+        fsid: hashtag.htid,
       });
 
       // 接口请求失败，数据还原
@@ -177,10 +178,10 @@ Component({
         // mixins/fresnsInteraction.js
         callPageFunction('onChangeHashtag', hashtag);
 
-        const resultRes = await fresnsApi.user.userMark({
-          interactionType: 'block',
-          markType: 'hashtag',
-          fsid: hashtag.hid,
+        const resultRes = await fresnsApi.user.mark({
+          markType: 'block',
+          type: 'hashtag',
+          fsid: hashtag.htid,
         });
 
         // 接口请求失败，数据还原
@@ -201,7 +202,7 @@ Component({
           // 确认
           if (res.confirm) {
             hashtag.interaction.blockStatus = true; // 屏蔽
-            hashtag.blockCount = hashtag.blockCount + 1; // 计数加一
+            hashtag.blockCount = hashtag.blockCount ? hashtag.blockCount + 1 : hashtag.blockCount; // 计数加一
 
             if (hashtag.interaction.followStatus) {
               hashtag.interaction.followStatus = false; // 取消关注
@@ -211,10 +212,10 @@ Component({
             // mixins/fresnsInteraction.js
             callPageFunction('onChangeHashtag', hashtag);
 
-            const resultRes = await fresnsApi.user.userMark({
-              interactionType: 'block',
-              markType: 'hashtag',
-              fsid: hashtag.hid,
+            const resultRes = await fresnsApi.user.mark({
+              markType: 'block',
+              type: 'hashtag',
+              fsid: hashtag.htid,
             });
 
             // 接口请求失败，数据还原
