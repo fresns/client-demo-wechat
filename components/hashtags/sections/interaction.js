@@ -49,13 +49,21 @@ Component({
 
       const buttonIcons = {
         like: likeItem ? likeItem.imageUrl : 'https://assets.fresns.cn/communities/interaction/like.png',
-        likeActive: likeItem ? likeItem.imageActiveUrl : 'https://assets.fresns.cn/communities/interaction/like-active.png',
+        likeActive: likeItem
+          ? likeItem.imageActiveUrl
+          : 'https://assets.fresns.cn/communities/interaction/like-active.png',
         dislike: dislikeItem ? dislikeItem.imageUrl : 'https://assets.fresns.cn/communities/interaction/dislike.png',
-        dislikeActive: dislikeItem ? dislikeItem.imageActiveUrl : 'https://assets.fresns.cn/communities/interaction/dislike-active.png',
+        dislikeActive: dislikeItem
+          ? dislikeItem.imageActiveUrl
+          : 'https://assets.fresns.cn/communities/interaction/dislike-active.png',
         follow: followItem ? followItem.imageUrl : 'https://assets.fresns.cn/communities/interaction/follow.png',
-        followActive: followItem ? followItem.imageActiveUrl : 'https://assets.fresns.cn/communities/interaction/follow-active.png',
+        followActive: followItem
+          ? followItem.imageActiveUrl
+          : 'https://assets.fresns.cn/communities/interaction/follow-active.png',
         block: blockItem ? blockItem.imageUrl : 'https://assets.fresns.cn/communities/interaction/block.png',
-        blockActive: blockItem ? blockItem.imageActiveUrl : 'https://assets.fresns.cn/communities/interaction/block-active.png',
+        blockActive: blockItem
+          ? blockItem.imageActiveUrl
+          : 'https://assets.fresns.cn/communities/interaction/block-active.png',
       };
 
       this.setData({
