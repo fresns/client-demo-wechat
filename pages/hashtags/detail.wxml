@@ -1,43 +1,57 @@
 <!-- *
-    Fresns 微信小程序 (https://fresns.cn)
-    Copyright 2021-Present 唐杰
-    Licensed under the Apache-2.0 license
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
 * -->
-<view class="page" data-weui-theme="{{ theme }}">
+<page-meta root-font-size="system"/>
+
+<navigation-bar title="{{title}}" backButton="{{true}}" homeButton="{{navbarHomeButton}}" loading="{{navbarLoading}}"></navigation-bar>
+
+<scroll-view class="scrollarea" type="list" scroll-y="{{true}}" enable-back-to-top="{{true}}" refresher-enabled="{{true}}" refresher-triggered="{{refresherStatus}}" bindrefresherrefresh="onRefresherRefresh" bindscrolltolower="onScrollToLower">
+  <!-- 话题详情 -->
+  <loading status="{{loadingDetailStatus}}" tipType="none"></loading>
+  <block wx:if="{{hashtag}}">
     <view class="weui-media-box weui-media-box_appmsg">
-        <view class="weui-media-box__hd" wx:if="{{ hashtag.cover }}">
-            <image class="weui-media-box__thumb" src="{{ hashtag.cover }}"></image>
-        </view>
-        <view class="weui-media-box__bd">
-            <view class="weui-media-box__title" wx:if="{{ hashtagFormat == 1 }}">#{{ hashtag.hname }}</view>
-            <view class="weui-media-box__title" wx:if="{{ hashtagFormat == 2 }}">#{{ hashtag.hname }}#</view>
-            <view class="weui-media-box__desc" wx:if="{{ hashtag.description }}">{{ hashtag.description }}</view>
-        </view>
+      <view class="weui-media-box__hd" wx:if="{{hashtag.cover}}">
+        <image class="weui-media-box__thumb" src="{{hashtag.cover}}"></image>
+      </view>
+      <view class="weui-media-box__bd">
+        <view class="weui-media-box__title" wx:if="{{hashtagFormat == 1}}">#{{hashtag.name}}</view>
+        <view class="weui-media-box__title" wx:if="{{hashtagFormat == 2}}">#{{hashtag.name}}#</view>
+        <view class="weui-media-box__desc" wx:if="{{hashtag.description}}">{{hashtag.description}}</view>
+      </view>
     </view>
 
     <view class="interactive-hashtag">
-        <view class="weui-media-box__info">
-            <view class="weui-media-box__info__meta">{{ hashtag.likeCount }} {{ fsConfig.like_hashtag_name }}</view>
-            <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{ hashtag.followCount }} {{ fsConfig.follow_hashtag_name }}</view>
-            <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{ hashtag.postCount }} {{ fsConfig.post_name }}</view>
-            <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{ hashtag.postDigestCount }} {{ fsLang.contentDigest }}</view>
-        </view>
+      <view class="weui-media-box__info">
+        <view class="weui-media-box__info__meta">{{hashtag.likeCount}} {{hashtag.interaction.likeName}}</view>
+        <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{hashtag.followCount}} {{hashtag.interaction.followName}}</view>
+        <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{hashtag.postCount}} {{postName}}</view>
+        <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{hashtag.postDigestCount}} {{contentDigest}}</view>
+      </view>
 
-        <view class="interactive-btn">
-            <interaction hashtag="{{ hashtag }}"></interaction>
-        </view>
+      <view class="interactive-btn">
+        <interaction hashtag="{{hashtag}}"></interaction>
+      </view>
     </view>
+  </block>
 
-    <view class="weui-cells__title">{{ fsLang.contentNewList }}</view>
-    <!-- 帖子列表 -->
-    <view class="post-list" wx:for="{{ posts }}" wx:for-item="post" wx:key="pid">
-        <post post="{{ post }}" type="list"></post>
+  <!-- 帖子列表 -->
+  <block wx:if="{{detailType == 'posts'}}">
+    <view class="weui-cells__title">{{postName}}: {{hashtag.postCount}}</view>
+    <view class="post-list" wx:for="{{posts}}" wx:for-item="post" wx:key="pid">
+      <post post="{{post}}" viewType="list"></post>
     </view>
+  </block>
 
-    <!-- 加载动效 -->
-    <loading status="{{ loadingStatus }}" tipType="{{ loadingTipType }}"></loading>
-
-    <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
-        <text class="weui-loadmore__tips">Powered by Fresns</text>
+  <!-- 评论列表 -->
+  <block wx:if="{{detailType == 'comments'}}">
+    <view class="weui-cells__title">{{commentName}}: {{hashtag.commentCount}}</view>
+    <view class="comment-list" wx:for="{{comments}}" wx:for-item="comment" wx:key="cid">
+      <comment comment="{{comment}}" viewType="list" showReplyToPost="{{false}}"></comment>
     </view>
-</view>
+  </block>
+
+  <!-- 加载动效 -->
+  <loading status="{{loadingStatus}}" tipType="{{loadingTipType}}"></loading>
+</scroll-view>

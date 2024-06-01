@@ -5,13 +5,12 @@
 * -->
 <view class="hashtag-box">
   <navigator url="/pages/hashtags/detail?htid={{hashtag.htid}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-    <view class="weui-cell__hd" wx:if="{{hashtag.cover}}">
-      <image src="{{hashtag.cover}}"></image>
-    </view>
     <view class="weui-cell__bd" aria-hidden="true">
-      <view>{{hashtag.name}}</view>
+      <view class="hashtag-name">
+        <view wx:if="{{hashtag.cover}}"><image src="{{hashtag.cover}}"></image></view>
+        <text>{{hashtag.name}}</text>
+      </view>
       <view class="weui-cell__desc" wx:if="{{hashtag.description}}">{{hashtag.description}}</view>
-      <view class="interactive-box"></view>
     </view>
     <view class="weui-cell__ft weui-cell__ft_in-access" aria-hidden="true">{{hashtag.postCount}}</view>
   </navigator>

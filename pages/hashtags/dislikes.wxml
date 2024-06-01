@@ -1,47 +1,18 @@
 <!-- *
-    Fresns 微信小程序 (https://fresns.cn)
-    Copyright 2021-Present 唐杰
-    Licensed under the Apache-2.0 license
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
 * -->
-<view class="page" data-weui-theme="{{ theme }}">
-    <view class="weui-flex tab-navbar weui-navbar">
-        <view class="weui-flex__item weui-navbar__item">
-            <navigator url="/pages/hashtags/index" open-type="redirect">主页</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item">
-            <navigator url="/pages/hashtags/list" open-type="redirect">列表</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item">
-            <navigator url="/pages/follows/hashtag-posts" open-type="redirect">关注</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item">
-            <navigator url="/pages/hashtags/likes" open-type="redirect">我赞</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item weui-navbar__item_on">
-            <navigator url="/pages/hashtags/dislikes" open-type="redirect">我踩</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item">
-            <navigator url="/pages/hashtags/following" open-type="redirect">我关注</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item">
-            <navigator url="/pages/hashtags/blocking" open-type="redirect">我屏蔽</navigator>
-        </view>
-    </view>
+<page-meta root-font-size="system"/>
 
-    <!-- 话题列表 -->
-    <view class="weui-media-box weui-media-box_small-appmsg">
-        <view class="weui-cells">
-            <hashtag wx:for="{{ hashtags }}" wx:for-item="hashtag" wx:key="hid" hashtag="{{ hashtag }}"></hashtag>
-        </view>
-    </view>
+<navigation-bar title="{{title}}" backButton="{{navbarBackButton}}" homeButton="{{navbarHomeButton}}" loading="{{navbarLoading}}"></navigation-bar>
 
-    <!-- 加载动效 -->
-    <loading status="{{ loadingStatus }}" tipType="{{ loadingTipType }}"></loading>
+<scroll-view class="scrollarea" type="list" scroll-y="{{true}}" enable-back-to-top="{{true}}" refresher-enabled="{{true}}" refresher-triggered="{{refresherStatus}}" bindrefresherrefresh="onRefresherRefresh" bindscrolltolower="onScrollToLower">
+  <!-- 话题列表 -->
+  <view class="hashtag-list" wx:for="{{hashtags}}" wx:for-item="hashtag" wx:key="htid">
+    <hashtag hashtag="{{hashtag}}"></hashtag>
+  </view>
 
-    <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
-        <text class="weui-loadmore__tips">Powered by Fresns</text>
-    </view>
-
-    <!-- Tabbar -->
-    <tabbar id="fresnsTabbar" activeLabel="hashtags"></tabbar>
-</view>
+  <!-- 加载动效 -->
+  <loading status="{{loadingStatus}}" tipType="{{loadingTipType}}"></loading>
+</scroll-view>

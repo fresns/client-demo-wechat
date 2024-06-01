@@ -9,20 +9,20 @@
   margin-top: 20rpx;
 }
 
-.weui-cell__hd image {
-  width: 30px;
-  height: 30px;
-  margin-right: 10px;
+.hashtag-name {
+  display: flex;
+  align-items: center;
 }
 
-.interactive-box {
-  margin-bottom: 24px;
-  height: 12px;
-  overflow: hidden;
+.hashtag-name image {
+  width: 44rpx;
+  height: 44rpx;
+  margin-right: 20rpx;
 }
 
 .interactive-btn {
-  position: absolute;
-  left: 15px;
-  bottom: 12px;
+  display: flex;
+  margin-left: 32rpx;
+  margin-top: -12rpx;
+  padding-bottom: 32rpx;
 }

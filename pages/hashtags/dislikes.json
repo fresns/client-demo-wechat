@@ -1,9 +1,8 @@
 {
   "navigationBarTitleText": "我赞的话题",
-  "enablePullDownRefresh": true,
   "usingComponents": {
-    "tabbar": "/components/commons/tabbar/tabbar",
-    "loading": "/components/commons/loading/loading",
-    "hashtag": "/components/hashtag/hashtag"
+    "loading": "/sdk/components/loading/loading",
+    "navigation-bar": "/components/commons/navigation-bar/navigation-bar",
+    "hashtag": "/components/hashtags/hashtag"
   }
 }
