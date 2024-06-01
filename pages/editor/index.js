@@ -12,7 +12,8 @@ Page({
   /** 页面的初始数据 **/
   data: {
     title: null,
-    type: 'post',
+    draftType: 'post',
+    draftOptions: null,
     did: null,
     fsid: null,
   },
@@ -21,11 +22,27 @@ Page({
   onLoad: async function (options) {
     const title = await fresnsLang('editor');
 
-    const type = options.type || 'post';
+    const draftType = options.type || 'post';
+
+    const draftOptions = {
+      commentPid: options.commentPid || null, // 评论专用 | 有值表示评论该帖子
+      commentCid: options.commentCid || null, // 评论专用 | 有值表示回复该评论
+      quotePid: options.quotePid || null, // 帖子专用 | 引用帖子
+      gid: options.gid || null, // 帖子专用
+      title: options.title || null, // 帖子专用
+      content: options.content || null,
+      isMarkdown: options.isMarkdown || null,
+      isAnonymous: options.isAnonymous || null,
+      commentPolicy: options.commentPolicy || null, // 帖子专用
+      commentPrivate: options.content || null,
+      gtid: options.isMarkdown || null,
+      locationInfo: options.locationInfo || null,
+    };
+
     const did = options.did || null;
     const fsid = options.fsid || null;
 
-    const editorService = await fresnsConfig(`${type}_editor_service`);
+    const editorService = await fresnsConfig(`${draftType}_editor_service`);
 
     // 配置了编辑器插件，跳转插件页
     if (editorService) {
@@ -33,10 +50,11 @@ Page({
       const navigatorData = {
         title: title,
         url: editorService,
-        draftType: type,
+        draftType: draftType,
+        draftOptions: JSON.stringify(draftOptions),
         did: did,
-        pid: type == 'post' ? fsid : '',
-        cid: type == 'comment' ? fsid : '',
+        pid: draftType == 'post' ? fsid : '', // 有值表示编辑该帖子
+        cid: draftType == 'comment' ? fsid : '', // 有值表示编辑该评论
         postMessageKey: 'fresnsEditor',
       };
 
@@ -55,7 +73,8 @@ Page({
     // 未配置编辑器插件，访问原本编辑器页面
     this.setData({
       title: title,
-      type: type,
+      draftType: draftType,
+      draftOptions: draftOptions,
       did: did,
       fsid: fsid,
     });

@@ -8,5 +8,5 @@
 <navigation-bar title="{{title}}" backButton="{{true}}"></navigation-bar>
 
 <scroll-view class="scrollarea" type="list" scroll-y="{{true}}">
-  <editor type="{{type}}" did="{{did}}" fsid="{{fsid}}"></editor>
+  <editor type="{{draftType}}" options="{{draftOptions}}" did="{{did}}" fsid="{{fsid}}"></editor>
 </scroll-view>
