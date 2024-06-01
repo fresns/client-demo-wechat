@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "关注小组的帖子",
+  "usingComponents": {
+    "loading": "/sdk/components/loading/loading",
+    "navigation-bar": "/components/commons/navigation-bar/navigation-bar",
+    "post": "/components/posts/post"
+  }
+}

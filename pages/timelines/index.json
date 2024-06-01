@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "时间线主页",
+  "usingComponents": {
+    "loading": "/sdk/components/loading/loading",
+    "navigation-bar": "/components/commons/navigation-bar/navigation-bar",
+    "tabbar": "/components/commons/tabbar/tabbar",
+    "post": "/components/posts/post",
+    "comment": "/components/comments/comment"
+  }
+}
