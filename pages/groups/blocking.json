@@ -1,9 +1,8 @@
 {
   "navigationBarTitleText": "我屏蔽的小组",
-  "enablePullDownRefresh": true,
   "usingComponents": {
-    "tabbar": "/components/commons/tabbar/tabbar",
-    "loading": "/components/commons/loading/loading",
-    "group": "/components/group/group"
+    "loading": "/sdk/components/loading/loading",
+    "navigation-bar": "/components/commons/navigation-bar/navigation-bar",
+    "group": "/components/groups/group"
   }
 }

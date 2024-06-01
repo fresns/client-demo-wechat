@@ -6,7 +6,10 @@
 Component({
   /** 组件的属性列表 **/
   properties: {
-    group: Object,
+    group: {
+      type: Object,
+      value: null,
+    },
   },
 
   /** 组件的初始数据 **/

@@ -3,3 +3,31 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
+.tree {
+  display: flex;
+  flex: 1;
+}
+
+.left-scroll {
+  flex-shrink: 0;
+  width: 200rpx !important;
+  white-space: nowrap;
+  background-color: var(--weui-BG-1);
+}
+
+.right-scroll {
+  flex: 1;
+  flex-grow: 1;
+  width: 200rpx !important;
+  overflow: hidden;
+  background-color: var(--weui-BG-2);
+}
+
+.tree-list {
+  padding: 30rpx;
+}
+
+.action {
+  background-color: var(--weui-BG-2);
+  border-left: 10rpx solid var(--weui-BRAND-100);
+}

@@ -1,69 +1,79 @@
 <!-- *
-    Fresns 微信小程序 (https://fresns.cn)
-    Copyright 2021-Present 唐杰
-    Licensed under the Apache-2.0 license
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
 * -->
-<view class="page" data-weui-theme="{{ theme }}">
+<page-meta root-font-size="system"/>
+
+<navigation-bar title="{{title}}" backButton="{{true}}" homeButton="{{navbarHomeButton}}" loading="{{navbarLoading}}"></navigation-bar>
+
+<scroll-view class="scrollarea" type="list" scroll-y="{{true}}" enable-back-to-top="{{true}}" refresher-enabled="{{true}}" refresher-triggered="{{refresherStatus}}" bindrefresherrefresh="onRefresherRefresh" bindscrolltolower="onScrollToLower">
+  <!-- 小组详情 -->
+  <loading status="{{loadingDetailStatus}}" tipType="none"></loading>
+  <block wx:if="{{group}}">
     <view class="weui-media-box weui-media-box_appmsg">
-        <view class="weui-media-box__hd" wx:if="{{ group.cover }}">
-            <image class="weui-media-box__thumb" src="{{ group.cover }}"></image>
-        </view>
-        <view class="weui-media-box__bd">
-            <view class="weui-media-box__title">{{ group.gname }}</view>
-            <view class="weui-media-box__desc">{{ group.description }}</view>
-        </view>
+      <view class="weui-media-box__hd" wx:if="{{group.cover}}">
+        <image class="weui-media-box__thumb" src="{{group.cover}}"></image>
+      </view>
+      <view class="weui-media-box__bd">
+        <view class="weui-media-box__title">{{group.name}}</view>
+        <view class="weui-media-box__desc" wx:if="{{group.description}}">{{group.description}}</view>
+      </view>
     </view>
 
     <view class="interactive-group">
-        <view class="weui-media-box__info">
-            <view class="weui-media-box__info__meta">{{ group.likeCount }} {{ fsConfig.like_group_name }}</view>
-            <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{ group.followCount }} {{ fsConfig.follow_group_name }}</view>
-            <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{ group.postCount }} {{ fsConfig.post_name }}</view>
-            <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{ group.postDigestCount }} {{ fsLang.contentDigest }}</view>
-        </view>
+      <view class="weui-media-box__info">
+        <view class="weui-media-box__info__meta">{{group.likeCount}} {{group.interaction.likeName}}</view>
+        <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{group.followCount}} {{group.interaction.followName}}</view>
+        <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{group.postCount}} {{postName}}</view>
+        <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{group.postDigestCount}} {{contentDigest}}</view>
+      </view>
 
-        <view class="interactive-btn">
-            <interaction group="{{ group }}"></interaction>
-        </view>
+      <view class="interactive-btn">
+        <interaction group="{{group}}"></interaction>
+      </view>
     </view>
 
-    <view class="group-extensions" wx:if="{{ extensions }}" wx:for="{{ extensions }}" wx:for-item="extension" wx:key="fskey">
-        <view class="extension-box">
-            <navigator url="/pages/webview" bind:tap="fresnsExtensions"
-                data-type="group"
-                data-scene="groupExtension"
-                data-post-message-key="fresnsGroupExtension"
-                data-gid="{{ gid }}"
-                data-url="{{ extensions.url }}"
-                data-title="{{ extensions.name }}">
-                <view class="extension-icon">
-                    <image src="{{ extension.icon }}"></image>
-                </view>
-                <view class="extension-label">{{ extension.name }}</view>
-            </navigator>
-        </view>
+    <view class="group-extensions" wx:if="{{extensions.length > 0}}" wx:for="{{extensions}}" wx:key="fskey">
+      <view class="extension-box">
+        <navigator url="/sdk/extensions/webview" bind:tap="handleExtensionTap"
+          data-title="{{item.name}}"
+          data-url="{{item.appUrl}}"
+          data-gid="{{group.gid}}"
+          data-post-message-key="fresnsFeatureExtension">
+          <view class="extension-icon">
+            <image src="{{item.icon}}"></image>
+          </view>
+          <view class="extension-label">{{item.name}}</view>
+        </navigator>
+      </view>
     </view>
 
-	<view class="weui-msg" wx:if="{{ !group.canViewContent }}">
-		<view class="weui-msg__icon-area"><text class="weui-icon-warn weui-icon_msg"></text></view>
-		<view class="weui-msg__text-area">
-			<view class="weui-msg__title">{{ fsLang.errorUnavailable }}</view>
-			<view class="weui-msg__desc">{{ viewContentTip }}</view>
-		</view>
-	</view>
-
-    <view wx:else>
-        <view class="weui-cells__title">{{ fsLang.contentNewList }}</view>
-        <!-- 帖子列表 -->
-        <view class="post-list" wx:for="{{ posts }}" wx:for-item="post" wx:key="pid">
-            <post post="{{ post }}" type="list"></post>
-        </view>
+    <view class="weui-msg" wx:if="{{!group.canViewContent}}">
+      <view class="weui-msg__icon-area"><text class="weui-icon-warn weui-icon_msg"></text></view>
+      <view class="weui-msg__text-area">
+        <view class="weui-msg__title">{{errorUnavailable}}</view>
+        <view class="weui-msg__desc">{{contentGroupTip}}</view>
+      </view>
     </view>
+  </block>
 
-    <!-- 加载动效 -->
-    <loading status="{{ loadingStatus }}" tipType="{{ loadingTipType }}"></loading>
-
-    <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
-        <text class="weui-loadmore__tips">Powered by Fresns</text>
+  <!-- 帖子列表 -->
+  <block wx:if="{{detailType == 'posts'}}">
+    <view class="weui-cells__title" wx:if="{{group.canViewContent}}">{{postName}}: {{geotag.postCount}}</view>
+    <view class="post-list" wx:for="{{posts}}" wx:for-item="post" wx:key="pid">
+      <post post="{{post}}" viewType="list"></post>
     </view>
-</view>
+  </block>
+
+  <!-- 评论列表 -->
+  <block wx:if="{{detailType == 'comments'}}">
+    <view class="weui-cells__title" wx:if="{{group.canViewContent}}">{{commentName}}: {{geotag.commentCount}}</view>
+    <view class="comment-list" wx:for="{{comments}}" wx:for-item="comment" wx:key="cid">
+      <comment comment="{{comment}}" viewType="list" showReplyToPost="{{false}}"></comment>
+    </view>
+  </block>
+
+  <!-- 加载动效 -->
+  <loading status="{{loadingStatus}}" tipType="{{loadingTipType}}"></loading>
+</scroll-view>

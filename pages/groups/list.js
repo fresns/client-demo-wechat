@@ -3,57 +3,54 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import { fresnsApi } from '../../api/api';
-import { fresnsConfig } from '../../api/tool/function';
-import { parseUrlParams } from '../../utils/fresnsUtilities';
+import { fresnsApi } from '../../sdk/services';
+import { fresnsConfig } from '../../sdk/helpers/configs';
+import { parseUrlParams } from '../../sdk/utilities/toolkit';
 
 let isRefreshing = false;
 
 Page({
   /** 外部 mixin 引入 **/
   mixins: [
-    require('../../mixins/globalConfig'),
-    require('../../mixins/checkSiteMode'),
+    require('../../mixins/common'),
+    require('../../mixins/fresnsCallback'),
     require('../../mixins/fresnsInteraction'),
-    require('../../mixins/fresnsExtensions'),
+    require('../../sdk/extensions/functions'),
   ],
 
   /** 页面的初始数据 **/
   data: {
     title: null,
+
     // 默认查询条件
     requestState: null,
     requestQuery: null,
-    // 父级小组
-    gid: null,
-    // 当前页面数据
+
+    // 当前分页数据
     groups: [],
-    // 下次请求时候的页码，初始值为 1
-    page: 1,
-    // 加载状态
-    loadingStatus: false,
-    loadingTipType: 'none',
-    isReachBottom: false,
+
+    // 分页配置
+    page: 1, // 下次请求时候的页码，初始值为 1
+    isReachBottom: false, // 是否已经无内容（已经最后一次，无内容再加载）
+    refresherStatus: false, // scroll-view 视图容器下拉刷新状态
+    loadingStatus: false, // loading 组件状态
+    loadingTipType: 'none', // loading 组件提示文案
   },
 
   /** 监听页面加载 **/
   onLoad: async function (options) {
-    let requestState = await fresnsConfig('menu_group_list_query_state');
-    let requestQuery = parseUrlParams(await fresnsConfig('menu_group_list_query_config'));
+    let requestState = await fresnsConfig('channel_group_list_query_state');
+    let requestQuery = parseUrlParams(await fresnsConfig('channel_group_list_query_config'));
 
     if (requestState === 3) {
       requestQuery = Object.assign(requestQuery, options);
     }
 
     this.setData({
-      title: await fresnsConfig('menu_group_list_title'),
-      gid: options.gid,
+      navbarBackButton: true,
+      title: await fresnsConfig('channel_group_list_name'),
       requestState: requestState,
       requestQuery: requestQuery,
-    });
-
-    wx.setNavigationBarTitle({
-      title: await fresnsConfig('menu_group_list_title'),
     });
 
     await this.loadFresnsPageData();
@@ -65,17 +62,14 @@ Page({
       return;
     }
 
-    wx.showNavigationBarLoading();
-
     this.setData({
       loadingStatus: true,
     });
 
-    const resultRes = await fresnsApi.group.groupList(
+    const resultRes = await fresnsApi.group.list(
       Object.assign(this.data.requestQuery, {
-        gid: this.data.gid,
-        whitelistKeys:
-          'gid,url,type,gname,description,cover,followType,followUrl,likeCount,dislikeCount,followCount,blockCount,postCount,postDigestCount,interaction',
+        filterType: 'blacklist',
+        filterKeys: 'archives,operations',
         page: this.data.page,
       })
     );
@@ -100,17 +94,20 @@ Page({
     }
 
     this.setData({
+      refresherStatus: false,
       loadingStatus: false,
     });
-
-    wx.hideNavigationBarLoading();
   },
 
   /** 监听用户下拉动作 **/
-  onPullDownRefresh: async function () {
-    // 防抖判断
+  onRefresherRefresh: async function () {
     if (isRefreshing) {
-      wx.stopPullDownRefresh();
+      console.log('下拉', '防抖');
+
+      this.setData({
+        refresherStatus: false,
+      });
+
       return;
     }
 
@@ -119,29 +116,41 @@ Page({
     this.setData({
       groups: [],
       page: 1,
-      loadingTipType: 'none',
       isReachBottom: false,
+      refresherStatus: true,
+      loadingTipType: 'none',
     });
 
     await this.loadFresnsPageData();
 
-    wx.stopPullDownRefresh();
     setTimeout(() => {
       isRefreshing = false;
     }, 5000); // 防抖时间 5 秒
   },
 
   /** 监听用户上拉触底 **/
-  onReachBottom: async function () {
+  onScrollToLower: async function () {
+    if (isRefreshing) {
+      console.log('上拉', '防抖');
+
+      return;
+    }
+
+    isRefreshing = true;
+
     // 不接受客户端传参，包括分页
     if (this.data.requestState == 1) {
       this.setData({
-        loadingTipType: this.data.groups.length > 0 ? 'page' : 'empty',
+        loadingTipType: this.data.group.length > 0 ? 'page' : 'empty',
         isReachBottom: true,
       });
       return;
     }
 
     await this.loadFresnsPageData();
+
+    setTimeout(() => {
+      isRefreshing = false;
+    }, 5000); // 防抖时间 5 秒
   },
 });
