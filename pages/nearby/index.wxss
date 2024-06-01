@@ -3,6 +3,12 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-.weui-cell__hd {
-  margin-right: 6px;
+.weui-cells {
+  margin-top: 0;
+}
+
+.weui-cell__hd image {
+  width: 44rpx;
+  height: 44rpx;
+  margin-right: 10rpx;
 }
