@@ -1,0 +1,31 @@
+/*!
+ * Fresns 微信小程序 (https://fresns.cn)
+ * Copyright 2021-Present 唐杰
+ * Licensed under the Apache-2.0 license
+ */
+.mark-btn {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.mark-btn .weui-btn {
+  margin-right: 20rpx;
+  display: flex;
+  align-items: center;
+}
+
+.mark-btn .weui-btn image {
+  height: 36rpx;
+  width: 36rpx;
+  margin-right: 0;
+}
+
+.mark-btn .weui-btn .count {
+  margin-left: 8rpx;
+  font-size: 24rpx;
+}
+
+.mark-btn .weui-btn_default {
+  font-weight: 400;
+  color: var(--weui-FG-1);
+}

@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "我赞的地理",
+  "usingComponents": {
+    "loading": "/sdk/components/loading/loading",
+    "navigation-bar": "/components/commons/navigation-bar/navigation-bar",
+    "geotag": "/components/geotags/geotag"
+  }
+}

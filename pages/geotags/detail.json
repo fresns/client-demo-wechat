@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "地理详情",
+  "usingComponents": {
+    "loading": "/sdk/components/loading/loading",
+    "navigation-bar": "/components/commons/navigation-bar/navigation-bar",
+    "interaction": "/components/geotags/sections/interaction",
+    "post": "/components/posts/post",
+    "comment": "/components/comments/comment"
+  }
+}
