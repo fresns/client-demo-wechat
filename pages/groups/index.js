@@ -54,7 +54,7 @@ Page({
 
     this.setData({
       title: await fresnsConfig('channel_group_name'),
-      viewType:  await fresnsConfig('channel_group_type'),
+      viewType: await fresnsConfig('channel_group_type'),
       requestState: requestState,
       requestQuery: requestQuery,
     });
@@ -187,5 +187,5 @@ Page({
       treeGroups: tree[index].groups,
       currentTreeGid: tree[index].gid,
     });
-  }
+  },
 });
