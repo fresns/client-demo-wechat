@@ -872,17 +872,10 @@ module.exports = {
       }
 
       // 发表成功，插入新评论
-      const commentDetailRes = await fresnsApi.comment.commentDetail({
-        cid: newCid,
-      });
+      const commentDetailRes = await fresnsApi.comment.detail(newCid);
 
       if (commentDetailRes.code === 0) {
-        let detail = commentDetailRes.data.detail;
-        detail.replyToPost = {
-          pid: detail.replyToPost.pid,
-        };
-
-        comments.unshift(detail);
+        comments.unshift(commentDetailRes.data.detail);
       }
 
       // 重置评论列表
