@@ -106,7 +106,8 @@ Page({
       filterGeotagType: 'whitelist',
       filterGeotagKeys: 'gtid,name,distance,unit',
       filterAuthorType: 'whitelist',
-      filterAuthorKeys: 'fsid,uid,nickname,nicknameColor,avatar,decorate,verified,verifiedIcon,status,roleName,roleNameDisplay,roleIcon,roleIconDisplay,operations',
+      filterAuthorKeys:
+        'fsid,uid,nickname,nicknameColor,avatar,decorate,verified,verifiedIcon,status,roleName,roleNameDisplay,roleIcon,roleIconDisplay,operations',
       filterQuotedPostType: 'whitelist',
       filterQuotedPostKeys: 'pid,title,content,contentLength,author.nickname,author.avatar,author.status',
       filterPreviewCommentType: 'whitelist',
