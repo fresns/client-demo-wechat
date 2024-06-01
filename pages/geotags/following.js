@@ -55,7 +55,8 @@ Page({
 
     const resultRes = await fresnsApi.user.markList(fresnsAuth.uid, 'follow', 'geotags', {
       filterType: 'whitelist',
-      filterKeys: 'gtid,url,name,cover,description,viewCount,likeCount,dislikeCount,followCount,blockCount,postCount,postDigestCount,operations,interaction',
+      filterKeys:
+        'gtid,url,name,cover,description,viewCount,likeCount,dislikeCount,followCount,blockCount,postCount,postDigestCount,operations,interaction',
       page: this.data.page,
     });
 
