@@ -91,7 +91,7 @@ Page({
   /** 监听用户下拉动作 **/
   onRefresherRefresh: async function () {
     if (isRefreshing) {
-      console.log('防抖判断');
+      console.log('下拉', '防抖');
 
       this.setData({
         refresherStatus: false,
@@ -119,7 +119,18 @@ Page({
 
   /** 监听用户上拉触底 **/
   onScrollToLower: async function () {
-    console.log('滚动到底部');
-    this.loadFresnsPageData();
+    if (isRefreshing) {
+      console.log('上拉', '防抖');
+
+      return;
+    }
+
+    isRefreshing = true;
+
+    await this.loadFresnsPageData();
+
+    setTimeout(() => {
+      isRefreshing = false;
+    }, 5000); // 防抖时间 5 秒
   },
 });

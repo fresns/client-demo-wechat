@@ -3,6 +3,10 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
+.weui-tab {
+  height: 100rpx;
+}
+
 .weui-navbar {
   padding-top: 0 !important;
 }

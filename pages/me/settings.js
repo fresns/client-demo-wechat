@@ -185,7 +185,7 @@ Page({
 
         const tempFile = res.tempFiles[0];
 
-        const resultRes = await fresnsApi.common.fileUpload(tempFile.tempFilePath, {
+        const resultRes = await fresnsApi.common.fileUpload({
           usageType: 'userAvatar',
           usageFsid: uid,
           type: 'image',

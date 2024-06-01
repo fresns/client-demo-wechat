@@ -7,30 +7,24 @@
 
 <navigation-bar title="{{title}}" backButton="{{true}}"></navigation-bar>
 
-<scroll-view class="scrollarea" type="nested" scroll-y="{{true}}">
-  <nested-scroll-header>
-    <view class="weui-tab">
-      <view class="weui-navbar">
-        <view wx:for="{{tabs}}" wx:key="title" class="weui-navbar__item {{item.type == type ? 'weui-bar__item_on' : ''}}" bind:tap="onTapTab" data-type="{{item.type}}">
-          {{item.text}}
-        </view>
-      </view>
+<view class="weui-tab">
+  <view class="weui-navbar">
+    <view wx:for="{{tabs}}" wx:key="title" class="weui-navbar__item {{item.type == type ? 'weui-bar__item_on' : ''}}" bind:tap="onTapTab" data-type="{{item.type}}">
+      {{item.text}}
     </view>
-  </nested-scroll-header>
+  </view>
+</view>
 
-  <nested-scroll-body>
-    <scroll-view class="scrollarea" type="list" scroll-y="{{true}}" enable-back-to-top="{{true}}" refresher-enabled="{{true}}" refresher-triggered="{{refresherStatus}}" bindrefresherrefresh="onRefresherRefresh" bindscrolltolower="onScrollToLower">
-      <view class="weui-cells weui-cells_after-title">
-        <view wx:for="{{drafts}}" wx:for-item="draft" wx:key="did" class="weui-cell weui-cell_example" bind:tap="onEditMenus" data-did="{{draft.did}}">
-          <view class="weui-cell__bd" wx:if="{{draft.title}}">{{draft.title}}</view>
-          <view class="weui-cell__bd" wx:elif="{{draft.contentLength}}">{{draft.contentLength > 40 ? draft.content.slice(0, 40) + '...' : draft.content}}</view>
-          <view class="weui-cell__bd empty-content" wx:else>empty</view>
-          <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-        </view>
-      </view>
+<scroll-view class="scrollarea" type="list" scroll-y="{{true}}" enable-back-to-top="{{true}}" refresher-enabled="{{true}}" refresher-triggered="{{refresherStatus}}" bindrefresherrefresh="onRefresherRefresh" bindscrolltolower="onScrollToLower">
+  <view class="weui-cells weui-cells_after-title">
+    <view wx:for="{{drafts}}" wx:for-item="draft" wx:key="did" class="weui-cell weui-cell_example" bind:tap="onEditMenus" data-did="{{draft.did}}">
+      <view class="weui-cell__bd" wx:if="{{draft.title}}">{{draft.title}}</view>
+      <view class="weui-cell__bd" wx:elif="{{draft.contentLength}}">{{draft.contentLength > 40 ? draft.content.slice(0, 40) + '...' : draft.content}}</view>
+      <view class="weui-cell__bd empty-content" wx:else>empty</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </view>
+  </view>
 
-      <!-- 加载动效 -->
-      <loading status="{{loadingStatus}}" tipType="{{loadingTipType}}"></loading>
-    </scroll-view>
-  </nested-scroll-body>
+  <!-- 加载动效 -->
+  <loading status="{{loadingStatus}}" tipType="{{loadingTipType}}"></loading>
 </scroll-view>
