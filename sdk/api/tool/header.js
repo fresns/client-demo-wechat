@@ -20,6 +20,7 @@ export async function getHeaders() {
   const signTimestamp = String(Date.now()); // 获取 UTC+0 时区的 Unix 时间戳
 
   const headers = {
+    'Accept': 'application/json',
     'X-Fresns-Space-Id': envConfig.spaceId,
     'X-Fresns-App-Id': envConfig.appId,
     'X-Fresns-Client-Platform-Id': fresnsClient.platformId,

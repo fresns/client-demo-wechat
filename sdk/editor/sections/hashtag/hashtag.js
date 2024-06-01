@@ -7,18 +7,6 @@ import { fresnsApi } from '../../../services';
 import { fresnsConfig, fresnsLang, fresnsEditor } from '../../../helpers/configs';
 
 Component({
-  /** 组件的属性列表 **/
-  properties: {
-    type: {
-      type: String,
-      value: 'post',
-    },
-    did: {
-      type: String,
-      value: null,
-    },
-  },
-
   /** 组件的初始数据 **/
   data: {
     dialog: false,

@@ -7,56 +7,56 @@
   <view class="weui-flex">
     <view class="weui-flex__item" wx:if="{{config.sticker}}" bind:tap="onClickToolBar" data-tool="sticker">
       <view class="tabbar_icon">
-        <image src="https://assets.fresns.cn/communities/toolbar/sticker.png" class="weui-tabbar__icon"></image>
+        <view class="toolbar_icon icon_sticker"></view>
       </view>
       <view class="weui-tabbar__label">{{fresnsLang.editorStickers}}</view>
     </view>
 
     <view class="weui-flex__item" wx:if="{{config.image.status}}" bind:tap="onClickToolBar" data-tool="image">
       <view class="tabbar_icon">
-        <image src="https://assets.fresns.cn/communities/toolbar/image.png" class="weui-tabbar__icon"></image>
+        <view class="toolbar_icon icon_image"></view>
       </view>
       <view class="weui-tabbar__label">{{fresnsLang.editorImages}}</view>
     </view>
 
     <view class="weui-flex__item" wx:if="{{config.video.status}}" bind:tap="onClickToolBar" data-tool="video">
       <view class="tabbar_icon">
-        <image src="https://assets.fresns.cn/communities/toolbar/video.png" class="weui-tabbar__icon"></image>
+        <view class="toolbar_icon icon_video"></view>
       </view>
       <view class="weui-tabbar__label">{{fresnsLang.editorVideos}}</view>
     </view>
 
     <view class="weui-flex__item" wx:if="{{config.audio.status}}" bind:tap="onClickToolBar" data-tool="audio">
       <view class="tabbar_icon">
-        <image src="https://assets.fresns.cn/communities/toolbar/audio.png" class="weui-tabbar__icon"></image>
+        <view class="toolbar_icon icon_audio"></view>
       </view>
       <view class="weui-tabbar__label">{{fresnsLang.editorAudios}}</view>
     </view>
 
     <view class="weui-flex__item" wx:if="{{config.document.status}}" bind:tap="onClickToolBar" data-tool="document">
       <view class="tabbar_icon">
-        <image src="https://assets.fresns.cn/communities/toolbar/document.png" class="weui-tabbar__icon"></image>
+        <view class="toolbar_icon icon_document"></view>
       </view>
       <view class="weui-tabbar__label">{{fresnsLang.editorDocuments}}</view>
     </view>
 
     <view class="weui-flex__item" wx:if="{{config.title.status && !config.title.required}}" bind:tap="onClickToolBar" data-tool="title">
       <view class="tabbar_icon">
-        <image src="https://assets.fresns.cn/communities/toolbar/title.png" class="weui-tabbar__icon"></image>
+        <view class="toolbar_icon icon_title"></view>
       </view>
       <view class="weui-tabbar__label">{{fresnsLang.editorTitle}}</view>
     </view>
 
     <view class="weui-flex__item" wx:if="{{config.mention.status && config.mention.display}}" bind:tap="onClickToolBar" data-tool="mention">
       <view class="tabbar_icon">
-        <image src="https://assets.fresns.cn/communities/toolbar/mention.png" class="weui-tabbar__icon"></image>
+        <view class="toolbar_icon icon_mention"></view>
       </view>
       <view class="weui-tabbar__label">{{fresnsLang.editorMention}}</view>
     </view>
 
     <view class="weui-flex__item" wx:if="{{config.hashtag.status && config.hashtag.display}}" bind:tap="onClickToolBar" data-tool="hashtag">
       <view class="tabbar_icon">
-        <image src="https://assets.fresns.cn/communities/toolbar/hashtag.png" class="weui-tabbar__icon"></image>
+        <view class="toolbar_icon icon_hashtag"></view>
       </view>
       <view class="weui-tabbar__label">{{fresnsLang.editorHashtag}}</view>
     </view>
@@ -71,7 +71,7 @@
 
       <view class="weui-flex__item" bind:tap="onClickToolBar" data-tool="extend">
         <view class="tabbar_icon">
-          <image src="https://assets.fresns.cn/communities/toolbar/expand.png" class="weui-tabbar__icon"></image>
+        <view class="toolbar_icon icon_extend"></view>
         </view>
         <view class="weui-tabbar__label">{{fresnsLang.editorExtends}}</view>
       </view>

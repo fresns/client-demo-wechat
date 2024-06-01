@@ -23,13 +23,13 @@ const geotag = {
 
   /**
    * 获取地理[详情]
-   * @param {String} htid
+   * @param {String} gtid
    * @param {Object} options
    * @return {wx.RequestTask}
    */
-  detail: (htid, options = {}) => {
+  detail: (gtid, options = {}) => {
     return request({
-      path: '/api/fresns/v1/geotag/' + htid + '/detail',
+      path: '/api/fresns/v1/geotag/' + gtid + '/detail',
       method: 'GET',
       data: {
         ...options,
@@ -39,14 +39,14 @@ const geotag = {
 
   /**
    * 获取地理[详情] 互动列表
-   * @param {String} htid
+   * @param {String} gtid
    * @param {String} type likers, dislikers, followers, blockers
    * @param {Object} options
    * @return {wx.RequestTask}
    */
-  interaction: (htid, type, options = {}) => {
+  interaction: (gtid, type, options = {}) => {
     return request({
-      path: '/api/fresns/v1/geotag/' + htid + '/interaction/' + type,
+      path: '/api/fresns/v1/geotag/' + gtid + '/interaction/' + type,
       method: 'GET',
       data: {
         ...options,

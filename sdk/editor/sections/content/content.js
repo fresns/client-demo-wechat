@@ -122,11 +122,12 @@ Component({
       const content = this.data.content || '';
       const cursorPosition = this.data.cursorPosition;
 
-      const prevCharacter = content.charAt(cursorPosition - 1);
-      const firstCharacterOfText = text.charAt(0);
+      const prevCharacter = content.charAt(cursorPosition - 1); // 获取光标前的一个字符
+      const firstCharacterOfText = text.charAt(0); // 获取插入文本的第一个字符
 
       let newText = text;
       if (prevCharacter === firstCharacterOfText) {
+        // 如果两个字符一样，避免重复，去除一个
         newText = text.slice(1);
       }
 

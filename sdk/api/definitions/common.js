@@ -68,15 +68,13 @@ const common = {
 
   /**
    * 上传文件
-   * @param {String} filePath
    * @param {Object} formData
    * @return {wx.RequestTask}
    */
-  fileUpload: async (filePath, formData) => {
+  fileUpload: async (formData) => {
     return uploadFile({
       path: '/api/fresns/v1/common/file/upload',
       method: 'POST',
-      filePath: filePath,
       data: {
         ...formData,
       },

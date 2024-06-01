@@ -21,13 +21,12 @@ const editor = {
   /**
    * 直接发表
    * @param {String} type post, comment
-   * @param {String} filePath
    * @param {Object} formData
    * @return {wx.RequestTask}
    */
-  publish: async (type, filePath = null, formData) => {
-    if (filePath) {
-      return uploadFile(filePath, {
+  publish: async (type, formData) => {
+    if (formData.image) {
+      return uploadFile({
         path: '/api/fresns/v1/editor/' + type + '/publish',
         method: 'POST',
         data: {

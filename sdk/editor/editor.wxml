@@ -58,9 +58,10 @@
       <button size="default" type="primary" bind:tap="onSubmitPublish">{{publishBtnName}}</button>
     </view>
 
-    <!-- @艾特 #话题 -->
-    <mention type="{{type}}" did="{{did}}" wx:if="{{mentionDialogShow}}" bind:eventDialogShow="eventDialogShow" bind:eventInsertContent="eventInsertContent"/>
-    <hashtag type="{{type}}" did="{{did}}" wx:if="{{hashtagDialogShow}}" bind:eventDialogShow="eventDialogShow" bind:eventInsertContent="eventInsertContent"/>
+    <!-- @ 艾特 -->
+    <mention wx:if="{{mentionDialogShow}}" bind:eventDialogShow="eventDialogShow" bind:eventInsertContent="eventInsertContent"/>
+    <!-- # 话题 -->
+    <hashtag wx:if="{{hashtagDialogShow}}" bind:eventDialogShow="eventDialogShow" bind:eventInsertContent="eventInsertContent"/>
 
     <!-- 工具条 -->
     <toolbar type="{{type}}" did="{{did}}" bind:eventInsertContent="eventInsertContent" bind:eventAddFiles="eventAddFiles" bind:eventUpdateFile="eventUpdateFile" bind:eventDialogShow="eventDialogShow"/>

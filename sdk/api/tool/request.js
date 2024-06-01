@@ -116,7 +116,7 @@ export function request(params) {
 // 上传文件请求
 export function uploadFile(params) {
   return new Promise(async (resolve, reject) => {
-    const { path, method, filePath, data = {} } = params;
+    const { path, method, data } = params;
 
     // 删除空的健值对
     Object.getOwnPropertyNames(data).forEach((key) => {
@@ -125,15 +125,17 @@ export function uploadFile(params) {
       }
     });
 
-    let name = 'file';
+    let fileKey = 'file';
+    let filePath = data.file;
     if (path == '/api/fresns/v1/editor/post/publish' || path == '/api/fresns/v1/editor/comment/publish') {
-      name = 'image';
+      fileKey = 'image';
+      filePath = data.image;
     }
 
     wx.uploadFile({
       url: envConfig.apiHost + path,
+      name: fileKey,
       filePath: filePath,
-      name: name,
       header: await getHeaders(),
       formData: data,
       enableHttp2: true,

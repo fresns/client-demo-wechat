@@ -348,7 +348,7 @@ Component({
             });
 
             // 上传
-            const response = await fresnsApi.common.fileUpload(tempFile.tempFilePath, {
+            const response = await fresnsApi.common.fileUpload({
               usageType: usageType,
               usageFsid: usageFsid,
               type: fileType,

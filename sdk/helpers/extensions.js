@@ -10,6 +10,8 @@ import { base64_encode } from '../utilities/base64';
 export async function makeAccessToken() {
   const headers = await getHeaders();
 
+  delete headers['Accept'];
+
   const headersStr = JSON.stringify(headers).replace(/\n|\r/g, '');
   const base64Encoded = base64_encode(headersStr);
   const urlEncoded = encodeURIComponent(base64Encoded);

@@ -3,7 +3,7 @@
   Copyright 2021-Present 唐杰
   Licensed under the Apache-2.0 license
 * -->
-<label>
+<label class="checkbox-label">
   <checkbox-group class="checkbox" bindchange="bindSwitchAnonymous">
     <checkbox value="anonymous" checked="{{isEnableAnonymous}}"/> {{anonymousText}}
   </checkbox-group>

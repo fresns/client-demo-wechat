@@ -36,7 +36,15 @@
       <!-- 搜索结果 -->
       <scroll-view class="result-list" type="list" scroll-y="{{true}}">
         <view aria-role="listbox" id="searchResult" class="weui-cells searchbar-result">
-          <view role="option" class="weui-cell weui-cell_active weui-cell_access" wx:for="{{hashtags}}" bind:tap="onSelectHashtag" data-htid="{{item.fsid}}" data-name="{{item.name}}">
+          <view role="option" class="weui-cell weui-cell_active weui-cell_access" bind:tap="onSelectHashtag" data-name="{{inputVal}}" wx:if="{{inputVal}}">
+            <view class="weui-cell__hd">
+              <view class="icon-add"></view>
+            </view>
+            <view class="weui-cell__bd weui-cell_primary">
+              <text>{{inputVal}}</text>
+            </view>
+          </view>
+          <view role="option" class="weui-cell weui-cell_active weui-cell_access" wx:for="{{hashtags}}" bind:tap="onSelectHashtag" data-name="{{item.name}}">
             <view class="weui-cell__hd" wx:if="{{item.image}}">
               <image src="{{item.image}}"/>
             </view>
