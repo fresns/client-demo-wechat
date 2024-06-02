@@ -3,24 +3,38 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-.weui-flex {
+.list-margin {
   margin-left: -30rpx;
+}
+
+.detail-padding {
+  padding-top: 6rpx;
 }
 
 .fs_btn {
   padding: 20rpx 20rpx 20rpx 30rpx;
   display: flex;
   align-items: center;
+  flex-wrap: nowrap;
 }
 
-.card-footer-icon {
-  width: 40rpx;
-  height: 40rpx;
+.btn-icon {
+  margin-right: 32rpx;
 }
 
-.card-footer-text {
-  margin-left: 8rpx;
+.btn-icon image {
+  width: 40rpx !important;
+  height: 40rpx !important;
+}
+
+.btn-text {
   font-size: 24rpx;
+  white-space: nowrap;
+}
+
+.more-icon {
+  width: 40rpx !important;
+  height: 40rpx !important;
 }
 
 .weui-actionsheet__cell {
@@ -29,8 +43,8 @@
 }
 
 .weui-actionsheet__cell image {
-  width: 44rpx;
-  height: 44rpx;
+  width: 44rpx !important;
+  height: 44rpx !important;
   margin-right: 10rpx;
 }
 
@@ -38,4 +52,19 @@
   margin-left: 10rpx;
   color: var(--weui-FG-1);
   background-color: var(--weui-TAG-BACKGROUND-BLACK);
+}
+
+.weui-half-screen-dialog__bd {
+  padding-bottom: env(safe-area-inset-bottom) !important;
+}
+
+.comment-box-btn {
+  width: 40% !important;
+  height: 56rpx;
+  margin-top: 10rpx;
+  border-radius: 36px;
+  background-color: var(--weui-TAG-BACKGROUND-BLACK);
+  color: var(--weui-TAG-TEXT-BLACK);
+  font-size: 28rpx;
+  padding: 8rpx 0 0 30rpx;
 }

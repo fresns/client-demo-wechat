@@ -3,80 +3,65 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import { fresnsApi } from '../../api/api';
-import { fresnsConfig, fresnsLang } from '../../api/tool/function';
-import { truncateText, callPrevPageFunction } from '../../utils/fresnsUtilities';
+import { fresnsApi } from '../../sdk/services';
+import { fresnsConfig } from '../../sdk/helpers/configs';
+import { callPrevPageFunction } from '../../sdk/utilities/toolkit';
 
 let isRefreshing = false;
 
 Page({
   /** 外部 mixin 引入 **/
   mixins: [
-    require('../../mixins/globalConfig'),
-    require('../../mixins/checkSiteMode'),
+    require('../../mixins/common'),
+    require('../../mixins/fresnsCallback'),
     require('../../mixins/fresnsInteraction'),
-    require('../../mixins/fresnsExtensions'),
+    require('../../sdk/extensions/functions'),
   ],
 
   /** 页面的初始数据 **/
   data: {
-    // 详情
     title: null,
-    post: null,
-    loadingDetailStatus: true,
     commentName: null,
 
-    // 评论框
-    commentBtnName: null,
+    // 详情
+    loadingDetailStatus: true,
+    post: null,
 
-    // 评论列表
-    query: {},
+    // 默认查询条件
+    requestQuery: null,
+
+    // 当前分页数据
     comments: [],
-    page: 1,
-    loadingStatus: false,
-    loadingTipType: 'none',
-    isReachBottom: false,
+
+    // 分页配置
+    page: 1, // 下次请求时候的页码，初始值为 1
+    isReachBottom: false, // 是否已经无内容（已经最后一次，无内容再加载）
+    refresherStatus: false, // scroll-view 视图容器下拉刷新状态
+    loadingStatus: false, // loading 组件状态
+    loadingTipType: 'none', // loading 组件提示文案
   },
 
   /** 监听页面加载 **/
   onLoad: async function (options) {
-    wx.setNavigationBarTitle({
-      title: await fresnsConfig('post_name'),
-    });
-
     this.setData({
-      query: options,
+      title: await fresnsConfig('post_name'),
       commentName: await fresnsConfig('comment_name'),
+      requestQuery: options,
     });
 
-    const postDetailRes = await fresnsApi.post.postDetail({
-      pid: options.pid,
-    });
+    const detailRes = await fresnsApi.post.detail(options.pid);
 
-    if (postDetailRes.code === 0) {
-      const userDeactivate = await fresnsLang('userDeactivate');
-      const authorAnonymous = await fresnsLang('contentAuthorAnonymous');
-      const post = postDetailRes.data.detail;
-
-      let postTitle = post.title || truncateText(post.content, 20);
-      let nickname = post.author.nickname;
-
-      if (!post.author.status) {
-        nickname = userDeactivate;
-      } else if (post.isAnonymous) {
-        nickname = authorAnonymous;
-      }
+    if (detailRes.code === 0) {
+      const post = detailRes.data.detail;
 
       this.setData({
-        post: post,
         loadingDetailStatus: false,
-        title: nickname + ': ' + postTitle,
-        commentBtnName: await fresnsConfig('publish_comment_name'),
+        post: post,
       });
 
       // 替换上一页数据
       // mixins/fresnsInteraction.js
-      callPrevPageFunction('onChangePost', post);
+      // callPrevPageFunction('onChangePost', post);
     }
 
     await this.loadFresnsPageData();
@@ -88,23 +73,30 @@ Page({
       return;
     }
 
-    wx.showNavigationBarLoading();
-
     this.setData({
       loadingStatus: true,
     });
 
-    const commentsRes = await fresnsApi.comment.commentList(
-      Object.assign(this.data.query, {
-        orderDirection: 'asc',
-        whitelistKeys:
-          'cid,url,content,contentLength,isBrief,isMarkdown,isAnonymous,isSticky,digestState,createdTimeAgo,editedTimeAgo,likeCount,dislikeCount,commentCount,moreJson,location,files,isCommentPrivate,author.fsid,author.uid,author.username,author.nickname,author.avatar,author.decorate,author.verifiedStatus,author.nicknameColor,author.roleName,author.roleNameDisplay,author.status,author.isPostAuthor,manages,editControls,interaction,replyToPost.pid,replyToPost.author.avatar,replyToPost.author.nickname,replyToPost.author.status,replyToPost.isAnonymous,replyToPost.content,replyToPost.group.gname,subComments.0.author.status,subComments.0.author.fsid,subComments.0.author.nickname,subComments.0.isAnonymous,subComments.0.content,subComments.1.author.status,subComments.1.author.fsid,subComments.1.author.nickname,subComments.1.isAnonymous,subComments.1.content,subComments.2.author.status,subComments.2.author.fsid,subComments.2.author.nickname,subComments.2.isAnonymous,subComments.2.content,subComments.3.author.status,subComments.3.author.fsid,subComments.3.author.nickname,subComments.3.isAnonymous,subComments.3.content,subComments.4.author.status,subComments.4.author.fsid,subComments.4.author.nickname,subComments.4.isAnonymous,subComments.4.content',
+    const resultRes = await fresnsApi.comment.list(
+      Object.assign(this.data.requestQuery, {
+        filterType: 'blacklist',
+        filterKeys: 'hashtags,previewLikeUsers',
+        filterGeotagType: 'whitelist',
+        filterGeotagKeys: 'gtid,name,distance,unit',
+        filterAuthorType: 'whitelist',
+        filterAuthorKeys: 'fsid,uid,nickname,nicknameColor,avatar,decorate,verified,verifiedIcon,status,roleName,roleNameDisplay,roleIcon,roleIconDisplay,operations',
+        filterPreviewCommentType: 'whitelist',
+        filterPreviewCommentKeys: 'cid,content,contentLength,author.nickname,author.avatar,author.status',
+        filterReplyToPostType: 'whitelist',
+        filterReplyToPostKeys: 'pid,title,content,contentLength,author.nickname,author.avatar,author.status,group.name',
+        filterReplyToCommentType: 'whitelist',
+        filterReplyToCommentKeys: 'cid,content,contentLength,createdDatetime,author.nickname,author.avatar,author.status',
         page: this.data.page,
       })
     );
 
-    if (commentsRes.code === 0) {
-      const { pagination, list } = commentsRes.data;
+    if (resultRes.code === 0) {
+      const { pagination, list } = resultRes.data;
       const isReachBottom = pagination.currentPage === pagination.lastPage;
 
       const listCount = list.length + this.data.comments.length;
@@ -123,17 +115,20 @@ Page({
     }
 
     this.setData({
+      refresherStatus: false,
       loadingStatus: false,
     });
-
-    wx.hideNavigationBarLoading();
   },
 
   /** 监听用户下拉动作 **/
-  onPullDownRefresh: async function () {
-    // 防抖判断
+  onRefresherRefresh: async function () {
     if (isRefreshing) {
-      wx.stopPullDownRefresh();
+      console.log('下拉', '防抖');
+
+      this.setData({
+        refresherStatus: false,
+      });
+
       return;
     }
 
@@ -142,25 +137,32 @@ Page({
     this.setData({
       comments: [],
       page: 1,
-      loadingTipType: 'none',
       isReachBottom: false,
+      refresherStatus: true,
+      loadingTipType: 'none',
     });
 
     await this.loadFresnsPageData();
 
-    wx.stopPullDownRefresh();
     setTimeout(() => {
       isRefreshing = false;
     }, 5000); // 防抖时间 5 秒
   },
 
   /** 监听用户上拉触底 **/
-  onReachBottom: async function () {
-    await this.loadFresnsPageData();
-  },
+  onScrollToLower: async function () {
+    if (isRefreshing) {
+      console.log('上拉', '防抖');
 
-  // 评论
-  onClickCreateComment: function () {
-    this.selectComponent('#postComponent').triggerComment();
+      return;
+    }
+
+    isRefreshing = true;
+
+    await this.loadFresnsPageData();
+
+    setTimeout(() => {
+      isRefreshing = false;
+    }, 5000); // 防抖时间 5 秒
   },
 });

@@ -1,39 +1,32 @@
 <!-- *
-    Fresns 微信小程序 (https://fresns.cn)
-    Copyright 2021-Present 唐杰
-    Licensed under the Apache-2.0 license
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
 * -->
-<view class="page" data-weui-theme="{{ theme }}">
-    <!--帖子详情-->
-    <loading status="{{ loadingDetailStatus }}" tipType="none"></loading>
-    <block wx:if="{{ post }}">
-        <post id="postComponent" post="{{ post }}" type="detail"></post>
-    </block>
+<page-meta root-font-size="system"/>
 
-    <!--评论列表-->
-    <view class="weui-panel weui-panel_access">
-        <view class="weui-panel__hd">{{ commentName }}: {{ post.commentCount }}</view>
-        <view class="weui-panel__bd">
-            <!-- 评论列表 -->
-            <view class="weui-media-box weui-media-box_text comment-list" wx:for="{{ comments }}" wx:for-item="comment" wx:key="cid">
-                <comment comment="{{ comment }}" type="list"></comment>
-            </view>
-        </view>
-    </view>
+<navigation-bar title="{{title}}" backButton="{{true}}" homeButton="{{navbarHomeButton}}" loading="{{navbarLoading}}"></navigation-bar>
 
-    <!-- 加载动效 -->
-    <loading status="{{ loadingStatus }}" tipType="{{ loadingTipType }}"></loading>
+<scroll-view class="scrollarea" type="list" scroll-y="{{true}}" enable-back-to-top="{{true}}" refresher-enabled="{{true}}" refresher-triggered="{{refresherStatus}}" bindrefresherrefresh="onRefresherRefresh" bindscrolltolower="onScrollToLower">
+  <!-- 帖子详情 -->
+  <loading status="{{loadingDetailStatus}}" tipType="none"></loading>
+  <block wx:if="{{post}}">
+    <post post="{{post}}" viewType="detail" class="detail"></post>
+  </block>
 
-    <!-- 评论框 -->
-    <view class="weui-tabbar comment-box-btn">
-        <view class="weui-tabbar__item" bind:tap="onClickCreateComment">
-            <view class="weui-tabbar__label">
-                {{ commentBtnName }}
-            </view>
-        </view>
-    </view>
+  <!-- 评论列表 -->
+  <view class="weui-cells__title">{{commentName}}: {{post.commentCount}}</view>
+  <view class="comment-list" wx:for="{{comments}}" wx:for-item="comment" wx:key="cid">
+    <comment comment="{{comment}}" viewType="list" showReplyToPost="{{false}}"></comment>
+  </view>
 
-    <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
-        <text class="weui-loadmore__tips">Powered by Fresns</text>
-    </view>
+  <!-- 加载动效 -->
+  <loading status="{{loadingStatus}}" tipType="{{loadingTipType}}"></loading>
+</scroll-view>
+
+<!-- 评论栏 -->
+<view class="detail-bar">
+  <view class="comment-bar">
+    <interaction viewType="detail" post="{{post}}"/>
+  </view>
 </view>

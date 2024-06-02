@@ -1,48 +1,18 @@
 <!-- *
-    Fresns 微信小程序 (https://fresns.cn)
-    Copyright 2021-Present 唐杰
-    Licensed under the Apache-2.0 license
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
 * -->
-<view class="page" data-weui-theme="{{ theme }}">
-    <view class="weui-flex tab-navbar weui-navbar">
-        <view class="weui-flex__item weui-navbar__item">
-            <navigator url="/pages/posts/index" open-type="redirect">主页</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item">
-            <navigator url="/pages/posts/list" open-type="redirect">列表</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item">
-            <navigator url="/pages/posts/nearby" open-type="redirect">附近</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item">
-            <navigator url="/pages/follows/all-posts" open-type="redirect">关注</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item">
-            <navigator url="/pages/posts/likes" open-type="redirect">我赞</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item">
-            <navigator url="/pages/posts/dislikes" open-type="redirect">我踩</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item weui-navbar__item_on">
-            <navigator url="/pages/posts/following" open-type="redirect">我关注</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item">
-            <navigator url="/pages/posts/blocking" open-type="redirect">我屏蔽</navigator>
-        </view>
-    </view>
+<page-meta root-font-size="system"/>
 
-    <!-- 帖子列表 -->
-    <view class="post-list" wx:for="{{ posts }}" wx:for-item="post" wx:key="pid">
-        <post post="{{ post }}" type="list"></post>
-    </view>
+<navigation-bar title="{{title}}" backButton="{{navbarBackButton}}" homeButton="{{navbarHomeButton}}" loading="{{navbarLoading}}"></navigation-bar>
 
-    <!-- 加载动效 -->
-    <loading status="{{ loadingStatus }}" tipType="{{ loadingTipType }}"></loading>
+<scroll-view class="scrollarea" type="list" scroll-y="{{true}}" enable-back-to-top="{{true}}" refresher-enabled="{{true}}" refresher-triggered="{{refresherStatus}}" bindrefresherrefresh="onRefresherRefresh" bindscrolltolower="onScrollToLower">
+  <!-- 帖子列表 -->
+  <view class="post-list" wx:for="{{posts}}" wx:for-item="post" wx:key="pid">
+    <post post="{{post}}" viewType="list"></post>
+  </view>
 
-    <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
-        <text class="weui-loadmore__tips">Powered by Fresns</text>
-    </view>
-
-    <!-- Tabbar -->
-    <tabbar id="fresnsTabbar" activeLabel="posts"></tabbar>
-</view>
+  <!-- 加载动效 -->
+  <loading status="{{loadingStatus}}" tipType="{{loadingTipType}}"></loading>
+</scroll-view>

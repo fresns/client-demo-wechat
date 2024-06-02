@@ -61,7 +61,7 @@
     <navigator class="user-info weui-flex" url="{{userProfilePath}}">
       <view class="user-nickname" style="color:{{author.nicknameColor ? author.nicknameColor : ''}}">{{author.nickname}}</view>
 
-      <view wx:if="{{author.verifiedStatus}}" class="user-verified">
+      <view wx:if="{{author.verified}}" class="user-verified">
         <image src="{{author.verifiedIcon ? author.verifiedIcon : '/assets/images/icon-verified.png'}}" mode="heightFix"></image>
       </view>
 
