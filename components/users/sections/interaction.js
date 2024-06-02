@@ -65,7 +65,7 @@ Component({
           buttonIcons: buttonIcons,
         });
       }
-    }
+    },
   },
 
   /** 组件功能 **/
@@ -210,7 +210,9 @@ Component({
 
             if (user.interaction.followStatus) {
               user.interaction.followStatus = false; // 取消关注
-              user.stats.followerCount = user.stats.followerCount ? user.stats.followerCount - 1 : user.stats.followerCount; // 计数减一
+              user.stats.followerCount = user.stats.followerCount
+                ? user.stats.followerCount - 1
+                : user.stats.followerCount; // 计数减一
             }
 
             // mixins/fresnsInteraction.js
