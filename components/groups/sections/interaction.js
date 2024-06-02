@@ -65,7 +65,7 @@ Component({
           buttonIcons: buttonIcons,
         });
       }
-    }
+    },
   },
 
   /** 组件功能 **/
