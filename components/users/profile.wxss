@@ -1,0 +1,154 @@
+/*!
+ * Fresns 微信小程序 (https://fresns.cn)
+ * Copyright 2021-Present 唐杰
+ * Licensed under the Apache-2.0 license
+ */
+.profile-header {
+  background-color: var(--weui-BG-2);
+  padding-bottom: 30rpx;
+}
+
+.user-avatar {
+  width: 200rpx;
+  height: 200rpx;
+  position: relative;
+}
+
+.user-avatar .avatar-img {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  margin: 40rpx;
+}
+
+.user-avatar .avatar-decorate {
+  position: absolute;
+  width: 200rpx;
+  height: 200rpx;
+  margin-top: -40rpx;
+  z-index: 99;
+}
+
+.profile-btn {
+  position: absolute;
+  display: flex;
+  top: 72rpx;
+  right: 20rpx;
+}
+
+.profile-info {
+  margin: 0 40rpx;
+  margin-top: -90rpx;
+}
+
+.profile-nickname {
+  font-size: 40rpx;
+  color: var(--weui-FG-0);
+}
+
+.profile-username {
+  font-size: 32rpx;
+  color: var(--weui-FG-1);
+  margin-left: 20rpx;
+  margin-top: 8rpx;
+}
+
+.profile-gender {
+  margin-left: 20rpx;
+  margin-top: 16rpx;
+}
+
+.profile-gender-male {
+  color: var(--weui-BLUE);
+}
+
+.profile-gender-female {
+  color: var(--weui-RED);
+}
+
+.profile-role-icon image {
+  height: 36rpx;
+  margin: 0 8rpx;
+  margin-left: 20rpx;
+  margin-top: 12rpx;
+}
+
+.profile-role-name .weui-badge {
+  font-size: 20rpx !important;
+  font-weight: 400;
+  background-color: var(--weui-BG-0);
+  color: var(--weui-FG-2);
+  margin-left: 20rpx;
+  margin-top: 18rpx;
+}
+
+.profile-verified {
+  margin-top: 20rpx;
+  display: flex;
+  padding: 6rpx 20rpx;
+  border-radius: 20rpx;
+  background-color: var(--weui-ORANGE);
+  width: auto;
+}
+
+.profile-verified .verified-icon {
+  margin-right: 10rpx;
+}
+
+.profile-verified .verified-icon image {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.profile-verified .verified-desc {
+  font-weight: 400;
+  font-size: 24rpx;
+  color: var(--weui-FG-HALF);
+}
+
+.profile-bio {
+  margin-top: 20rpx;
+  font-weight: 400;
+  font-size: 28rpx;
+}
+
+.profile-stats {
+  margin-top: 20rpx;
+}
+
+.weui-media-box__info navigator {
+  color: var(--weui-LINK-100);
+}
+
+.profile-followersYouKnow {
+  display: flex;
+  margin-top: 20rpx;
+  font-size: 28rpx;
+  color: var(--weui-FG-1);
+}
+
+.profile-followersYouKnow text {
+  margin-right: 5rpx;
+}
+
+/* 更多按钮 */
+.weui-btn {
+  padding: 8rpx 18rpx !important;
+}
+
+.weui-btn image {
+  height: 28rpx;
+  width: 28rpx;
+  margin-right: 0;
+}
+
+.weui-actionsheet__cell {
+  display: flex;
+  justify-content: center;
+}
+
+.weui-actionsheet__cell image {
+  width: 44rpx !important;
+  height: 44rpx !important;
+  margin-right: 10rpx;
+}

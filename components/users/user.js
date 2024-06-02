@@ -3,24 +3,31 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import { globalInfo } from '../../utils/fresnsGlobalInfo';
+import { fresnsViewProfilePath } from '../../sdk/helpers/profiles';
 
 Component({
   /** 组件的属性列表 **/
   properties: {
-    user: Object,
+    user: {
+      type: Object,
+      value: null,
+    },
   },
 
   /** 组件的初始数据 **/
   data: {
-    userHomePath: '',
+    userProfilePath: '',
   },
 
   /** 组件生命周期声明对象 **/
   lifetimes: {
     attached: async function () {
+      const user = this.data.user;
+
+      const userProfilePath = await fresnsViewProfilePath(user.fsid);
+
       this.setData({
-        userHomePath: await globalInfo.userHomePath(),
+        userProfilePath: userProfilePath,
       });
     },
   },

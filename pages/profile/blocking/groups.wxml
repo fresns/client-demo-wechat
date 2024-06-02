@@ -1,31 +1,27 @@
 <!-- *
-    Fresns 微信小程序 (https://fresns.cn)
-    Copyright 2021-Present 唐杰
-    Licensed under the Apache-2.0 license
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
 * -->
-<view class="page" data-weui-theme="{{ theme }}">
-    <profile-user user="{{ profile.detail }}" items="{{ profile.items }}" followersYouKnow="{{ profile.followersYouKnow }}"/>
+<page-meta root-font-size="system"/>
 
-    <profile-switch user="{{ profile.detail }}"/>
+<navigation-bar title="{{title}}" backButton="{{true}}" homeButton="{{navbarHomeButton}}" loading="{{navbarLoading}}"></navigation-bar>
 
-    <!-- 标题 -->
-    <view class="page-title">
-        <text>{{ title }}</text>
-    </view>
+<scroll-view class="scrollarea" type="list" scroll-y="{{true}}" enable-back-to-top="{{true}}" refresher-enabled="{{true}}" refresher-triggered="{{refresherStatus}}" bindrefresherrefresh="onRefresherRefresh" bindscrolltolower="onScrollToLower">
+  <profile-user user="{{profile}}" followersYouKnow="{{followersYouKnow}}" items="{{items}}"/>
 
-    <!-- 列表 -->
-    <view class="profile-list">
-        <view class="weui-media-box weui-media-box_small-appmsg">
-            <view class="weui-cells">
-                <group wx:for="{{ groups }}" wx:for-item="group" wx:key="gid" group="{{ group }}"></group>
-            </view>
-        </view>
-    </view>
+  <profile-switch user="{{profile}}"/>
 
-    <!-- 加载动效 -->
-    <loading status="{{ loadingStatus }}" tipType="{{ loadingTipType }}"></loading>
+  <!-- 列表标题 -->
+  <view class="list-title">
+    <text>{{listTitle}}</text>
+  </view>
 
-    <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
-        <text class="weui-loadmore__tips">Powered by Fresns</text>
-    </view>
-</view>
+  <!-- 小组列表 -->
+  <view class="group-list" wx:for="{{groups}}" wx:for-item="group" wx:key="gid">
+    <group group="{{group}}"></group>
+  </view>
+
+  <!-- 加载动效 -->
+  <loading status="{{loadingStatus}}" tipType="{{loadingTipType}}"></loading>
+</scroll-view>

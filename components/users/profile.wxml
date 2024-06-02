@@ -1,0 +1,87 @@
+<!-- *
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+* -->
+<view class="profile-header">
+  <view class="weui-flex">
+    <view class="profile-avatar">
+      <view class="user-avatar">
+        <image wx:if="{{user.decorate}}" src="{{user.decorate}}" class="avatar-decorate" mode="scaleToFill"/>
+        <image wx:if="{{user.avatar}}" src="{{user.avatar}}" class="avatar-img" mode="scaleToFill"/>
+      </view>
+    </view>
+
+    <view class="profile-btn">
+      <interaction user="{{user}}"/>
+
+      <view class="weui-btn weui-btn_mini weui-btn_default" wx:if="{{items.manages.length > 0}}" bind:tap="onShowMoreMenus">
+        <image class="weui-btn_cell__icon" src="{{buttonIcons.more}}" style="margin-right: -1px;"/>
+      </view>
+    </view>
+  </view>
+
+  <view class="profile-info">
+    <view class="weui-flex">
+      <text class="profile-nickname" style="color:{{user.nicknameColor}}">{{user.nickname}}</text>
+
+      <text class="profile-username">@{{user.fsid}}</text>
+
+      <view wx:if="{{user.roleIconDisplay}}" class="profile-role-icon">
+        <image src="{{user.roleIcon}}" mode="heightFix"/>
+      </view>
+
+      <view wx:if="{{user.roleNameDisplay}}" class="profile-role-name">
+        <text class="weui-badge">{{user.roleName}}</text>
+      </view>
+    </view>
+
+    <view class="profile-verified" wx:if="{{user.verified}}">
+      <view class="verified-icon"><image src="{{user.verifiedIcon ? user.verifiedIcon : '/assets/images/icon-verified.png'}}"/></view>
+      <view class="verified-desc">{{user.verifiedDesc}}</view>
+    </view>
+
+    <view class="profile-bio" wx:if="{{user.bio}}">
+      <rich-text nodes="{{user.bioHtml}}" user-select="true"/>
+    </view>
+
+    <view class="profile-stats weui-media-box__info">
+      <view class="weui-media-box__info__meta">
+        <navigator url="/pages/profile/following/users?fsid={{user.fsid}}">{{user.stats.followUserCount}} {{fresnsLang.userFollowing}}</navigator>
+      </view>
+      <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">
+        <navigator url="/pages/profile/interactions/followers?fsid={{user.fsid}}">{{user.stats.followerCount}} {{user.interaction.followUserTitle}}</navigator>
+      </view>
+    </view>
+
+    <navigator url="/pages/profile/interactions/followers-you-follow?fsid={{user.fsid}}" open-type="redirect" class="profile-followersYouKnow" wx:if="{{followersYouFollowEnabled && followersYouKnow.length > 0}}">
+      <block wx:for="{{followersYouKnow}}" wx:key="*this">
+        <text>{{item.nickname}}</text>
+        <text wx:if="{{index < followersYouKnow.length - 1}}">,</text>
+      </block>
+      <text>{{fresnsLang.userFollowersYouKnow}}</text>
+    </navigator>
+  </view>
+</view>
+
+<!-- 更多菜单 -->
+<view wx:if="{{showMoreSheet}}" class="fadeIn" bind:tap="onHideMoreMenus">
+  <view class="weui-mask"></view>
+  <view class="weui-actionsheet weui-actionsheet_toggle">
+    <view class="weui-actionsheet__menu more-menus">
+      <!-- 扩展功能 -->
+      <navigator class="weui-actionsheet__cell" wx:for="{{items.manages}}" url="/sdk/extensions/webview" bind:tap="handleExtensionTap"
+        data-title="{{item.name}}"
+        data-url="{{item.appUrl}}"
+        data-pid="{{post.pid}}"
+        data-view-type="{{viewType}}"
+        data-post-message-key="fresnsPostManage">
+        <image src="{{item.icon}}" mode="aspectFit"></image>
+        <text>{{item.name}}</text>
+      </navigator>
+    </view>
+    <view class="weui-actionsheet__action">
+      <view class="weui-actionsheet__cell" bind:tap="onHideMoreMenus">{{fresnsLang.cancel}}</view>
+    </view>
+  </view>
+</view>

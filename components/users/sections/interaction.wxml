@@ -1,0 +1,34 @@
+<!-- *
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+* -->
+<view class="mark-btn">
+  <!-- 点赞 -->
+  <view wx:if="{{user.interaction.likeEnabled}}" class="weui-btn weui-btn_mini {{user.interaction.likeStatus ? 'weui-btn_primary' : 'weui-btn_default'}}" catch:tap="onClickUserLike">
+    <image wx:if="{{!user.interaction.likeStatus}}" class="weui-btn_cell__icon" src="{{buttonIcons.like}}"></image>
+    <image wx:if="{{user.interaction.likeStatus}}" class="weui-btn_cell__icon" src="{{buttonIcons.likeActive}}"></image>
+    <text class="count" wx:if="{{user.stats.likerCount}}">{{user.stats.likerCount}}</text>
+  </view>
+
+  <!-- 点踩 -->
+  <view wx:if="{{user.interaction.dislikeEnabled}}" class="weui-btn weui-btn_mini {{user.interaction.dislikeStatus ? 'weui-btn_primary' : 'weui-btn_default'}}" catch:tap="onClickUserDislike">
+    <image wx:if="{{!user.interaction.dislikeStatus}}" class="weui-btn_cell__icon" src="{{buttonIcons.dislike}}"></image>
+    <image wx:if="{{user.interaction.dislikeStatus}}" class="weui-btn_cell__icon" src="{{buttonIcons.dislikeActive}}"></image>
+    <text class="count" wx:if="{{user.stats.dislikerCount}}">{{user.stats.dislikerCount}}</text>
+  </view>
+
+  <!-- 关注 -->
+  <view wx:if="{{user.interaction.followEnabled}}" class="weui-btn weui-btn_mini {{user.interaction.followStatus ? 'weui-btn_primary' : 'weui-btn_default'}}" catch:tap="onClickUserFollow">
+    <image wx:if="{{!user.interaction.followStatus}}" class="weui-btn_cell__icon" src="{{buttonIcons.follow}}"></image>
+    <image wx:if="{{user.interaction.followStatus}}" class="weui-btn_cell__icon" src="{{buttonIcons.followActive}}"></image>
+    <text class="count" wx:if="{{user.stats.followerCount}}">{{user.stats.followerCount}}</text>
+  </view>
+
+  <!-- 屏蔽 -->
+  <view wx:if="{{user.interaction.blockEnabled}}" class="weui-btn weui-btn_mini {{user.interaction.blockStatus ? 'weui-btn_primary' : 'weui-btn_default'}}" catch:tap="onClickUserBlock">
+    <image wx:if="{{!user.interaction.blockStatus}}" class="weui-btn_cell__icon" src="{{buttonIcons.block}}"></image>
+    <image wx:if="{{user.interaction.blockStatus}}" class="weui-btn_cell__icon" src="{{buttonIcons.blockActive}}"></image>
+    <text class="count" wx:if="{{user.stats.blockerCount}}">{{user.stats.blockerCount}}</text>
+  </view>
+</view>

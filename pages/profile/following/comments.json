@@ -1,9 +1,10 @@
 {
-  "navigationBarTitleText": "用户",
+  "navigationBarTitleText": "评论",
   "usingComponents": {
-    "profile-user": "/components/user/profile",
-    "profile-switch": "/components/user/section/switch",
-    "loading": "/components/commons/loading/loading",
-    "comment": "/components/comment/comment"
+    "loading": "/sdk/components/loading/loading",
+    "navigation-bar": "/components/commons/navigation-bar/navigation-bar",
+    "profile-user": "/components/users/profile",
+    "profile-switch": "/components/users/sections/switch",
+    "comment": "/components/comments/comment"
   }
 }

@@ -3,10 +3,10 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-@import '/assets/styles/weui.wxss';
-
 .user-box {
   position: relative;
+  background-color: var(--weui-BG-2);
+  margin-top: 20rpx;
 }
 
 .user-navigator {
@@ -14,88 +14,84 @@
 }
 
 .user-avatar {
-  width: 66px;
-  height: 66px;
+  width: 132rpx;
+  height: 132rpx;
 }
 
 .user-avatar .avatar-img {
-  width: 40px;
-  height: 40px;
+  width: 80rpx;
+  height: 80rpx;
   border-radius: 50%;
-  margin: 13px;
-  margin-bottom: -7px;
+  margin: 26rpx;
 }
 
 .user-avatar .avatar-decorate {
   position: absolute;
-  width: 66px;
-  height: 66px;
-  margin-bottom: -7px;
+  width: 132rpx;
+  height: 132rpx;
+  z-index: 99;
 }
 
 .user-info {
   overflow: hidden;
-  margin-top: 10px;
+  margin-top: 20rpx;
 }
 
 .user-info .user-nickname {
-  font-size: 18px;
+  font-size: 30rpx;
   color: var(--weui-FG-0);
 }
 
 .user-info .user-verified {
-  margin-right: -6px;
+  margin-right: -12rpx;
 }
 
 .user-info .user-verified image {
-  height: 18px;
-  margin: 0 4px;
-  margin-top: 4px;
+  height: 30rpx;
+  margin: 0 8rpx;
+  margin-top: 8rpx;
 }
 
 .user-info .user-name {
-  margin-left: 8px;
-  margin-top: 1px;
-  font-size: 16px;
+  margin-left: 16rpx;
+  margin-top: 5rpx;
+  font-size: 24rpx;
   color: var(--weui-FG-1);
 }
 
 .user-info .user-role-icon image {
-  height: 18px;
-  margin: 0 4px;
-  margin-left: 10px;
-  margin-top: 4px;
+  height: 30rpx;
+  margin: 0 8rpx;
+  margin-left: 20rpx;
+  margin-top: 8rpx;
 }
 
 .user-info .user-role-name .weui-badge {
+  font-size: 20rpx !important;
   font-weight: 400;
   background-color: var(--weui-BG-0);
   color: var(--weui-FG-2);
-  margin-left: 5px;
+  margin-left: 10rpx;
+  margin-top: 7rpx;
 }
 
 .user-icons image {
-  height: 16px;
-  margin-right: 8px;
-  margin-top: 2px;
+  height: 32rpx;
+  margin-right: 16rpx;
+  margin-top: 4rpx;
 }
 
 .user-bio {
   overflow: hidden;
   color: var(--weui-FG-1);
-  padding-right: 15px;
-  margin: 5px 0;
-  font-size: 15px;
-}
-
-.interactive-box {
-  margin-bottom: 24px;
-  height: 24px;
-  overflow: hidden;
+  padding-right: 30rpx;
+  margin: 10rpx 0;
+  font-size: 24rpx;
 }
 
 .interactive-btn {
-  position: absolute;
-  left: 66px;
-  bottom: 12px;
+  display: flex;
+  padding-top: 10rpx;
+  padding-bottom: 24rpx;
+  z-index: 99;
 }

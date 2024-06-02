@@ -3,16 +3,27 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-@import '/assets/styles/weui.wxss';
+.mark-btn {
+  display: flex;
+  flex-wrap: wrap;
+}
 
 .mark-btn .weui-btn {
-  margin-right: 10px;
+  margin-right: 20rpx;
+  padding: 8rpx 18rpx !important;
+  display: flex;
+  align-items: center;
 }
 
 .mark-btn .weui-btn image {
-  height: 18px;
-  width: 18px;
+  height: 28rpx;
+  width: 28rpx;
   margin-right: 0;
+}
+
+.mark-btn .weui-btn .count {
+  margin-left: 8rpx;
+  font-size: 20rpx;
 }
 
 .mark-btn .weui-btn_default {

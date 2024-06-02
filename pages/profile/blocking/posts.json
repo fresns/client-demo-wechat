@@ -1,9 +1,10 @@
 {
-  "navigationBarTitleText": "用户",
+  "navigationBarTitleText": "帖子",
   "usingComponents": {
-    "profile-user": "/components/user/profile",
-    "profile-switch": "/components/user/section/switch",
-    "loading": "/components/commons/loading/loading",
-    "post": "/components/post/post"
+    "loading": "/sdk/components/loading/loading",
+    "navigation-bar": "/components/commons/navigation-bar/navigation-bar",
+    "profile-user": "/components/users/profile",
+    "profile-switch": "/components/users/sections/switch",
+    "post": "/components/posts/post"
   }
 }

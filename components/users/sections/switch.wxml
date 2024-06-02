@@ -1,0 +1,14 @@
+<!-- *
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+* -->
+<view class="weui-flex weui-navbar">
+  <view class="weui-flex__item weui-navbar__item" bind:tap="onClickToPosts" wx:if="{{postEnabled}}">{{postName}}</view>
+  <view class="weui-flex__item weui-navbar__item" bind:tap="onClickToComments" wx:if="{{commentEnabled}}">{{commentName}}</view>
+  <view class="weui-flex__item weui-navbar__item" bind:tap="onClickMenus" data-type="likes">{{user.interaction.likeName}}</view>
+  <view class="weui-flex__item weui-navbar__item" bind:tap="onClickMenus" data-type="dislikes">{{user.interaction.dislikeName}}</view>
+  <view class="weui-flex__item weui-navbar__item" bind:tap="onClickMenus" data-type="following">{{user.interaction.followName}}</view>
+  <view class="weui-flex__item weui-navbar__item" bind:tap="onClickMenus" data-type="blocking">{{user.interaction.blockName}}</view>
+  <view class="weui-flex__item weui-navbar__item" bind:tap="onClickMenus" data-type="interactions">{{fresnsLang.more}}</view>
+</view>
