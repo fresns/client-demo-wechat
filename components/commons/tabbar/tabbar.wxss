@@ -27,7 +27,7 @@
   display: block;
   flex: 1;
   padding: 16rpx 0;
-  padding-bottom: calc(16rpx + env(safe-area-inset-bottom));
+  padding-bottom: env(safe-area-inset-bottom);
   font-size: 0;
   color: var(--weui-FG-1);
   text-align: center;
