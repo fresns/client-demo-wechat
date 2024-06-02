@@ -2,5 +2,6 @@
   "component": true,
   "styleIsolation": "apply-shared",
   "usingComponents": {
+    "comment-box": "/components/comment-box/comment-box"
   }
 }

@@ -36,72 +36,56 @@ Component({
     showMoreSheet: false,
 
     buttonIcons: {
-      like: 'https://assets.fresns.cn/communities/interaction/content-like.png',
-      likeActive: 'https://assets.fresns.cn/communities/interaction/content-like-active.png',
-      dislike: 'https://assets.fresns.cn/communities/interaction/content-dislike.png',
-      dislikeActive: 'https://assets.fresns.cn/communities/interaction/content-dislike-active.png',
-      follow: 'https://assets.fresns.cn/communities/interaction/follow.png',
-      followActive: 'https://assets.fresns.cn/communities/interaction/follow-active.png',
-      block: 'https://assets.fresns.cn/communities/interaction/block.png',
-      blockActive: 'https://assets.fresns.cn/communities/interaction/block-active.png',
-      comment: 'https://assets.fresns.cn/communities/interaction/content-comment.png',
-      commentActive: 'https://assets.fresns.cn/communities/interaction/content-comment.png',
-      share: 'https://assets.fresns.cn/communities/interaction/content-share.png',
-      shareActive: 'https://assets.fresns.cn/communities/interaction/content-share.png',
-      more: 'https://assets.fresns.cn/communities/interaction/content-more.png',
-      moreActive: 'https://assets.fresns.cn/communities/interaction/content-more.png',
+      like: '/assets/images/interaction/content-like.png',
+      likeActive: '/assets/images/interaction/content-like-active.png',
+      dislike: '/assets/images/interaction/content-dislike.png',
+      dislikeActive: '/assets/images/interaction/content-dislike-active.png',
+      follow: '/assets/images/interaction/follow.png',
+      followActive: '/assets/images/interaction/follow-active.png',
+      block: '/assets/images/interaction/block.png',
+      blockActive: '/assets/images/interaction/block-active.png',
+      comment: '/assets/images/interaction/content-comment.png',
+      commentActive: '/assets/images/interaction/content-comment.png',
+      share: '/assets/images/interaction/content-share.png',
+      shareActive: '/assets/images/interaction/content-share.png',
+      more: '/assets/images/interaction/content-more.png',
+      moreActive: '/assets/images/interaction/content-more.png',
     },
   },
 
-  /** 组件生命周期声明对象 **/
-  lifetimes: {
-    attached: async function () {
-      const comment = this.data.comment;
+  /** 组件数据字段监听器 **/
+  observers: {
+    comment: async function (comment) {
+      if (!comment) {
+        return;
+      }
 
       // buttonIcons
-      const ButtonIconsArr = comment.operations.buttonIcons;
-      if (ButtonIconsArr.length > 0) {
-        const likeItem = ButtonIconsArr.find((item) => item.code === 'like');
-        const dislikeItem = ButtonIconsArr.find((item) => item.code === 'dislike');
-        const followItem = ButtonIconsArr.find((item) => item.code === 'follow');
-        const blockItem = ButtonIconsArr.find((item) => item.code === 'block');
-        const commentItem = ButtonIconsArr.find((item) => item.code === 'comment');
-        const shareItem = ButtonIconsArr.find((item) => item.code === 'share');
-        const moreItem = ButtonIconsArr.find((item) => item.code === 'more');
+      const buttonIconsArr = comment.operations.buttonIcons;
+      if (buttonIconsArr.length > 0) {
+        const likeItem = buttonIconsArr.find((item) => item.code === 'like');
+        const dislikeItem = buttonIconsArr.find((item) => item.code === 'dislike');
+        const followItem = buttonIconsArr.find((item) => item.code === 'follow');
+        const blockItem = buttonIconsArr.find((item) => item.code === 'block');
+        const commentItem = buttonIconsArr.find((item) => item.code === 'comment');
+        const shareItem = buttonIconsArr.find((item) => item.code === 'share');
+        const moreItem = buttonIconsArr.find((item) => item.code === 'more');
 
         const buttonIcons = {
-          like: likeItem ? likeItem.imageUrl : 'https://assets.fresns.cn/communities/interaction/content-like.png',
-          likeActive: likeItem
-            ? likeItem.imageActiveUrl
-            : 'https://assets.fresns.cn/communities/interaction/content-like-active.png',
-          dislike: dislikeItem
-            ? dislikeItem.imageUrl
-            : 'https://assets.fresns.cn/communities/interaction/content-dislike.png',
-          dislikeActive: dislikeItem
-            ? dislikeItem.imageActiveUrl
-            : 'https://assets.fresns.cn/communities/interaction/content-dislike-active.png',
-          follow: followItem ? followItem.imageUrl : 'https://assets.fresns.cn/communities/interaction/follow.png',
-          followActive: followItem
-            ? followItem.imageActiveUrl
-            : 'https://assets.fresns.cn/communities/interaction/follow-active.png',
-          block: blockItem ? blockItem.imageUrl : 'https://assets.fresns.cn/communities/interaction/block.png',
-          blockActive: blockItem
-            ? blockItem.imageActiveUrl
-            : 'https://assets.fresns.cn/communities/interaction/block-active.png',
-          comment: commentItem
-            ? commentItem.imageUrl
-            : 'https://assets.fresns.cn/communities/interaction/content-comment.png',
-          commentActive: commentItem
-            ? commentItem.imageActiveUrl
-            : 'https://assets.fresns.cn/communities/interaction/content-comment.png',
-          share: shareItem ? shareItem.imageUrl : 'https://assets.fresns.cn/communities/interaction/content-share.png',
-          shareActive: shareItem
-            ? shareItem.imageActiveUrl
-            : 'https://assets.fresns.cn/communities/interaction/content-share.png',
-          more: moreItem ? moreItem.imageUrl : 'https://assets.fresns.cn/communities/interaction/content-more.png',
-          moreActive: moreItem
-            ? moreItem.imageActiveUrl
-            : 'https://assets.fresns.cn/communities/interaction/content-more.png',
+          like: likeItem ? likeItem.imageUrl : '/assets/images/interaction/content-like.png',
+          likeActive: likeItem ? likeItem.imageActiveUrl : '/assets/images/interaction/content-like-active.png',
+          dislike: dislikeItem ? dislikeItem.imageUrl : '/assets/images/interaction/content-dislike.png',
+          dislikeActive: dislikeItem ? dislikeItem.imageActiveUrl : '/assets/images/interaction/content-dislike-active.png',
+          follow: followItem ? followItem.imageUrl : '/assets/images/interaction/follow.png',
+          followActive: followItem ? followItem.imageActiveUrl : '/assets/images/interaction/follow-active.png',
+          block: blockItem ? blockItem.imageUrl : '/assets/images/interaction/block.png',
+          blockActive: blockItem ? blockItem.imageActiveUrl : '/assets/images/interaction/block-active.png',
+          comment: commentItem ? commentItem.imageUrl : '/assets/images/interaction/content-comment.png',
+          commentActive: commentItem ? commentItem.imageActiveUrl : '/assets/images/interaction/content-comment.png',
+          share: shareItem ? shareItem.imageUrl : '/assets/images/interaction/content-share.png',
+          shareActive: shareItem ? shareItem.imageActiveUrl : '/assets/images/interaction/content-share.png',
+          more: moreItem ? moreItem.imageUrl : '/assets/images/interaction/content-more.png',
+          moreActive: moreItem ? moreItem.imageActiveUrl : '/assets/images/interaction/content-more.png',
         };
 
         this.setData({
@@ -120,6 +104,16 @@ Component({
       const content = truncateText(comment.content, 20);
 
       this.setData({
+        title: nickname + ': ' + content,
+        nickname: nickname,
+      });
+    }
+  },
+
+  /** 组件生命周期声明对象 **/
+  lifetimes: {
+    attached: async function () {
+      this.setData({
         appBaseInfo: fresnsClient.appBaseInfo,
         enableSharePoster: fresnsClient.enableSharePoster,
         fresnsLang: {
@@ -132,8 +126,6 @@ Component({
           modifierCompleted: await fresnsLang('modifierCompleted'),
           contentAuthorLiked: await fresnsLang('contentAuthorLiked'),
         },
-        title: nickname + ': ' + content,
-        nickname: nickname,
       });
     },
   },
@@ -149,23 +141,8 @@ Component({
 
     // 评论框高度
     eventCommentBoxHeight: function (e) {
-      let height = e.detail.height;
-
-      if (e.detail.height) {
-        height = e.detail.height + 50;
-      }
-
       this.setData({
-        commentBoxBottom: height,
-      });
-    },
-
-    // 评论 Dialog 全屏
-    eventCommentDialogFullScreen: function (e) {
-      const status = e.detail.status;
-
-      this.setData({
-        commentDialogFullScreen: status,
+        commentBoxBottom: e.detail.height || 0,
       });
     },
 
@@ -173,6 +150,7 @@ Component({
     eventCommentBoxHide: function () {
       this.setData({
         showCommentBox: false,
+        commentBoxBottom: 0,
       });
     },
 

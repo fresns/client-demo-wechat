@@ -1,9 +1,8 @@
 {
   "navigationBarTitleText": "我屏蔽的评论",
-  "enablePullDownRefresh": true,
   "usingComponents": {
-    "tabbar": "/components/commons/tabbar/tabbar",
-    "loading": "/components/commons/loading/loading",
-    "comment": "/components/comment/comment"
+    "loading": "/sdk/components/loading/loading",
+    "navigation-bar": "/components/commons/navigation-bar/navigation-bar",
+    "comment": "/components/comments/comment"
   }
 }

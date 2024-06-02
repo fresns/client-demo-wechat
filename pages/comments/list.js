@@ -3,54 +3,54 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import { fresnsApi } from '../../api/api';
-import { fresnsConfig } from '../../api/tool/function';
-import { parseUrlParams } from '../../utils/fresnsUtilities';
+import { fresnsApi } from '../../sdk/services';
+import { fresnsConfig } from '../../sdk/helpers/configs';
+import { parseUrlParams } from '../../sdk/utilities/toolkit';
 
 let isRefreshing = false;
 
 Page({
   /** 外部 mixin 引入 **/
   mixins: [
-    require('../../mixins/globalConfig'),
-    require('../../mixins/checkSiteMode'),
+    require('../../mixins/common'),
+    require('../../mixins/fresnsCallback'),
     require('../../mixins/fresnsInteraction'),
-    require('../../mixins/fresnsExtensions'),
+    require('../../sdk/extensions/functions'),
   ],
 
   /** 页面的初始数据 **/
   data: {
     title: null,
+
     // 默认查询条件
     requestState: null,
     requestQuery: null,
-    // 当前页面数据
+
+    // 当前分页数据
     comments: [],
-    // 下次请求时候的页码，初始值为 1
-    page: 1,
-    // 加载状态
-    loadingStatus: false,
-    loadingTipType: 'none',
-    isReachBottom: false,
+
+    // 分页配置
+    page: 1, // 下次请求时候的页码，初始值为 1
+    isReachBottom: false, // 是否已经无内容（已经最后一次，无内容再加载）
+    refresherStatus: false, // scroll-view 视图容器下拉刷新状态
+    loadingStatus: false, // loading 组件状态
+    loadingTipType: 'none', // loading 组件提示文案
   },
 
   /** 监听页面加载 **/
   onLoad: async function (options) {
-    let requestState = await fresnsConfig('menu_comment_list_query_state');
-    let requestQuery = parseUrlParams(await fresnsConfig('menu_comment_list_query_config'));
+    let requestState = await fresnsConfig('channel_comment_list_query_state');
+    let requestQuery = parseUrlParams(await fresnsConfig('channel_comment_list_query_config'));
 
     if (requestState === 3) {
       requestQuery = Object.assign(requestQuery, options);
     }
 
     this.setData({
-      title: await fresnsConfig('menu_comment_list_title'),
+      navbarBackButton: true,
+      title: await fresnsConfig('channel_comment_list_name'),
       requestState: requestState,
       requestQuery: requestQuery,
-    });
-
-    wx.setNavigationBarTitle({
-      title: await fresnsConfig('menu_comment_list_title'),
     });
 
     await this.loadFresnsPageData();
@@ -62,16 +62,24 @@ Page({
       return;
     }
 
-    wx.showNavigationBarLoading();
-
     this.setData({
       loadingStatus: true,
     });
 
-    const resultRes = await fresnsApi.comment.commentList(
+    const resultRes = await fresnsApi.comment.list(
       Object.assign(this.data.requestQuery, {
-        whitelistKeys:
-          'cid,url,content,contentLength,isBrief,isMarkdown,isAnonymous,isSticky,digestState,createdTimeAgo,editedTimeAgo,likeCount,dislikeCount,commentCount,moreJson,location,files,isCommentPrivate,author.fsid,author.uid,author.username,author.nickname,author.avatar,author.decorate,author.verifiedStatus,author.nicknameColor,author.roleName,author.roleNameDisplay,author.status,manages,editControls,interaction,replyToPost.pid,replyToPost.author.avatar,replyToPost.author.nickname,replyToPost.author.status,replyToPost.isAnonymous,replyToPost.content,replyToPost.group.gname,replyToComment.author.avatar,replyToComment.author.nickname,replyToComment.author.status,replyToComment.isAnonymous,replyToComment.content,replyToComment.createdDatetime',
+        filterType: 'blacklist',
+        filterKeys: 'hashtags,previewLikeUsers',
+        filterGeotagType: 'whitelist',
+        filterGeotagKeys: 'gtid,name,distance,unit',
+        filterAuthorType: 'whitelist',
+        filterAuthorKeys: 'fsid,uid,nickname,nicknameColor,avatar,decorate,verified,verifiedIcon,status,roleName,roleNameDisplay,roleIcon,roleIconDisplay,operations',
+        filterPreviewCommentType: 'whitelist',
+        filterPreviewCommentKeys: 'cid,content,contentLength,author.nickname,author.avatar,author.status',
+        filterReplyToPostType: 'whitelist',
+        filterReplyToPostKeys: 'pid,title,content,contentLength,author.nickname,author.avatar,author.status,group.name',
+        filterReplyToCommentType: 'whitelist',
+        filterReplyToCommentKeys: 'cid,content,contentLength,createdDatetime,author.nickname,author.avatar,author.status',
         page: this.data.page,
       })
     );
@@ -96,17 +104,20 @@ Page({
     }
 
     this.setData({
+      refresherStatus: false,
       loadingStatus: false,
     });
-
-    wx.hideNavigationBarLoading();
   },
 
   /** 监听用户下拉动作 **/
-  onPullDownRefresh: async function () {
-    // 防抖判断
+  onRefresherRefresh: async function () {
     if (isRefreshing) {
-      wx.stopPullDownRefresh();
+      console.log('下拉', '防抖');
+
+      this.setData({
+        refresherStatus: false,
+      });
+
       return;
     }
 
@@ -115,20 +126,28 @@ Page({
     this.setData({
       comments: [],
       page: 1,
-      loadingTipType: 'none',
       isReachBottom: false,
+      refresherStatus: true,
+      loadingTipType: 'none',
     });
 
     await this.loadFresnsPageData();
 
-    wx.stopPullDownRefresh();
     setTimeout(() => {
       isRefreshing = false;
     }, 5000); // 防抖时间 5 秒
   },
 
   /** 监听用户上拉触底 **/
-  onReachBottom: async function () {
+  onScrollToLower: async function () {
+    if (isRefreshing) {
+      console.log('上拉', '防抖');
+
+      return;
+    }
+
+    isRefreshing = true;
+
     // 不接受客户端传参，包括分页
     if (this.data.requestState == 1) {
       this.setData({
@@ -139,5 +158,9 @@ Page({
     }
 
     await this.loadFresnsPageData();
+
+    setTimeout(() => {
+      isRefreshing = false;
+    }, 5000); // 防抖时间 5 秒
   },
 });

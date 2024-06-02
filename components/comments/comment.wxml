@@ -68,7 +68,7 @@
   </view>
 
   <!-- 所属帖子 -->
-  <view class="{{viewType == 'list' ? 'list-style' : ''}}" wx:if="{{comment.replyToPost}}">
+  <view class="{{viewType == 'list' ? 'list-style' : ''}}" wx:if="{{showReplyToPost && comment.replyToPost}}">
     <view class="reply-to-post">
       <quoted-post post="{{comment.replyToPost}}"/>
     </view>

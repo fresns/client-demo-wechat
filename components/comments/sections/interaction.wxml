@@ -7,33 +7,41 @@
   <!-- 点赞 -->
   <view class="weui-flex__item" wx:if="{{comment.interaction.likeEnabled}}">
     <view class="fs_btn" bind:tap="onClickCommentLike">
-      <image wx:if="{{!comment.interaction.likeStatus}}" src="{{buttonIcons.like}}" class="card-footer-icon" mode="aspectFit"></image>
-      <image wx:if="{{comment.interaction.likeStatus}}" src="{{buttonIcons.likeActive}}" class="card-footer-icon" mode="aspectFit"></image>
-      <text wx:if="{{comment.likeCount}}" class="card-footer-text">{{comment.likeCount}}</text>
+      <view class="btn-icon">
+        <image wx:if="{{!comment.interaction.likeStatus}}" src="{{buttonIcons.like}}" mode="aspectFit"></image>
+        <image wx:if="{{comment.interaction.likeStatus}}" src="{{buttonIcons.likeActive}}" mode="aspectFit"></image>
+      </view>
+      <text wx:if="{{comment.likeCount}}" class="btn-text">{{comment.likeCount}}</text>
     </view>
   </view>
 
   <!-- 点踩 -->
   <view class="weui-flex__item" wx:if="{{comment.interaction.dislikeEnabled}}">
     <view class="fs_btn" bind:tap="onClickCommentDislike">
-      <image wx:if="{{!comment.interaction.dislikeStatus}}" src="{{buttonIcons.dislike}}" class="card-footer-icon" mode="aspectFit"></image>
-      <image wx:if="{{comment.interaction.dislikeStatus}}" src="{{buttonIcons.dislikeActive}}" class="card-footer-icon" mode="aspectFit"></image>
-      <text wx:if="{{comment.dislikeCount}}" class="card-footer-text">{{comment.dislikeCount}}</text>
+      <view class="btn-icon">
+        <image wx:if="{{!comment.interaction.dislikeStatus}}" src="{{buttonIcons.dislike}}" mode="aspectFit"></image>
+        <image wx:if="{{comment.interaction.dislikeStatus}}" src="{{buttonIcons.dislikeActive}}" mode="aspectFit"></image>
+      </view>
+      <text wx:if="{{comment.dislikeCount}}" class="btn-text">{{comment.dislikeCount}}</text>
     </view>
   </view>
 
   <!-- 评论 -->
-  <view class="weui-flex__item" wx:if="{{viewType == 'list'}}">
+  <view class="weui-flex__item">
     <view class="fs_btn" bind:tap="onClickCreateComment">
-      <image src="{{buttonIcons.comment}}" class="card-footer-icon" mode="aspectFit"></image>
-      <text wx:if="{{comment.commentCount}}" class="card-footer-text">{{comment.commentCount}}</text>
+      <view class="btn-icon">
+        <image src="{{buttonIcons.comment}}" mode="aspectFit"></image>
+      </view>
+      <text wx:if="{{comment.commentCount}}" class="btn-text">{{comment.commentCount}}</text>
     </view>
   </view>
 
   <!-- 分享 -->
   <view class="weui-flex__item">
     <view class="fs_btn" bind:tap="onShowShareMenus">
-      <image src="{{buttonIcons.share}}" class="card-footer-icon" mode="aspectFit"></image>
+      <view class="btn-icon">
+        <image src="{{buttonIcons.share}}" mode="aspectFit"></image>
+      </view>
     </view>
   </view>
 
@@ -42,7 +50,7 @@
   <!-- 更多 -->
   <view class="item_more" data-post="{{post}}" bind:tap="onShowMoreMenus">
     <view class="fs_btn">
-      <image src="{{buttonIcons.more}}" class="card-footer-icon" mode="aspectFit"></image>
+      <image src="{{buttonIcons.more}}" mode="aspectFit" class="more-icon"></image>
     </view>
   </view>
 </view>
@@ -101,6 +109,7 @@
         data-title="{{item.name}}"
         data-url="{{item.appUrl}}"
         data-cid="{{comment.cid}}"
+        data-view-type="{{viewType}}"
         data-post-message-key="fresnsCommentManage">
         <image src="{{item.icon}}" mode="aspectFit"></image>
         <text>{{item.name}}</text>
@@ -113,19 +122,19 @@
 </view>
 
 <!-- 评论框 -->
-<view wx:if="{{showCommentBox}}" aria-role="dialog" aria-modal="true" aria-labelledby="js_dialog_title">
-    <view class="weui-mask {{showCommentBox ? 'weui-animate_fade-in' : 'weui-animate_fade-out'}}" bind:tap="eventCommentBoxHide"></view>
-    <view class="weui-half-screen-dialog {{showCommentBox ? 'weui-animate_slide-up' : 'weui-animate_slide-down'}}" style="{{commentDialogFullScreen ? 'height: 100%;': ('bottom:' + commentBoxBottom + 'rpx !important;')}}">
-        <view class="weui-half-screen-dialog__hd">
-            <view class="weui-half-screen-dialog__hd__side" bind:tap="eventCommentBoxHide">
-                <mp-icon icon="close" size="{{24}}"/>
-            </view>
-            <view class="weui-half-screen-dialog__hd__main">
-                <strong class="weui-half-screen-dialog__title" id="js_dialog_title">{{title}}</strong>
-            </view>
-        </view>
-        <view class="weui-half-screen-dialog__bd">
-            <comment-box pid="{{comment.replyTocomment.pid}}" cid="{{comment.cid}}" nickname="{{nickname}}" bind:eventCommentBoxHide="eventCommentBoxHide" bind:eventCommentBoxHeight="eventCommentBoxHeight" bind:eventCommentDialogFullScreen="eventCommentDialogFullScreen"/>
-        </view>
+<view wx:if="{{showCommentBox}}" aria-role="dialog" aria-modal="true">
+  <view class="weui-mask {{showCommentBox ? 'weui-animate_fade-in' : 'weui-animate_fade-out'}}" bind:tap="eventCommentBoxHide"></view>
+  <view class="weui-half-screen-dialog {{showCommentBox ? 'weui-animate_slide-up' : 'weui-animate_slide-down'}}">
+    <view class="weui-half-screen-dialog__hd">
+      <view class="weui-half-screen-dialog__hd__side" bind:tap="eventCommentBoxHide">
+        <view aria-role="button" class="weui-btn_icon weui-wa-hotarea">关闭<i class="weui-icon-slide-down"></i></view>
+      </view>
+      <view class="weui-half-screen-dialog__hd__main">
+        <strong class="weui-half-screen-dialog__title">{{title}}</strong>
+      </view>
     </view>
+    <view class="weui-half-screen-dialog__bd" style="{{commentBoxBottom ? 'padding-bottom:' + commentBoxBottom + 'px !important;' : ''}}">
+      <comment-box commentPid="{{comment.replyToPost.pid}}" commentCid="{{comment.cid}}" nickname="{{nickname}}" bind:eventCommentBoxHide="eventCommentBoxHide" bind:eventCommentBoxHeight="eventCommentBoxHeight"/>
+    </view>
+  </view>
 </view>

@@ -12,16 +12,26 @@
   padding: 20rpx 20rpx 20rpx 30rpx;
   display: flex;
   align-items: center;
+  flex-wrap: nowrap;
 }
 
-.card-footer-icon {
-  width: 40rpx;
-  height: 40rpx;
+.btn-icon {
+  margin-right: 32rpx;
 }
 
-.card-footer-text {
-  margin-left: 8rpx;
+.btn-icon image {
+  width: 40rpx !important;
+  height: 40rpx !important;
+}
+
+.btn-text {
   font-size: 24rpx;
+  white-space: nowrap;
+}
+
+.more-icon {
+  width: 40rpx !important;
+  height: 40rpx !important;
 }
 
 .weui-actionsheet__cell {
@@ -52,4 +62,8 @@
   border: 1rpx solid var(--weui-FG-1);
   padding: 0 12rpx;
   border-radius: 20rpx;
+}
+
+.weui-half-screen-dialog__bd {
+  padding-bottom: env(safe-area-inset-bottom) !important;
 }

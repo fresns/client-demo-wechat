@@ -13,6 +13,10 @@ Component({
       type: String,
       value: 'list', // list or detail
     },
+    showReplyToPost: {
+      type: Boolean,
+      value: true,
+    },
     comment: {
       type: Object,
       value: null,
