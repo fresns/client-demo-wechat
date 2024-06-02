@@ -10,19 +10,20 @@
 
 .mark-btn .weui-btn {
   margin-right: 20rpx;
+  padding: 8rpx 18rpx !important;
   display: flex;
   align-items: center;
 }
 
 .mark-btn .weui-btn image {
-  height: 36rpx;
-  width: 36rpx;
+  height: 28rpx;
+  width: 28rpx;
   margin-right: 0;
 }
 
 .mark-btn .weui-btn .count {
   margin-left: 8rpx;
-  font-size: 24rpx;
+  font-size: 20rpx;
 }
 
 .mark-btn .weui-btn_default {

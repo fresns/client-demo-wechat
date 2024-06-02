@@ -36,10 +36,6 @@
   background-color: var(--weui-BG-1) !important;
 }
 
-.weui_fs:before {
-  border-top: 0 !important;
-}
-
 .weui-footer {
   margin: 60rpx 0;
 }

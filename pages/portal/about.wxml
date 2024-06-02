@@ -35,7 +35,7 @@
     <view class="page__bd page__bd_spacing">
       <view class="weui-panel weui-panel_access">
         <view class="weui-panel__ft">
-          <navigator class="weui-cell weui-cell_active weui-cell_access weui-cell_link weui_fs" url="/sdk/extensions/webview?url=https://fresns.cn">
+          <navigator class="weui-cell weui-cell_active weui-cell_access weui-cell_link" url="/sdk/extensions/webview?url=https://fresns.cn">
             <view class="weui-cell__bd">官网</view>
             <text class="weui-cell__ft">https://fresns.cn</text>
           </navigator>
@@ -46,7 +46,7 @@
             <text class="weui-cell__ft">FresnsCN</text>
           </view>
         </view>
-        <view class="weui-panel__ft" wx:if="{{appInfo.isWechat && !isFresns}}">
+        <view class="weui-panel__ft" wx:if="{{appBaseInfo.isWechat && !isFresns}}">
           <navigator class="weui-cell weui-cell_active weui-cell_access weui-cell_link" target="miniProgram" app-id="wxcdaa14554bd22f64">
             <view class="weui-cell__bd">小程序</view>
             <text class="weui-cell__ft">交流社区</text>

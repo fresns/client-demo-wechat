@@ -20,7 +20,7 @@
           <view class="profile-name weui-flex">
             <text class="profile-nickname">{{fresnsUser.nickname}}</text>
 
-            <view wx:if="{{fresnsUser.verifiedStatus}}" class="profile-verified">
+            <view wx:if="{{fresnsUser.verified}}" class="profile-verified">
               <image src="{{fresnsUser.verifiedIcon ? fresnsUser.verifiedIcon : '/assets/images/icon-verified.png'}}" mode="heightFix"></image>
             </view>
 

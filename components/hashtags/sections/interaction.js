@@ -30,10 +30,12 @@ Component({
     },
   },
 
-  /** 组件生命周期声明对象 **/
-  lifetimes: {
-    attached: async function () {
-      const hashtag = this.data.hashtag;
+  /** 组件数据字段监听器 **/
+  observers: {
+    hashtag: async function (hashtag) {
+      if (!hashtag) {
+        return;
+      }
 
       // buttonIcons
       const checkButtonIcons = hashtag.operations && hashtag.operations.buttonIcons;
@@ -41,27 +43,29 @@ Component({
         return;
       }
 
-      const ButtonIconsArr = hashtag.operations.buttonIcons;
-      const likeItem = ButtonIconsArr.find((item) => item.code === 'like');
-      const dislikeItem = ButtonIconsArr.find((item) => item.code === 'dislike');
-      const followItem = ButtonIconsArr.find((item) => item.code === 'follow');
-      const blockItem = ButtonIconsArr.find((item) => item.code === 'block');
+      const buttonIconsArr = hashtag.operations.buttonIcons;
+      if (buttonIconsArr.length > 0) {
+        const likeItem = buttonIconsArr.find((item) => item.code === 'like');
+        const dislikeItem = buttonIconsArr.find((item) => item.code === 'dislike');
+        const followItem = buttonIconsArr.find((item) => item.code === 'follow');
+        const blockItem = buttonIconsArr.find((item) => item.code === 'block');
 
-      const buttonIcons = {
-        like: likeItem ? likeItem.imageUrl : '/assets/images/interaction/like.png',
-        likeActive: likeItem ? likeItem.imageActiveUrl : '/assets/images/interaction/like-active.png',
-        dislike: dislikeItem ? dislikeItem.imageUrl : '/assets/images/interaction/dislike.png',
-        dislikeActive: dislikeItem ? dislikeItem.imageActiveUrl : '/assets/images/interaction/dislike-active.png',
-        follow: followItem ? followItem.imageUrl : '/assets/images/interaction/follow.png',
-        followActive: followItem ? followItem.imageActiveUrl : '/assets/images/interaction/follow-active.png',
-        block: blockItem ? blockItem.imageUrl : '/assets/images/interaction/block.png',
-        blockActive: blockItem ? blockItem.imageActiveUrl : '/assets/images/interaction/block-active.png',
-      };
+        const buttonIcons = {
+          like: likeItem ? likeItem.imageUrl : '/assets/images/interaction/like.png',
+          likeActive: likeItem ? likeItem.imageActiveUrl : '/assets/images/interaction/like-active.png',
+          dislike: dislikeItem ? dislikeItem.imageUrl : '/assets/images/interaction/dislike.png',
+          dislikeActive: dislikeItem ? dislikeItem.imageActiveUrl : '/assets/images/interaction/dislike-active.png',
+          follow: followItem ? followItem.imageUrl : '/assets/images/interaction/follow.png',
+          followActive: followItem ? followItem.imageActiveUrl : '/assets/images/interaction/follow-active.png',
+          block: blockItem ? blockItem.imageUrl : '/assets/images/interaction/block.png',
+          blockActive: blockItem ? blockItem.imageActiveUrl : '/assets/images/interaction/block-active.png',
+        };
 
-      this.setData({
-        buttonIcons: buttonIcons,
-      });
-    },
+        this.setData({
+          buttonIcons: buttonIcons,
+        });
+      }
+    }
   },
 
   /** 组件功能 **/
