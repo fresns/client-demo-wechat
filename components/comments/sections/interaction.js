@@ -75,7 +75,9 @@ Component({
           like: likeItem ? likeItem.imageUrl : '/assets/images/interaction/content-like.png',
           likeActive: likeItem ? likeItem.imageActiveUrl : '/assets/images/interaction/content-like-active.png',
           dislike: dislikeItem ? dislikeItem.imageUrl : '/assets/images/interaction/content-dislike.png',
-          dislikeActive: dislikeItem ? dislikeItem.imageActiveUrl : '/assets/images/interaction/content-dislike-active.png',
+          dislikeActive: dislikeItem
+            ? dislikeItem.imageActiveUrl
+            : '/assets/images/interaction/content-dislike-active.png',
           follow: followItem ? followItem.imageUrl : '/assets/images/interaction/follow.png',
           followActive: followItem ? followItem.imageActiveUrl : '/assets/images/interaction/follow-active.png',
           block: blockItem ? blockItem.imageUrl : '/assets/images/interaction/block.png',
@@ -107,7 +109,7 @@ Component({
         title: nickname + ': ' + content,
         nickname: nickname,
       });
-    }
+    },
   },
 
   /** 组件生命周期声明对象 **/
