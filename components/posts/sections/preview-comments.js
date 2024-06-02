@@ -40,8 +40,10 @@ Component({
 
       const previewComments = this.data.previewComments;
 
-      const processedComments = previewComments.map(comment => {
-        let nicknameHTML = `<a href="${userProfilePath + comment.author.fsid}" class="nickname-link" style="display:flex;">@${comment.author.nickname}</a>`;
+      const processedComments = previewComments.map((comment) => {
+        let nicknameHTML = `<a href="${
+          userProfilePath + comment.author.fsid
+        }" class="nickname-link" style="display:flex;">@${comment.author.nickname}</a>`;
 
         if (!comment.author.status) {
           nicknameHTML = `<span class="nickname-text">@${userDeactivate}</span>`;
@@ -57,7 +59,7 @@ Component({
 
         return {
           ...comment,
-          processedContent
+          processedContent,
         };
       });
 
