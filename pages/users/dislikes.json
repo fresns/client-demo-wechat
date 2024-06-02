@@ -1,9 +1,8 @@
 {
   "navigationBarTitleText": "我踩的用户",
-  "enablePullDownRefresh": true,
   "usingComponents": {
-    "tabbar": "/components/commons/tabbar/tabbar",
-    "loading": "/components/commons/loading/loading",
-    "user": "/components/user/user"
+    "loading": "/sdk/components/loading/loading",
+    "navigation-bar": "/components/commons/navigation-bar/navigation-bar",
+    "user": "/components/users/user"
   }
 }

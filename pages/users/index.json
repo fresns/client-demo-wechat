@@ -1,9 +1,9 @@
 {
   "navigationBarTitleText": "用户主页",
-  "enablePullDownRefresh": true,
   "usingComponents": {
+    "loading": "/sdk/components/loading/loading",
+    "navigation-bar": "/components/commons/navigation-bar/navigation-bar",
     "tabbar": "/components/commons/tabbar/tabbar",
-    "loading": "/components/commons/loading/loading",
-    "user": "/components/user/user"
+    "user": "/components/users/user"
   }
 }
