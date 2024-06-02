@@ -171,22 +171,22 @@ Component({
 
       const interactions = [
         {
-          status: await fresnsConfig('user_like_public_record') != 1,
+          status: (await fresnsConfig('user_like_public_record')) != 1,
           text: await fresnsConfig('profile_likers_name'),
           link: '/pages/profile/interactions/likers?fsid=' + fsid,
         },
         {
-          status: await fresnsConfig('user_dislike_public_record') != 1,
+          status: (await fresnsConfig('user_dislike_public_record')) != 1,
           text: await fresnsConfig('profile_dislikers_name'),
           link: '/pages/profile/interactions/dislikers?fsid=' + fsid,
         },
         {
-          status: await fresnsConfig('user_follow_public_record') != 1,
+          status: (await fresnsConfig('user_follow_public_record')) != 1,
           text: await fresnsConfig('profile_followers_name'),
           link: '/pages/profile/interactions/followers?fsid=' + fsid,
         },
         {
-          status: await fresnsConfig('user_block_public_record') != 1,
+          status: (await fresnsConfig('user_block_public_record')) != 1,
           text: await fresnsConfig('profile_blockers_name'),
           link: '/pages/profile/interactions/blockers?fsid=' + fsid,
         },
@@ -247,36 +247,36 @@ Component({
         case 'likes':
           const likes = this.data.likes;
 
-          itemList = likes.filter(item => item.status).map(item => item.text);
-          linkList = likes.filter(item => item.status).map(item => item.link);
+          itemList = likes.filter((item) => item.status).map((item) => item.text);
+          linkList = likes.filter((item) => item.status).map((item) => item.link);
           break;
 
         case 'dislikes':
           const dislikes = this.data.dislikes;
 
-          itemList = dislikes.filter(item => item.status).map(item => item.text);
-          linkList = dislikes.filter(item => item.status).map(item => item.link);
+          itemList = dislikes.filter((item) => item.status).map((item) => item.text);
+          linkList = dislikes.filter((item) => item.status).map((item) => item.link);
           break;
 
         case 'following':
           const following = this.data.following;
 
-          itemList = following.filter(item => item.status).map(item => item.text);
-          linkList = following.filter(item => item.status).map(item => item.link);
+          itemList = following.filter((item) => item.status).map((item) => item.text);
+          linkList = following.filter((item) => item.status).map((item) => item.link);
           break;
 
         case 'blocking':
           const blocking = this.data.blocking;
 
-          itemList = blocking.filter(item => item.status).map(item => item.text);
-          linkList = blocking.filter(item => item.status).map(item => item.link);
+          itemList = blocking.filter((item) => item.status).map((item) => item.text);
+          linkList = blocking.filter((item) => item.status).map((item) => item.link);
           break;
 
         case 'interactions':
           const interactions = this.data.interactions;
 
-          itemList = interactions.filter(item => item.status).map(item => item.text);
-          linkList = interactions.filter(item => item.status).map(item => item.link);
+          itemList = interactions.filter((item) => item.status).map((item) => item.text);
+          linkList = interactions.filter((item) => item.status).map((item) => item.link);
           break;
 
         default:
@@ -297,6 +297,6 @@ Component({
           }
         },
       });
-    }
+    },
   },
 });

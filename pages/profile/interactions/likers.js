@@ -65,7 +65,8 @@ Page({
 
     const resultRes = await fresnsApi.user.interaction(this.data.profile.fsid, 'likers', {
       filterType: 'whitelist',
-      filterKeys: 'fsid,uid,username,url,nickname,nicknameColor,avatar,decorate,bioHtml,verified,verifiedIcon,roleName,roleNameDisplay,roleIcon,roleIconDisplay,stats,operations,interaction',
+      filterKeys:
+        'fsid,uid,username,url,nickname,nicknameColor,avatar,decorate,bioHtml,verified,verifiedIcon,roleName,roleNameDisplay,roleIcon,roleIconDisplay,stats,operations,interaction',
       page: this.data.page,
     });
 
