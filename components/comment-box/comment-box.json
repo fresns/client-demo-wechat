@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "styleIsolation": "apply-shared",
+  "usingComponents": {
+    "mention": "/sdk/editor/sections/mention/mention",
+    "hashtag": "/sdk/editor/sections/hashtag/hashtag"
+  }
+}

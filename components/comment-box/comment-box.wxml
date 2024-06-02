@@ -1,0 +1,88 @@
+<!-- *
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+* -->
+<block wx:if="{{userLogin}}">
+  <view class="weui-cells weui-cells_form">
+    <view class="weui-cell" hover-class="weui-cell_active">
+      <view class="weui-cell__bd">
+        <textarea class="weui-textarea" style="height:280rpx" placeholder="{{fsConfig.publish_comment_name + ' ' +  nickname}}"
+          value="{{content}}"
+          cursor="{{contentCursorPosition}}"
+          adjust-position="{{false}}"
+          maxlength="{{editorConfig.contentLength}}"
+          bindinput="handleInput"
+          bindblur="handleBlur"
+          bindconfirm="handleBlur"
+          bindkeyboardheightchange="handleKeyboard"></textarea>
+        <view class="comment-image" wx:if="{{imagePath}}">
+          <image src="{{imagePath}}" bind:tap="onManageImage"/>
+        </view>
+        <view aria-role="option" class="weui-textarea-counter">{{contentLength}}/{{editorConfig.contentLength}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="comment-box-bar">
+    <view class="toolbar">
+      <view class="tool" wx:if="{{editorConfig.sticker}}" bind:tap="onStickers">
+        <view class="toolbar_icon icon_sticker"></view>
+      </view>
+
+      <view class="tool" wx:if="{{editorConfig.image.status}}" bind:tap="onSelectImage">
+        <view class="toolbar_icon icon_image"></view>
+      </view>
+
+      <view class="tool" wx:if="{{editorConfig.mention.status && editorConfig.mention.display}}" bind:tap="onMention">
+        <view class="toolbar_icon icon_mention"></view>
+      </view>
+
+      <view class="tool" wx:if="{{editorConfig.hashtag.status && editorConfig.hashtag.display}}" bind:tap="onHashtag">
+        <view class="toolbar_icon icon_hashtag"></view>
+      </view>
+
+      <view class="tool" wx:if="{{editorConfig.anonymous}}">
+        <label class="checkbox-label">
+          <checkbox-group class="checkbox" bindchange="onSwitchAnonymous">
+            <checkbox value="anonymous" checked="{{isEnableAnonymous}}"/> {{fsLang.anonymous}}
+          </checkbox-group>
+        </label>
+      </view>
+    </view>
+
+    <view class="submit">
+      <view class="weui-btn weui-btn_mini weui-btn_primary weui-wa-hotarea" bind:tap="onClickSubmit">
+        {{fsConfig.publish_comment_name}}
+      </view>
+    </view>
+  </view>
+
+  <!-- 表情 -->
+  <view wx:if="{{stickerDialog}}">
+    <view class="sticker-tabs">
+      <view class="sticker-tab {{currentIndex == index ? 'sticker-tab_on' : ''}}" wx:for="{{stickers}}" wx:for-index="index" wx:key="code" data-index="{{index}}" bind:tap="switchStickers">
+        <text class="sticker-name">{{item.name}}</text>
+      </view>
+    </view>
+    <scroll-view class="sticker-view" type="list" scroll-y="{{true}}">
+      <view class="sticker-images">
+        <image wx:for="{{currentStickers}}" src="{{item.image}}" style="width:{{imageWidth[currentIndex]}}px; height:{{imageHeight[currentIndex]}}px;" data-code="{{item.codeFormat}}" data-index="{{currentIndex}}" bind:load="loadImageSize" bind:tap="onSelectSticker"/>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- @ 艾特 -->
+  <mention wx:if="{{mentionDialogShow}}" bind:eventDialogShow="eventDialogShow" bind:eventInsertContent="eventInsertContent"/>
+  <!-- # 话题 -->
+  <hashtag wx:if="{{hashtagDialogShow}}" bind:eventDialogShow="eventDialogShow" bind:eventInsertContent="eventInsertContent"/>
+</block>
+
+<block wx:else>
+  <view class="login-tip">{{fsLang.errorNoLogin}}</view>
+  <view class="login-btn">
+    <view class="weui-btn weui-btn_primary" bind:tap="toLoginPage">
+      {{loginBtnText}}
+    </view>
+  </view>
+</block>
