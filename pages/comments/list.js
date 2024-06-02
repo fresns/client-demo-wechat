@@ -73,13 +73,15 @@ Page({
         filterGeotagType: 'whitelist',
         filterGeotagKeys: 'gtid,name,distance,unit',
         filterAuthorType: 'whitelist',
-        filterAuthorKeys: 'fsid,uid,nickname,nicknameColor,avatar,decorate,verified,verifiedIcon,status,roleName,roleNameDisplay,roleIcon,roleIconDisplay,operations',
+        filterAuthorKeys:
+          'fsid,uid,nickname,nicknameColor,avatar,decorate,verified,verifiedIcon,status,roleName,roleNameDisplay,roleIcon,roleIconDisplay,operations',
         filterPreviewCommentType: 'whitelist',
         filterPreviewCommentKeys: 'cid,content,contentLength,author.nickname,author.avatar,author.status',
         filterReplyToPostType: 'whitelist',
         filterReplyToPostKeys: 'pid,title,content,contentLength,author.nickname,author.avatar,author.status,group.name',
         filterReplyToCommentType: 'whitelist',
-        filterReplyToCommentKeys: 'cid,content,contentLength,createdDatetime,author.nickname,author.avatar,author.status',
+        filterReplyToCommentKeys:
+          'cid,content,contentLength,createdDatetime,author.nickname,author.avatar,author.status',
         page: this.data.page,
       })
     );
