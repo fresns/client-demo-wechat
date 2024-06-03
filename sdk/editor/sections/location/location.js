@@ -3,8 +3,8 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import { fresnsApi } from '../../../services';
-import { fresnsConfig, fresnsLang } from '../../../helpers/configs';
+import { fresnsApi } from '../../../services/api';
+import { fresnsLang } from '../../../helpers/configs';
 
 Component({
   /** 组件的属性列表 **/

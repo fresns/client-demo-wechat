@@ -4,7 +4,7 @@
  * Licensed under the Apache-2.0 license
  */
 import envConfig from '../../env';
-import { fresnsApi } from '../services';
+import { fresnsApi } from '../services/api';
 import { base64_encode } from '../utilities/base64';
 import { versionCompare } from '../utilities/toolkit';
 

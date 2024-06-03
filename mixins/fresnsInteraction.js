@@ -3,7 +3,7 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import { fresnsApi } from '../sdk/services';
+import { fresnsApi } from '../sdk/services/api';
 import { fresnsClient } from '../sdk/helpers/client';
 import { fresnsViewProfilePath } from '../sdk/helpers/profiles';
 import { getCurrentPageRoute, replaceGroupTreeInfo, callPrevPageFunction } from '../sdk/utilities/toolkit';
