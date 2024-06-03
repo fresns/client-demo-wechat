@@ -55,7 +55,7 @@ Page({
 
     const resultRes = await fresnsApi.conversation.list({
       filterUserType: 'whitelist',
-      filterUserKeys:'fsid,uid,username,nickname,nicknameColor,avatar,status',
+      filterUserKeys: 'fsid,uid,username,nickname,nicknameColor,avatar,status',
       page: this.data.page,
     });
 
@@ -71,7 +71,7 @@ Page({
       }
 
       // 处理内容截断
-      const modifiedList = list.map(item => {
+      const modifiedList = list.map((item) => {
         if (item.latestMessage.message.length > 40) {
           item.latestMessage.message = item.latestMessage.message.substring(0, 40);
         }

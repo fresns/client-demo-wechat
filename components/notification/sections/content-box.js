@@ -40,8 +40,7 @@ Component({
       switch (actionTarget) {
         case 1:
           // 用户
-          url =  await fresnsViewProfilePath(actionInfo.fsid),
-          avatar = actionInfo.avatar;
+          (url = await fresnsViewProfilePath(actionInfo.fsid)), (avatar = actionInfo.avatar);
           content = actionInfo.nickname + ': ' + actionInfo.bio;
           break;
 

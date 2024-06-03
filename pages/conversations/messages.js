@@ -42,7 +42,7 @@ Page({
 
     const resultRes = await fresnsApi.conversation.detail(fsid, {
       filterUserType: 'whitelist',
-      filterUserKeys:'fsid,uid,username,nickname,avatar,status',
+      filterUserKeys: 'fsid,uid,username,nickname,avatar,status',
     });
 
     if (resultRes.code === 0) {
@@ -84,7 +84,7 @@ Page({
 
     const resultRes = await fresnsApi.conversation.messages(detail.user.fsid, {
       filterUserType: 'whitelist',
-      filterUserKeys:'fsid,uid,username,nickname,nicknameColor,avatar,status',
+      filterUserKeys: 'fsid,uid,username,nickname,nicknameColor,avatar,status',
       page: this.data.page,
     });
 
