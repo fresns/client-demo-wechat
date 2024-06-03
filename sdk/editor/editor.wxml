@@ -8,7 +8,7 @@
   <view class="editor-tip">
     <tip-publish-perm wx:if="{{!publishPerm.draft || !publishPerm.publish}}" publishPerm="{{publishPerm}}"/>
     <tip-publish-limit wx:if="{{publishLimit.status && publishLimit.isInTime}}" publishLimit="{{publishLimit}}"/>
-    <tip-edit-controls wx:if="{{editControls.isEditDraft}}" editControls="{{editControls}}"/>
+    <tip-edit-controls wx:if="{{controls.isEditDraft}}" controls="{{controls}}"/>
   </view>
 
   <!-- 草稿选择器 -->

@@ -44,7 +44,7 @@ Component({
         // 匹配话题
         newContent = newContent.replace(
           /<a\s+href="(?:[^"]*\/)?([^"]+)"\s+class="fresns_hashtag"\s+target="_blank">([\s\S]*?)<\/a>/gi,
-          '<a href="/pages/hashtags/detail?hid=$1">$2</a>'
+          '<a href="/pages/hashtags/detail?htid=$1">$2</a>'
         );
 
         // 匹配艾特

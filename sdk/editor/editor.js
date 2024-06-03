@@ -52,7 +52,7 @@ Component({
     draftSelector: false,
 
     editorForm: false,
-    editControls: {},
+    controls: {},
     draftDetail: {},
 
     archiveGroupConfigs: [],
@@ -110,7 +110,7 @@ Component({
       this.setData({
         draftSelector: false,
         editorForm: true,
-        editControls: draftData.editControls,
+        controls: draftData.controls,
         draftDetail: draftData.detail,
         did: draftData.detail.did,
       });
@@ -361,7 +361,7 @@ Component({
 
           if (detailRes.code == 0) {
             this.setData({
-              editControls: detailRes.data.editControls,
+              controls: detailRes.data.controls,
               draftDetail: detailRes.data.detail,
             });
           }

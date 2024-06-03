@@ -8,7 +8,7 @@ import { fresnsLang } from '../../../helpers/configs';
 Component({
   /** 组件的属性列表 **/
   properties: {
-    editControls: {
+    controls: {
       type: Object,
       value: {},
     },

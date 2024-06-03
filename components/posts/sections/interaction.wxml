@@ -88,8 +88,8 @@
       <view class="weui-actionsheet__title-text">{{title}}</view>
     </view>
     <view class="weui-actionsheet__menu more-menus">
-      <navigator class="weui-actionsheet__cell" url="{{'/pages/editor/index?type=post&fsid=' + post.pid}}" wx:if="{{post.editControls.isAuthor && post.editControls.canEdit}}">{{fresnsLang.edit}}</navigator>
-      <view class="weui-actionsheet__cell weui-actionsheet__cell_warn" bind:tap="onClickDelete" wx:if="{{post.editControls.isAuthor && post.editControls.canDelete}}">{{fresnsLang.delete}}</view>
+      <navigator class="weui-actionsheet__cell" url="{{'/pages/editor/index?type=post&fsid=' + post.pid}}" wx:if="{{post.controls.canEdit}}">{{fresnsLang.edit}}</navigator>
+      <view class="weui-actionsheet__cell weui-actionsheet__cell_warn" bind:tap="onClickDelete" wx:if="{{post.controls.canDelete}}">{{fresnsLang.delete}}</view>
       <!-- 关注 -->
       <view class="weui-actionsheet__cell" bind:tap="onClickPostFollow" wx:if="{{post.interaction.followEnabled}}">
         <image wx:if="{{!post.interaction.followStatus}}" src="{{buttonIcons.follow}}" mode="aspectFit"></image>
