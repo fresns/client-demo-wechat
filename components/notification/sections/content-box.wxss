@@ -3,24 +3,25 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-@import '/assets/styles/weui.wxss';
-
-.parent-content {
-  padding: 10px 15px;
-  font-size: 14px;
+.quoted-box {
+  font-size: 28rpx;
   background-color: var(--weui-BG-0);
-  border-radius: 6px;
-  margin-top: 15px;
+  border-radius: 12rpx;
 }
 
-.parent-content-avatar image {
-  width: 40px;
-  height: 40px;
-  border-radius: 4px;
-  margin-right: 6px;
+.quoted-content {
+  padding: 20rpx;
 }
 
-.parent-content-text {
+.quoted-info-avatar image {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 8rpx;
+  margin-right: 12rpx;
+}
+
+.quoted-info-content {
+  font-size: 26rpx;
   color: var(--weui-FG-0);
   overflow: hidden;
   text-overflow: ellipsis;
@@ -30,12 +31,13 @@
   -webkit-box-orient: vertical;
 }
 
-.parent-content-group {
+.quoted-info-group {
   color: var(--weui-FG-1);
+  font-size: 26rpx;
   text-align: right;
-  border-top: 0.01rem solid var(--weui-FG-4);
-  margin-top: 4px;
-  padding-top: 4px;
+  border-top: 1rpx solid var(--weui-FG-4);
+  margin-top: 8rpx;
+  padding-top: 8rpx;
 }
 
 .fresns_sticker {

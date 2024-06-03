@@ -5,31 +5,35 @@
  */
 .weui-cells .weui-cell__hd {
   position: relative;
-  margin-right: 10px;
+  margin-right: 20rpx;
 }
 
 .weui-cells .weui-cell__hd image {
-  width: 50px;
-  height: 50px;
+  width: 100rpx;
+  height: 100rpx;
   display: block;
 }
 
 .weui-cells .weui-cell__hd .weui-badge {
   position: absolute;
-  top: -0.4em;
-  right: -0.4em;
+  top: -12.8rpx;
+  right: -12.8rpx;
 }
 
 .weui-cells .weui-cell__bd .badge_desc {
-  font-size: 0.7rem;
+  font-size: 24rpx;
   color: #888;
-  margin-top: 5px;
+  margin-top: 10rpx;
 }
 
 .weui-cells .weui-cell__ft {
-  font-size: 0.7rem;
+  font-size: 24rpx;
 }
 
 .user-avatar {
   border-radius: 12rpx;
+}
+
+.user-nickname {
+  font-size: 28rpx;
 }

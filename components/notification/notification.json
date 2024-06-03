@@ -1,0 +1,9 @@
+{
+  "component": true,
+  "styleIsolation": "apply-shared",
+  "usingComponents": {
+    "user": "/components/posts/sections/author",
+    "badge": "/components/notification/sections/badge",
+    "content-box": "/components/notification/sections/content-box"
+  }
+}

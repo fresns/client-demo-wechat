@@ -1,54 +1,20 @@
 <!-- *
-    Fresns 微信小程序 (https://fresns.cn)
-    Copyright 2021-Present 唐杰
-    Licensed under the Apache-2.0 license
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
 * -->
-<view class="page" data-weui-theme="{{ theme }}">
-    <view class="weui-flex tab-navbar weui-navbar">
-        <view class="weui-flex__item weui-navbar__item {{ !type ? 'weui-navbar__item_on' : '' }}">
-            <navigator url="/pages/notifications/index" open-type="redirect">{{ navName.all }}</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item {{ type == 1 ? 'weui-navbar__item_on' : '' }}">
-            <navigator url="/pages/notifications/index?type=1" open-type="redirect">{{ navName.systems }}</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item {{ type == 2 ? 'weui-navbar__item_on' : '' }}">
-            <navigator url="/pages/notifications/index?type=2" open-type="redirect">{{ navName.recommends }}</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item {{ type == 3 ? 'weui-navbar__item_on' : '' }}">
-            <navigator url="/pages/notifications/index?type=3" open-type="redirect">{{ navName.likes }}</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item {{ type == 4 ? 'weui-navbar__item_on' : '' }}">
-            <navigator url="/pages/notifications/index?type=4" open-type="redirect">{{ navName.dislikes }}</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item {{ type == 5 ? 'weui-navbar__item_on' : '' }}">
-            <navigator url="/pages/notifications/index?type=5" open-type="redirect">{{ navName.follows }}</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item {{ type == 6 ? 'weui-navbar__item_on' : '' }}">
-            <navigator url="/pages/notifications/index?type=6" open-type="redirect">{{ navName.blocks }}</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item {{ type == 7 ? 'weui-navbar__item_on' : '' }}">
-            <navigator url="/pages/notifications/index?type=7" open-type="redirect">{{ navName.mentions }}</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item {{ type == 8 ? 'weui-navbar__item_on' : '' }}">
-            <navigator url="/pages/notifications/index?type=8" open-type="redirect">{{ navName.comments }}</navigator>
-        </view>
-        <view class="weui-flex__item weui-navbar__item {{ type == 9 ? 'weui-navbar__item_on' : '' }}">
-            <navigator url="/pages/notifications/index?type=9" open-type="redirect">{{ navName.quotes }}</navigator>
-        </view>
-    </view>
+<page-meta root-font-size="system"/>
 
-    <!-- 通知列表 -->
-    <view class="notifications" wx:for="{{ notifications }}" wx:for-item="notification" wx:key="id">
-        <notification notification="{{ notification }}"></notification>
-    </view>
+<navigation-bar title="{{title}}" backButton="{{navbarBackButton}}" homeButton="{{navbarHomeButton}}" loading="{{navbarLoading}}"></navigation-bar>
 
-    <!-- 加载动效 -->
-    <loading status="{{ loadingStatus }}" tipType="{{ loadingTipType }}"></loading>
+<scroll-view class="scrollarea" type="list" scroll-y="{{true}}" enable-back-to-top="{{true}}" refresher-enabled="{{true}}" refresher-triggered="{{refresherStatus}}" bindrefresherrefresh="onRefresherRefresh" bindscrolltolower="onScrollToLower">
+  <!-- 消息列表 -->
+  <view class="notification-list" wx:for="{{notifications}}" wx:for-item="notification" wx:key="nmid">
+    <notification notification="{{notification}}"></notification>
+  </view>
 
-    <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
-        <text class="weui-loadmore__tips">Powered by Fresns</text>
-    </view>
+  <!-- 加载动效 -->
+  <loading status="{{loadingStatus}}" tipType="{{loadingTipType}}"></loading>
+</scroll-view>
 
-    <!-- Tabbar -->
-    <tabbar id="fresnsTabbar" activeLabel="notifications"></tabbar>
-</view>
+<tabbar activeLabel="notifications"></tabbar>

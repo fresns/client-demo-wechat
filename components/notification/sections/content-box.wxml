@@ -1,0 +1,18 @@
+<!-- *
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+* -->
+<navigator class="quoted-box" url="{{url}}">
+  <view class="quoted-content">
+    <view class="weui-flex">
+      <view class="quoted-info-avatar">
+        <image src="{{avatar}}" mode="scaleToFill"></image>
+      </view>
+      <view class="quoted-info-content weui-flex__item">
+        <rich-text nodes="{{content}}" class="weui-flex__item" />
+      </view>
+    </view>
+    <view class="quoted-info-group" wx:if="{{groupName}}">{{groupName}}</view>
+  </view>
+</navigator>

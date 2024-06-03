@@ -3,59 +3,64 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-@import '/assets/styles/weui.wxss';
-
 .card {
   width: 100%;
   overflow: hidden;
-  margin: 10px 0;
-  padding-bottom: 5px;
+  margin-top: 20rpx;
   background-color: var(--weui-BG-2);
   position: relative;
 }
 
 .card-header {
-  margin-top: 5px;
+  margin-top: 10rpx;
 }
 
 .card-label {
   position: absolute;
-  top: 20px;
-  right: 26px;
+  top: 40rpx;
+  right: 52rpx;
 }
 
 .card-body {
-  margin: 0 20px 15px 20px;
+  margin: 0 40rpx;
+  padding-bottom: 20rpx;
   color: var(--weui-FG-0);
 }
 
 .card-footer {
-  margin: 0 20px 15px 20px;
+  margin: 0 40rpx;
+  padding-bottom: 20rpx;
 }
 
 .site-icon {
-  width: 66px;
-  height: 66px;
+  width: 132rpx;
+  height: 132rpx;
 }
 
 .site-icon .icon-img {
-  width: 40px;
-  height: 40px;
-  margin: 13px;
-  margin-bottom: -7px;
+  width: 80rpx;
+  height: 80rpx;
+  margin: 26rpx;
 }
 
 .site-info {
   overflow: hidden;
-  margin-top: 10px;
+  margin-top: 20rpx;
 }
 
 .site-info .site-name {
-  font-size: 18px;
+  font-size: 32rpx;
   color: var(--weui-FG-0);
 }
 
+.read-badge {
+  width: 16rpx !important;
+  height: 16rpx !important;
+  border-radius: 16rpx;
+  background-color: var(--weui-RED);
+}
+
 .notification-time {
-  font-size: 14px;
+  font-size: 24rpx;
   color: var(--weui-FG-1);
 }

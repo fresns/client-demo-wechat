@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "对话",
+  "usingComponents": {
+    "loading": "/sdk/components/loading/loading",
+    "navigation-bar": "/components/commons/navigation-bar/navigation-bar"
+  }
+}

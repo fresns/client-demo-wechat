@@ -1,0 +1,30 @@
+<!-- *
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+* -->
+<page-meta root-font-size="system"/>
+
+<navigation-bar title="{{title}}" backButton="{{navbarBackButton}}" homeButton="{{navbarHomeButton}}" loading="{{navbarLoading}}"></navigation-bar>
+
+<scroll-view class="scrollarea" type="list" scroll-y="{{true}}" enable-back-to-top="{{true}}" refresher-enabled="{{true}}" refresher-triggered="{{refresherStatus}}" bindrefresherrefresh="onRefresherRefresh" bindscrolltolower="onScrollToLower">
+  <!-- 会话列表 -->
+  <view class="weui-cells">
+    <navigator wx:for="{{conversations}}" wx:for-item="conversation" url="/pages/conversations/messages?fsid={{conversation.user.fsid}}" class="weui-cell weui-cell_active">
+      <view class="weui-cell__hd">
+        <image src="{{conversation.user.avatar}}" class="user-avatar"></image>
+        <text class="weui-badge" wx:if="{{conversation.unreadCount}}">{{conversation.unreadCount}}</text>
+      </view>
+      <view class="weui-cell__bd">
+        <text class="user-nickname">{{conversation.user.status ? conversation.user.nickname : userDeactivated}}</text>
+        <view class="badge_desc">{{conversation.latestMessage.message}}</view>
+      </view>
+      <text class="weui-cell__ft">{{conversation.latestMessage.datetimeFormat}}</text>
+    </navigator>
+  </view>
+
+  <!-- 加载动效 -->
+  <loading status="{{loadingStatus}}" tipType="{{loadingTipType}}"></loading>
+</scroll-view>
+
+<tabbar activeLabel="conversations"></tabbar>

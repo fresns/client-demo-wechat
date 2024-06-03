@@ -4,7 +4,7 @@
  * Licensed under the Apache-2.0 license
  */
 import { fresnsApi } from '../../sdk/services';
-import { fresnsConfig } from '../../sdk/helpers/configs';
+import { fresnsLang } from '../../sdk/helpers/configs';
 
 let isRefreshing = false;
 
@@ -21,10 +21,12 @@ Page({
   data: {
     title: null,
 
-    types: null,
+    // 会话详情
+    configs: null,
+    detail: null,
 
     // 当前分页数据
-    notifications: [],
+    messages: [],
 
     // 分页配置
     page: 1, // 下次请求时候的页码，初始值为 1
@@ -36,14 +38,36 @@ Page({
 
   /** 监听页面加载 **/
   onLoad: async function (options) {
-    const types = options.types || '';
+    const fsid = options.fsid;
 
-    this.setData({
-      types: types,
-      title: await fresnsConfig('channel_notifications_name'),
+    const resultRes = await fresnsApi.conversation.detail(fsid, {
+      filterUserType: 'whitelist',
+      filterUserKeys:'fsid,uid,username,nickname,avatar,status',
     });
 
-    await this.loadFresnsPageData();
+    if (resultRes.code === 0) {
+      this.setData({
+        configs: resultRes.data.configs,
+        detail: resultRes.data.detail,
+      });
+
+      let nickname = resultRes.data.detail.user.nickname;
+      if (!resultRes.data.detail.user.status) {
+        nickname = await fresnsLang('userDeactivated');
+      }
+
+      this.setData({
+        title: nickname,
+      });
+
+      await this.loadFresnsPageData();
+
+      return;
+    }
+
+    this.setData({
+      title: await fresnsLang('errorNoInfo'),
+    });
   },
 
   /** 加载列表数据 **/
@@ -56,8 +80,11 @@ Page({
       loadingStatus: true,
     });
 
-    const resultRes = await fresnsApi.notification.list({
-      types: this.data.types,
+    const detail = this.data.detail;
+
+    const resultRes = await fresnsApi.conversation.messages(detail.user.fsid, {
+      filterUserType: 'whitelist',
+      filterUserKeys:'fsid,uid,username,nickname,nicknameColor,avatar,status',
       page: this.data.page,
     });
 
@@ -65,17 +92,9 @@ Page({
       const { pagination, list } = resultRes.data;
       const isReachBottom = pagination.currentPage === pagination.lastPage;
 
-      const listCount = list.length + this.data.notifications.length;
-
-      let tipType = 'none';
-      if (isReachBottom) {
-        tipType = listCount > 0 ? 'page' : 'empty';
-      }
-
       this.setData({
-        notifications: this.data.notifications.concat(list),
+        messages: this.data.messages.concat(list),
         page: this.data.page + 1,
-        loadingTipType: tipType,
         isReachBottom: isReachBottom,
       });
     }
@@ -86,8 +105,8 @@ Page({
     });
   },
 
-  /** 监听用户下拉动作 **/
-  onRefresherRefresh: async function () {
+  /** 监听用户下拉触顶 **/
+  onScrollToupper: async function () {
     if (isRefreshing) {
       console.log('下拉', '防抖');
 
@@ -99,14 +118,6 @@ Page({
     }
 
     isRefreshing = true;
-
-    this.setData({
-      notifications: [],
-      page: 1,
-      isReachBottom: false,
-      refresherStatus: true,
-      loadingTipType: 'none',
-    });
 
     await this.loadFresnsPageData();
 

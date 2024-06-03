@@ -3,15 +3,17 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-import { fresnsApi } from '../../api/api';
-import { fresnsConfig } from '../../api/tool/function';
-import { globalInfo } from '../../utils/fresnsGlobalInfo';
-import { callPageFunction } from '../../utils/fresnsUtilities';
+import { fresnsApi } from '../../sdk/services';
+import { fresnsConfig } from '../../sdk/helpers/configs';
+import { callPageFunction } from '../../sdk/utilities/toolkit';
 
 Component({
   /** 组件的属性列表 **/
   properties: {
-    notification: Object,
+    notification: {
+      type: Object,
+      value: null,
+    },
   },
 
   /** 组件的初始数据 **/
@@ -33,18 +35,18 @@ Component({
   /** 组件功能 **/
   methods: {
     onCheckRead: async function (e) {
-      const id = e.currentTarget.dataset.id;
+      const nmid = e.currentTarget.dataset.nmid;
       const status = e.currentTarget.dataset.status;
 
       if (status) {
         return;
       }
 
-      callPageFunction('onMarkRead', id);
+      callPageFunction('onMarkRead', nmid);
 
-      await fresnsApi.message.notificationMarkAsRead({
+      await fresnsApi.notification.markAsRead({
         type: 'choose',
-        notificationIds: id.toString(),
+        notificationIds: nmid,
       });
     },
 

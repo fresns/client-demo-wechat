@@ -1,8 +1,0 @@
-{
-  "component": true,
-  "usingComponents": {
-    "user": "/components/commons/section/author",
-    "badge": "/components/message/section/badge",
-    "content-box": "/components/message/section/content-box"
-  }
-}

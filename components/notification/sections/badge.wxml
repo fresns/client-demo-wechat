@@ -1,0 +1,14 @@
+<!-- *
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
+* -->
+<block wx:if="{{notification.type == 1}}">
+  <text class="weui-badge">{{typeName}}</text>
+</block>
+
+<block wx:if="{{notification.type == 2}}">
+  <text class="weui-badge bt-recommend">{{typeName}}</text>
+</block>
+
+<text class="weui-badge bg-primary">{{badgeName}}</text>

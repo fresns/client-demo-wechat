@@ -3,55 +3,51 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
-.page {
-  padding: 10px 10px 100px 10px;
-}
-
 .message {
-  margin-bottom: 20px;
+  margin-bottom: 40rpx;
 }
 
 .avatar-img {
-  width: 40px;
-  height: 40px;
+  width: 80rpx;
+  height: 80rpx;
   border-radius: 50%;
-  margin-bottom: -7px;
-  margin-left: 15px;
-  margin-right: 15px;
+  margin-bottom: -14rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
 }
 
 .message-content {
-  padding: 8px 10px;
-  border-radius: 5px;
+  padding: 16rpx 20rpx;
+  border-radius: 10rpx;
 }
 
 .message-content-me {
   background-color: var(--weui-TEXTGREEN);
   float: right;
-  margin-left: 60px;
+  margin-left: 120rpx;
 }
 
 .message-content-it {
   background-color: var(--weui-BG);
-  margin-right: 60px;
+  margin-right: 120rpx;
 }
 
 .message-file-me {
   float: right;
-  margin-left: 60px;
+  margin-left: 120rpx;
 }
 
 .message-file-it {
-  margin-right: 60px;
+  margin-right: 120rpx;
 }
 
 .send-message .weui-tabbar__label {
   width: 90%;
   margin: 0 auto;
   text-align: left;
-  border-radius: 36px;
+  border-radius: 72rpx;
   background-color: var(--weui-TAG-BACKGROUND-BLACK);
   color: var(--weui-TAG-TEXT-BLACK);
-  padding: 8px 16px;
-  font-size: 16px;
+  padding: 16rpx 32rpx;
+  font-size: 32rpx;
 }

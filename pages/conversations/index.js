@@ -4,7 +4,7 @@
  * Licensed under the Apache-2.0 license
  */
 import { fresnsApi } from '../../sdk/services';
-import { fresnsConfig } from '../../sdk/helpers/configs';
+import { fresnsConfig, fresnsLang } from '../../sdk/helpers/configs';
 
 let isRefreshing = false;
 
@@ -20,11 +20,10 @@ Page({
   /** 页面的初始数据 **/
   data: {
     title: null,
-
-    types: null,
+    userDeactivated: null,
 
     // 当前分页数据
-    notifications: [],
+    conversations: [],
 
     // 分页配置
     page: 1, // 下次请求时候的页码，初始值为 1
@@ -35,12 +34,10 @@ Page({
   },
 
   /** 监听页面加载 **/
-  onLoad: async function (options) {
-    const types = options.types || '';
-
+  onLoad: async function () {
     this.setData({
-      types: types,
-      title: await fresnsConfig('channel_notifications_name'),
+      title: await fresnsConfig('channel_conversations_name'),
+      userDeactivated: await fresnsLang('userDeactivated'),
     });
 
     await this.loadFresnsPageData();
@@ -56,8 +53,9 @@ Page({
       loadingStatus: true,
     });
 
-    const resultRes = await fresnsApi.notification.list({
-      types: this.data.types,
+    const resultRes = await fresnsApi.conversation.list({
+      filterUserType: 'whitelist',
+      filterUserKeys:'fsid,uid,username,nickname,nicknameColor,avatar,status',
       page: this.data.page,
     });
 
@@ -65,15 +63,23 @@ Page({
       const { pagination, list } = resultRes.data;
       const isReachBottom = pagination.currentPage === pagination.lastPage;
 
-      const listCount = list.length + this.data.notifications.length;
+      const listCount = list.length + this.data.conversations.length;
 
       let tipType = 'none';
       if (isReachBottom) {
         tipType = listCount > 0 ? 'page' : 'empty';
       }
 
+      // 处理内容截断
+      const modifiedList = list.map(item => {
+        if (item.latestMessage.message.length > 40) {
+          item.latestMessage.message = item.latestMessage.message.substring(0, 40);
+        }
+        return item;
+      });
+
       this.setData({
-        notifications: this.data.notifications.concat(list),
+        conversations: this.data.conversations.concat(modifiedList),
         page: this.data.page + 1,
         loadingTipType: tipType,
         isReachBottom: isReachBottom,
@@ -101,7 +107,7 @@ Page({
     isRefreshing = true;
 
     this.setData({
-      notifications: [],
+      conversations: [],
       page: 1,
       isReachBottom: false,
       refresherStatus: true,
