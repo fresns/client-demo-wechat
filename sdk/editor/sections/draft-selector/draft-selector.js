@@ -134,7 +134,7 @@ Component({
         }
 
         // 处理内容截断
-        const modifiedList = list.map(item => {
+        const modifiedList = list.map((item) => {
           if (item.contentLength > 40) {
             item.content = item.content.slice(0, 40) + '...';
           }

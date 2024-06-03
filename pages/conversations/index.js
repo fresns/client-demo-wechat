@@ -71,7 +71,7 @@ Page({
       }
 
       // 处理内容截断
-      const modifiedList = list.map(item => {
+      const modifiedList = list.map((item) => {
         if (item.latestMessage.message.length > 40) {
           item.latestMessage.message = item.latestMessage.message.slice(0, 40) + '...';
         }
