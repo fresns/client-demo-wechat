@@ -187,7 +187,8 @@ Page({
         const userRes = await fresnsApi.search.users({
           searchKey: searchKey,
           filterType: 'whitelist',
-          filterKeys: 'fsid,uid,username,url,nickname,nicknameColor,avatar,decorate,bioHtml,stats,operations,interaction',
+          filterKeys:
+            'fsid,uid,username,url,nickname,nicknameColor,avatar,decorate,bioHtml,stats,operations,interaction',
           page: this.data.page,
         });
 
