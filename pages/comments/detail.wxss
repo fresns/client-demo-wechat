@@ -4,16 +4,16 @@
  * Licensed under the Apache-2.0 license
  */
 .weui-media-box {
-  padding: 0.01rem;
+  padding: 1rpx;
 }
 
 .comment-box-btn .weui-tabbar__label {
   width: 90%;
   margin: 0 auto;
   text-align: left;
-  border-radius: 36px;
+  border-radius: 72rpx;
   background-color: var(--weui-TAG-BACKGROUND-BLACK);
   color: var(--weui-TAG-TEXT-BLACK);
-  padding: 8px 16px;
-  font-size: 16px;
+  padding: 16rpx 32rpx;
+  font-size: 32rpx;
 }

@@ -16,7 +16,7 @@
       <interaction user="{{user}}"/>
 
       <view class="weui-btn weui-btn_mini weui-btn_default" wx:if="{{items.manages.length > 0}}" bind:tap="onShowMoreMenus">
-        <image class="weui-btn_cell__icon" src="{{buttonIcons.more}}" style="margin-right: -1px;"/>
+        <image class="weui-btn_cell__icon" src="{{buttonIcons.more}}" style="margin-right: -2rpx;"/>
       </view>
     </view>
   </view>

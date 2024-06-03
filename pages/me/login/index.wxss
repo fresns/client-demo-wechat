@@ -17,7 +17,7 @@
 }
 
 .we-login-agree .btn-flex {
-  display: inline-flex;
+  display: flex;
 }
 
 .we-login-agree .btn-flex image {
