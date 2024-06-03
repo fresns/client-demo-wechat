@@ -23,7 +23,7 @@ Component({
     },
     geotag: {
       type: Object,
-      value: true,
+      value: null,
     },
   },
 
