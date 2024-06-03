@@ -172,9 +172,12 @@ module.exports = {
 
     // 未登录账号，跳转到登录页
     if (!fresnsAuth.accountLogin) {
-      wx.redirectTo({
+      wx.navigateTo({
         url: '/pages/me/login/index?showToast=true',
+        routeType: 'wx://cupertino-modal-inside',
       });
+
+      return;
     }
 
     // 不登录用户也可访问的路由
