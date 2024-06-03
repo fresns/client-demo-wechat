@@ -72,13 +72,28 @@
     "pages/conversations/index",
     "pages/conversations/messages",
 
+    "pages/me/login/index",
+    "pages/me/login/check-sign",
+    "pages/me/login/oauth-website",
+
+    "pages/me/index",
+    "pages/me/extcredits",
+    "pages/me/wallet",
+    "pages/me/drafts",
+    "pages/me/users",
+    "pages/me/settings",
+
+    "pages/search/index",
+
+    "pages/editor/index",
+
     "pages/profile/posts",
     "pages/profile/comments",
-    "pages/profile/interactions/followers-you-follow",
     "pages/profile/interactions/likers",
     "pages/profile/interactions/dislikers",
     "pages/profile/interactions/followers",
     "pages/profile/interactions/blockers",
+    "pages/profile/interactions/followers-you-follow",
     "pages/profile/likes/users",
     "pages/profile/likes/groups",
     "pages/profile/likes/hashtags",
@@ -103,21 +118,6 @@
     "pages/profile/blocking/geotags",
     "pages/profile/blocking/posts",
     "pages/profile/blocking/comments",
-
-    "pages/search/index",
-
-    "pages/me/login/index",
-    "pages/me/login/check-sign",
-    "pages/me/login/oauth-website",
-
-    "pages/me/index",
-    "pages/me/extcredits",
-    "pages/me/wallet",
-    "pages/me/drafts",
-    "pages/me/users",
-    "pages/me/settings",
-
-    "pages/editor/index",
 
     "sdk/extensions/webview"
   ],
