@@ -1,14 +1,72 @@
 <!-- *
-    Fresns 微信小程序 (https://fresns.cn)
-    Copyright 2021-Present 唐杰
-    Licensed under the Apache-2.0 license
+  Fresns 微信小程序 (https://fresns.cn)
+  Copyright 2021-Present 唐杰
+  Licensed under the Apache-2.0 license
 * -->
-<view class="page" data-weui-theme="{{ theme }}">
-    <view  class="tip">
-        待开发
-    </view>
+<page-meta root-font-size="system"/>
 
-    <view class="weui-loadmore weui-loadmore_line tabbar-spacing">
-        <text class="weui-loadmore__tips">Powered by Fresns</text>
+<navigation-bar title="{{title}}" backButton="{{navbarBackButton}}" homeButton="{{navbarHomeButton}}" loading="{{navbarLoading}}"></navigation-bar>
+
+<view class="weui-search-bar {{inputShowed ? 'weui-search-bar_focusing' : ''}}" id="searchBar">
+  <form class="weui-search-bar__form" aria-role="combobox" aria-haspopup="true" aria-expanded="{{inputVal.length > 0 ? 'true' : 'false'}}" aria-owns="searchResult">
+    <view aria-hidden="true" class="weui-search-bar__box">
+      <i class="weui-icon-search"></i>
+      <view class="weui-search-bar__words" bind:tap="onSearchType">{{typeName}}</view>
+      <input aria-controls="searchResult" type="text" class="weui-search-bar__input {{isFocus ? 'weui-search-bar__input_focus' : ''}}" placeholder="{{fresnsLang.search}}" confirm-type="search" value="{{inputVal}}" bindinput="inputTyping" focus="{{inputShowed}}" bindblur="blurInput" bindconfirm="confirmSearch"/>
+      <view class="weui-search-bar__mask"></view>
+      <view aria-role="button" aria-label="清除" class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bind:tap="clearInput"></view>
     </view>
+    <label class="weui-search-bar__label" bind:tap="showInput">
+      <i class="weui-icon-search"></i>
+      <span class="weui-search-bar__label__text">{{fresnsLang.search}}</span>
+    </label>
+  </form>
+  <view aria-role="button" class="weui-search-bar__cancel-btn" bind:tap="hideInput">{{fresnsLang.cancel}}</view>
 </view>
+
+<scroll-view class="scrollarea" type="list" scroll-y="{{true}}" enable-back-to-top="{{true}}" bindscrolltolower="onScrollToLower">
+  <!-- 用户列表 -->
+  <block wx:if="{{type == 'user'}}">
+    <view class="user-list" wx:for="{{users}}" wx:for-item="user" wx:key="uid">
+      <user user="{{user}}"></user>
+    </view>
+  </block>
+
+  <!-- 小组列表 -->
+  <block wx:if="{{type == 'group'}}">
+    <view class="group-list" wx:for="{{groups}}" wx:for-item="group" wx:key="gid">
+      <group group="{{group}}"></group>
+    </view>
+  </block>
+
+  <!-- 话题列表 -->
+  <block wx:if="{{type == 'hashtag'}}">
+    <view class="hashtag-list" wx:for="{{hashtags}}" wx:for-item="hashtag" wx:key="htid">
+      <hashtag hashtag="{{hashtag}}"></hashtag>
+    </view>
+  </block>
+
+  <!-- 地理列表 -->
+  <block wx:if="{{type == 'geotag'}}">
+    <view class="geotag-list" wx:for="{{geotags}}" wx:for-item="geotag" wx:key="gtid">
+      <geotag geotag="{{geotag}}"></geotag>
+    </view>
+  </block>
+
+  <!-- 帖子列表 -->
+  <block wx:if="{{type == 'post'}}">
+    <view class="post-list" wx:for="{{posts}}" wx:for-item="post" wx:key="pid">
+      <post post="{{post}}" viewType="list"></post>
+    </view>
+  </block>
+
+  <!-- 评论列表 -->
+  <block wx:if="{{type == 'comment'}}">
+    <view class="comment-list" wx:for="{{comments}}" wx:for-item="comment" wx:key="cid">
+      <comment comment="{{comment}}" viewType="list"></comment>
+    </view>
+  </block>
+
+  <!-- 加载动效 -->
+  <loading status="{{loadingStatus}}" tipType="{{loadingTipType}}"></loading>
+</scroll-view>
