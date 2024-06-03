@@ -5,6 +5,7 @@
  */
 import { fresnsApi } from '../../sdk/services/api';
 import { fresnsLang } from '../../sdk/helpers/configs';
+import { callPrevPageFunction } from '../../sdk/utilities/toolkit';
 
 let isRefreshing = false;
 
@@ -61,6 +62,10 @@ Page({
       });
 
       await this.loadFresnsPageData();
+
+      await fresnsApi.conversation.markAsRead(fsid);
+
+      callPrevPageFunction('onMarkRead', fsid);
 
       return;
     }

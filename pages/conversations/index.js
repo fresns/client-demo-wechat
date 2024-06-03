@@ -5,6 +5,7 @@
  */
 import { fresnsApi } from '../../sdk/services/api';
 import { fresnsConfig, fresnsLang } from '../../sdk/helpers/configs';
+import { clearCache } from '../../sdk/helpers/cache';
 
 let isRefreshing = false;
 
@@ -136,5 +137,30 @@ Page({
     setTimeout(() => {
       isRefreshing = false;
     }, 5000); // 防抖时间 5 秒
+  },
+
+  // 标记已读
+  onMarkRead(fsid) {
+    const conversations = this.data.conversations;
+    if (conversations.length < 1) {
+      return;
+    }
+
+    const idx = conversations.findIndex((value) => value.user.fsid == fsid);
+
+    if (idx == -1) {
+      // 未找到记录
+      return;
+    }
+
+    const unreadCount = conversations[idx].unreadCount;
+
+    conversations[idx].unreadCount = 0;
+
+    this.setData({
+      conversations: conversations,
+    });
+
+    clearCache('fresnsCacheOverviewTags');
   },
 });
