@@ -55,7 +55,7 @@ Component({
 
       if (notification.type === 7) {
         // 提及，在哪里提及
-        switch (notification.actionObject) {
+        switch (notification.actionTarget) {
           case 1:
             // 用户
             const userHomePath = await globalInfo.userHomePath();
@@ -74,18 +74,25 @@ Component({
           case 3:
             // 话题
             wx.navigateTo({
-              url: '/pages/hashtags/detail?hid=' + notification.actionInfo.hid,
+              url: '/pages/hashtags/detail?htid=' + notification.actionInfo.htid,
             });
             break;
 
           case 4:
+            // 地理
+            wx.navigateTo({
+              url: '/pages/geotags/detail?gtid=' + notification.actionInfo.gtid,
+            });
+            break;
+
+          case 5:
             // 帖子
             wx.navigateTo({
               url: '/pages/posts/detail?pid=' + notification.actionInfo.pid,
             });
             break;
 
-          case 5:
+          case 6:
             // 评论
             wx.navigateTo({
               url: '/pages/comments/detail?cid=' + notification.actionInfo.cid,

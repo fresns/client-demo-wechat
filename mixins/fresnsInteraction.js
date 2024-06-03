@@ -78,7 +78,11 @@ module.exports = {
         break;
 
       case 'hashtag':
-        sharePath = '/pages/hashtags/detail?hid=' + fsid;
+        sharePath = '/pages/hashtags/detail?htid=' + fsid;
+        break;
+
+      case 'geotag':
+        sharePath = '/pages/geotags/detail?gtid=' + fsid;
         break;
 
       case 'post':
