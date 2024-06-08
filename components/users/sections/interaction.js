@@ -139,6 +139,28 @@ Component({
     // 关注
     onClickUserFollow: async function () {
       const user = this.data.user;
+
+      if (user.interaction.followMethod == 'page') {
+        // 扩展 Web-View 数据
+        const navigatorData = {
+          title: user.nickname,
+          url: user.interaction.followAppUrl,
+          uid: user.uid,
+          postMessageKey: 'fresnsFollowUser',
+        };
+
+        // 将链接数据赋予到全局数据中
+        const app = getApp();
+        app.globalData.navigatorData = navigatorData;
+
+        // 访问扩展页面选择用户
+        wx.navigateTo({
+          url: '/sdk/extensions/webview',
+        });
+
+        return;
+      }
+
       const initialUser = JSON.parse(JSON.stringify(this.data.user)); // 拷贝一个用户初始数据
 
       if (user.interaction.followStatus) {

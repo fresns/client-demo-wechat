@@ -168,6 +168,20 @@ module.exports = {
         }
         break;
 
+      // 关注用户
+      case 'fresnsFollowUser':
+        if (dataHandler == 'reload') {
+          this.onChangeUser(data);
+        }
+        break;
+
+      // 关注小组
+      case 'fresnsFollowGroup':
+        if (dataHandler == 'reload') {
+          this.onChangeGroup(data);
+        }
+        break;
+
       // 编辑器更新草稿
       case 'fresnsEditorUpdate':
         // 合并编辑器里所有回调功能，统一采用再请求草稿，全量更新

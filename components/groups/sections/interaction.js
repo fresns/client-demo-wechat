@@ -139,6 +139,28 @@ Component({
     // 关注
     onClickGroupFollow: async function () {
       const group = this.data.group;
+
+      if (group.interaction.followMethod == 'page') {
+        // 扩展 Web-View 数据
+        const navigatorData = {
+          title: group.name,
+          url: group.interaction.followAppUrl,
+          gid: group.gid,
+          postMessageKey: 'fresnsFollowGroup',
+        };
+
+        // 将链接数据赋予到全局数据中
+        const app = getApp();
+        app.globalData.navigatorData = navigatorData;
+
+        // 访问扩展页面选择用户
+        wx.navigateTo({
+          url: '/sdk/extensions/webview',
+        });
+
+        return;
+      }
+
       const initialGroup = JSON.parse(JSON.stringify(this.data.group)); // 拷贝一个小组初始数据
 
       if (group.interaction.followStatus) {
