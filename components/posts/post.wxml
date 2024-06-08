@@ -91,7 +91,7 @@
     </view>
 
     <!-- 评论预览 -->
-    <view wx:if="{{viewType == 'list' && post.commentCount}}">
+    <view wx:if="{{viewType == 'list' && post.previewComments.length > 0}}">
       <preview-comments pid="{{post.pid}}" commentCount="{{post.commentCount}}" previewComments="{{post.previewComments}}"/>
     </view>
   </view>

@@ -16,7 +16,7 @@
 }
 
 .btn-icon {
-  margin-right: 32rpx;
+  margin-right: 10rpx;
 }
 
 .btn-icon image {

@@ -8,8 +8,6 @@ import { fresnsClient } from '../../../sdk/helpers/client';
 import { fresnsConfig, fresnsLang } from '../../../sdk/helpers/configs';
 import { callPageFunction, truncateText } from '../../../sdk/utilities/toolkit';
 
-const app = getApp();
-
 Component({
   /** 组件的属性列表 **/
   properties: {
