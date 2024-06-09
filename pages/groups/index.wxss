@@ -9,16 +9,12 @@
 }
 
 .left-scroll {
-  flex-shrink: 0;
-  width: 200rpx !important;
+  width: 250rpx;
   white-space: nowrap;
   background-color: var(--weui-BG-1);
 }
 
 .right-scroll {
-  flex: 1;
-  flex-grow: 1;
-  width: 200rpx !important;
   overflow: hidden;
   background-color: var(--weui-BG-2);
 }
@@ -29,5 +25,6 @@
 
 .action {
   background-color: var(--weui-BG-2);
+  padding-left: 20rpx;
   border-left: 10rpx solid var(--weui-BRAND-100);
 }
