@@ -59,7 +59,9 @@ export function request(params) {
           return;
         }
 
-        if (code === 31502 || code === 31503 || code === 31504 || code === 31505 || code === 31602 || code === 31603) {
+        const loginErrorCodes = [31103, 31502, 31503, 31504, 31505, 31602, 31603];
+
+        if (loginErrorCodes.includes(code)) {
           wx.removeStorageSync('aid');
           wx.removeStorageSync('aidToken');
           wx.removeStorageSync('uid');
