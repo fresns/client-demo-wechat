@@ -317,18 +317,15 @@ module.exports = {
   /** 更改用户 **/
   onChangeUser(newUser) {
     // 详情页
-    const user = this.data?.profile?.detail;
+    const user = this.data.profile;
 
     if (user) {
       if (user.uid != newUser.uid) {
         return;
       }
 
-      const profile = this.data.profile;
-      profile.detail = newUser;
-
       this.setData({
-        profile: profile,
+        profile: newUser,
       });
 
       // 同步更改上一页用户

@@ -4,6 +4,7 @@
  * Licensed under the Apache-2.0 license
  */
 import { fresnsConfig, fresnsLang } from '../../sdk/helpers/configs';
+import { fresnsAuth } from '../../sdk/helpers/profiles';
 
 Component({
   /** 组件的属性列表 **/
@@ -31,6 +32,8 @@ Component({
       moreActive: '/assets/images/interaction/content-more.png',
     },
 
+    isMe: true,
+
     showMoreSheet: false,
   },
 
@@ -55,6 +58,10 @@ Component({
           buttonIcons: buttonIcons,
         });
       }
+
+      this.setData({
+        isMe: fresnsAuth.uid == user.uid,
+      });
     },
   },
 
