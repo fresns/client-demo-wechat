@@ -24,6 +24,9 @@ Page({
     detailType: 'posts',
     postName: null,
     commentName: null,
+    contentDigest: null,
+    errorUnavailable: null,
+    contentGroupTip: null,
 
     // 详情
     loadingDetailStatus: true,

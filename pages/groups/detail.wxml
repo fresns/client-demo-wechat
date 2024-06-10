@@ -60,7 +60,7 @@
 
   <!-- 帖子列表 -->
   <block wx:if="{{detailType == 'posts'}}">
-    <view class="weui-cells__title" wx:if="{{group.canViewContent}}">{{postName}}: {{geotag.postCount}}</view>
+    <view class="weui-cells__title" wx:if="{{group.canViewContent}}">{{postName}}: {{group.postCount}}</view>
     <view class="post-list" wx:for="{{posts}}" wx:for-item="post" wx:key="pid">
       <post post="{{post}}" viewType="list"></post>
     </view>
@@ -68,7 +68,7 @@
 
   <!-- 评论列表 -->
   <block wx:if="{{detailType == 'comments'}}">
-    <view class="weui-cells__title" wx:if="{{group.canViewContent}}">{{commentName}}: {{geotag.commentCount}}</view>
+    <view class="weui-cells__title" wx:if="{{group.canViewContent}}">{{commentName}}: {{group.commentCount}}</view>
     <view class="comment-list" wx:for="{{comments}}" wx:for-item="comment" wx:key="cid">
       <comment comment="{{comment}}" viewType="list" showReplyToPost="{{false}}"></comment>
     </view>

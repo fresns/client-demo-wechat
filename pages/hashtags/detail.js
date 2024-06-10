@@ -25,6 +25,7 @@ Page({
     detailType: 'posts',
     postName: null,
     commentName: null,
+    contentDigest: null,
 
     // 详情
     loadingDetailStatus: true,
@@ -47,7 +48,7 @@ Page({
 
   /** 监听页面加载 **/
   onLoad: async function (options) {
-    options.hashtags = options.htid;
+    options.hashtags = decodeURIComponent(options.htid);
 
     this.setData({
       title: await fresnsConfig('hashtag_name'),

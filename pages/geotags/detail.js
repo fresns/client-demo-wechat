@@ -24,6 +24,7 @@ Page({
     detailType: 'posts',
     postName: null,
     commentName: null,
+    contentDigest: null,
 
     // 详情
     loadingDetailStatus: true,
