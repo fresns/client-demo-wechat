@@ -4,7 +4,7 @@
   Licensed under the Apache-2.0 license
 * -->
 <view class="weui-navigation-bar {{customRoute ? 'weui-navigation-bar__customRoute' : 'weui-navigation-bar__page'}}">
-  <view class="weui-navigation-bar__inner" style="opacity:1;transition:opacity 0.5s;color:{{color}};">
+  <view class="weui-navigation-bar__inner" style="opacity:1;transition:opacity 0.5s;">
     <!-- 左侧 -->
     <view class="weui-navigation-bar__left">
       <view class="weui-navigation-bar__buttons">
