@@ -34,7 +34,6 @@ page {
 
 .weui-badge {
   padding: 4.8rpx 12.8rpx !important;
-  min-width: 21.33rpx !important;
 }
 
 /* footer */

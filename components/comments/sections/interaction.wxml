@@ -111,7 +111,7 @@
         data-cid="{{comment.cid}}"
         data-view-type="{{viewType}}"
         data-post-message-key="fresnsCommentManage">
-        <image src="{{item.icon}}" mode="aspectFit"></image>
+        <image wx:if="{{item.icon}}" src="{{item.icon}}" mode="aspectFit"></image>
         <text>{{item.name}}</text>
       </navigator>
     </view>
