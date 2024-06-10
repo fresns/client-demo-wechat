@@ -30,6 +30,10 @@ Component({
   /** 组件功能 **/
   methods: {
     renderMarkdown: function (content) {
+      if (!content) {
+        return;
+      }
+
       // 使用 marked 解析 Markdown 文本
       const parsedContent = marked.parse(content);
 
