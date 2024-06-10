@@ -27,8 +27,8 @@ module.exports = {
   },
 
   /** 监听页面加载 **/
-  onLoad() {
-    this.checkFresnsSiteMode();
+  onLoad: async function () {
+    await this.checkFresnsSiteMode();
 
     this.loginInterceptor();
 
@@ -99,6 +99,7 @@ module.exports = {
       'pages/portal/index',
       'pages/portal/about',
       'pages/portal/policies',
+      'pages/portal/discover',
 
       'pages/users/index',
       'pages/users/list',
