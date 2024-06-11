@@ -19,7 +19,7 @@
   </view>
 
   <!-- 多端应用: 微信登录 -->
-  <view class="we-login-agree" wx:if="{{appBaseInfo.isApp}}">
+  <view class="we-login-agree" wx:if="{{appBaseInfo.isApp && hasWechatInstall}}">
     <button class="weui-btn weui-btn_primary" type="primary" bind:tap="onAppWeChatLogin">
       <view class="btn-flex">
         <view><image src="/assets/images/wechat.png" mode="heightFix"/></view>

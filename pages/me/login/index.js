@@ -22,6 +22,7 @@ Page({
     fresnsLang: null,
 
     enableWeChatLogin: true,
+    hasWechatInstall: true,
 
     accountLoginService: null,
     accountRegisterStatus: false,
@@ -57,11 +58,24 @@ Page({
     };
     const appleLoginBtnName = appleBtnNameMap[langTag] || 'Sign in with Apple';
 
+    const appBaseInfo = fresnsClient.appBaseInfo;
+    if (appBaseInfo.isApp && appBaseInfo.platform == 'ios') {
+      // 如果 iOS 设备中没有安装微信，则不显示微信登录按钮
+      // 满足苹果审核要求
+      wx.miniapp.hasWechatInstall({
+        success: (res) => {
+          this.setData({
+            hasWechatInstall: res.hasWechatInstall,
+          });
+        },
+      });
+    }
+
     this.setData({
       title: await fresnsLang('accountLoginOrRegister'),
       fresnsLang: await fresnsLang(),
       enableWeChatLogin: fresnsClient.enableWeChatLogin,
-      appBaseInfo: fresnsClient.appBaseInfo,
+      appBaseInfo: appBaseInfo,
       wechatLoginBtnName: wechatLoginBtnName,
       appleLoginBtnName: appleLoginBtnName,
       accountLoginService: await fresnsConfig('account_login_service'),
