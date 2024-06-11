@@ -190,7 +190,7 @@
   </block>
 
   <view class="account-center">
-    <view class="account-logo">
+    <view class="account-logo" wx:if="{{logo}}">
       <image src="{{logo}}" mode="widthFix"></image>
     </view>
     <view class="account-title">{{fresnsLang.accountCenter}}</view>
