@@ -35,10 +35,10 @@
       <view class="content-text">
         <markdown-viewer content="{{commentContent}}"/>
       </view>
+    </view>
 
-      <view class="content-brief" wx:if="{{viewType == 'list' && comment.isBrief}}">
-        <navigator class="navigator-inline" url="/pages/comments/detail?cid={{comment.cid}}">全文</navigator>
-      </view>
+    <view class="content-brief" wx:if="{{viewType == 'list' && comment.isBrief}}">
+      <navigator class="navigator-inline" url="/pages/comments/detail?cid={{comment.cid}}">{{contentFull}}</navigator>
     </view>
 
     <!-- 附件文件 -->

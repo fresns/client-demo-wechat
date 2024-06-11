@@ -76,7 +76,7 @@ Component({
         },
         editorConfig: await fresnsEditor.comment('editor'),
         stickers: stickers,
-        currentStickers: stickers[0].stickers,
+        currentStickers: stickers[0]?.stickers,
       });
     },
   },

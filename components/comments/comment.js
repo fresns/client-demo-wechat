@@ -29,6 +29,7 @@ Component({
     contentAuthor: '',
     userDeactivate: null,
     authorAnonymous: null,
+    contentFull: null,
   },
 
   /** 组件数据字段监听器 **/
@@ -78,6 +79,7 @@ Component({
         contentAuthor: await fresnsLang('contentAuthor'),
         userDeactivate: await fresnsLang('userDeactivate'),
         authorAnonymous: await fresnsLang('contentAuthorAnonymous'),
+        contentFull: await fresnsLang('contentFull'),
       });
     },
   },

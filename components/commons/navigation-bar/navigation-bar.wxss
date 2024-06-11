@@ -4,7 +4,7 @@
  * Licensed under the Apache-2.0 license
  */
 .weui-navigation-bar__page {
-  --height: calc(70rpx + env(safe-area-inset-top));
+  --height: calc(90rpx + env(safe-area-inset-top));
   --padding-top: env(safe-area-inset-top);
 }
 

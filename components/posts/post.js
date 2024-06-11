@@ -5,6 +5,7 @@
  */
 import { fresnsLang } from '../../sdk/helpers/configs';
 import { fresnsViewProfilePath } from '../../sdk/helpers/profiles';
+import { callPageFunction } from '../../sdk/utilities/toolkit';
 
 Component({
   /** 组件的属性列表 **/
@@ -22,6 +23,7 @@ Component({
   /** 组件的初始数据 **/
   data: {
     postContent: null,
+    contentFull: null,
     contentPreReadInfo: null,
   },
 
@@ -69,6 +71,7 @@ Component({
   lifetimes: {
     attached: async function () {
       this.setData({
+        contentFull: await fresnsLang('contentFull'),
         contentPreReadInfo: await fresnsLang('contentPreReadInfo'),
       });
     },
@@ -85,6 +88,12 @@ Component({
       wx.navigateTo({
         url: '/pages/posts/detail?pid=' + this.data.post.pid,
       });
+    },
+
+    // 回调扩展处理函数
+    handleExtensionTap(e) {
+      // sdk/extensions/functions
+      callPageFunction('handleExtensionTap', e);
     },
   },
 });

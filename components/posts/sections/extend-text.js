@@ -3,6 +3,8 @@
  * Copyright 2021-Present 唐杰
  * Licensed under the Apache-2.0 license
  */
+import { callPageFunction } from '../../../sdk/utilities/toolkit';
+
 Component({
   /** 组件的属性列表 **/
   properties: {
@@ -36,6 +38,15 @@ Component({
         pid: type == 'post' ? fsid : '',
         cid: type == 'comment' ? fsid : '',
       });
+    },
+  },
+
+  /** 组件功能 **/
+  methods: {
+    // 回调扩展处理函数
+    handleExtensionTap(e) {
+      // sdk/extensions/functions
+      callPageFunction('handleExtensionTap', e);
     },
   },
 });

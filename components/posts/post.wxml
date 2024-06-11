@@ -29,10 +29,10 @@
       <view class="content-text">
         <markdown-viewer content="{{postContent}}"/>
       </view>
+    </view>
 
-      <view class="content-brief" wx:if="{{viewType == 'list' && post.isBrief}}">
-        <navigator class="navigator-inline" url="/pages/posts/detail?pid={{post.pid}}">全文</navigator>
-      </view>
+    <view class="content-brief" wx:if="{{viewType == 'list' && post.isBrief}}">
+      <navigator class="navigator-inline" url="/pages/posts/detail?pid={{post.pid}}">{{contentFull}}</navigator>
     </view>
 
     <!-- 权限信息 -->
@@ -46,7 +46,7 @@
           data-url="{{post.readConfig.buttonUrl}}"
           data-pid="{{post.pid}}"
           data-post-message-key="fresnsPostAuth">
-          {{post.readConfig.userListName}}购买
+          {{post.readConfig.userListName}}
         </navigator>
       </view>
     </view>

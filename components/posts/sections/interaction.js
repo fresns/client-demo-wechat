@@ -436,5 +436,11 @@ Component({
         },
       });
     },
+
+    // 回调扩展处理函数
+    handleExtensionTap(e) {
+      // sdk/extensions/functions
+      callPageFunction('handleExtensionTap', e);
+    },
   },
 });
