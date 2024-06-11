@@ -150,3 +150,11 @@
   margin-top: 60rpx;
   margin-bottom: 60rpx;
 }
+
+.checkVersion {
+  display: flex;
+}
+
+.checkVersion .weui-badge {
+  margin-left: 10rpx;
+}
