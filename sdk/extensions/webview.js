@@ -99,6 +99,14 @@ Page({
     });
   },
 
+  /** 监听页面显示 **/
+  onShow: async function () {
+    setTimeout(() => {
+      console.log('setTimeout eventLoadPage');
+      this.eventLoadPage(); // 额外加一个定时，解决 App 端 bindload 不生效问题
+    }, 2000);
+  },
+
   /** 监听页面隐藏 **/
   onHide: function () {
     app.globalData.navigatorData = {};
