@@ -415,9 +415,9 @@ Component({
             // mixins/fresnsInteraction.js
             callPageFunction('onChangePost', post);
 
-            const resultRes = await fresnsApi.user.userMark({
-              interactionType: 'block',
-              markType: 'post',
+            const resultRes = await fresnsApi.user.mark({
+              markType: 'block',
+              type: 'post',
               fsid: post.pid,
             });
 
