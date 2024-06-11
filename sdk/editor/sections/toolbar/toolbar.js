@@ -46,7 +46,7 @@ Component({
         fresnsLang: await fresnsLang(),
         config: config,
         stickers: stickers,
-        currentStickers: stickers[0].stickers,
+        currentStickers: stickers[0]?.stickers,
       });
     },
   },
@@ -70,7 +70,7 @@ Component({
 
         // 图片
         case 'image':
-          switch (config.image.uploadType) {
+          switch (config.image.uploadMethod) {
             // API 上传
             case 'api':
               this.onApiUpload(`${type}Draft`, did, 'image', config.image);
@@ -93,7 +93,7 @@ Component({
 
         // 视频
         case 'video':
-          switch (config.video.uploadType) {
+          switch (config.video.uploadMethod) {
             // API 上传
             case 'api':
               this.onApiUpload(`${type}Draft`, did, 'video', config.video);
@@ -116,7 +116,7 @@ Component({
 
         // 音频
         case 'audio':
-          switch (config.audio.uploadType) {
+          switch (config.audio.uploadMethod) {
             // API 上传
             case 'api':
               this.onApiUpload(`${type}Draft`, did, 'audio', config.audio);
@@ -139,7 +139,7 @@ Component({
 
         // 文档
         case 'document':
-          switch (config.document.uploadType) {
+          switch (config.document.uploadMethod) {
             // API 上传
             case 'api':
               this.onApiUpload(`${type}Draft`, did, 'document', config.document);

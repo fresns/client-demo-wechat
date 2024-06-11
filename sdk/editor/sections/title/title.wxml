@@ -6,7 +6,7 @@
 <view class="editor-title">
   <view class="weui-cell">
     <view class="weui-cell__bd">
-      <textarea class="weui-input" placeholder="{{placeholder}}" value="{{title}}" auto-height="{{true}}" maxlength="{{config.length}}" confirm-type="done" bindblur="onUpdate" bindconfirm="onUpdate" style="{{title ? 'font-weight:bold;': ''}}"/>
+      <textarea class="weui-input" placeholder="{{placeholder}}" value="{{title}}" auto-height="{{true}}" maxlength="{{config.length}}" confirm-type="done" bindblur="onUpdate" bindconfirm="onUpdate" style="font-size:36rpx;{{title ? 'font-weight:bold;': ''}}"/>
     </view>
   </view>
 </view>

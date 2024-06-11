@@ -20,14 +20,30 @@ Page({
 
   /** 监听页面加载 **/
   onLoad: async function (options) {
+    wx.setNavigationBarTitle({
+      title: await fresnsLang('loading'),
+    });
+
+    const url = options.url;
+
+    if (url) {
+      this.setData({
+        theme: app.globalData.theme,
+        mode: app.globalData.mode,
+        url: url,
+      });
+
+      return;
+    }
+
     const navigatorData = app.globalData.navigatorData;
 
     console.log('web-view options', options);
     console.log('web-view navigatorData', navigatorData);
 
-    let url = options.url || navigatorData?.url || '';
+    let appUrl = navigatorData?.url;
 
-    if (!url) {
+    if (!appUrl) {
       wx.setNavigationBarTitle({
         title: await fresnsLang('errorUnavailable'),
       });
@@ -36,10 +52,6 @@ Page({
     }
 
     const title = navigatorData?.title || '';
-
-    wx.setNavigationBarTitle({
-      title: await fresnsLang('loading'),
-    });
 
     wx.showNavigationBarLoading();
 
@@ -76,14 +88,14 @@ Page({
         parameter: navigatorData.parameter || '', // 自定义信息
       };
 
-      url = repAppUrl(url, urlParams);
+      appUrl = repAppUrl(appUrl, urlParams);
     }
 
     this.setData({
       theme: app.globalData.theme,
       mode: app.globalData.mode,
       title: title,
-      url: url,
+      url: appUrl,
     });
   },
 
