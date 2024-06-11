@@ -7,7 +7,7 @@
   <view class="weui-cells weui-cells_form">
     <view class="weui-cell" hover-class="weui-cell_active">
       <view class="weui-cell__bd">
-        <textarea class="weui-textarea" style="height:280rpx" placeholder="{{fsConfig.publish_comment_name + ' ' +  nickname}}"
+        <textarea class="weui-textarea" style="height:280rpx" placeholder="{{publishCommentName + ' ' +  nickname}}"
           value="{{content}}"
           cursor="{{contentCursorPosition}}"
           adjust-position="{{false}}"
@@ -53,7 +53,7 @@
 
     <view class="submit">
       <view class="weui-btn weui-btn_mini weui-btn_primary weui-wa-hotarea" bind:tap="onClickSubmit">
-        {{fsConfig.publish_comment_name}}
+        {{publishCommentName}}
       </view>
     </view>
   </view>

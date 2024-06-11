@@ -33,6 +33,7 @@ Component({
     fsLang: {},
     editorConfig: {},
 
+    publishCommentName: '回复',
     content: '',
     imagePath: null,
     isEnableAnonymous: false,
@@ -66,9 +67,6 @@ Component({
       this.setData({
         userLogin: fresnsAuth.userLogin,
         loginBtnText: loginBtnText,
-        fsConfig: {
-          publish_comment_name: await fresnsConfig('publish_comment_name'),
-        },
         fsLang: {
           errorNoLogin: await fresnsLang('errorNoLogin'),
           content: await fresnsLang('editorContent'),
@@ -77,6 +75,7 @@ Component({
         editorConfig: await fresnsEditor.comment('editor'),
         stickers: stickers,
         currentStickers: stickers[0]?.stickers,
+        publishCommentName: await fresnsConfig('publish_comment_name'),
       });
     },
   },
