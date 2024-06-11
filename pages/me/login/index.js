@@ -119,7 +119,7 @@ Page({
     // 授权成功，但是本站并未查询到对应的账号
     if (loginRes.code == 31502) {
       wx.navigateTo({
-        url: '/pages/me/wechat-login/check-sign?type=' + type,
+        url: '/pages/me/login/check-sign?type=' + type,
         routeType: 'wx://bottom-sheet',
       });
 

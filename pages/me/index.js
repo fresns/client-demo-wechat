@@ -120,6 +120,8 @@ Page({
       fresnsUser: await fresnsUser('detail'),
       fresnsOverview: await fresnsOverview(),
     });
+
+    wx.hideLoading();
   },
 
   /** 监听页面渲染完成 **/
