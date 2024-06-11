@@ -10,7 +10,7 @@
 <scroll-view class="scrollarea" type="list" scroll-y="{{true}}" enable-back-to-top="{{true}}">
   <view class="page" data-weui-theme="{{theme}}">
     <view class="page__hd">
-      <view class="page__logo">
+      <view class="page__logo" wx:if="{{logo}}">
         <image src="{{logo}}" mode="widthFix" alt="Fresns"></image>
       </view>
       <view>
