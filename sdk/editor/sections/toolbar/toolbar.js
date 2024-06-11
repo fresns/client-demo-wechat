@@ -84,7 +84,7 @@ Component({
             // s3 sdk
             case 'sdk':
               wx.showToast({
-                title: '待开发',
+                title: '小程序无法使用 S3 上传，你可以访问我们的网站上传',
                 icon: 'none',
               });
               break;
@@ -107,7 +107,7 @@ Component({
             // s3 sdk
             case 'sdk':
               wx.showToast({
-                title: '待开发',
+                title: '小程序无法使用 S3 上传，你可以访问我们的网站上传',
                 icon: 'none',
               });
               break;
@@ -130,7 +130,7 @@ Component({
             // s3 sdk
             case 'sdk':
               wx.showToast({
-                title: '待开发',
+                title: '小程序无法使用 S3 上传，你可以访问我们的网站上传',
                 icon: 'none',
               });
               break;
@@ -153,7 +153,7 @@ Component({
             // s3 sdk
             case 'sdk':
               wx.showToast({
-                title: '待开发',
+                title: '小程序无法使用 S3 上传，你可以访问我们的网站上传',
                 icon: 'none',
               });
               break;
