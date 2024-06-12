@@ -44,6 +44,8 @@ Page({
     loginBtnText: null,
 
     refresherStatus: false, // scroll-view 视图容器下拉刷新状态
+    loadingStatus: true, // loading 组件状态
+    loadingTipType: 'none', // loading 组件提示文案
 
     appBaseInfo: {},
 
@@ -132,6 +134,18 @@ Page({
       appBaseInfo: appBaseInfo,
     });
 
+    if (this.data.loginBtnText) {
+      this.setData({
+        loadingStatus: false,
+      });
+    } else {
+      setTimeout(() => {
+        this.setData({
+          loadingStatus: false,
+        });
+      }, 2000);
+    }
+
     if (!appBaseInfo.hasNewVersion) {
       return;
     }
@@ -157,6 +171,7 @@ Page({
 
       this.setData({
         refresherStatus: false,
+        loadingStatus: false,
       });
 
       return;
@@ -167,6 +182,7 @@ Page({
     this.setData({
       navbarLoading: true,
       refresherStatus: true,
+      loadingStatus: true,
     });
 
     this.reloadUserData(); // 重载用户数据
@@ -174,6 +190,7 @@ Page({
     this.setData({
       navbarLoading: false,
       refresherStatus: false,
+      loadingStatus: false,
     });
 
     setTimeout(() => {

@@ -8,6 +8,9 @@
 <navigation-bar title="{{title}}" backButton="{{navbarBackButton}}" homeButton="{{navbarHomeButton}}" loading="{{navbarLoading}}"></navigation-bar>
 
 <scroll-view class="scrollarea" type="list" scroll-y="{{true}}" enable-back-to-top="{{true}}" refresher-enabled="{{userLogin}}" refresher-triggered="{{refresherStatus}}" bindrefresherrefresh="onRefresherRefresh">
+  <!-- 加载动效 -->
+  <loading status="{{loadingStatus}}" tipType="{{loadingTipType}}"></loading>
+
   <view class="profile-header {{userLogin ? '' : 'login-box'}}">
     <!-- 已登录 -->
     <block wx:if="{{userLogin}}">
