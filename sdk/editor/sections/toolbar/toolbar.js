@@ -78,7 +78,7 @@ Component({
 
             // 插件页上传
             case 'page':
-              this.onPluginPageUpload(config.image.uploadUrl, `${type}Draft,${did},image`);
+              this.onPluginPageUpload(config.image.uploadAppUrl, `${type}Draft,${did},image`);
               break;
 
             // s3 sdk
@@ -101,7 +101,7 @@ Component({
 
             // 插件页上传
             case 'page':
-              this.onPluginPageUpload(config.video.uploadUrl, `${type}Draft,${did},video`);
+              this.onPluginPageUpload(config.video.uploadAppUrl, `${type}Draft,${did},video`);
               break;
 
             // s3 sdk
@@ -124,7 +124,7 @@ Component({
 
             // 插件页上传
             case 'page':
-              this.onPluginPageUpload(config.audio.uploadUrl, `${type}Draft,${did},audio`);
+              this.onPluginPageUpload(config.audio.uploadAppUrl, `${type}Draft,${did},audio`);
               break;
 
             // s3 sdk
@@ -147,7 +147,7 @@ Component({
 
             // 插件页上传
             case 'page':
-              this.onPluginPageUpload(config.document.uploadUrl, `${type}Draft,${did},document`);
+              this.onPluginPageUpload(config.document.uploadAppUrl, `${type}Draft,${did},document`);
               break;
 
             // s3 sdk
@@ -277,11 +277,11 @@ Component({
     },
 
     // 插件页上传
-    onPluginPageUpload: async function (uploadUrl, uploadInfo) {
+    onPluginPageUpload: async function (uploadAppUrl, uploadInfo) {
       // 扩展 Web-View 数据
       const navigatorData = {
         title: await fresnsLang('upload'),
-        url: uploadUrl,
+        url: uploadAppUrl,
         uploadInfo: uploadInfo,
         postMessageKey: 'fresnsEditorUpload',
       };
