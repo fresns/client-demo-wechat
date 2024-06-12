@@ -35,18 +35,18 @@ Component({
       }
 
       if (tipType == 'page') {
-        const listWithoutPage = await fresnsLang('listWithoutPage');
+        const listWithoutPage = await fresnsLang('listWithoutPage', '没有了');
         this.setData({
           tipStatus: true,
-          tipText: listWithoutPage || '没有了',
+          tipText: listWithoutPage,
         });
       }
 
       if (tipType == 'empty') {
-        const listEmpty = await fresnsLang('listEmpty');
+        const listEmpty = await fresnsLang('listEmpty', '列表为空，暂无内容');
         this.setData({
           tipStatus: true,
-          tipText: listEmpty || '列表为空，暂无内容',
+          tipText: listEmpty,
         });
       }
     },
@@ -55,10 +55,10 @@ Component({
   /** 组件生命周期声明对象 **/
   lifetimes: {
     attached: async function () {
-      const loading = await fresnsLang('loading');
+      const loading = await fresnsLang('loading', '正在加载');
 
       this.setData({
-        loading: loading || '正在加载',
+        loading: loading,
       });
     },
   },
