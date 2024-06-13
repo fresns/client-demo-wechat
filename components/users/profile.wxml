@@ -73,9 +73,9 @@
       <navigator class="weui-actionsheet__cell" wx:for="{{items.manages}}" url="/sdk/extensions/webview" bind:tap="handleExtensionTap"
         data-title="{{item.name}}"
         data-url="{{item.appUrl}}"
-        data-pid="{{post.pid}}"
+        data-uid="{{user.uid}}"
         data-view-type="{{viewType}}"
-        data-post-message-key="fresnsPostManage">
+        data-post-message-key="fresnsUserManage">
         <image wx:if="{{item.icon}}" src="{{item.icon}}" mode="aspectFit"></image>
         <text>{{item.name}}</text>
       </navigator>
