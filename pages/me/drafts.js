@@ -49,7 +49,7 @@ Page({
     ];
 
     this.setData({
-      title: await fresnsConfig('menu_editor_drafts'),
+      title: await fresnsConfig('channel_me_drafts_name'),
       type: type,
       tabs: tabs,
     });
