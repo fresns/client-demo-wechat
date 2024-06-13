@@ -147,14 +147,16 @@
 
     <!-- 多端应用: 有新版本 -->
     <block wx:if="{{appBaseInfo.hasNewVersion}}">
-      <view class="weui-cell weui-cell_access" wx:if="{{appBaseInfo.isApp}}" bind:tap="onUpdateApp">
-        <view class="weui-cell__bd checkVersion">
+      <view class="weui-cell weui-cell_access" wx:if="{{appBaseInfo.isApp}}">
+        <view class="weui-cell__bd checkVersion" bind:tap="onCheckVersion">
           {{fresnsLang.checkVersion}}
           <text class="weui-badge">1</text>
         </view>
-        <view>
-          <view class="weui-btn weui-btn_mini weui-btn_default weui-wa-hotarea" aria-role="button" wx:if="{{!downloadApk}}">{{fresnsLang.upgradeApp}}</view>
-          <text wx:if="{{downloadApk}}">{{downloadTotalWritten}}M/{{downloadTotalExpectedToWrite}}M</text>
+        <view wx:if="{{downloadApk}}">
+          <text>{{downloadTotalWritten}}M/{{downloadTotalExpectedToWrite}}M</text>
+        </view>
+        <view wx:else>
+          <view class="weui-btn weui-btn_mini weui-btn_default weui-wa-hotarea" aria-role="button" bind:tap="onUpdateApp">{{fresnsLang.upgradeApp}}</view>
         </view>
       </view>
       <!-- 下载进度条 -->
