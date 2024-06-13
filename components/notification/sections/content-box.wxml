@@ -6,7 +6,7 @@
 <navigator class="quoted-box" url="{{url}}">
   <view class="quoted-content">
     <view class="weui-flex">
-      <view class="quoted-info-avatar">
+      <view class="quoted-info-avatar" wx:if="{{avatar}}">
         <image src="{{avatar}}" mode="scaleToFill"></image>
       </view>
       <view class="quoted-info-content weui-flex__item">

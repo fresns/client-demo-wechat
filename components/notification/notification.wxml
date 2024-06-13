@@ -12,7 +12,7 @@
     </block>
     <block wx:else>
       <view class="weui-flex">
-        <view class="site-icon">
+        <view class="site-icon" wx:if="{{siteIcon}}">
           <image src="{{siteIcon}}" class="icon-img" mode="scaleToFill"></image>
         </view>
         <view class="weui-flex__item">
