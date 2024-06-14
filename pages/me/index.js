@@ -212,7 +212,7 @@ Page({
 
   // 修改通知消息数
   onChangeUnreadNotifications: function () {
-    console.log('onChangeUnreadNotifications account');
+    console.log('onChangeUnreadNotifications me page');
 
     const fresnsOverview = this.data.fresnsOverview;
     const newCount = fresnsOverview.unreadNotifications.all - 1;
@@ -226,7 +226,7 @@ Page({
 
   // 修改私信消息数
   onChangeUnreadMessages: function (count = 1) {
-    console.log('onChangeUnreadMessages account', count);
+    console.log('onChangeUnreadMessages me page', count);
 
     const fresnsOverview = this.data.fresnsOverview;
     const newCount = fresnsOverview.conversations.unreadMessages - count;

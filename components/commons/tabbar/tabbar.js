@@ -81,7 +81,6 @@ Component({
         pagePath: '/pages/timelines/index',
         iconPath: '/assets/images/tabbar/timelines.png',
         selectedIconPath: '/assets/images/tabbar/timelines-active.png',
-        badge: 0,
       },
       {
         label: 'nearby',
@@ -90,7 +89,6 @@ Component({
         pagePath: '/pages/nearby/index',
         iconPath: '/assets/images/tabbar/nearby.png',
         selectedIconPath: '/assets/images/tabbar/nearby-active.png',
-        badge: 0,
       },
       {
         label: 'notifications',
@@ -127,33 +125,24 @@ Component({
     attached: async function () {
       const { tabs, activeLabel } = this.data;
 
-      // 计算当前页面
-      const idx = tabs.findIndex((tab) => tab.label == activeLabel);
-
-      // 获取登录用户的未读消息数
-      let unreadNotifications = 0;
-      let unreadMessages = 0;
-
       if (fresnsAuth.userLogin) {
-        unreadNotifications = await fresnsOverview('unreadNotifications.all');
-        unreadMessages = await fresnsOverview('conversations.unreadMessages');
+        // 获取登录用户的未读消息数
+        const unreadNotifications = await fresnsOverview('unreadNotifications.all');
+        const unreadMessages = await fresnsOverview('conversations.unreadMessages');
+
+        // 消息赋值
+        const notificationsIdx = tabs.findIndex((value) => value.label == 'notifications');
+        const conversationsIdx = tabs.findIndex((value) => value.label == 'conversations');
+
+        tabs[notificationsIdx].badge = unreadNotifications;
+        tabs[conversationsIdx].badge = unreadMessages;
       }
 
-      // 获取服务端频道自定义命名
       const promises = tabs.map(async (tab) => await fresnsConfig(tab.textKey));
       const tabTexts = await Promise.all(promises);
 
-      // 消息赋值
       tabs.forEach((tab, idx) => {
         tab.text = tabTexts[idx];
-
-        if (tab.label === 'notifications') {
-          tab.badge = unreadNotifications;
-        }
-
-        if (tab.label === 'messages') {
-          tab.badge = unreadMessages;
-        }
       });
 
       this.setData({
@@ -176,6 +165,50 @@ Component({
 
       this.setData({
         current: label,
+      });
+    },
+
+    // 修改通知消息数
+    onChangeUnreadNotifications: function () {
+      console.log('onChangeUnreadNotifications tabbar');
+
+      const tabs = this.data.tabs;
+
+      const idx = tabs.findIndex((value) => value.label == 'notifications');
+
+      if (idx == -1) {
+        // 未找到记录
+        return;
+      }
+
+      const newCount = tabs[idx].badge - 1;
+
+      tabs[idx].badge = newCount;
+
+      this.setData({
+        tabs: tabs,
+      });
+    },
+
+    // 修改私信消息数
+    onChangeUnreadMessages: function (count = 1) {
+      console.log('onChangeUnreadMessages tabbar', count);
+
+      const tabs = this.data.tabs;
+
+      const idx = tabs.findIndex((value) => value.label == 'conversations');
+
+      if (idx == -1) {
+        // 未找到记录
+        return;
+      }
+
+      const newCount = tabs[idx].badge - count;
+
+      tabs[idx].badge = newCount;
+
+      this.setData({
+        tabs: tabs,
       });
     },
   },

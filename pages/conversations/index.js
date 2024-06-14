@@ -6,6 +6,7 @@
 import { fresnsApi } from '../../sdk/services/api';
 import { fresnsConfig, fresnsLang } from '../../sdk/helpers/configs';
 import { clearCache } from '../../sdk/helpers/cache';
+import { callPrevPageFunction, callPrevPageComponentMethod } from '../../sdk/utilities/toolkit';
 
 let isRefreshing = false;
 
@@ -162,5 +163,8 @@ Page({
     });
 
     clearCache('fresnsCacheOverviewTags');
+
+    callPrevPageFunction('onChangeUnreadNotifications');
+    callPrevPageComponentMethod('#fresnsTabbar', 'onChangeUnreadNotifications', unreadCount);
   },
 });

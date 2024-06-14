@@ -8,7 +8,7 @@
     <view id="{{tab.label}}" aria-labelledby="{{tab.label}}_title" aria-describedby="{{tab.label}}_tips" aria-selected="true" aria-controls="{{tab.label}}" class="weui-tabbar__item {{tab.label == current ? 'weui-bar__item_on' : ''}}" aria-role="tab" bind:tap="goTabPage" data-page-path="{{tab.pagePath}}">
       <view id="{{tab.label}}_tips" aria-hidden="true" style="display: inline-block; position: relative;">
         <image src="{{tab.label == current ? tab.selectedIconPath : tab.iconPath}}" class="weui-tabbar__icon"></image>
-        <text class="weui-badge" wx:if="{{tab.badge}}">{{tab.badge}}</text>
+        <text class="weui-badge" wx:if="{{tab.badge && tab.badge > 0}}">{{tab.badge}}</text>
       </view>
 
       <view id="{{tab.label}}_title" aria-hidden="true" class="weui-tabbar__label">{{tab.text}}</view>

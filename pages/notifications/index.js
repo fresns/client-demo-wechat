@@ -5,6 +5,8 @@
  */
 import { fresnsApi } from '../../sdk/services/api';
 import { fresnsConfig } from '../../sdk/helpers/configs';
+import { clearCache } from '../../sdk/helpers/cache';
+import { callPrevPageFunction, callPrevPageComponentMethod } from '../../sdk/utilities/toolkit';
 
 let isRefreshing = false;
 
@@ -130,5 +132,31 @@ Page({
     setTimeout(() => {
       isRefreshing = false;
     }, 5000); // 防抖时间 5 秒
+  },
+
+  // 标记已读
+  onMarkRead(nmid) {
+    const notifications = this.data.notifications;
+    if (!notifications) {
+      return;
+    }
+
+    const idx = notifications.findIndex((value) => value.nmid == nmid);
+
+    if (idx == -1) {
+      // 未找到记录
+      return;
+    }
+
+    notifications[idx].readStatus = true;
+
+    this.setData({
+      notifications: notifications,
+    });
+
+    clearCache('fresnsCacheOverviewTags');
+
+    callPrevPageFunction('onChangeUnreadNotifications');
+    callPrevPageComponentMethod('#fresnsTabbar', 'onChangeUnreadNotifications');
   },
 });
