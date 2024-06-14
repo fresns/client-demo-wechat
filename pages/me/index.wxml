@@ -203,4 +203,4 @@
   </view>
 </scroll-view>
 
-<tabbar activeLabel="me"></tabbar>
+<tabbar id="fresnsTabbar" activeLabel="me"></tabbar>

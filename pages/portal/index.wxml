@@ -11,4 +11,4 @@
   <view>{{content}}</view>
 </scroll-view>
 
-<tabbar activeLabel="portal"></tabbar>
+<tabbar id="fresnsTabbar" activeLabel="portal"></tabbar>

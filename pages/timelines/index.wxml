@@ -26,4 +26,4 @@
   <loading status="{{loadingStatus}}" tipType="{{loadingTipType}}"></loading>
 </scroll-view>
 
-<tabbar activeLabel="timelines"></tabbar>
+<tabbar id="fresnsTabbar" activeLabel="timelines"></tabbar>

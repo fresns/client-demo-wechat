@@ -17,4 +17,4 @@
   <loading status="{{loadingStatus}}" tipType="{{loadingTipType}}"></loading>
 </scroll-view>
 
-<tabbar activeLabel="geotags"></tabbar>
+<tabbar id="fresnsTabbar" activeLabel="geotags"></tabbar>

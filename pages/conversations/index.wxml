@@ -27,4 +27,4 @@
   <loading status="{{loadingStatus}}" tipType="{{loadingTipType}}"></loading>
 </scroll-view>
 
-<tabbar activeLabel="conversations"></tabbar>
+<tabbar id="fresnsTabbar" activeLabel="conversations"></tabbar>

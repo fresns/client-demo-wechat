@@ -36,4 +36,4 @@
   <loading status="{{loadingStatus}}" tipType="{{loadingTipType}}"></loading>
 </scroll-view>
 
-<tabbar activeLabel="nearby"></tabbar>
+<tabbar id="fresnsTabbar" activeLabel="nearby"></tabbar>

@@ -36,4 +36,4 @@
   </scroll-view>
 </block>
 
-<tabbar activeLabel="groups"></tabbar>
+<tabbar id="fresnsTabbar" activeLabel="groups"></tabbar>
