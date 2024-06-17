@@ -79,6 +79,7 @@ Page({
 
     const resultRes = await fresnsApi.comment.list(
       Object.assign(this.data.requestQuery, {
+        orderDirection: 'asc',
         filterType: 'blacklist',
         filterKeys: 'hashtags,previewLikeUsers',
         filterGeotagType: 'whitelist',

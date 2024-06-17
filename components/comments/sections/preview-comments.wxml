@@ -4,8 +4,7 @@
   Licensed under the Apache-2.0 license
 * -->
 <view class="preview-box">
-  <!-- 多条评论预览 -->
-  <navigator class="comments" url="/pages/comments/detail?cid={{cid}}" wx:if="{{processedComments.length > 1}}">
+  <navigator class="comments" url="/pages/comments/detail?cid={{cid}}">
     <view class="list-box">
       <view class="preview-list" wx:for="{{processedComments}}" wx:for-item="comment" wx:key="cid">
         <rich-text class="content" nodes="{{comment.processedContent}}"/>
