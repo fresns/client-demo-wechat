@@ -49,13 +49,19 @@
   z-index: 99;
 }
 
+.content-title {
+  font-size: 30rpx;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+}
+
 .content-title image {
   height: 48rpx;
   vertical-align: middle;
 }
 
 .content-text {
-  font-size: 30rpx;
+  font-size: 28rpx;
 }
 
 .fresns-content image {
