@@ -22,8 +22,13 @@
   justify-content: space-between;
 }
 
+.hot-comment .hot-title .weui-badge {
+  font-size: 20rpx;
+}
+
 .hot-comment .hot-title .count {
   color: var(--weui-FG-1);
+  font-size: 24rpx;
 }
 
 .hot-container {
@@ -42,6 +47,10 @@
 
 .comments .preview-count {
   color: var(--weui-BLUE);
+}
+
+.content {
+  font-size: 26rpx;
 }
 
 .content .nickname-link {
