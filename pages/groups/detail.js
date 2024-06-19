@@ -104,7 +104,8 @@ Page({
             filterAuthorKeys:
               'fsid,uid,nickname,nicknameColor,avatar,decorate,verified,verifiedIcon,status,roleName,roleNameDisplay,roleIcon,roleIconDisplay,operations',
             filterPreviewCommentType: 'whitelist',
-            filterPreviewCommentKeys: 'cid,content,contentLength,likeCount,author.nickname,author.avatar,author.status,interaction.likeName',
+            filterPreviewCommentKeys:
+              'cid,content,contentLength,likeCount,author.nickname,author.avatar,author.status,interaction.likeName',
             filterReplyToPostType: 'whitelist',
             filterReplyToPostKeys:
               'pid,title,content,contentLength,author.nickname,author.avatar,author.status,group.name',
