@@ -80,7 +80,8 @@ Page({
         filterQuotedPostType: 'whitelist',
         filterQuotedPostKeys: 'pid,title,content,contentLength,author.nickname,author.avatar,author.status',
         filterPreviewCommentType: 'whitelist',
-        filterPreviewCommentKeys: 'cid,content,contentLength,likeCount,author.nickname,author.avatar,author.status,interaction.likeName',
+        filterPreviewCommentKeys:
+          'cid,content,contentLength,likeCount,author.nickname,author.avatar,author.status,interaction.likeName',
         page: this.data.page,
       })
     );
