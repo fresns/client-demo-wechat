@@ -27,7 +27,12 @@
       </view>
 
       <view class="content-text">
-        <markdown-viewer content="{{postContent}}"/>
+        <block wx:if="{{post.isMarkdown}}">
+          <markdown-viewer content="{{postContent}}"/>
+        </block>
+        <block wx:else>
+          <rich-text nodes="{{postContent}}"/>
+        </block>
       </view>
     </view>
 

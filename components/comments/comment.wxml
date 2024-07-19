@@ -33,7 +33,12 @@
       </view>
 
       <view class="content-text">
-        <markdown-viewer content="{{commentContent}}"/>
+        <block wx:if="{{comment.isMarkdown}}">
+          <markdown-viewer content="{{commentContent}}"/>
+        </block>
+        <block wx:else>
+          <rich-text nodes="{{commentContent}}"/>
+        </block>
       </view>
     </view>
 
