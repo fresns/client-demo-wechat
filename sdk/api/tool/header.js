@@ -10,7 +10,7 @@ import { hash_sha256 } from '../../utilities/sha256';
 
 /**
  * 获取请求标头
- * https://docs.fresns.com/zh-Hans/clients/reference/headers.html
+ * https://docs.fresns.com/zh-hans/clients/reference/headers.html
  */
 export async function getHeaders() {
   const now = new Date(); // 获取设备本地时间

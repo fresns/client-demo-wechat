@@ -16,7 +16,7 @@ export async function makeAccessToken() {
   const base64Encoded = base64_encode(headersStr);
   const urlEncoded = encodeURIComponent(base64Encoded);
 
-  // https://docs.fresns.com/zh-Hans/clients/reference/callback/access-token.html
+  // https://docs.fresns.com/zh-hans/clients/reference/callback/access-token.html
 
   return urlEncoded;
 }

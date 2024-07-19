@@ -100,7 +100,7 @@ class clientInfo {
 
   // platformId
   get platformId() {
-    return envConfig?.clientPlatformId || 11; // https://docs.fresns.com/zh-Hans/clients/reference/dictionary/platforms.html
+    return envConfig?.clientPlatformId || 11; // https://docs.fresns.com/zh-hans/clients/reference/dictionary/platforms.html
   }
 
   // version

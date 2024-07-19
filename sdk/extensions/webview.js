@@ -60,7 +60,7 @@ Page({
     });
 
     // callback variables
-    // https://docs.fresns.com/zh-Hans/clients/reference/callback/variables.html
+    // https://docs.fresns.com/zh-hans/clients/reference/callback/variables.html
     if (navigatorData) {
       const urlParams = {
         accessToken: await makeAccessToken(), // 访问令牌
